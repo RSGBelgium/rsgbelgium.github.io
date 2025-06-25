@@ -154,3 +154,27 @@ See [docs/content-editing.md](docs/content-editing.md) for a full guide.
 ---
 
 For more information on content editing, see [docs/content-editing.md](docs/content-editing.md).
+
+## Deployment: Static Export & GitHub Pages
+
+This site uses Next.js static export (`output: 'export'` in `next.config.js`) for optimal performance and compatibility with GitHub Pages.
+
+### How to Deploy
+
+1. Build and export the site:
+   ```bash
+   npm run deploy
+   ```
+   This runs `next build` and publishes the static output in the `out/` directory to the `gh-pages` branch using `gh-pages`.
+
+2. In your GitHub repository settings, set GitHub Pages to deploy from the `gh-pages` branch, `/ (root)` folder.
+
+3. Wait a few minutes, then visit your site at `https://rsgbelgium.github.io/`.
+
+**Notes:**
+- Do not use API routes or server-only features; all data fetching must be static (e.g., from markdown files).
+- The `export` script and `next export` are no longer needed or supported with this setup.
+- If you need to preview the static site locally, run:
+  ```bash
+  npx serve out
+  ```
