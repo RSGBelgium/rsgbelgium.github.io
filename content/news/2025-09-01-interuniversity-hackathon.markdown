@@ -49,12 +49,23 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 19:30   | Track reveal                                 |
 | 20:30   | Hackathon starts
 
+### Day 2 
+
+| Time        | Activity                                                         |
+|-------------|------------------------------------------------------------------|
+| 08:00       | Doors open - Hacking session resumes                             |
+| 12:30       | Lunch                                                            |
+| 15:00       | Coffee break                                                     |
+| 17:00       | Pitch submission deadline                                      |
+| 17:00–19:00 | Final project pitches + jury feedback                            |
+| 19:00–20:00 | Awards & closing ceremony                                        |
+
 ## About the Workshops
 ### Exploratory and Confirmatory Data Analysis in Biology and Healthcare
-TBD
+This talk will explore the complementary roles of exploratory and confirmatory analysis in biology and health research, with a central focus on differential analysis. From traditional differential analysis on tabular data to more complex applications such as gene regulatory network inference and analysis, I will discuss how analytical approaches must be tailored to the specific goals and data characteristics of each application. By understanding these needs—whether generating new hypotheses, validating biological mechanisms, or supporting clinical decisions—we can better integrate exploratory and confirmatory methods to enhance both discovery and rigor in computational biology and health sciences.
 
 *About the speaker:*
-TBD
+Panagiotis Mandros is a computer scientist developing theory and algorithms for applications in scientific discovery. He earned his PhD from Saarland University and the Max Planck Institute for Informatics, where he focused on the algorithmic discovery of non-linear patterns in data. He later joined the Harvard T.H. Chan School of Public Health, where he worked on the inference and analysis of gene regulatory networks to uncover novel disease mechanisms in cancer.
 
 ### From PCA to scGPT: exploring the high dimensional geometries of single-cell RNA-seq data
 Single-cell RNA-seq data provide valuable insights into cellular biology, but their high dimensionality can make analysis difficult. In this workshop, we'll explore practical techniques for learning meaningful latent spaces that make these data easier to interpret and work with, from traditional linear methods to the latest approaches using large pre-trained transformer models.
