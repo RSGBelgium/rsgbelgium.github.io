@@ -1,0 +1,78 @@
+---
+layout: single
+title:  "Bioinformatics Student Symposium - 22/05/2018 - Antwerp"
+date:   2018-03-20 13:00
+categories: event student-symposium
+toc: true
+category: 'News'
+---
+
+RSG Belgium, the regional student group of the International Society for Computational Biology kindly invites you to the first Bioinformatics Student Symposium of 2018, organized in collaboration with [biomina][biomina].
+
+<!-- [Click here for a flyer of the event.](assets/pdf/poster_rsg_symposium-22-05-18.pdf) -->
+
+The main goal of this event is providing a forum for young researchers and students in bioinformatics to present their work and network with peers.
+
+Our keynote speaker is [Prof. dr. Kris Laukens][krislaukens] of the Antwerp University. Prof. Laukens is a bioinformatics researcher in the Adrem Data Lab and the founder of the biomina research network. He specializes in the use and development of data mining technologies for big molecular data in order to address medical and biological problems. His two core research areas are biomolecular pattern discovery and biological networks.
+
+## Mark the date
+
+**Tuesday, the 22nd of May 2018**
+
+## Location
+
+Room C101 - City Campus University of Antwerp,
+Prinsstraat 13, 2000 Antwerp.
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3533.889170065036!2d4.412807736335474!3d51.22207838842954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x47c3f703e7404c69%3A0x270b07bbe1f68aa6!2sAntwerpen-Centraal%2C+Antwerp!3m2!1d51.217191799999995!2d4.4212529!4m5!1s0x47c3f6566cd25cc1%3A0x9ece4584afb0cd6d!2sUAntwerpen+-+Building+C+-+City+Campus%2C+Prinsstraat+13%2C+2000+Antwerpen!3m2!1d51.2234817!2d4.4101775!5e0!3m2!1sen!2sbe!4v1521550821427" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+## Registration (deadline 14th of May)
+
+Registration is free, but mandatory. Please register **before the 14th of May** through the [google form][form].
+
+## Abstract call (deadline 20th of April)
+
+You can submit an abstract for oral or poster presentations. Eight abstracts will be selected for oral presentations. Please include your abstract in the [google form][form] before the **20th of April**.
+
+## Social dinner
+
+After the symposium we will go to the restaurant [Verona][verona] in the city center, near the cathedral, for the social dinner.
+
+## Schedule
+
+* 12:30 Registration
+* 13:00 Opening remarks
+* 13:10 Keynote by [Kris Laukens (UAntwerp)](krislaukens): Hacking the molecular networks of life, from _in vitro_ to _in silico_
+* 14:00 Tour of RSG Belgium
+* 14:20 1<sup>st</sup> student talks session
+* 15:00 Coffee break with poster session
+* 15:50 2<sup>nd</sup> student talks session
+* 17:30 Closing remarks
+* 17:35 Networking session with drinks
+* 18:30 Dinner at [Verona][verona]
+
+#### Talks
+
+|Time|Speaker|Affiliation|Topic|
+|---|---|---|---|
+|13:10|Prof. Kris Laukens|UAntwerpen|Hacking the molecular networks of life, from _in vitro_ to _in silico_|
+|14:00|Nikolina Sostaric|KU Leuven|Tour of RSG Belgium|
+|14:20|Mohamed Mysara|Belgian Nuclear Research Centre|Bioinformatics analysis of complex DNA-sequencing data to assess microbial community in diverse industrial and clinical samples|
+|14:40|Jorge Roel|Utrecht University|Less is more: Coarse-grained protein-protein docking in HADDOCK|
+|15:00|||Coffee break and poster session|
+|15:50|Vincent Hahaut|ULiège|NGS-based analysis of clonal distribution in Deltaretrovirus induced leukemia|
+|16:10|Wannes Van Beeck|UAntwerpen|Exploring niche specificity of lactic acid bacteria in fermented carrots as a model ecosystem|
+|16:30|Cunliang Geng|Utrecht University|iSEE: Interface Structure, Evolution and Energy-based random forest predictor of binding affinity changes upon mutations|
+|16:50|Sebastiaan Vanuytven|KU Leuven|Single-cell multi-omics sequencing to understand the nature, extent and biology of cellular heterogeneity in breast cancer|
+|17:10|Sander Wuyts|UAntwerpen|From DNA to Bitcoin|
+
+**We look forward to seeing you there!**
+
+## Flyer
+
+[![full](/assets/img/poster/poster_rsg_symposium-22-05-18.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_rsg_symposium-22-05-18.pdf)
+
+[biomina]: http://www.biomina.be/
+[krislaukens]: https://www.uantwerpen.be/en/staff/kris-laukens/
+[form]: https://goo.gl/forms/ETpVY2j1sRYSSjRD3
+[verona]: https://www.restaurant-verona.be/

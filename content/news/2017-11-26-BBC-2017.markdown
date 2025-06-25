@@ -1,0 +1,21 @@
+---
+layout: single
+title:  "Benelux Bioinformatics Conference 2017 - Leuven - 13-14 December"
+date:   2017-11-26 17:52
+categories: event bbc
+category: 'News'
+---
+
+The *Benelux Bioinformatics Conference* is the key annual event that brings together researchers working at the intersection of a broad range of disciplines including computer science, biology, and medicine in Belgium, the Netherlands and Luxembourg. Don’t miss the chance to use the power of our network, join the conference by filling in the registration form on the official website [https://bbc2017blog.wordpress.com](https://bbc2017blog.wordpress.com).
+
+For more than ten years this event has been a great opportunity to face the rich and connected community of the bioinformatics and computational biology research in our countries. In this 13th edition, BBC aims to continue with its central role for both junior researchers and more experienced scientists working in the Benelux. However, we want to point out the relevance that this event may have for the younger players in our field, like master students, PhD students and new post-docs. In this conference they will find the perfect mix of both a formal and familiar environment to disseminate and communicate their projects, results and vision, in preparation for bigger and more prestigious stages. For that reason, the organizing committee strongly advises you to submit your research and share your ideas on the stage of BBC 2017.
+
+The *Benelux Bioinformatics Conference* is the primary community event for bioinformatics researchers in the Netherlands, Belgium, and Luxembourg with excellent networking opportunities. The conference is aimed at both academic and industry researchers. Over two days it will feature:
+
+- Four extended keynote presentations on recent breakthroughs in bioinformatics and systems biology.
+- Eight short presentations contributed by the participants detailing recent advances in their fields.
+- Extensive poster sessions for informal discussions and networking.
+- A networking social dinner to improve the bonds with your colleagues
+- Two different workshops to explore and discover interesting new topics.
+
+The organization committee of [#BBC17](https://twitter.com/hashtag/BBC17?src=hash) is looking forward to meet you in **Leuven on the 13th and 14th December**.

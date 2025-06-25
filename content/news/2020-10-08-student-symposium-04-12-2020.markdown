@@ -1,0 +1,48 @@
+---
+layout: single
+title: "Virtual Bioinformatics Student Symposium - 04/12/2020"
+date: 2020-10-08 19:30
+categories: event student-symposium
+toc: true
+category: 'News'
+---
+
+## Virtual RSG Belgium Student Symposium -  Mark the date - Friday the 4th of December 2020
+
+RSG Belgium, the regional student group of the International Society for Computational Biology, kindly invites you to the first virtual edition of our annual Bioinformatics Student Symposium. The main goal of this event is to provide a forum for young researchers and students in bioinformatics where they can present their work, get updated about current research topics and network with their peers. Due to the COVID-19 pandemic we have opted to organize a virtual edition of this conference, lest this year not have had any RSG Belgium events.
+
+**The year's symposium will be held at virtually using the Airmeet platform on Friday 04/12/2020.**
+
+This year's **keynote lecture**, titled *"Becoming a better scientist with open and reproducible research"*, will be provided by **[Prof. Dr. Laurent Gatto](https://www.deduveinstitute.be/fr/research/computational-biology/laurent-gatto)** of the de Duve Institute in UCLouvain. Since September 2018, Laurent Gatto is an Associate Professor of Bioinformatics at the UCLouvain, in Belgium, and director of the Computational Biology and Bioinformatics (CBIO) group. Located in the de Duve Institute, on the medical campus in Brussels, he runs a research group and teaches at the faculty of pharmacy and biomedical sciences (FASB). Since 2010, he has focused on the processing and analysis of mass-spectrometry-based quantitative proteomics data. Laurent Gatto is an avid open research advocate and make every possible effort to make his research reproducible and openly available.
+
+## Abstract call (deadline 08/11/2020)
+
+You can submit an abstract for oral or poster presentations. Please include your abstract in the [google form][form] **before the 8th of November**.
+
+## Registration (deadline 30/11/2020)
+
+Registration is free, but mandatory. Please register **before the 30th of November** through the [google form][form].
+
+## Preliminary schedule
+
+|Timeslot|Activity|Speaker|
+|-|-|-|
+| 13:00 - 13:10 | Welcome and tour of RSG Belgium | |
+| 13:10 - 14:00 | Keynote lecture | [Laurent Gatto](https://www.deduveinstitute.be/fr/research/computational-biology/laurent-gatto) - de Duve Institute, UCLouvain |
+| 14:00 - 15:00 | PhD talks |  |
+| 15:00 - 16:00 | Coffee break and poster session | |
+| 16:00 - 18:00 | PhD talks | |
+| 18:00 - 18:10 | Closing remarks | |
+| 18:10 - 19:00 | Virtual reception and networking event | |
+
+## Location
+
+The symposium and poster session will be held via the Airmeet platform. More information will be provided as we near the event date.
+
+**We look forward to seeing you there!**
+
+## Flyer
+
+[![full](/assets/img/poster/poster_symposium_2020_logo-virtual.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_symposium_2020_logo-virtual.pdf)
+
+[form]: https://forms.gle/DqiqF9WSsGCXW2jh6

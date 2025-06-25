@@ -1,0 +1,48 @@
+/*
+ * CSS module for styling rendered markdown content in posts and pages.
+ *
+ * Applies consistent typography, spacing, and table styles for markdown HTML.
+ */
+.markdown {
+  @apply text-lg leading-relaxed;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol,
+.markdown blockquote {
+  @apply my-6;
+}
+
+.markdown h2 {
+  @apply text-3xl mt-12 mb-4 leading-snug;
+}
+
+.markdown h3 {
+  @apply text-2xl mt-8 mb-4 leading-snug;
+}
+
+/* Table styles */
+.markdown table {
+  @apply w-full my-6 border-collapse;
+}
+
+.markdown th {
+  @apply bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left border border-gray-300 dark:border-gray-700;
+}
+
+.markdown td {
+  @apply px-4 py-2 border border-gray-300 dark:border-gray-700;
+}
+
+.markdown tr:nth-child(even) {
+  @apply bg-gray-50 dark:bg-gray-900;
+}
+
+.markdown tr:hover {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.markdown a {
+  @apply text-inherit hover:text-secondary underline transition-colors dark:text-lightblue dark:hover:text-white;
+}

@@ -1,0 +1,28 @@
+---
+layout: single
+title:  "Bioinformatics Student Day - 13/10/2017 - Brussels"
+date:   2017-10-02 19:10
+categories: event student-symposium
+category: 'News'
+---
+
+Dear colleagues,
+RSG Belgium, the regional student group of the International Society for Computational Biology kindly invites you to its second Bioinformatics Student Day, organized together with [IB2][ib2].
+
+# **Mark your calendars: Friday, the 13th of October 2017**
+
+## Location:
+Plenary Room, U-Residence Building, ULB-VUB La Plaine-Etterbeek campus, Brussels.
+
+## Registration (deadline 6th of October):
+Registration is free. Please register before the 1st of October with the following [google form][form].
+
+## ABSTRACT CALL (deadline 1st of October)
+You can submit an abstract for oral or poster presentations. Nine PhDs-Postdoc abstracts will be selected for oral presentations. Please send your abstract to this address <ib2rgs@gmail.com>.
+
+## Full program
+For the full program and abstract call information, please [see the brochure][brochure-link].
+
+[ib2]: http://ibsquare.be/
+[form]: https://goo.gl/forms/nJ2ZNCqt13URjsk03
+[brochure-link]: /assets/pdf/IB2RSGprogram.pdf

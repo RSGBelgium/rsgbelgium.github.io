@@ -1,0 +1,27 @@
+/*
+ * CSS module for styling author avatar images and containers.
+ */
+.avatar {
+  display: table-cell;
+  vertical-align: top;
+  width: 36px;
+  height: 36px;
+}
+
+.avatar img {
+  max-width: 300px;
+  border-radius: 10%;
+}
+
+@media (min-width: 1024px) {
+  .avatar {
+    display: block;
+    width: auto;
+    height: auto;
+  }
+
+  .avatar img {
+    padding: 5px;
+    border: 1px solid #e9ecef;
+  }
+}

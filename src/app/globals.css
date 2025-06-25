@@ -1,0 +1,182 @@
+/* ===========================================================================
+   Global Styles for RSG-Belgium Website
+   - Loads Tailwind base, components, and utilities
+   - Adds custom transitions, hero, and feature styles
+   - Organizes custom CSS for clarity and maintainability
+   =========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Theme Transitions
+   --------------------------------------------------------------------------- */
+body {
+  transition-property: background-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  @apply text-gray-900;
+}
+
+/* ---------------------------------------------------------------------------
+   Utility Classes
+   --------------------------------------------------------------------------- */
+/* NOTE: Prefer using Tailwind's 'text-center' utility in JSX/TSX.
+   Only use this class in Markdown or raw HTML content. */
+.center {
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------------
+   CSS Variables
+   --------------------------------------------------------------------------- */
+:root {
+  --primary-color: #0d9ea5;
+}
+
+/* ---------------------------------------------------------------------------
+   Hero Section Styles
+   --------------------------------------------------------------------------- */
+.page__hero {
+  position: relative;
+  margin-bottom: 2em;
+  animation: fadeIn 0.5s ease-in;
+  animation-delay: 0.25s;
+}
+
+.page__hero--overlay {
+  position: relative;
+  margin-bottom: 2em;
+  padding: 3em 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: fadeIn 0.5s ease-in;
+  animation-delay: 0.25s;
+}
+
+.page__hero--overlay a {
+  color: #fff;
+}
+
+.page__hero--overlay .page__title,
+.page__hero--overlay .page__meta,
+.page__hero--overlay .page__lead {
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.page__hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.page__hero-caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 0.75rem;
+  background: #000;
+  text-align: right;
+  z-index: 5;
+  opacity: 0.5;
+  border-radius: 4px 0 0 0;
+}
+
+@media (min-width: 1024px) {
+  .page__hero-caption {
+    padding: 5px 10px;
+  }
+}
+
+.page__hero-caption a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Dark mode overrides for white text */
+@media (prefers-color-scheme: dark) {
+  .page__hero--overlay a,
+  .page__hero--overlay .page__title,
+  .page__hero--overlay .page__meta,
+  .page__hero--overlay .page__lead,
+  .page__hero-caption,
+  .page__hero-caption a {
+    color: #D6E8FF;
+  }
+}
+
+/* SUGGESTION: The following could be replaced in JSX/TSX with Tailwind classes:
+   - .page__hero-image: 'w-full h-auto'
+   - .page__hero-caption: 'absolute bottom-0 right-0 m-auto px-1.5 py-0.5 text-white text-xs bg-black text-right z-50 opacity-50 rounded-tl'
+*/
+
+/* ---------------------------------------------------------------------------
+   Feature Item Styles
+   --------------------------------------------------------------------------- */
+.feature__item--left .archive__item-teaser,
+.feature__item--right .archive__item-teaser {
+  border-radius: 10%;
+  width: 25%;
+}
+
+.feature__item--left .archive__item-body,
+.feature__item--right .archive__item-body {
+  width: 70%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.feature__item--right .archive__item-body {
+  padding-right: 5%;
+  float: unset;
+}
+
+/* SUGGESTION: Consider using Tailwind's 'rounded-[10%]' and 'w-1/4' for teasers,
+   and 'w-[70%]' for bodies, if possible in your markup. */
+
+/* ---------------------------------------------------------------------------
+   Animations
+   --------------------------------------------------------------------------- */
+/* fadeIn: Used for smooth entrance of hero and overlay sections */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Global Text and Link Colors for Dark Mode
+   --------------------------------------------------------------------------- */
+/*
+  NOTE: Do NOT use @apply with Tailwind variants (like dark:) for custom colors.
+  Instead, add dark: classes directly in your JSX/TSX, e.g.:
+    <a className="text-primary hover:text-secondary dark:text-secondary dark:hover:text-white">Link</a>
+    <button className="bg-primary text-white hover:bg-secondary dark:bg-secondary dark:text-slate-900 dark:hover:bg-primary">Button</button>
+*/
+
+body {
+  @apply text-gray-900;
+}
+
+a {
+  @apply text-primary hover:text-secondary transition-colors;
+}
+
+/* Remove all .dark\:text-secondary, .button-primary.dark\:bg-secondary, etc. */
+.button-primary {
+  @apply bg-primary text-white hover:bg-secondary;
+}
+
+.button-outline {
+  @apply border-primary text-primary hover:bg-primary hover:text-white;
+}

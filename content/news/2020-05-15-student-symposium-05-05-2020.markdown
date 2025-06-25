@@ -1,0 +1,83 @@
+---
+layout: single
+title: "POSTPONED DUE TO COVID-19: Bioinformatics Student Symposium - 05/05/2020 - UCLouvain"
+date: 2020-03-04 08:41
+categories: event student-symposium
+toc: true
+category: 'News'
+---
+
+## POSTPONED
+
+> In face of the SARS-CoV-2 pandemic, we regret to announce that the RSG Belgium Student Symposium planned on the 5th of May 2020 will be postponed to a later date, presumably somewhere in Fall 2020.
+>
+> Stay safe and look out for each other.
+>
+> Kind regards,
+> The RSG Belgium Team
+
+---
+
+## RSG Belgium Student Symposium and Data Visualisation Workshop -  Mark the date - Friday the 5th of May 2020
+
+RSG Belgium, the regional student group of the International Society for Computational Biology, kindly invites you to the annual Bioinformatics Student Symposium. The main goal of this event is to provide a forum for young researchers and students in bioinformatics where they can present their work, get updated about current research topics and network with their peers.
+
+**The year's symposium will be held at UCLouvain on Friday 05/05/2020.**
+
+This year's **keynote lecture** will be provided by **[Prof. Dr. Laurent Gatto](https://www.deduveinstitute.be/fr/research/computational-biology/laurent-gatto)** of the de Duve Institute in UCLouvain. Since September 2018, Laurent Gatto is an Associate Professor of Bioinformatics at the UCLouvain, in Belgium, and director of the Computational Biology and Bioinformatics (CBIO) group. Located in the de Duve Institute, on the medical campus in Brussels, he runs a research group and teaches at the faculty of pharmacy and biomedical sciences (FASB). Since 2010, he has focused on the processing and analysis of mass-spectrometry-based quantitative proteomics data. Laurent Gatto is an avid open research advocate and make every possible effort to make his research reproducible and openly available.
+
+In addition to the keynote lecture, we will for the first time organize an accompanying **workshop** in the morning before the symposium. **[Prof. Dr. Jan Aerts](https://www.uhasselt.be/dsi)** from the Data Science Institute at UHasselt will walk us through the most important concepts in data visualisation for biological data.
+
+## Abstract call (deadline 05/04/2020)
+
+You can submit an abstract for oral or poster presentations. Please include your abstract in the [google form][form] **before the 5th of April**.
+
+## Registration (deadline 20/04/2020)
+
+Registration is free, but mandatory. Please register **before the 20th of April** through the [google form][form].
+
+## Lunch
+
+Lunch will be provided for all attendees. Please indicate whether or not you will be joining the lunch in the registration form, this allows us to prevent shortages or food waste.
+
+## Social dinner
+
+After the symposium those who have registered will have further opportunities to network during dinner. The restaurant and its location will be announced later.
+
+## Preliminary schedule
+
+|Timeslot|Activity|Speaker|
+|-|-|-|
+| 8:30 - 9:00 | Workshop registration                             | |
+| 9:00 - 12:00 | Workshop on data visualisation | [Prof. Dr. Jan Aerts](https://www.uhasselt.be/dsi) - Data Science Institute UHasselt |
+| 12:00 - 13:30 | Lunch and poster session |
+| 13:30 - 13:40 | Welcome and tour of RSG Belgium | |
+| 13:40 - 14:40 | Keynote lecture | [Laurent Gatto](https://www.deduveinstitute.be/fr/research/computational-biology/laurent-gatto) - de Duve Institute, UCLouvain |
+| 14:40 - 15:30 | PhD talks |  |
+| 15:30 - 16:00 | Coffee break and poster session | |
+| 16:00 - 18:00 | PhD talks | |
+| 18:00 - 18:10 | Closing remarks | |
+| 18:10 - 19:00 | Reception | |
+| 19:30 | Social dinner |
+
+## Location
+
+The symposium and poster session will be held at:
+
+> [Auditoires Centraux - room 51B - Campus Brussels](https://uclouvain.be/fr/administrations/adpi/auditoires-ucl-bruxelles-woluwe.html), Avenue Emmanuel Mounier 51, 1200 Brussels
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2180.2205312323567!2d4.452349644100313!3d50.85109739515126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc86938df19f%3A0xec4904c8ce037149!2sAvenue%20E.%20Mounier%2051%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442365048!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+
+The workshop in the morning will be hosted in a nearby building on the same campus:
+
+> [Centre Faculté - salle informatique Avicenne - Campus Brussels](https://uclouvain.be/fr/decouvrir/salles-informatiques-woluwe-sss.html), Avenue Hippocrate 50, 1200 Brussels
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.8904552248537!2d4.452431916091586!3d50.8517127795328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc868b2601d5%3A0x7d393851f1a68e40!2sAvenue%20Hippocrate%2050%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442328397!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+
+**We look forward to seeing you there!**
+
+## Flyer
+
+[![full](/assets/img/poster/poster_rsg_symposium-05-05-20.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_rsg_symposium-05-05-20.pdf)
+
+[form]: https://forms.gle/DqiqF9WSsGCXW2jh6
