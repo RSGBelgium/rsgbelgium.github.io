@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="86.551544mm"
+   height="87.059616mm"
+   viewBox="0 0 86.551544 87.059616"
+   version="1.1"
+   id="svg919"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="hackathon_logo.svg">
+  <defs
+     id="defs913" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="223.28999"
+     inkscape:cy="365.18084"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="960"
+     inkscape:window-height="1028"
+     inkscape:window-x="960"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata916">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-61.621094,-156.84833)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.2303102px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:vertical-lr;text-anchor:start;fill:#49938d;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="66.064163"
+       y="230.17598"
+       id="text1693"
+       transform="scale(1.0695963,0.93493217)"
+       inkscape:export-filename="/home/christophe/text1705-1-3.png"
+       inkscape:export-xdpi="505"
+       inkscape:export-ydpi="505"><tspan
+         sodipodi:role="line"
+         id="tspan1691"
+         x="66.064163"
+         y="230.17598"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:44.29116821px;font-family:Arial;-inkscape-font-specification:'Arial Bold';writing-mode:lr-tb;fill:#49938d;fill-opacity:1;stroke-width:0.26458332">&lt;/&gt;</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#49938d;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1485"
+       width="81.551544"
+       height="82.059616"
+       x="64.121094"
+       y="159.34833"
+       ry="13.630746"
+       rx="13.630746" />
+  </g>
+</svg>

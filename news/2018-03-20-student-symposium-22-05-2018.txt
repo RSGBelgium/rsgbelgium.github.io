@@ -1,0 +1,131 @@
+1:"$Sreact.fragment"
+2:I[881,["874","static/chunks/874-39484d5feff3b265.js","177","static/chunks/app/layout-088455a57c4a5537.js"],"ThemeProvider"]
+3:I[6280,["874","static/chunks/874-39484d5feff3b265.js","177","static/chunks/app/layout-088455a57c4a5537.js"],"default"]
+4:I[7555,[],""]
+5:I[1295,[],""]
+6:I[6874,["874","static/chunks/874-39484d5feff3b265.js","63","static/chunks/63-9d11383f2d051bdd.js","324","static/chunks/app/news/page-4bdc83f51cd4ad8a.js"],""]
+8:I[9665,[],"OutletBoundary"]
+b:I[4911,[],"AsyncMetadataOutlet"]
+d:I[9665,[],"ViewportBoundary"]
+f:I[9665,[],"MetadataBoundary"]
+11:I[6614,[],""]
+:HL["/_next/static/media/739c2d8941231bb4-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/e4af272ccee01ff0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/e1dee2bea2cc6267.css","style"]
+:HL["/_next/static/css/c6b8421c7aae3eab.css","style"]
+0:{"P":null,"b":"GqvEW1v4UH9LbpXGzS2LC","p":"","c":["","news","2018-03-20-student-symposium-22-05-2018"],"i":false,"f":[[["",{"children":["news",{"children":[["slug","2018-03-20-student-symposium-22-05-2018","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e1dee2bea2cc6267.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"__variable_e8ce0c __variable_5899e0","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","link",null,{"rel":"apple-touch-icon","sizes":"180x180","href":"/favicon/apple-touch-icon.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon/favicon-32x32.png"}],["$","link",null,{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon/favicon-16x16.png"}],["$","link",null,{"rel":"manifest","href":"/favicon/site.webmanifest"}],["$","link",null,{"rel":"mask-icon","href":"/favicon/safari-pinned-tab.svg","color":"#000000"}],["$","link",null,{"rel":"shortcut icon","href":"/favicon/favicon.ico"}],["$","meta",null,{"name":"msapplication-TileColor","content":"#000000"}],["$","meta",null,{"name":"msapplication-config","content":"/favicon/browserconfig.xml"}],["$","meta",null,{"name":"theme-color","content":"#000"}],["$","link",null,{"rel":"alternate","type":"application/rss+xml","href":"/feed.xml"}]]}],["$","body",null,{"className":"dark:bg-slate-900 dark:text-slate-400","children":["$","$L2",null,{"attribute":"class","defaultTheme":"system","enableSystem":true,"disableTransitionOnChange":true,"children":["$","div",null,{"className":"min-h-screen flex flex-col","children":[["$","$L3",null,{}],["$","main",null,{"className":"flex-grow","children":[" ",["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}],["$","footer",null,{"className":"bg-gray-800 text-gray-300 border-t border-gray-700","children":["$","div",null,{"className":"container mx-auto px-5","children":["$","div",null,{"className":"py-12 px-4 sm:px-6 lg:px-8","children":[["$","div",null,{"className":"grid grid-cols-1 md:grid-cols-3 gap-8","children":[["$","div",null,{"className":"mb-6 md:mb-0","children":[["$","h3",null,{"className":"text-lg font-semibold text-white mb-3","children":"RSG-Belgium"}],["$","p",null,{"className":"text-sm leading-relaxed","children":"Fostering a community of bioinformatics and computational biology students and young researchers in Belgium."}]]}],["$","div",null,{"className":"mb-6 md:mb-0","children":[["$","h3",null,{"className":"text-lg font-semibold text-white mb-3","children":"Quick Links"}],["$","ul",null,{"className":"space-y-2","children":[["$","li","About",{"children":["$","$L6",null,{"href":"/about","className":"text-sm text-lightblue hover:text-white hover:underline transition-colors","children":"About"}]}],["$","li","News",{"children":["$","$L6",null,{"href":"/news","className":"text-sm text-lightblue hover:text-white hover:underline transition-colors","children":"News"}]}],["$","li","Organization",{"children":["$","$L6",null,{"href":"/organization","className":"text-sm text-lightblue hover:text-white hover:underline transition-colors","children":"Organization"}]}],["$","li","Contact",{"children":["$","$L6",null,{"href":"/contact","className":"text-sm text-lightblue hover:text-white hover:underline transition-colors","children":"Contact"}]}],["$","li","Join Slack",{"children":["$","$L6",null,{"href":"/slack","className":"text-sm text-lightblue hover:text-white hover:underline transition-colors","children":"Join Slack"}]}]]}]]}],["$","div",null,{"children":[["$","h3",null,{"className":"text-lg font-semibold text-white mb-3 dark:text-lightblue","children":"Connect With Us"}],["$","div",null,{"className":"flex space-x-4 mb-4","children":[["$","a","Twitter",{"href":"https://twitter.com/rsgbelgium","target":"_blank","rel":"noopener noreferrer","className":"text-lightblue hover:text-white transition-colors","aria-label":"Twitter","children":["$","span",null,{"className":"text-xl","children":"T"}]}],["$","a","Facebook",{"href":"https://www.facebook.com/RSGBelgium","target":"_blank","rel":"noopener noreferrer","className":"text-lightblue hover:text-white transition-colors","aria-label":"Facebook","children":["$","span",null,{"className":"text-xl","children":"F"}]}],["$","a","LinkedIn",{"href":"https://www.linkedin.com/company/rsg-belgium/","target":"_blank","rel":"noopener noreferrer","className":"text-lightblue hover:text-white transition-colors","aria-label":"LinkedIn","children":["$","span",null,{"className":"text-xl","children":"L"}]}]]}],["$","p",null,{"className":"text-sm text-lightblue","children":["Email: ",["$","a",null,{"href":"mailto:iscb.rsg.belgium@gmail.com","className":"hover:text-white hover:underline text-lightblue","children":"iscb.rsg.belgium@gmail.com"}]]}]]}]]}],["$","div",null,{"className":"mt-10 pt-8 border-t border-gray-700 text-center","children":["$","p",null,{"className":"text-sm","children":["© ",2025," RSG-Belgium. All rights reserved."]}]}]]}]}]}]]}]}]}]]}]]}],{"children":["news",["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","2018-03-20-student-symposium-22-05-2018","d"],["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L7",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c6b8421c7aae3eab.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$L8",null,{"children":["$L9","$La",["$","$Lb",null,{"promise":"$@c"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","VdStWQ84ecjH_EQ4Q2Eylv",{"children":[["$","$Ld",null,{"children":"$Le"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],["$","$Lf",null,{"children":"$L10"}]]}],false]],"m":"$undefined","G":["$11","$undefined"],"s":false,"S":true}
+12:"$Sreact.suspense"
+13:I[4911,[],"AsyncMetadata"]
+10:["$","div",null,{"hidden":true,"children":["$","$12",null,{"fallback":null,"children":["$","$L13",null,{"promise":"$@14"}]}]}]
+a:null
+e:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+9:null
+15:I[8430,["874","static/chunks/874-39484d5feff3b265.js","63","static/chunks/63-9d11383f2d051bdd.js","120","static/chunks/app/news/%5Bslug%5D/page-c3cccb97bb401f88.js"],"default"]
+16:T13a0,<p>RSG Belgium, the regional student group of the International Society for Computational Biology kindly invites you to the first Bioinformatics Student Symposium of 2018, organized in collaboration with <a href="http://www.biomina.be/">biomina</a>.</p>
+<!-- [Click here for a flyer of the event.](assets/pdf/poster_rsg_symposium-22-05-18.pdf) -->
+<p>The main goal of this event is providing a forum for young researchers and students in bioinformatics to present their work and network with peers.</p>
+<p>Our keynote speaker is <a href="https://www.uantwerpen.be/en/staff/kris-laukens/">Prof. dr. Kris Laukens</a> of the Antwerp University. Prof. Laukens is a bioinformatics researcher in the Adrem Data Lab and the founder of the biomina research network. He specializes in the use and development of data mining technologies for big molecular data in order to address medical and biological problems. His two core research areas are biomolecular pattern discovery and biological networks.</p>
+<h2>Mark the date</h2>
+<p><strong>Tuesday, the 22nd of May 2018</strong></p>
+<h2>Location</h2>
+<p>Room C101 - City Campus University of Antwerp,
+Prinsstraat 13, 2000 Antwerp.</p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3533.889170065036!2d4.412807736335474!3d51.22207838842954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x47c3f703e7404c69%3A0x270b07bbe1f68aa6!2sAntwerpen-Centraal%2C+Antwerp!3m2!1d51.217191799999995!2d4.4212529!4m5!1s0x47c3f6566cd25cc1%3A0x9ece4584afb0cd6d!2sUAntwerpen+-+Building+C+-+City+Campus%2C+Prinsstraat+13%2C+2000+Antwerpen!3m2!1d51.2234817!2d4.4101775!5e0!3m2!1sen!2sbe!4v1521550821427" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<h2>Registration (deadline 14th of May)</h2>
+<p>Registration is free, but mandatory. Please register <strong>before the 14th of May</strong> through the <a href="https://goo.gl/forms/ETpVY2j1sRYSSjRD3">google form</a>.</p>
+<h2>Abstract call (deadline 20th of April)</h2>
+<p>You can submit an abstract for oral or poster presentations. Eight abstracts will be selected for oral presentations. Please include your abstract in the <a href="https://goo.gl/forms/ETpVY2j1sRYSSjRD3">google form</a> before the <strong>20th of April</strong>.</p>
+<h2>Social dinner</h2>
+<p>After the symposium we will go to the restaurant <a href="https://www.restaurant-verona.be/">Verona</a> in the city center, near the cathedral, for the social dinner.</p>
+<h2>Schedule</h2>
+<ul>
+<li>12:30 Registration</li>
+<li>13:00 Opening remarks</li>
+<li>13:10 Keynote by <a href="krislaukens">Kris Laukens (UAntwerp)</a>: Hacking the molecular networks of life, from <em>in vitro</em> to <em>in silico</em></li>
+<li>14:00 Tour of RSG Belgium</li>
+<li>14:20 1<sup>st</sup> student talks session</li>
+<li>15:00 Coffee break with poster session</li>
+<li>15:50 2<sup>nd</sup> student talks session</li>
+<li>17:30 Closing remarks</li>
+<li>17:35 Networking session with drinks</li>
+<li>18:30 Dinner at <a href="https://www.restaurant-verona.be/">Verona</a></li>
+</ul>
+<h4>Talks</h4>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Speaker</th>
+<th>Affiliation</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13:10</td>
+<td>Prof. Kris Laukens</td>
+<td>UAntwerpen</td>
+<td>Hacking the molecular networks of life, from <em>in vitro</em> to <em>in silico</em></td>
+</tr>
+<tr>
+<td>14:00</td>
+<td>Nikolina Sostaric</td>
+<td>KU Leuven</td>
+<td>Tour of RSG Belgium</td>
+</tr>
+<tr>
+<td>14:20</td>
+<td>Mohamed Mysara</td>
+<td>Belgian Nuclear Research Centre</td>
+<td>Bioinformatics analysis of complex DNA-sequencing data to assess microbial community in diverse industrial and clinical samples</td>
+</tr>
+<tr>
+<td>14:40</td>
+<td>Jorge Roel</td>
+<td>Utrecht University</td>
+<td>Less is more: Coarse-grained protein-protein docking in HADDOCK</td>
+</tr>
+<tr>
+<td>15:00</td>
+<td></td>
+<td></td>
+<td>Coffee break and poster session</td>
+</tr>
+<tr>
+<td>15:50</td>
+<td>Vincent Hahaut</td>
+<td>ULiège</td>
+<td>NGS-based analysis of clonal distribution in Deltaretrovirus induced leukemia</td>
+</tr>
+<tr>
+<td>16:10</td>
+<td>Wannes Van Beeck</td>
+<td>UAntwerpen</td>
+<td>Exploring niche specificity of lactic acid bacteria in fermented carrots as a model ecosystem</td>
+</tr>
+<tr>
+<td>16:30</td>
+<td>Cunliang Geng</td>
+<td>Utrecht University</td>
+<td>iSEE: Interface Structure, Evolution and Energy-based random forest predictor of binding affinity changes upon mutations</td>
+</tr>
+<tr>
+<td>16:50</td>
+<td>Sebastiaan Vanuytven</td>
+<td>KU Leuven</td>
+<td>Single-cell multi-omics sequencing to understand the nature, extent and biology of cellular heterogeneity in breast cancer</td>
+</tr>
+<tr>
+<td>17:10</td>
+<td>Sander Wuyts</td>
+<td>UAntwerpen</td>
+<td>From DNA to Bitcoin</td>
+</tr>
+</tbody>
+</table>
+<p><strong>We look forward to seeing you there!</strong></p>
+<h2>Flyer</h2>
+<p>[<img src="/assets/img/poster/poster_rsg_symposium-22-05-18.png" alt="full">{: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_rsg_symposium-22-05-18.pdf)</p>
+7:["$","main",null,{"children":[["$","div",null,{"className":"border-b dark:bg-slate-800 bg-neutral-50 border-neutral-200","children":["$","div",null,{"className":"container mx-auto px-5","children":["$","div",null,{"className":"py-2 text-center text-sm","children":["Welcome to RSG-Belgium."," ",["$","a",null,{"href":"https://github.com/rsg-belgium/website","className":"underline hover:text-blue-600 duration-200 transition-colors","children":"View source on GitHub"}],"."]}]}]}],["$","div",null,{"className":"container mx-auto px-5","children":["$","article",null,{"className":"mb-32","children":[["$","$L15",null,{"title":"Bioinformatics Student Symposium - 22/05/2018 - Antwerp","coverImage":"$undefined","date":"2018-03-20 13:00","author":{"name":"RSG-Belgium","picture":"/images/team/rsg-logo.png"}}],["$","div",null,{"className":"max-w-2xl mx-auto","children":["$","div",null,{"className":"markdown-styles_markdown__ORfR8","dangerouslySetInnerHTML":{"__html":"$16"}}]}]]}]}]]}]
+c:{"metadata":[["$","title","0",{"children":"Bioinformatics Student Symposium - 22/05/2018 - Antwerp | RSG Belgium"}],["$","meta","1",{"property":"og:title","content":"Bioinformatics Student Symposium - 22/05/2018 - Antwerp"}],["$","meta","2",{"property":"og:type","content":"article"}],["$","meta","3",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","4",{"name":"twitter:title","content":"Bioinformatics Student Symposium - 22/05/2018 - Antwerp"}]],"error":null,"digest":"$undefined"}
+14:{"metadata":"$c:metadata","error":null,"digest":"$undefined"}
