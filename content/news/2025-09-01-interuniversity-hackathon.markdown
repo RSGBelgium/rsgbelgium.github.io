@@ -5,13 +5,14 @@ date:   2025-09-01 15:00
 categories: news event hackathon
 toc: true
 category: 'News'
+coverImage: "/images/poster/Interuniversity_Biohackathon_2025.jpg"
 ---
 
 We are proud to announce the Interuniversity Bioinformatics Hackathon, taking place this September 2025. This event is a collaborative initiative between KU Leuven, VUB, UAntwerpen, and the Regional Student Group of the International Society for Computational Biology (ISCB) in Belgium.
 
 This hackathon will unite top researchers, Msc and PhD students, postdocs, and AI/bioinformatics professionals to address real-world challenges at the intersection of artificial intelligence and bioinformatics.
 
-[![full](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg)
+<!-- [![full](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
 
 We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#event-overview).
 
@@ -49,7 +50,7 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 19:30   | Track reveal                                 |
 | 20:30   | Hackathon starts
 
-### Day 2 
+### Day 2
 
 | Time        | Activity                                                         |
 |-------------|------------------------------------------------------------------|
@@ -103,16 +104,17 @@ The university is accessible by bus and train. Specific signs for the hackathon 
 Please also consult the following map of KU Leuven Gasthuisberg Campus and Leercentrum AGORA to guide you.
 
 ### Access to Aula O&N5 - Day 1
-For more details regarding accessibility, please consult KU Lueven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/114-01-M010E50/onderwijs).
+For more details regarding accessibility, please consult the following access guide:
+[![full](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
 - By Public Transport:<br>
  Leuven Station → De Lijn bus 10, R90, R80, 70 → Stop at Heverlee Berg Tabor or Leuven Gasthuisberg Kliniek<br>
-- By Car: Park West
+- By Car: Logistik Platform (Parking code available on email)
 
 ### Access to Zaal Couvreur - Day 2
-For more details regarding accessibility, please consult KU Lueven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
+For more details regarding accessibility, please consult KU Leuven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
 - By Public Transport:
   - Leuven Station → De Lijn bus 12, 79, 11 → Stop at Parkpoort
   - or De Lijn bus 4, 14 → Stop at Leuven Rustoord Remy
   - or De Lijn bus 2 → Stop at Leuven H. Hartkliniek
   - or ~20 min walk
-- By Car: Q-Park Leuven Heilig Hart
+- By Car: Huis Bethlehem (Parking code available on email)
