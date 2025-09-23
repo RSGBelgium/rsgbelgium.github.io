@@ -36,6 +36,7 @@ const roboto_mono = Roboto_Mono({
  * Used by Next.js to populate <head> tags.
  */
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rsg-belgium.be'),
   title: SITE_NAME,
   description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
   openGraph: {
