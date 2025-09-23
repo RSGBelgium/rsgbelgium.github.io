@@ -108,7 +108,7 @@ For more details regarding accessibility, please consult the following access gu
 [![full](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
 - By Public Transport:<br>
  Leuven Station → De Lijn bus 10, R90, R80, 70 → Stop at Heverlee Berg Tabor or Leuven Gasthuisberg Kliniek<br>
-- By Car: Logistik Platform (Parking code available on email)
+- By Car: [Logistiek Platform](https://www.kuleuven.be/kulag/nl/lokaal/390-90-00P003) (Parking code available upon request by email)
 
 ### Access to Zaal Couvreur - Day 2
 For more details regarding accessibility, please consult KU Leuven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
@@ -117,4 +117,4 @@ For more details regarding accessibility, please consult KU Leuven access guide 
   - or De Lijn bus 4, 14 → Stop at Leuven Rustoord Remy
   - or De Lijn bus 2 → Stop at Leuven H. Hartkliniek
   - or ~20 min walk
-- By Car: Huis Bethlehem (Parking code available on email)
+- By Car: [Huis Bethlehem](https://www.kuleuven.be/kulag/nl/lokaal/125-93-000P01) (Parking code available upon request by email)
