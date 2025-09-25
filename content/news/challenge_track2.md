@@ -1,11 +1,16 @@
 ---
 layout: single
 title: "BioHackathon 2025 Challenge Track 2"
+
 date: "2025-09-25"
 categories: event biohackathon track2
+
 category: 'biohackathon2025'
+
 ---
 ## **Prediction of Embryonic Stage from Single Cell RNASeq Data**
+
+
 
 ## **1\. Abstract**
 
@@ -40,7 +45,7 @@ Embryogenesis is a tightly regulated process in which gene expression and cellul
 
 We will provide:
 
-* A Jupyter notebook with tutorials for data loading and preprocessing.
+* A [Jupyter notebook](https://drive.google.com/file/d/1uvuQshd49CQDgE7ru72Gkk9kg2LlB7xv/view?usp=drivesdk) with tutorials for data loading and preprocessing. 
 * A simple baseline model (linear classifier).
 * Method to save model as pkl file
 
@@ -51,6 +56,7 @@ You may use any publicly available packages but must document dependencies.
 * **Primary metric:**
   * Mean Squared Error (**MSE**)
   * Coefficient of determination (**R2**) score
+
   * **Macro Average F1-score**
 * **Secondary criteria:**
   * Feature preprocessing quality
@@ -92,3 +98,18 @@ Bruneau, B. G. (2013). Signaling and transcriptional networks in heart developme
 Knight-Schrijver, V. R., Davaapil, H., Bayraktar, S., Ross, A. D. B., Kanemaru, K., Cranley, J., Dabrowska, M., Patel, M., Polanski, K., He, X., Vallier, L., Teichmann, S., Gambardella, L., & Sinha, S. (2022). A single-cell comparison of adult and fetal human epicardium defines the age-associated changes in epicardial activity. Nature Cardiovascular Research, 1(12), 1215–1229. [https://doi.org/10.1038/s44161-022-00183-w](https://doi.org/10.1038/s44161-022-00183-w)
 
 Cui, Y., Zheng, Y., Liu, X., Yan, L., Fan, X., Yong, J., Hu, Y., Dong, J., Li, Q., Wu, X., Gao, S., Li, J., Wen, L., Qiao, J., & Tang, F. (2019). Single-Cell transcriptome analysis maps the developmental track of the human heart. Cell Reports, 26(7), 1934-1950.e5. [https://doi.org/10.1016/j.celrep.2019.01.079](https://doi.org/10.1016/j.celrep.2019.01.079)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
