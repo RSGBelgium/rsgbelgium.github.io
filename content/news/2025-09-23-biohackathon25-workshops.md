@@ -1,10 +1,10 @@
 ---
 layout: single
-title: "BioHackathon 2025 Workshops Overview"
+title: "Biohackathon 2025 Workshops Overview"
 date: "2025-09-23"
 categories: event biohackathon
 category: 'biohackathon2025'
-excerpt: "An overview of the BioHackathon 2025 workshops, covering differential analysis on graphs, latent representations of single-cell RNA-seq data, and foundation models for genomics."
+excerpt: "An overview of the Biohackathon 2025 workshops, covering differential analysis on graphs, latent representations of single-cell RNA-seq data, and foundation models for genomics."
 ---
 
 ## Workshop 1: Differential Analysis on Graphs
