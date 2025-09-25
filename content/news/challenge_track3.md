@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "BioHackathon 2025 Challenge Track 3"
-date: "| Variants | Variant combination with gene, variants separated by ";", gene and notations separated by "\|" | 14:23424059:C:T\|MYH7\|c.2770G\>A\|p.Glu924Lys;6:112131011:C:T\|LAMA4\|c.3925G\>A\|p.Asp1309Asn |025-09-25"
+date: "25-09-25"
 categories: event biohackathon track3
 category: 'biohackathon2025'
 ---
@@ -69,9 +69,9 @@ A schema will be provided to specify the expected output format. Key fields incl
 | PMID | Bibliographic reference (PMID) | PMID:31073086 |
 | disease | Standardized disease/phenotype term (OMIM, Orphanet, HPO) | Idiopathic pulmonary fibrosis |
 | OMIMIDs | Standardized disease/phenotype ID “;”-separated (OMIM) | 616371;178500;616373 |
-| Variants | Variant combination with gene, variants separated by “;”, gene and notations separated by “\|” | 14:23424059:C:T\|MYH7\|c.2770G\>A\|p.Glu924Lys;6:112131011:C:T\|LAMA4\|c.3925G\>A\|p.Asp1309Asn |
-| (Score) | Score from 0-3 identifying the evidence for the combination available in the paper | "We identified a digenic combination of GJB2 c.35delG and GJB6 c.269+1G\>A in affected siblings." |
-| (Evidence) | Reference or quote to part of pdf where evidence is found | "We identified a digenic combination of GJB2 c.35delG and GJB6 c.269+1G\>A in affected siblings." |
+| Variants | Variant combination with gene, variants separated by “;”, gene and notations separated by “\|” | 14:23424059:C:T\|MYH7\|c.2770G>A\|p.Glu924Lys; 6:112131011:C:T\|LAMA4\|c.3925G>A\|p.Asp1309Asn |
+| Score | Score from 0-3 identifying the evidence for the combination available in the paper | 2 |
+| Evidence | Reference or quote to part of pdf where evidence is found | "We identified a digenic combination of GJB2 c.35delG and GJB6 c.269+1G>A in affected siblings." |
 
 Items between brackets are highly encouraged but optional. One pdf may have multiple variant combinations. Ensure your solution extracts all combinations.
 
