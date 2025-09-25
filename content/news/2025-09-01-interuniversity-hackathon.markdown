@@ -20,8 +20,6 @@ We have designed three different tracks to choose from, which are described [bel
 
 We ask you however to already indicate your preference during registration. This is not binding, but it gives us a way to gauge interest.
 
-## Do not hesitate, [register now!](https://forms.gle/jiUK63jpxCvh8j6u5)
-
 ## Where and when?
 
 - Registration deadline: September 18, 2025
@@ -48,16 +46,17 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 16:00   | Opening session                              |
 | 17:00   | **Exploratory and Confirmatory Data Analysis in Biology and Healthcare**, Panagiotis Mandros <br><br> **From PCA to scGPT: exploring the high dimensional geometries of single-cell RNA-seq data** , Aziz Fouché, Scienta Lab <br><br> **Foundational models for genomics**, Bernardo De Pereira Almeida, InstaDeep  |
 | 19:30   | Track reveal                                 |
-| 20:30   | Hackathon starts
+| 20:00   | Hackathon starts
 
 ### Day 2
 
 | Time        | Activity                                                         |
 |-------------|------------------------------------------------------------------|
-| 08:00       | Doors open - Hacking session resumes                             |
-| 12:30       | Lunch                                                            |
-| 15:00       | Coffee break                                                     |
-| 17:00       | Pitch submission deadline                                      |
+| 09:00       | Doors open - Hacking session resumes                             |
+| 09:30       | Morning Coffee                          |
+| 12:00       | Lunch                                                            |
+| 14:30       | Coffee break                                                     |
+| 16:45       | Pitch submission deadline                                      |
 | 17:00–19:00 | Final project pitches + jury feedback                            |
 | 19:00–20:00 | Awards & closing ceremony                                        |
 
