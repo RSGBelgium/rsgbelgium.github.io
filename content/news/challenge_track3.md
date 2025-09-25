@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "BioHackathon 2025 Challenge Track 3"
-date: "25-09-25"
+date: "2025-09-25"
 categories: event biohackathon track3
 category: 'biohackathon2025'
 ---
