@@ -22,14 +22,13 @@ We ask you however to already indicate your preference during registration. This
 
 ## Where and when?
 
-- Registration deadline: September 18, 2025
-- Date and time:
+### Date and time:
 - Day 1: September 25, 2025, from 15:00 till 20:00 <br>
 Place: Aula O&N5, Onderwijs en Navorsing 5, Herestraat 49, 3000 Leuven
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.43990158107!2d4.664557891823671!3d50.878568109081364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c161b1fa553a5d%3A0xbe95aaca448f0e6c!2sOnderwijs%20en%20Navorsing%205!5e0!3m2!1sen!2sbe!4v1750160371956!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-- Day 2: September 26, 2025, from 8:00 till 20:00<br>
+- Day 2: September 26, 2025, from 9:00 till 20:00<br>
 Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.681604355544!2d4.7012410765823285!3d50.87409397167623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16128598d22e5%3A0x67749a5edbf86510!2sEdward%20van%20Evenstraat%204%2C%203000%20Leuven!5e0!3m2!1sen!2sbe!4v1750160316878!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -60,7 +59,8 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 17:00–19:00 | Final project pitches + jury feedback                            |
 | 19:00–20:00 | Awards & closing ceremony                                        |
 
-## About the Workshops
+## About the Workshops {#event-overview} 
+For more details regarding preparing for the workshops, check out this [page](https://rsg-belgium.org/news/2025-09-23-biohackathon25-workshops)
 ### Exploratory and Confirmatory Data Analysis in Biology and Healthcare
 This talk will explore the complementary roles of exploratory and confirmatory analysis in biology and health research, with a central focus on differential analysis. From traditional differential analysis on tabular data to more complex applications such as gene regulatory network inference and analysis, I will discuss how analytical approaches must be tailored to the specific goals and data characteristics of each application. By understanding these needs—whether generating new hypotheses, validating biological mechanisms, or supporting clinical decisions—we can better integrate exploratory and confirmatory methods to enhance both discovery and rigor in computational biology and health sciences.
 
@@ -79,7 +79,7 @@ The human genome sequence provides the underlying code for human biology. Unders
 *About the speaker:*
 Bernardo Almeida is a Senior Research Scientist at InstaDeep in Paris where he is developing large language foundational models for biology. He received his PhD in 2023 from the University of Vienna after his work on deep learning models to understand the regulatory information encoded in the genome sequence. Earlier, he obtained his undergraduate degree in Biomedical Sciences and masters in Oncobiology from the University of Algarve, Portugal.
 
-## Tracks
+## Tracks {#tracks}
 
 ### Data Exploration & Classical Bioinformatics
 
@@ -96,7 +96,7 @@ Develop a machine learning model to predict a biological feature or outcome. Emp
 Create a bioinformatics tool that enhances pipelines or addresses a research question. Focus on innovation, usability, and practical impact.
 *Best for:* Participants with backgrounds in software engineering, tool development, pipeline integration, or bioinformatics.
 
-## How to get there?
+## How to get there? {#how-to-get-there}
 
 The university is accessible by bus and train. Specific signs for the hackathon will be available outside the university to guide you.
 
