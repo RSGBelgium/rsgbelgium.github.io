@@ -50,7 +50,7 @@ Specifically, participants are expected to:
 
 ## **4\. Data Description**
 
-Participants will receive a **curated set** of scientific publications in PDF format, each focusing on oligogenic diseases. These documents include research articles, case reports, and reviews describing gene–variant–disease relationships.
+Participants will receive a **curated set** of scientific publications in PDF format, each focusing on oligogenic diseases. These documents include research articles, case reports, and reviews describing gene–variant–disease relationships. You can find the link to the dataset [here](https://drive.google.com/drive/folders/1shlXG6q1t19UlUQp1Si79d_fMt9W3REh?usp=sharing).
 
 ### **1\. Input Data**
 
