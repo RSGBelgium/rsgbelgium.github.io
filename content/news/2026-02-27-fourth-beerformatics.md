@@ -11,7 +11,7 @@ Beerformatics is back after five years, and we are kicking off the Spring 2026 e
 
 [![full](/images/poster/Beerformatics.png)](/images/poster/Beerformatics.png)
 
-Join us for an evening of fast-paced science, great conversations, and free beer (or a soft drink).  March 19, 19:00  Zaal Couvreur, Agora Learning Center, Leuven.
+Join us for an evening of fast-paced science, great conversations, and free beer (or a soft drink), on March 19, 19:00, Zaal Couvreur, Agora Learning Center, Leuven.
 
 Expect three 10-minute talks from young researchers working at the forefront of bioinformatics and AI in life sciences, followed by informal networking. Stay tuned as we will reveal the speakers soon!
 
