@@ -17,7 +17,7 @@ We are excited to welcome three speakers who will present their latest research 
 
 Yura will present work investigating the early stages of prostate cancer initiation. Deletion of Pten in epithelial basal cells in mice triggers cell plasticity, lineage infidelity, and tumour formation, orchestrated by innate immunity activation and NF-κB signalling in prostate basal stem cells. The findings provide insights with implications for human prostate cancer.
 
-Yura is a computational biologist in the laboratory of [Cédric Blanpain at Université libre de Bruxelles](https://www.linkedin.com/feed/update/urn:li:activity:7437799595864117249/?actorCompanyId=107383609#), studying molecular mechanisms and gene regulatory networks that regulate epithelial lineage plasticity in mammary and prostate tissues.
+Yura is a computational biologist in the laboratory of Cédric Blanpain at Université libre de Bruxelles, studying molecular mechanisms and gene regulatory networks that regulate epithelial lineage plasticity in mammary and prostate tissues.
 
 ### **Geethika Arekatla** - _𝗦𝗽𝗮𝘁𝗶𝗮𝗹 𝘁𝗿𝗮𝗻𝘀𝗰𝗿𝗶𝗽𝘁𝗼𝗺𝗶𝗰𝘀 𝘁𝗼 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱 𝗱𝗶𝘀𝗲𝗮𝘀𝗲 𝗺𝗲𝗰𝗵𝗮𝗻𝗶𝘀𝗺𝘀 𝘂𝗻𝗱𝗲𝗿𝗹𝘆𝗶𝗻𝗴 𝗔𝗟𝗦_
 
