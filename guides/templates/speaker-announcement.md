@@ -36,8 +36,9 @@ Expect three 10-minute talks from young researchers working at the forefront of 
 <!--
   ONE SECTION PER SPEAKER.
   Heading: the speaker's name, then the talk title in _italics_.
-  Type the title normally. NEVER paste "fancy" bold/italic Unicode text (𝗕𝗼𝗹𝗱) from
-  LinkedIn or Instagram: screen readers and search engines can't read it. See guides/markdown.md.
+  Type the title normally. NEVER paste "fancy" bold/italic Unicode text (bold-looking text
+  from LinkedIn or Instagram): screen readers and search engines can't read it. See guides/markdown.md.
+  Use ## for each speaker: the post title is the only # heading.
   Paragraph 1: what the talk is about (2–3 sentences).
   Paragraph 2: who the speaker is (position, lab, institution).
 -->
