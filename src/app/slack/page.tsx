@@ -10,6 +10,7 @@ import Button from '@/components/Button'; // Path to the new Button component
 import { Metadata } from 'next';
 import { Intro } from '@/app/_components/intro';
 import { pageAlternates } from '@/lib/metadata';
+import { CONTACT_EMAIL } from '@/lib/social';
 
 export const metadata: Metadata = {
   title: 'Join Us on Slack',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
  * Renders the Slack invitation page with instructions and a mailto link.
  */
 const SlackPage = () => {
-  const mailtoLink = "mailto:iscb.rsg.belgium@gmail.com?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E";
+  const mailtoLink = `mailto:${CONTACT_EMAIL}?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E`;
 
   return (
     <Container>

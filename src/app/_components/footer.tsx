@@ -1,21 +1,26 @@
 /**
  * Main site footer component.
  *
- * Renders the footer with navigation links, social media, and contact info.
- * Includes copyright and optional legal links.
+ * Renders the footer with a short description, the "Quick Links" footer
+ * navigation and the contact channels (src/lib/social.ts), plus the copyright.
+ *
+ * The section titles are <h2>s: the footer follows each page's content, so
+ * they continue that page's heading outline instead of skipping levels.
+ * Links are at least 44px tall and show a focus ring when tabbed to.
  */
 
 import Link from 'next/link';
 import Container from "@/app/_components/container";
+import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
+import { CONTACT_CHANNELS } from "@/lib/social";
 import { ALL_NAV_PAGES } from "@/lib/navigation";
 
-// Placeholder social media links - these should be updated with actual URLs
-const socialLinks = [
-  { name: 'Twitter', url: 'https://twitter.com/rsgbelgium', icon: 'fab fa-twitter' }, // Example icon class
-  { name: 'Facebook', url: 'https://www.facebook.com/RSGBelgium', icon: 'fab fa-facebook' },
-  // { name: 'GitHub', url: '#', icon: 'fab fa-github' }, // Add if RSG-Belgium has a GitHub
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/rsg-belgium/', icon: 'fab fa-linkedin' }, // Example: if a company page exists
-];
+/** Classes for every footer link: a tall hit area, underline on hover, focus ring. */
+const FOOTER_LINK =
+  "inline-flex min-h-11 items-center gap-3 rounded-md text-sm text-link hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
+
+/** Classes for the footer's section titles. */
+const FOOTER_HEADING = "text-lg font-semibold text-foreground mb-3";
 
 /**
  * Displays the main site footer with navigation, social links, and contact info.
@@ -30,50 +35,39 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* About Section */}
             <div className="mb-6 md:mb-0">
-              <h3 className="text-lg font-semibold text-foreground mb-3">RSG-Belgium</h3>
+              <h2 className={FOOTER_HEADING}>RSG-Belgium</h2>
               <p className="text-sm leading-relaxed">
                 Fostering a community of bioinformatics and computational biology students and young researchers in Belgium.
               </p>
             </div>
 
             {/* Navigation Links */}
-            <div className="mb-6 md:mb-0">
-              <h3 className="text-lg font-semibold text-foreground mb-3">Quick Links</h3>
-              <ul className="space-y-2">
+            <nav aria-label="Footer" className="mb-6 md:mb-0">
+              <h2 className={FOOTER_HEADING}>Quick Links</h2>
+              <ul>
                 {ALL_NAV_PAGES.map((item) => (
                   <li key={item.title}>
-                    <Link href={item.url} className="text-sm text-link hover:underline">
+                    <Link href={item.url} className={FOOTER_LINK}>
                       {item.title}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
-            {/* Social Media & Contact */}
+            {/* Contact channels: icon plus visible label */}
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-3">Connect With Us</h3>
-              {socialLinks.length > 0 && (
-                <div className="flex space-x-4 mb-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-link hover:text-accent-strong transition-colors"
-                      aria-label={social.name}
-                    >
-                      {/* Placeholder for actual icons - using text for now */}
-                      {/* In a real app, you'd use an icon library e.g. <i className={social.icon}></i> or SVG icons */}
-                      <span className="text-xl">{social.name.charAt(0)}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-              <p className="text-sm">
-                Email: <a href="mailto:iscb.rsg.belgium@gmail.com" className="text-link hover:underline">iscb.rsg.belgium@gmail.com</a>
-              </p>
+              <h2 className={FOOTER_HEADING}>Connect With Us</h2>
+              <ul>
+                {CONTACT_CHANNELS.map((channel) => (
+                  <li key={channel.id}>
+                    <ContactChannelLink channel={channel} className={FOOTER_LINK}>
+                      <ContactIcon id={channel.id} className="h-5 w-5 shrink-0" />
+                      <span>{channel.label}</span>
+                    </ContactChannelLink>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
@@ -81,10 +75,6 @@ export function Footer() {
             <p className="text-sm">
               &copy; {currentYear} RSG-Belgium. All rights reserved.
             </p>
-            {/* Optional: Link to a privacy policy or terms page if they exist */}
-            {/* <p className="text-xs mt-1">
-              <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-            </p> */}
           </div>
         </div>
       </Container>
