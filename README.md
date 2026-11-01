@@ -19,15 +19,31 @@ This is the official website for RSG-Belgium, built with Next.js and TypeScript.
 
 ## Color Palette
 
-| Name       | Hex Code   | Usage                                 |
-|------------|-----------|---------------------------------------|
-| Primary    | #004AAD   | Main brand blue (buttons, links, etc.) |
-| Secondary  | #E385EC   | Accent purple (gradients, accents)     |
-| Light Blue | #D6E8FF   | Text/links on dark backgrounds         |
-| White      | #FFFFFF   | Backgrounds, text, etc.                |
+Colours are semantic **tokens** that switch between a light and a dark theme (a "neutral slate" palette with the brand blue and pink). They are CSS variables in `src/app/globals.css` (`:root` is the light theme, `.dark` the dark theme), turned into Tailwind colours in `tailwind.config.ts`. Every text/background pairing in the table passes WCAG AA.
 
-- The color palette is defined in `tailwind.config.ts` and used throughout the site for consistent branding.
-- In dark mode, `lightblue` is used for text and links on dark backgrounds for accessibility.
+| Token | Light | Dark | Use |
+|-------|-------|------|-----|
+| `background` | `#F8FAFC` | `#0F172A` | Page background |
+| `surface` | `#FFFFFF` | `#1E293B` | Cards, header, footer |
+| `surface-muted` | `#F1F5F9` | `#273449` | Code blocks, table headers, quote panels |
+| `border` | `#E2E8F0` | `#334155` | Dividers, card borders (also the default colour of `border` and `<hr>`) |
+| `foreground` | `#0F172A` | `#F1F5F9` | Body text |
+| `foreground-muted` | `#475569` | `#94A3B8` | Dates, captions, roles |
+| `primary` | `#004AAD` | `#2E6FD8` | Buttons, the active nav item (brand blue) |
+| `primary-hover` | `#003A8A` | `#245DBF` | Hover colour of primary buttons |
+| `primary-foreground` | `#FFFFFF` | `#FFFFFF` | Text on primary and on the hero gradient |
+| `link` | `#004AAD` | `#8FBBFF` | Links |
+| `accent` | `#E385EC` | `#E385EC` | Brand pink, **decorative only** |
+| `accent-strong` | `#9A2BA6` | `#EFA8F5` | Pink text, focus rings |
+| `highlight` | `#D6E8FF` | `#1E3A5F` | Secondary buttons, info panels |
+| `hero-start` → `hero-end` | `#004AAD` → `#9A2BA6` | `#0B2A5B` → `#4A1752` | Homepage hero gradient |
+
+- **`accent` is decorative only** (gradients, borders, the ring around team avatars). As text on a light background it is 2.4:1 and fails WCAG; use `accent-strong` for pink text.
+- **Use the tokens, not fixed colours.** Write `bg-surface text-foreground`, not `bg-white text-gray-900 dark:bg-slate-800 dark:text-white`. The tokens change with the theme, so components don't need `dark:` classes. Opacity modifiers work, e.g. `bg-highlight/50`.
+- The class names follow the token names: `bg-background`, `bg-surface`, `bg-surface-muted`, `border-border`, `text-foreground`, `text-foreground-muted`, `bg-primary`, `hover:bg-primary-hover`, `text-primary-foreground`, `text-link`, `border-accent`, `text-accent-strong`, `bg-highlight`, `from-hero-start to-hero-end`.
+- Buttons: use `src/components/Button.tsx` with `variant="primary"`, `"secondary"`, `"outline"` or `"inverse"` (white, for the hero gradient). The variant colours are the `.button-*` classes in `globals.css`.
+- The theme is set by [next-themes](https://github.com/pacocoursey/next-themes), which puts `class="dark"` on `<html>`; visitors choose Light, System or Dark with the switcher in the header. Only use `dark:` for what a token can't do, such as swapping an image.
+- To change a colour, edit its value under both `:root` and `.dark` in `globals.css` (as RGB channels, e.g. `0 74 173`) and check the contrast: at least 4.5:1 for text, 3:1 for icons, control borders and focus rings.
 
 ## Getting Started
 
