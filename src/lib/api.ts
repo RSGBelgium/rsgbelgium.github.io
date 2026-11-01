@@ -10,6 +10,7 @@ import fs from "fs/promises";
 import matter from "gray-matter";
 import { join } from "path";
 import { Member } from "@/interfaces/member";
+import { createExcerpt } from "@/lib/excerpt";
 
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
@@ -21,6 +22,16 @@ const membersDirectory = join(process.cwd(), "content/organization");
  */
 function isMarkdownFile(file: string): boolean {
   return file.endsWith(".md") || file.endsWith(".markdown");
+}
+
+/**
+ * Read an optional text field from front matter.
+ *
+ * @param value - The raw front-matter value
+ * @returns The trimmed string, or "" when the field is missing, empty or not a string
+ */
+function optionalString(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 /**
@@ -100,6 +111,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       content,
       ...data,
       date: normalizeDate(data.date),
+      // An explicit front-matter excerpt wins; otherwise summarise the body.
+      excerpt: optionalString(data.excerpt) || createExcerpt(content),
     } as Post;
   } catch (error) {
     console.error(`Error reading post for slug ${slug}:`, error);
@@ -133,16 +146,6 @@ export async function getAllPosts(): Promise<Post[]> {
 
 /** Members whose profile has no `order` are listed after all ordered members. */
 const UNORDERED = Number.POSITIVE_INFINITY;
-
-/**
- * Read an optional text field from front matter.
- *
- * @param value - The raw front-matter value
- * @returns The trimmed string, or "" when the field is missing, empty or not a string
- */
-function optionalString(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
 
 /**
  * Read an optional profile URL (LinkedIn, ORCID) from front matter.
