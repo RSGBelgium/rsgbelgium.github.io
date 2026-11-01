@@ -86,15 +86,21 @@ Bernardo Almeida is a Senior Research Scientist at InstaDeep in Paris where he i
 Analyze a biological dataset to extract meaningful insights or answer a specific biological question. The novelty lies in the clarity of results and the robustness of applied methods.
 *Best for:* Participants with backgrounds in bioinformatics, biostatistics, or experimental biology with data analysis experience.
 
+**Challenge:** [Decoding Cell-Cell Communication Along the Gut-Brain Axis Using Single-Cell Transcriptomics](/news/challenge_track1)
+
 ### Machine Learning for Prediction
 
 Develop a machine learning model to predict a biological feature or outcome. Emphasis is on justified use of ML, high performance, and model generalizability.
 *Best for:* Participants with experience in machine learning, data science, or computational biology.
 
+**Challenge:** [Prediction of Embryonic Stage from Single Cell RNA-Seq Data](/news/challenge_track2)
+
 ### Tool Development & Integration
 
 Create a bioinformatics tool that enhances pipelines or addresses a research question. Focus on innovation, usability, and practical impact.
 *Best for:* Participants with backgrounds in software engineering, tool development, pipeline integration, or bioinformatics.
+
+**Challenge:** [Automatic Curation of Oligogenic Disease Evidence from PDFs](/news/challenge_track3)
 
 ## How to get there? {#how-to-get-there}
 
