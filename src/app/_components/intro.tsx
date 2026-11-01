@@ -16,7 +16,7 @@ type IntroProps = {
  * silently inheriting another page's.
  *
  * @param title - The main heading for the page (rendered as `<h1>`, followed by a period)
- * @param description - Supporting text shown next to the title
+ * @param description - Supporting text shown next to the title (a paragraph, not a heading)
  */
 export function Intro({ title, description }: IntroProps) {
   return (
@@ -24,9 +24,9 @@ export function Intro({ title, description }: IntroProps) {
       <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
         {title}.
       </h1>
-      <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
+      <p className="text-center md:text-left text-lg mt-5 md:pl-8">
         {description}
-      </h4>
+      </p>
     </section>
   );
 }

@@ -2,6 +2,8 @@
  * Hero/featured post component.
  *
  * Renders a prominent, large-format post preview for the homepage or section highlight.
+ * The title is an `<h2>`: it sits directly below the page's `<h1>`, at the
+ * same level as the "More Stories" heading that follows.
  */
 
 import Avatar from "@/app/_components/avatar";
@@ -47,11 +49,11 @@ export function HeroPost({
       )}
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
         <div>
-          <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
+          <h2 className="mb-4 text-4xl lg:text-5xl leading-tight">
             <Link href={postPath(slug)} className="text-link hover:underline">
               {title}
             </Link>
-          </h3>
+          </h2>
           <div className="mb-4 md:mb-0 text-lg text-foreground-muted">
             <DateFormatter dateString={date} />
           </div>
