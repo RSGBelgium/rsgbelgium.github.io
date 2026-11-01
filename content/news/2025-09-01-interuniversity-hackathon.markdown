@@ -12,7 +12,7 @@ We are proud to announce the Interuniversity Bioinformatics Hackathon, taking pl
 
 This hackathon will unite top researchers, Msc and PhD students, postdocs, and AI/bioinformatics professionals to address real-world challenges at the intersection of artificial intelligence and bioinformatics.
 
-<!-- [![full](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
+<!-- [![Poster for the Interuniversity Biohackathon Belgium 2025](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
 
 We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#event-overview).
 
@@ -104,7 +104,7 @@ Please also consult the following map of KU Leuven Gasthuisberg Campus and Leerc
 
 ### Access to Aula O&N5 - Day 1
 For more details regarding accessibility, please consult the following access guide:
-[![full](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
+[![Map of KU Leuven Campus Gasthuisberg showing the walking route from the bus stops to Aula O&N5](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
 - By Public Transport:<br>
  Leuven Station → De Lijn bus 10, R90, R80, 70 → Stop at Heverlee Berg Tabor or Leuven Gasthuisberg Kliniek<br>
 - By Car: [Logistiek Platform](https://www.kuleuven.be/kulag/nl/lokaal/390-90-00P003) (Parking code available upon request by email)

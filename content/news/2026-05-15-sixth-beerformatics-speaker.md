@@ -17,7 +17,7 @@ Join us for our third (and last edition of this year) of Beerformatics in Antwer
 
 Expect  three 10-minute talks from young researchers working at the forefront of bioinformatics and AI in life sciences, followed by informal networking:
 
-[![full](/images/poster/Beerformaticssixthspeakers.png)](/images/poster/Beerformaticssixthspeakers.png)
+[![Poster introducing the speakers of Beerformatics on 28 May 2026 in Antwerp](/images/poster/Beerformaticssixthspeakers.png)](/images/poster/Beerformaticssixthspeakers.png)
 
 ### **Charlotte Adams** - _Exploring the limitations of mass spectrometry in confidently identifying peptides_
 
@@ -37,7 +37,7 @@ Leandro started his journey into bioinformatics in 2022, and now he is doing a P
 
 Ward is a master’s student in Evolutionary and Behavioural Biology at the University of Antwerp with a strong interest in evolutionary genomics. He is currently completing his thesis on the recombination landscape of the clouded tiger cat in the Svardal Lab under the supervision of Prof. Hannes Svardal and Dr. Jonas Lescroart.
 
-[![full](/images/poster/Beerformaticssixth.png)](/images/poster/Beerformaticssixth.png)
+[![Poster for Beerformatics on 28 May 2026 at the Speciale Belge Taproom in Antwerp](/images/poster/Beerformaticssixth.png)](/images/poster/Beerformaticssixth.png)
 
 Join us for an evening of science, discussion, and beers.
 Spots are limited, register now: [Registration link](ttps://www.eventbrite.com/e/beerformatics-2026-antwerp-edition-tickets-1987902464785)

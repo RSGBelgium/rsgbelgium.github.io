@@ -11,7 +11,7 @@ Beerformatics is back next Thursday to Leuven!
 
 We are excited to welcome three speakers who will present their latest research spanning cancer biology, spatial transcriptomics, and neurodegeneration.
 
-[![full](/images/poster/Beerformatics_speakers.png)](/images/poster/Beerformatics_speakers.png)
+[![Poster introducing the speakers of the Beerformatics Spring 2026 kickoff in Leuven](/images/poster/Beerformatics_speakers.png)](/images/poster/Beerformatics_speakers.png)
 
 ### **Yura Song** - _𝗜𝗻𝗻𝗮𝘁𝗲 𝗶𝗺𝗺𝘂𝗻𝗶𝘁𝘆 𝗱𝗿𝗶𝘃𝗲𝘀 𝗲𝗽𝗶𝘁𝗵𝗲𝗹𝗶𝗮𝗹 𝗰𝗲𝗹𝗹 𝗽𝗹𝗮𝘀𝘁𝗶𝗰𝗶𝘁𝘆 𝗱𝘂𝗿𝗶𝗻𝗴 𝗽𝗿𝗼𝘀𝘁𝗮𝘁𝗲 𝘁𝘂𝗺𝗼𝗿 𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻_
 
