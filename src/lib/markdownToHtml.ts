@@ -2,8 +2,8 @@
  * Markdown-to-HTML conversion utility.
  *
  * Converts markdown content to HTML using unified, remark, and plugins.
- * Adds target="_blank" and rel="noopener noreferrer" to all external links,
- * and gives every heading an id so in-page anchor links (e.g. `#tracks`) work.
+ * Adds target="_blank" and rel="noopener noreferrer" to all external links
+ * (inline and reference-style), and gives every heading an id so in-page anchor links (e.g. `#tracks`) work.
  */
 
 import { unified } from "unified";
@@ -13,20 +13,47 @@ import remarkHtml from "remark-html";
 import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
-import type { Heading, Link, Root } from "mdast";
+import type { Definition, Heading, Link, LinkReference, Root } from "mdast";
+
+/** Matches absolute http(s) URLs, i.e. links that leave the site. */
+const EXTERNAL_URL = /^https?:\/\//;
+
+/**
+ * Makes a link node open in a new tab, by setting the attributes its `<a>` will get.
+ *
+ * @param node - An inline (`[text](url)`) or reference-style (`[text][ref]`) link
+ */
+function openInNewTab(node: Link | LinkReference) {
+  node.data = node.data || {};
+  node.data.hProperties = node.data.hProperties || {};
+  node.data.hProperties.target = "_blank";
+  node.data.hProperties.rel = "noopener noreferrer";
+}
 
 /**
  * Remark plugin to add target="_blank" and rel="noopener noreferrer" to external links.
+ *
+ * Handles both inline links (`[text](https://...)`, autolinks) and
+ * reference-style links (`[text][ref]` with `[ref]: https://...` defined
+ * elsewhere in the document), whose URL lives on the matching definition.
  */
 function remarkExternalLinks() {
   return (tree: Root) => {
+    // Definition labels are case-insensitive: key them the same way mdast-util-to-hast does.
+    const definitionUrls = new Map<string, string>();
+    visit(tree, "definition", (node: Definition) => {
+      const id = node.identifier.toUpperCase();
+      // As in CommonMark, the first definition of a label wins.
+      if (!definitionUrls.has(id)) definitionUrls.set(id, node.url);
+    });
+
     visit(tree, "link", (node: Link) => {
-      if (node.url && /^https?:\/\//.test(node.url)) {
-        node.data = node.data || {};
-        node.data.hProperties = node.data.hProperties || {};
-        node.data.hProperties.target = "_blank";
-        node.data.hProperties.rel = "noopener noreferrer";
-      }
+      if (node.url && EXTERNAL_URL.test(node.url)) openInNewTab(node);
+    });
+
+    visit(tree, "linkReference", (node: LinkReference) => {
+      const url = definitionUrls.get(node.identifier.toUpperCase());
+      if (url && EXTERNAL_URL.test(url)) openInNewTab(node);
     });
   };
 }
