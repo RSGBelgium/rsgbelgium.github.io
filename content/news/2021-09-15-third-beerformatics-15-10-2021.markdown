@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Beerformatics - A Dive Into Bioinformatics Startups - 15/10/2021"
-date: 2021-09-21
+date: "2021-09-21"
 categories: event student-beerformatics
 category: 'News'
 ---

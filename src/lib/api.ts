@@ -17,6 +17,32 @@ const organizationDirectory = join(process.cwd(), "content/organization");
 const membersDirectory = join(process.cwd(), "content/organization");
 
 /**
+ * Normalise a front-matter `date` value to a string.
+ *
+ * YAML turns unquoted date-only values (`date: 2021-09-21`) into a Date object,
+ * while quoted values and values with a time (`date: 2017-10-02 19:10`) stay strings.
+ *
+ * @param value - The raw `date` value parsed by gray-matter
+ * @returns An ISO string for Date values, the original string otherwise, or "" when missing
+ */
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === "string") return value;
+  return "";
+}
+
+/**
+ * Convert a post date string to a timestamp for sorting.
+ *
+ * @param date - The post date string
+ * @returns Milliseconds since the epoch, or 0 when the date is missing or invalid (sorts last)
+ */
+function getDateTimestamp(date: string): number {
+  const time = new Date(date).getTime();
+  return Number.isNaN(time) ? 0 : time;
+}
+
+/**
  * Get all post slugs (filenames without extension) from the news content directory.
  */
 export async function getPostSlugs(): Promise<string[]> {
@@ -66,6 +92,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       slug,
       content,
       ...data,
+      date: normalizeDate(data.date),
     } as Post;
   } catch (error) {
     console.error(`Error reading post for slug ${slug}:`, error);
@@ -74,7 +101,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 }
 
 /**
- * Get all posts, sorted by date descending.
+ * Get all posts, sorted by date descending (newest first).
  *
  * @returns Array of Post objects
  */
@@ -85,7 +112,11 @@ export async function getAllPosts(): Promise<Post[]> {
     const posts = await Promise.all(postsPromises);
     return posts
       .filter((post): post is Post => post !== null)
-      .sort((post1: Post, post2: Post) => (post1.date > post2.date ? -1 : 1));
+      .sort(
+        (post1: Post, post2: Post) =>
+          getDateTimestamp(post2.date) - getDateTimestamp(post1.date) ||
+          post1.slug.localeCompare(post2.slug)
+      );
   } catch (error) {
     console.error('Error getting all posts:', error);
     return [];

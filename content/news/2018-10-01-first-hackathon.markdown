@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Announcing the first RSG Belgium Hackathon"
-date:   2018-10-01 15:00
+date:   "2018-10-01 15:00"
 categories: news event hackathon
 toc: true
 category: 'News'

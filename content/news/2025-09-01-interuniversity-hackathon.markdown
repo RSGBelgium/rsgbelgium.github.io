@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Announcing the Interuniversity Biohackathon Belgium 2025"
-date:   2025-09-01 15:00
+date:   "2025-09-01 15:00"
 categories: news event hackathon
 toc: true
 category: 'News'

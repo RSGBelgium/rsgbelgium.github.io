@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Bioinformatics Student Symposium - 03/05/2019 - KU Leuven"
-date: 2019-02-01 16:20
+date: "2019-02-01 16:20"
 categories: event student-symposium
 toc: true
 category: 'News'

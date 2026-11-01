@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Virtual Bioinformatics Student Symposium - 04/12/2020"
-date: 2020-10-08 19:30
+date: "2020-10-08 19:30"
 categories: event student-symposium
 toc: true
 category: 'News'

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "POSTPONED DUE TO COVID-19: Bioinformatics Student Symposium - 05/05/2020 - UCLouvain"
-date: 2020-03-04 08:41
+date: "2020-03-04 08:41"
 categories: event student-symposium
 toc: true
 category: 'News'

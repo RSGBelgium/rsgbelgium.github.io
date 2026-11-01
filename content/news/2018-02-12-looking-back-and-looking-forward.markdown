@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Looking back and looking forward"
-date:   2018-02-12 21:18
+date:   "2018-02-12 21:18"
 categories: news board representatives
 toc: true
 category: 'News'
