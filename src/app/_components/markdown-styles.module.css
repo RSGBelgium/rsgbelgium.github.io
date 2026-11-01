@@ -1,7 +1,11 @@
 /*
  * CSS module for styling rendered markdown content in posts and pages.
  *
- * Applies consistent typography, spacing, and table styles for markdown HTML.
+ * Applies consistent typography, spacing, list, quote, code, table and link
+ * styles to the HTML generated from markdown (Tailwind's preflight resets
+ * all of these). Colours are the theme tokens from src/app/globals.css,
+ * which switch between light and dark by themselves. Don't use `dark:`
+ * here: CSS Modules rename the `.dark` class, so those rules never match.
  */
 .markdown {
   @apply text-lg leading-relaxed;
@@ -10,8 +14,15 @@
 .markdown p,
 .markdown ul,
 .markdown ol,
-.markdown blockquote {
+.markdown blockquote,
+.markdown pre,
+.markdown table {
   @apply my-6;
+}
+
+/* Headings */
+.markdown h1 {
+  @apply text-4xl font-bold mt-12 mb-4 leading-tight;
 }
 
 .markdown h2 {
@@ -22,6 +33,70 @@
   @apply text-2xl mt-8 mb-4 leading-snug;
 }
 
+.markdown h4 {
+  @apply text-xl font-semibold mt-8 mb-3 leading-snug;
+}
+
+.markdown h5,
+.markdown h6 {
+  @apply text-lg font-semibold mt-6 mb-2;
+}
+
+.markdown h6 {
+  @apply text-foreground-muted;
+}
+
+/* Lists: bullets and numbers, with muted markers */
+.markdown ul {
+  @apply list-disc pl-6;
+}
+
+.markdown ol {
+  @apply list-decimal pl-6;
+}
+
+.markdown li {
+  @apply my-1;
+}
+
+.markdown li > ul,
+.markdown li > ol,
+.markdown li > p {
+  @apply my-2;
+}
+
+.markdown li::marker {
+  /* ::marker only accepts a few properties, so no @apply (it adds a custom property). */
+  color: rgb(var(--color-foreground-muted));
+}
+
+/* Block quotes: used for notices and venue addresses */
+.markdown blockquote {
+  @apply border-l-4 border-accent bg-surface-muted rounded-r-md px-5 py-1;
+}
+
+.markdown blockquote > p {
+  @apply my-4;
+}
+
+/* Code */
+.markdown code {
+  @apply rounded bg-surface-muted px-1.5 py-0.5 font-mono text-[0.9em];
+}
+
+.markdown pre {
+  @apply overflow-x-auto rounded-lg border border-border bg-surface-muted p-4 text-sm leading-normal;
+}
+
+.markdown pre code {
+  @apply bg-transparent p-0 text-[1em];
+}
+
+/* Horizontal rules */
+.markdown hr {
+  @apply my-10 border-border;
+}
+
 /* Images: centred and scaled down to fit the content column */
 .markdown img {
   @apply block mx-auto max-w-full h-auto;
@@ -29,25 +104,26 @@
 
 /* Table styles */
 .markdown table {
-  @apply w-full my-6 border-collapse;
+  @apply w-full border-collapse;
 }
 
 .markdown th {
-  @apply bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left border border-gray-300 dark:border-gray-700;
+  @apply bg-surface-muted px-4 py-2 text-left border border-border;
 }
 
 .markdown td {
-  @apply px-4 py-2 border border-gray-300 dark:border-gray-700;
+  @apply px-4 py-2 border border-border;
 }
 
-.markdown tr:nth-child(even) {
-  @apply bg-gray-50 dark:bg-gray-900;
+.markdown tbody tr:nth-child(even) {
+  @apply bg-surface-muted/50;
 }
 
-.markdown tr:hover {
-  @apply bg-gray-100 dark:bg-gray-800;
+.markdown tbody tr:hover {
+  @apply bg-highlight/50;
 }
 
+/* Links */
 .markdown a {
-  @apply text-inherit hover:text-secondary underline transition-colors dark:text-lightblue dark:hover:text-white;
+  @apply text-link underline underline-offset-2 transition-colors hover:text-accent-strong;
 }
