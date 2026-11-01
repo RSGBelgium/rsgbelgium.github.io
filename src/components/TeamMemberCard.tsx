@@ -8,6 +8,10 @@
 import type { Member } from "@/interfaces/member";
 import MemberAvatar from "./MemberAvatar";
 
+/** Classes for the LinkedIn/ORCID links: a comfortable hit area and a focus ring. */
+const PROFILE_LINK =
+  "inline-flex min-h-11 items-center rounded-md px-2 text-link hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
+
 type TeamMemberCardProps = Pick<Member, "name" | "title"> &
   Partial<Pick<Member, "image" | "affiliation" | "position" | "city" | "linkedin" | "orcid">> & {
     /** The member's bio, already converted from markdown to HTML. */
@@ -40,7 +44,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 
   return (
     <div className="bg-surface border border-border shadow-lg rounded-lg p-6 text-center">
-      <MemberAvatar name={name} image={image} className="mx-auto mb-4" />
+      {/* Decorative: the name is the heading right below it. */}
+      <MemberAvatar name={name} image={image} decorative className="mx-auto mb-4" />
       <h3 className="text-xl font-semibold mb-1">{name}</h3>
       {title && <p className="text-foreground-muted mb-1">{title}</p>}
       {details && <p className="text-sm text-foreground-muted mb-3">{details}</p>}
@@ -58,8 +63,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${name} on ${link.label}`}
-              className="text-link hover:underline"
+              aria-label={`${name} on ${link.label} (opens in a new tab)`}
+              className={PROFILE_LINK}
             >
               {link.label}
             </a>

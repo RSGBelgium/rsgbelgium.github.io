@@ -32,7 +32,7 @@ const SlackPage = () => {
       />
       <div className="py-12 text-center">
         <h2 className="text-4xl font-bold mb-6">
-          Join the RSG Belgium Slack Channel <span role="img" aria-label="speech bubble">💬</span>
+          Join the RSG Belgium Slack Channel <span aria-hidden="true">💬</span>
         </h2>
         <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
           We have created a Slack channel where our members can get to know each other,

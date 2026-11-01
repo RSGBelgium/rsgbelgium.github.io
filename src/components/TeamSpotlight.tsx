@@ -32,9 +32,11 @@ const TeamSpotlight: React.FC<TeamSpotlightProps> = ({ members }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
           {members.map((member) => (
             <div key={member.slug} className="text-center bg-surface border border-border p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              {/* Decorative: the name is the heading right below it. */}
               <MemberAvatar
                 name={member.name}
                 image={member.image}
+                decorative
                 className="mx-auto mb-4 border-2 border-accent"
               />
               <h3 className="text-xl font-semibold mb-1 text-foreground">{member.name}</h3>
