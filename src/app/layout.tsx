@@ -14,7 +14,7 @@ import { Inter, Roboto_Mono } from "next/font/google";
 import { ThemeProvider } from "./providers"; // Import the new ThemeProvider
 import Header from '@/app/_components/header'; // Corrected path
 import Footer from '@/app/_components/footer'; // Corrected path
-import { SITE_NAME } from "@/lib/constants";
+import { SITE_NAME, SITE_URL } from "@/lib/constants";
 
 import "./globals.css"; // Ensure Tailwind/global styles are imported
 
@@ -36,13 +36,13 @@ const roboto_mono = Roboto_Mono({
  * Used by Next.js to populate <head> tags.
  */
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rsg-belgium.be'),
+  metadataBase: new URL(SITE_URL),
   title: SITE_NAME,
   description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
   openGraph: {
     title: SITE_NAME,
     description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
-    url: 'https://rsg-belgium.be',
+    url: SITE_URL,
     siteName: SITE_NAME,
     locale: 'en_US',
     type: 'website',
