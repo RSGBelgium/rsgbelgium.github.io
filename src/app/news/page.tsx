@@ -10,7 +10,7 @@ import { Intro } from "@/app/_components/intro";
 import { getAllPosts } from "@/lib/api";
 import { MoreStories } from "@/app/_components/more-stories";
 import { HeroPost } from "@/app/_components/hero-post";
-import { DEFAULT_AUTHOR } from "@/lib/constants";
+import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: 'News | RSG Belgium',
@@ -28,7 +28,10 @@ export default async function NewsPage() {
   return (
     <main>
       <Container>
-        <Intro />
+        <Intro
+          title="News"
+          description={`Stay updated with the latest news and events from ${SITE_NAME}.`}
+        />
         {heroPost && (
           <HeroPost
             title={heroPost.title}

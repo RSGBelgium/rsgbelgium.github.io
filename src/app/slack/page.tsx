@@ -8,7 +8,7 @@ import React from 'react';
 import Container from '@/app/_components/container';
 import Button from '@/components/Button'; // Path to the new Button component
 import { Metadata } from 'next';
-import { Intro } from '@/app/_components/intro'; // Assuming an Intro component exists
+import { Intro } from '@/app/_components/intro';
 
 export const metadata: Metadata = {
   title: 'Join RSG-Belgium on Slack | Connect with the Community',
@@ -24,11 +24,14 @@ const SlackPage = () => {
   return (
     <main>
       <Container>
-        <Intro /> {/* Optional: Or a more specific header for the Slack page */}
+        <Intro
+          title="Slack"
+          description="Join the RSG-Belgium Slack workspace to meet fellow students and researchers, hear about events first and get involved."
+        />
         <div className="py-12 text-center">
-          <h1 className="text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold mb-6">
             Join the RSG Belgium Slack Channel <span role="img" aria-label="speech bubble">💬</span>
-          </h1>
+          </h2>
           <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
             We have created a Slack channel where our members can get to know each other,
             discuss RSG events, collaborate, and get more involved in our organization.

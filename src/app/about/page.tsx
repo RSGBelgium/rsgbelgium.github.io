@@ -9,7 +9,7 @@ import React from 'react';
 import Container from '@/app/_components/container';
 import Button from '@/components/Button'; // Path to the new Button component
 import { Metadata } from 'next';
-import { Intro } from '@/app/_components/intro'; // Assuming an Intro component exists
+import { Intro } from '@/app/_components/intro';
 
 export const metadata: Metadata = {
   title: 'About RSG-Belgium | Our Mission, Values, and Events',
