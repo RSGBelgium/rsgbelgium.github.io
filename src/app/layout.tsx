@@ -32,8 +32,8 @@ const roboto_mono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
-/** Brand blue: browser UI theme colour, Safari pinned-tab and Windows tile colour. */
-const THEME_COLOR = "#004AAD";
+/** Brand blue: Safari pinned-tab and Windows tile colour. */
+const BRAND_COLOR = "#004AAD";
 
 /**
  * Global site metadata for SEO and social platforms.
@@ -70,20 +70,29 @@ export const metadata: Metadata = {
       { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-    other: [{ rel: "mask-icon", url: "/favicon/safari-pinned-tab.svg", color: THEME_COLOR }],
+    other: [{ rel: "mask-icon", url: "/favicon/safari-pinned-tab.svg", color: BRAND_COLOR }],
   },
   manifest: "/favicon/site.webmanifest",
   other: {
-    "msapplication-TileColor": THEME_COLOR,
+    "msapplication-TileColor": BRAND_COLOR,
     "msapplication-config": "/favicon/browserconfig.xml",
   },
 };
 
 /**
  * Site-wide viewport settings: the browser UI (address bar) colour.
+ *
+ * The colours are the `surface` token of each theme (see globals.css), the
+ * colour of the sticky header, so the address bar and the header look like
+ * one bar. Meta tags can't read CSS variables, hence the literal values.
+ * Browsers choose by the operating system's colour scheme: a visitor who
+ * picks the other theme with the site's switcher keeps the OS-based colour.
  */
 export const viewport: Viewport = {
-  themeColor: THEME_COLOR,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#1E293B" },
+  ],
 };
 
 /**
@@ -99,8 +108,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`} suppressHydrationWarning>
-      {/* Removed cn() from body, can be added back if complex conditional classes are needed */}
-      <body className="dark:bg-slate-900 dark:text-slate-400">
+      {/* Page background and text colours come from the theme tokens in globals.css. */}
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
