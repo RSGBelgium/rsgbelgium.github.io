@@ -42,19 +42,19 @@ Expect three 10-minute talks from young researchers working at the forefront of 
   Paragraph 2: who the speaker is (position, lab, institution).
 -->
 
-### Firstname Lastname: _Title of the first talk_
+## Firstname Lastname: _Title of the first talk_
 
 Firstname will present ...
 
 Firstname is a PhD student in the lab of Prof. Name at University, working on ...
 
-### Firstname Lastname: _Title of the second talk_
+## Firstname Lastname: _Title of the second talk_
 
 Firstname will discuss ...
 
 Firstname is a postdoctoral researcher at Institute, ...
 
-### Firstname Lastname: _Title of the third talk_
+## Firstname Lastname: _Title of the third talk_
 
 Firstname studies ...
 

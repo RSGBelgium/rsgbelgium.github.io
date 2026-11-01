@@ -19,19 +19,19 @@ Expect  three 10-minute talks from young researchers working at the forefront o
 
 [![Poster introducing the speakers of Beerformatics on 28 May 2026 in Antwerp](/images/poster/Beerformaticssixthspeakers.png)](/images/poster/Beerformaticssixthspeakers.png)
 
-### **Charlotte Adams** - _Exploring the limitations of mass spectrometry in confidently identifying peptides_
+## **Charlotte Adams** - _Exploring the limitations of mass spectrometry in confidently identifying peptides_
 
 Two distinct peptides can result in nearly identical spectra, making them indistinguishable even though they may have very different biological implications. Prediction models were used as a stand-in for experimental data to investigate these ambiguities in a controlled setting and to highlight the boundaries of current analytical methods.
 
 Charlotte holds a master’s degree in Biochemistry and Biotechnology and completed her PhD in Computational Mass Spectrometry. In her current postdoctoral research at Adrem Data Lab, she focuses on scientific integrity in mass spectrometry, including the method’s limitations and privacy-related challenges.
 
-### **Leandro Fernandes** - _How Gene Networks Reveal the Biology of Acute Myeloid Leukemia Patients_
+## **Leandro Fernandes** - _How Gene Networks Reveal the Biology of Acute Myeloid Leukemia Patients_
 
 AML patients have very different forms of the disease, even when given the same diagnosis. Using single-cell analysis, I mapped how genes interact inside cells and found patient-specific patterns that could help classify patients and serve as a foundation for the development of personalized treatments.
 
 Leandro started his journey into bioinformatics in 2022, and now he is doing a PhD on a cancer research project at Center of Medical Genetics Antwerp (UAntwerp) & Qurin.
 
-### **Ward Hendrix** - _Machine learning reveals substantial autosomal variation in recombination landscapes between two felid lineages._
+## **Ward Hendrix** - _Machine learning reveals substantial autosomal variation in recombination landscapes between two felid lineages._
 
  Ward will present the genomic recombination landscapes inferred for the clouded tiger cat (Leopardus pardinoides) using a recurrent neural networks approach with ReLERNN. Comparison with the domestic cat (Felis catus) reveals substantial variation in autosomal recombination rates within felids. He will show how recombination rate correlates with key genomic features and how recombination-aware phylogenomic approaches can leverage these maps to better resolve the evolutionary history of the Leopardus-lineage.
 

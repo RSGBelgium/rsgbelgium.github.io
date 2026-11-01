@@ -3,7 +3,8 @@
  *
  * Converts markdown content to HTML using unified, remark, and plugins.
  * Adds target="_blank" and rel="noopener noreferrer" to all external links
- * (inline and reference-style), and gives every heading an id so in-page anchor links (e.g. `#tracks`) work.
+ * (inline and reference-style), gives every heading an id so in-page anchor links (e.g. `#tracks`) work,
+ * and demotes `#` headings to `##`, because the page already has its `<h1>`.
  */
 
 import { unified } from "unified";
@@ -82,6 +83,25 @@ function remarkHeadingIds() {
 }
 
 /**
+ * Remark plugin that turns every level-1 heading (`# Title`) into a level-2
+ * heading (`## Title`).
+ *
+ * The page around the markdown already has the one `<h1>`: the post title
+ * (src/app/_components/post-header.tsx) or the page's intro. A second `<h1>`
+ * in the body would break the heading outline that screen-reader users
+ * navigate by, and the route announcer could read the wrong title. Editors
+ * are asked to start at `##` (guides/markdown.md); this is the safety net.
+ * Only `#` headings are changed, so `##` and deeper keep their level.
+ */
+function remarkDemoteH1() {
+  return (tree: Root) => {
+    visit(tree, "heading", (node: Heading) => {
+      if (node.depth === 1) node.depth = 2;
+    });
+  };
+}
+
+/**
  * Converts a markdown string to HTML.
  *
  * @param markdown - The markdown content to convert
@@ -91,6 +111,7 @@ export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
+    .use(remarkDemoteH1)
     .use(remarkHeadingIds)
     .use(remarkExternalLinks)
     .use(remarkHtml, { sanitize: false })

@@ -51,7 +51,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 * 17:35 Networking session with drinks
 * 18:30 Dinner at [Verona][verona]
 
-#### Talks
+### Talks
 
 |Time|Speaker|Affiliation|Topic|
 |---|---|---|---|
