@@ -12,9 +12,9 @@ import DateFormatter from "./date-formatter";
 
 type Props = {
   title: string;
-  coverImage: string;
+  coverImage?: string;
   date: string;
-  excerpt: string;
+  excerpt?: string;
   author?: {
     name: string;
     picture: string;
@@ -26,9 +26,9 @@ type Props = {
  * Displays a preview card for a post, with image, title, date, excerpt, and author.
  *
  * @param title - The post title
- * @param coverImage - The main image for the post
+ * @param coverImage - The main image for the post (optional)
  * @param date - The publication date (ISO string)
- * @param excerpt - Short summary of the post
+ * @param excerpt - Short summary of the post (optional)
  * @param author - The author object (optional)
  * @param slug - The post slug for linking to the detail page
  */
@@ -60,7 +60,7 @@ export function PostPreview({
       <div className="text-lg mb-4">
         <DateFormatter dateString={date} />
       </div>
-      <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
+      {excerpt && <p className="text-lg leading-relaxed mb-4">{excerpt}</p>}
       <Avatar
         name={author?.name || defaultAuthor.name}
         picture={author?.picture || defaultAuthor.picture}

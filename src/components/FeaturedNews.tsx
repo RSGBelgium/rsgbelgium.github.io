@@ -52,9 +52,11 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                 <div className="text-sm text-gray-500 mb-3">
                   <DateFormatter dateString={post.date} />
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-4 text-sm">
-                  {post.excerpt}
-                </p>
+                {post.excerpt && (
+                  <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                    {post.excerpt}
+                  </p>
+                )}
               </div>
               <div className="p-6 pt-0">
                  <Link href={`/news/${post.slug}`} className="text-primary hover:text-secondary font-medium text-sm">

@@ -12,9 +12,9 @@ import DateFormatter from "./date-formatter";
 
 type Props = {
   title: string;
-  coverImage: string;
+  coverImage?: string;
   date: string;
-  excerpt: string;
+  excerpt?: string;
   author: Author;
   slug: string;
 };
@@ -23,9 +23,9 @@ type Props = {
  * Displays a large-format, featured post preview with image, title, date, excerpt, and author.
  *
  * @param title - The post title
- * @param coverImage - The main image for the post
+ * @param coverImage - The main image for the post (optional)
  * @param date - The publication date (ISO string)
- * @param excerpt - Short summary of the post
+ * @param excerpt - Short summary of the post (optional)
  * @param author - The author object
  * @param slug - The post slug for linking to the detail page
  */
@@ -39,9 +39,11 @@ export function HeroPost({
 }: Props) {
   return (
     <section>
-      <div className="mb-8 md:mb-16">
-        <CoverImage title={title} src={coverImage} slug={slug} />
-      </div>
+      {coverImage && (
+        <div className="mb-8 md:mb-16">
+          <CoverImage title={title} src={coverImage} slug={slug} />
+        </div>
+      )}
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
         <div>
           <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
@@ -54,7 +56,7 @@ export function HeroPost({
           </div>
         </div>
         <div>
-          <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
+          {excerpt && <p className="text-lg leading-relaxed mb-4">{excerpt}</p>}
           <Avatar name={author.name} picture={author.picture} />
         </div>
       </div>

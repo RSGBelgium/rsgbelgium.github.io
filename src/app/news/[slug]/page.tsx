@@ -6,7 +6,7 @@
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/api";
+import { getPostBySlug, getPostSlugs } from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
 import Alert from "@/app/_components/alert";
 import Container from "@/app/_components/container";
@@ -92,12 +92,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 /**
  * Generates static parameters for all news posts for static site generation.
  *
+ * Uses every post file, including unlisted posts, so that their pages are
+ * still built even though they are hidden from the news listings.
+ *
  * @returns Array of objects containing slugs for all posts.
  */
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const slugs = await getPostSlugs();
 
-  return posts.map((post) => ({
-    slug: post.slug,
+  return slugs.map((slug) => ({
+    slug,
   }));
 }

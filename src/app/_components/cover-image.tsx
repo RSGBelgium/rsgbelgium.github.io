@@ -10,7 +10,7 @@ import Image from "next/image";
 
 type Props = {
   title: string;
-  src: string;
+  src?: string;
   slug?: string;
 };
 
@@ -18,7 +18,7 @@ type Props = {
  * Displays a cover image for a post, optionally wrapped in a link.
  *
  * @param title - The title of the post (used for alt text and aria-label)
- * @param src - The image source URL
+ * @param src - The image source URL (optional; nothing is rendered without it)
  * @param slug - Optional post slug for linking to the post detail page
  */
 const CoverImage = ({ title, src, slug }: Props) => {
