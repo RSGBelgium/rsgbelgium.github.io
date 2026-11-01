@@ -34,7 +34,7 @@ every section. Delete the comments when you are done.
 | What | Folder | Shown at |
 |------|--------|----------|
 | News posts and event announcements | `content/news/` | `/news` and the homepage ("Latest News") |
-| Team member profiles | `content/organization/` | `/organization` |
+| Team member profiles | `content/organization/` | `/organization` and the homepage ("Meet the Team") |
 | Images, posters, photos | `public/images/...` | see [Images and files](images-and-files.md) |
 | PDFs and calendar files | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md) |
 
@@ -73,14 +73,34 @@ Posts are ordered by the `date` in their front matter, not by file name.
 
 1. Copy [`templates/member-profile.md`](templates/member-profile.md) to
    `content/organization/firstname-lastname.md`.
-2. Add their portrait to `public/images/team/` (see
-   [Images and files](images-and-files.md)).
-3. Fill in `name`, `title` (their role) and `image`, plus `linkedin` and
-   `orcid` if they have them, and write a short bio below the front matter.
+2. Optionally, add their portrait to `public/images/team/` (roughly square,
+   at most about 600 × 600 px; see [Images and files](images-and-files.md)).
+   Without a photo, the website shows their initials in a blue circle.
+3. Fill in the front matter: `name` (required), `title` (their board role),
+   `affiliation` (university), `position` (e.g. "PhD student"), `city`,
+   `image`, and `linkedin`/`orcid` profile URLs if they have them. Write a
+   short bio below the front matter.
 
-Members are listed alphabetically by name on `/organization`. When someone
-leaves the board, move their file to `content/organization/old/`. Files in
-subfolders are not shown on the site.
+Only `name` is required; empty fields are hidden on the website. For data
+you don't have yet, use the placeholders below and add a `# TODO: ...`
+comment after the field, so anyone can find the gaps by searching for
+`TODO` in `content/organization/`:
+
+| Field | Placeholder |
+|-------|-------------|
+| `title` | `"Board Member"` |
+| `image` | `""` (initials are shown) |
+| `affiliation`, `position`, `city`, `linkedin`, `orcid` | `""` |
+| Bio (the text below the front matter) | `Bio coming soon.` |
+
+Members are ordered by their `order` field on `/organization` and on the
+homepage, which shows the first four: lower numbers come first (`1` for the
+President, `2` for the other officers). Members without `order` come after
+them, alphabetically by name.
+
+When someone leaves the board, delete their file. Git history keeps it, and
+files in subfolders of `content/organization/` are not shown on the site
+anyway.
 
 ## Previewing your changes
 
