@@ -22,6 +22,11 @@
   @apply text-2xl mt-8 mb-4 leading-snug;
 }
 
+/* Images: centred and scaled down to fit the content column */
+.markdown img {
+  @apply block mx-auto max-w-full h-auto;
+}
+
 /* Table styles */
 .markdown table {
   @apply w-full my-6 border-collapse;

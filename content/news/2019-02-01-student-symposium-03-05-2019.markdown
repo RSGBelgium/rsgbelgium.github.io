@@ -58,7 +58,7 @@ After the symposium we will go to the restaurant [Nieuwetijd][resto] in the city
 
 ## Flyer
 
-[![full](/assets/img/poster/poster_rsg_symposium-03-05-19.png){: .center}]({{ site.baseurl }}/assets/pdf/poster_rsg_symposium-03-05-19.pdf)
+[![Poster for the RSG-Belgium Bioinformatics Student Symposium on 3 May 2019 at KU Leuven](/images/poster/poster_rsg_symposium-03-05-19.png)](/assets/pdf/poster_rsg_symposium-03-05-19.pdf)
 
 [aerts]: https://aertslab.org/
 [form]: https://docs.google.com/forms/d/e/1FAIpQLSdsJ94x_S66q1XfOpGqWL53BP2nt_tHN0CWYcZgKEYESXHfww/viewform

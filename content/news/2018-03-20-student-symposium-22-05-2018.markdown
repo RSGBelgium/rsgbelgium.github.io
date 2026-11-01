@@ -42,7 +42,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 
 * 12:30 Registration
 * 13:00 Opening remarks
-* 13:10 Keynote by [Kris Laukens (UAntwerp)](krislaukens): Hacking the molecular networks of life, from _in vitro_ to _in silico_
+* 13:10 Keynote by [Kris Laukens (UAntwerp)][krislaukens]: Hacking the molecular networks of life, from _in vitro_ to _in silico_
 * 14:00 Tour of RSG Belgium
 * 14:20 1<sup>st</sup> student talks session
 * 15:00 Coffee break with poster session
@@ -70,7 +70,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 
 ## Flyer
 
-[![full](/assets/img/poster/poster_rsg_symposium-22-05-18.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_rsg_symposium-22-05-18.pdf)
+[![Poster for the RSG-Belgium Bioinformatics Student Symposium on 22 May 2018 in Antwerp](/images/poster/poster_rsg_symposium-22-05-18.png)](/assets/pdf/poster_rsg_symposium-22-05-18.pdf)
 
 [biomina]: http://www.biomina.be/
 [krislaukens]: https://www.uantwerpen.be/en/staff/kris-laukens/
