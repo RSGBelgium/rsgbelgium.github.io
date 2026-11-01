@@ -68,6 +68,13 @@
     --color-hero-end: 74 23 82;               /* #4A1752 */
   }
 
+  /* The header is sticky (4rem tall). When the browser scrolls to an anchor
+     (#how-to-get-there, the skip link's #main-content) or to an element that
+     receives keyboard focus, keep it below the header instead of under it. */
+  html {
+    scroll-padding-top: 5rem;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

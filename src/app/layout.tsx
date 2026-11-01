@@ -126,9 +126,8 @@ export default function RootLayout({
             <SkipLink targetId={MAIN_CONTENT_ID} />
             <Header />
             {/* The page's only <main>: pages render their content inside it, not another <main>.
-                tabIndex={-1} lets the skip link move focus here; main itself shows no focus outline.
-                scroll-mt-16 keeps the top of the content clear of the sticky header. */}
-            <main id={MAIN_CONTENT_ID} tabIndex={-1} className="flex-grow scroll-mt-16 focus:outline-none">
+                tabIndex={-1} lets the skip link move focus here; main itself shows no focus outline. */}
+            <main id={MAIN_CONTENT_ID} tabIndex={-1} className="flex-grow focus:outline-none">
               {children}
             </main>
             <Footer />
