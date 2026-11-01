@@ -34,19 +34,19 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   // e.g. "KU Leuven · PhD student · Brussels", skipping the parts that are empty.
   const details = [affiliation, position, city].filter(Boolean).join(" · ");
   const profileLinks = [
-    { label: "LinkedIn", url: linkedin, className: "text-blue-500 hover:text-blue-700" },
-    { label: "ORCID", url: orcid, className: "text-green-500 hover:text-green-700" },
+    { label: "LinkedIn", url: linkedin },
+    { label: "ORCID", url: orcid },
   ].filter((link) => link.url);
 
   return (
-    <div className="bg-white dark:bg-slate-900 shadow-lg rounded-lg p-6 text-center">
+    <div className="bg-surface border border-border shadow-lg rounded-lg p-6 text-center">
       <MemberAvatar name={name} image={image} className="mx-auto mb-4" />
       <h3 className="text-xl font-semibold mb-1">{name}</h3>
-      {title && <p className="text-gray-600 dark:text-slate-400 mb-1">{title}</p>}
-      {details && <p className="text-sm text-gray-500 dark:text-slate-400 mb-3">{details}</p>}
+      {title && <p className="text-foreground-muted mb-1">{title}</p>}
+      {details && <p className="text-sm text-foreground-muted mb-3">{details}</p>}
       {bioHtml && (
         <div
-          className="text-left text-sm leading-relaxed text-gray-700 dark:text-slate-300 space-y-3 my-4"
+          className="text-left text-sm leading-relaxed text-foreground space-y-3 my-4"
           dangerouslySetInnerHTML={{ __html: bioHtml }}
         />
       )}
@@ -59,7 +59,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${name} on ${link.label}`}
-              className={`${link.className} dark:text-lightblue dark:hover:text-white`}
+              className="text-link hover:underline"
             >
               {link.label}
             </a>
