@@ -32,7 +32,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ headline, introText, ctaLabel
       <Container>
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-8">
           <div className="flex-shrink-0 flex justify-center md:justify-start w-full md:w-auto">
-            <Image src="/images/logo/rsgBe.svg" alt="RSG Belgium Logo" width={240} height={240} priority />
+            {/* The logo's black lettering vanishes on the dark-mode gradient, so dark mode
+                shows the variant with grey lettering on its own dark tile (rounded here).
+                An image can't follow the colour tokens, hence the dark: classes. */}
+            <Image src="/images/logo/rsgBe.svg" alt="RSG Belgium Logo" width={240} height={240} priority className="dark:hidden" />
+            <Image src="/images/logo/rsgBe_light.svg" alt="RSG Belgium Logo" width={240} height={240} priority className="hidden dark:block rounded-2xl" />
           </div>
           <div className="flex-1">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
