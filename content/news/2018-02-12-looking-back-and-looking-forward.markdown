@@ -17,18 +17,18 @@ Firstly, we would like to thank everyone who participated in the meeting for the
 
 **Andrea Gazzo** is stepping down as RSG Belgium's Vice President, so on behalf of all members and the board, a big thank you for all your contributions, Andrea!
 
-**Nikolina Sostaric** will take over his role from now on. Congratulations Nikolina and good luck! You can learn more about Nikolina (and all the other board members too!) on our [organization page](/organization/).
+**Nikolina Sostaric** will take over his role from now on. Congratulations Nikolina and good luck! You can learn more about Nikolina (and all the other board members too!) on our [organization page](/organization).
 
 ### University Representatives
 
-An important new board function was defined during the meeting: the **university representatives**. We aim to assign an RSG representative to each Belgian university. Their role will consist of networking and management. We believe that by having a local spokesperson the barrier of entry for potential new members will be lowered and the communication between universities will become more efficient. Please [contact us](/contact/) if you'd like to represent your university, since we are still searching for representatives for UGent, UCL, UNamur, UMons and ULiège.
+An important new board function was defined during the meeting: the **university representatives**. We aim to assign an RSG representative to each Belgian university. Their role will consist of networking and management. We believe that by having a local spokesperson the barrier of entry for potential new members will be lowered and the communication between universities will become more efficient. Please [contact us](/contact) if you'd like to represent your university, since we are still searching for representatives for UGent, UCL, UNamur, UMons and ULiège.
 
 ### Joining RSG Belgium in various degrees
 
 “_How do I join RSG?_” is one of the most frequent questions that we heard in the past year. In order to address this issue, we have developed a three-layered structure of involvement.
 
-- The [announcement section <i class="far fa-newspaper" aria-hidden="true"></i>](/news/) of our new website and the [mailing list <i class="fas fa-envelope-open" aria-hidden="true"></i>](http://listserver.ua.ac.be/sympa/subscribe/rsg-belgium) provide a passive method of participation, whereby you can receive periodical updates on our activities.
-- Closer participation can be achieved through our [Slack group <i class="fab fa-slack" aria-hidden="true"></i>](/slack/), which encourages both professional and social networking, as well as brainstorming on ideas and activities.
+- The [announcement section](/news) of our new website and the [mailing list](http://listserver.ua.ac.be/sympa/subscribe/rsg-belgium) provide a passive method of participation, whereby you can receive periodical updates on our activities.
+- Closer participation can be achieved through our [Slack group](/slack), which encourages both professional and social networking, as well as brainstorming on ideas and activities.
 - The third layer is becoming an active part of the board team or acting as a university representative.
 
 The aim is to let everyone join and become as involved as they prefer, without demanding too much from any single member. Although we saw an increased interest in RSG compared to last year, we are still striving to grow the organization by recruiting in strategic positions such as Ghent, Namur and Liège.
@@ -37,7 +37,7 @@ The aim is to let everyone join and become as involved as they prefer, without d
 
 ### Website expansion
 
-Our new website has been up and running for a few months now, but there are definitely some areas left which can still be improved upon. So far we've updated our [organization page](/organization/), eased the process of [joining Slack](/slack/) and tweaked a number of aesthetic choices.
+Our new website has been up and running for a few months now, but there are definitely some areas left which can still be improved upon. So far we've updated our [organization page](/organization), eased the process of [joining Slack](/slack) and tweaked a number of aesthetic choices.
 
 There's more in store, however! For example, we are playing with the idea of creating a contribution page to thank and congratulate members for their work. A member list is also on the table, since connecting people based on their research interests is the main goal of this network, after all.
 

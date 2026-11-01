@@ -60,7 +60,7 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 19:00–20:00 | Awards & closing ceremony                                        |
 
 ## About the Workshops {#event-overview} 
-For more details regarding preparing for the workshops, check out this [page](https://rsg-belgium.org/news/2025-09-23-biohackathon25-workshops)
+For more details regarding preparing for the workshops, check out this [page](/news/2025-09-23-biohackathon25-workshops)
 ### Exploratory and Confirmatory Data Analysis in Biology and Healthcare
 This talk will explore the complementary roles of exploratory and confirmatory analysis in biology and health research, with a central focus on differential analysis. From traditional differential analysis on tabular data to more complex applications such as gene regulatory network inference and analysis, I will discuss how analytical approaches must be tailored to the specific goals and data characteristics of each application. By understanding these needs—whether generating new hypotheses, validating biological mechanisms, or supporting clinical decisions—we can better integrate exploratory and confirmatory methods to enhance both discovery and rigor in computational biology and health sciences.
 
