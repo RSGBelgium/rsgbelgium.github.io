@@ -9,10 +9,12 @@ import Container from '@/app/_components/container';
 import Button from '@/components/Button'; // Path to the new Button component
 import { Metadata } from 'next';
 import { Intro } from '@/app/_components/intro';
+import { pageAlternates } from '@/lib/metadata';
 
 export const metadata: Metadata = {
-  title: 'Join RSG-Belgium on Slack | Connect with the Community',
+  title: 'Join Us on Slack',
   description: 'Become a part of the RSG-Belgium community by joining our Slack channel. Request an invitation to discuss events, collaborate, and network with fellow bioinformaticians.',
+  alternates: pageAlternates('/slack'),
 };
 
 /**

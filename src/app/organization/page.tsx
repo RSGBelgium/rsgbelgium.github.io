@@ -4,6 +4,7 @@
  * Displays the team members, their roles, and structured data for SEO.
  */
 
+import type { Metadata } from "next";
 import { Intro } from "@/app/_components/intro";
 import Container from "@/app/_components/container";
 import TeamMemberCard from "@/components/TeamMemberCard";
@@ -11,6 +12,13 @@ import { getAllMembers } from "@/lib/api";
 import { Member } from "@/interfaces/member";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import markdownToHtml from "@/lib/markdownToHtml";
+import { pageAlternates } from "@/lib/metadata";
+
+export const metadata: Metadata = {
+  title: "Our Team",
+  description: "Meet the board of RSG-Belgium: the students and young researchers who organise our events.",
+  alternates: pageAlternates("/organization"),
+};
 
 /**
  * Turns a site path into an absolute URL; absolute URLs are returned unchanged.
@@ -112,14 +120,3 @@ export default async function OrganizationPage() {
   );
 }
 
-/**
- * Generates metadata for the Organization page.
- *
- * @returns Metadata object for the page.
- */
-export async function generateMetadata() {
-  return {
-    title: "Our Team | RSG Belgium",
-    description: "Meet the team behind RSG Belgium.",
-  };
-}

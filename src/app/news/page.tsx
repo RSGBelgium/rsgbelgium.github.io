@@ -11,10 +11,12 @@ import { getAllPosts } from "@/lib/api";
 import { MoreStories } from "@/app/_components/more-stories";
 import { HeroPost } from "@/app/_components/hero-post";
 import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: 'News | RSG Belgium',
+  title: 'News',
   description: 'Stay updated with the latest news, events, and announcements from RSG Belgium.',
+  alternates: pageAlternates('/news'),
 };
 
 /**

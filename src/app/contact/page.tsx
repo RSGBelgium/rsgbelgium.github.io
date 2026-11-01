@@ -6,10 +6,12 @@
 
 import { Metadata } from 'next';
 import ContactForm from './contact-form';
+import { pageAlternates } from '@/lib/metadata';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | RSG Belgium',
+  title: 'Contact Us',
   description: 'Send your questions, suggestions, or feedback to RSG-Belgium. Use our contact form or find alternative contact methods on this page.',
+  alternates: pageAlternates('/contact'),
 };
 
 /**
