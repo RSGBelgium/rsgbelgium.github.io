@@ -89,11 +89,45 @@
 
 /* ---------------------------------------------------------------------------
    Buttons
-   --------------------------------------------------------------------------- */
-.button-primary {
-  @apply bg-primary text-white hover:bg-secondary;
-}
+   ---------------------------------------------------------------------------
+   Colour variants used by src/components/Button.tsx, which adds the size,
+   font and corner radius. They live in the components layer, so utility
+   classes passed to a button (e.g. `w-full`) still override them.
 
-.button-outline {
-  @apply border-primary text-primary hover:bg-primary hover:text-white;
+   Every variant has a 2px border (transparent when it shouldn't show), so
+   buttons of different variants side by side are the same height.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .button-primary,
+  .button-secondary,
+  .button-outline,
+  .button-inverse {
+    @apply border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  /* Solid brand blue, for the main action on a page. */
+  .button-primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary-hover;
+    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
+  }
+
+  /* Light blue, for secondary actions such as "View All News". */
+  .button-secondary {
+    @apply border-transparent bg-highlight text-foreground hover:bg-primary hover:text-primary-foreground;
+    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
+  }
+
+  /* Bordered, on the page background. The text uses `link`, because the
+     dark theme's primary blue is too dim for text on the page (3.7:1). */
+  .button-outline {
+    @apply border-primary text-link hover:bg-primary hover:text-primary-foreground;
+    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
+  }
+
+  /* White outline, for the hero gradient and other dark or coloured backgrounds.
+     The focus ring is white too, with the background showing through the gap. */
+  .button-inverse {
+    @apply border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary;
+    @apply focus-visible:ring-primary-foreground focus-visible:ring-offset-transparent;
+  }
 }
