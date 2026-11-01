@@ -38,7 +38,9 @@ export default function ContactPage() {
           from you. Pick whichever channel suits you best.
         </p>
 
-        <ul className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+        {/* grid-cols-1 (minmax(0, 1fr)) and overflow-wrap:anywhere on the link let a long link,
+            such as the e-mail address, wrap on narrow phones instead of widening the page. */}
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
           {CONTACT_CHANNELS.map((channel) => (
             <li
               key={channel.id}
@@ -52,7 +54,7 @@ export default function ContactPage() {
                 <p className="mt-1 text-sm text-foreground-muted">{channel.description}</p>
                 <ContactChannelLink
                   channel={channel}
-                  className="mt-3 inline-block break-words font-medium text-link hover:underline focus:outline-none focus-visible:underline after:absolute after:inset-0 after:rounded-lg"
+                  className="mt-3 inline-block [overflow-wrap:anywhere] font-medium text-link hover:underline focus:outline-none focus-visible:underline after:absolute after:inset-0 after:rounded-lg"
                 >
                   {channel.linkText}
                 </ContactChannelLink>
