@@ -62,10 +62,6 @@ const config: Config = {
           start: token("hero-start"),
           end: token("hero-end"),
         },
-        // Old fixed colours: removed once every component uses the tokens above.
-        secondary: "#E385EC",
-        white: "#FFFFFF",
-        lightblue: "#D6E8FF",
       },
       // A bare `border` (and <hr>) uses the theme's border colour instead of gray-200.
       borderColor: {
