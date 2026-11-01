@@ -1,16 +1,20 @@
 /**
  * Team member profile card component.
  *
- * Renders a card with member photo, name, title, and social links.
+ * Renders a card with the member's avatar, name, board role, affiliation,
+ * bio and profile links. Empty fields are left out.
  */
 
-import Image from 'next/image';
-import Link from 'next/link';
+import MemberAvatar from "./MemberAvatar";
 
 type TeamMemberCardProps = {
   name: string;
   title: string;
-  image: string;
+  image?: string;
+  affiliation?: string;
+  position?: string;
+  city?: string;
+  bioHtml?: string;
   linkedin?: string;
   orcid?: string;
 };
@@ -19,40 +23,67 @@ type TeamMemberCardProps = {
  * Displays a profile card for a team member.
  *
  * @param name - Member's name
- * @param title - Member's title/role
- * @param image - Member's photo URL
+ * @param title - Member's board role, e.g. "President"
+ * @param image - Member's photo URL; without one, their initials are shown
+ * @param affiliation - University or institute (optional)
+ * @param position - Academic position, e.g. "PhD student" (optional)
+ * @param city - City the member is based in (optional)
+ * @param bioHtml - The member's bio, already converted from markdown to HTML (optional)
  * @param linkedin - LinkedIn profile URL (optional)
  * @param orcid - ORCID profile URL (optional)
  */
-const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ name, title, image, linkedin, orcid }) => {
-
+const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
+  name,
+  title,
+  image,
+  affiliation,
+  position,
+  city,
+  bioHtml,
+  linkedin,
+  orcid,
+}) => {
+  // e.g. "KU Leuven · PhD student · Brussels", skipping the parts that are empty.
+  const details = [affiliation, position, city].filter(Boolean).join(" · ");
 
   return (
     <div className="bg-white dark:bg-slate-900 shadow-lg rounded-lg p-6 text-center">
-      <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
-        <Image
-
-          src={image} // Use the prop directly
-          alt={name}
-          fill={true} // Modern prop for layout="fill"
-          style={{ objectFit: 'cover' }} // Modern prop for objectFit
-
-        />
-      </div>
+      <MemberAvatar name={name} image={image} className="mx-auto mb-4" />
       <h3 className="text-xl font-semibold mb-1">{name}</h3>
-      <p className="text-gray-600 mb-3">{title}</p>
-      <div className="flex justify-center space-x-4">
-        {linkedin && (
-          <Link href={linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 dark:text-lightblue dark:hover:text-white">
-            LinkedIn
-          </Link>
-        )}
-        {orcid && (
-          <Link href={orcid} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700 dark:text-lightblue dark:hover:text-white">
-            ORCID
-          </Link>
-        )}
-      </div>
+      {title && <p className="text-gray-600 dark:text-slate-400 mb-1">{title}</p>}
+      {details && <p className="text-sm text-gray-500 dark:text-slate-400 mb-3">{details}</p>}
+      {bioHtml && (
+        <div
+          className="text-left text-sm leading-relaxed text-gray-700 dark:text-slate-300 space-y-3 my-4"
+          dangerouslySetInnerHTML={{ __html: bioHtml }}
+        />
+      )}
+      {(linkedin || orcid) && (
+        <div className="flex justify-center space-x-4">
+          {linkedin && (
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${name} on LinkedIn`}
+              className="text-blue-500 hover:text-blue-700 dark:text-lightblue dark:hover:text-white"
+            >
+              LinkedIn
+            </a>
+          )}
+          {orcid && (
+            <a
+              href={orcid}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${name} on ORCID`}
+              className="text-green-500 hover:text-green-700 dark:text-lightblue dark:hover:text-white"
+            >
+              ORCID
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 };
