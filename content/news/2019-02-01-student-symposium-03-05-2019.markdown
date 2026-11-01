@@ -19,7 +19,7 @@ Our keynote speaker is Prof. Dr. Ir. Stein Aerts of the KU Leuven. Stein Aerts i
 
 > [Computer Science (200A) - room 00.144 - Campus Arenberg](https://www.kuleuven.be/kulag/en/lokaal/490-12-000144), Celestijnenlaan 200A, 3001 Leuven
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d629.5558940230346!2d4.678468339510736!3d50.86406055038531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16110fd300347%3A0x46c648b1747e02ae!2sDepartement+computerwetenschappen!5e0!3m2!1snl!2sbe!4v1553591106026" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<iframe title="Map of the KU Leuven Computer Science department, Celestijnenlaan 200A, Leuven" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d629.5558940230346!2d4.678468339510736!3d50.86406055038531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16110fd300347%3A0x46c648b1747e02ae!2sDepartement+computerwetenschappen!5e0!3m2!1snl!2sbe!4v1553591106026" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ## Registration (deadline 19/04/2019)
 
