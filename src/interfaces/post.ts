@@ -17,7 +17,6 @@ import { type Author } from "./author";
  * @property excerpt - Short summary of the post, used in previews and SEO (optional)
  * @property ogImage - Open Graph image object (optional)
  * @property content - Markdown/HTML content for the post
- * @property preview - If true, this is a preview post (optional)
  * @property category - Category of the post
  */
 export type Post = {
@@ -31,6 +30,5 @@ export type Post = {
     url: string;
   };
   content: string;
-  preview?: boolean;
   category: string;
 };

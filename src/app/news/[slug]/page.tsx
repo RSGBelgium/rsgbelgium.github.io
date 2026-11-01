@@ -8,7 +8,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getPostSlugs } from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
-import Alert from "@/app/_components/alert";
 import Container from "@/app/_components/container";
 import { PostBody } from "@/app/_components/post-body";
 import PostHeader from "@/app/_components/post-header";
@@ -31,7 +30,6 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
 
   return (
     <main>
-      <Alert preview={post.preview} />
       <Container>
         <article className="mb-32">
           <PostHeader

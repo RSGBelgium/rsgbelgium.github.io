@@ -10,7 +10,6 @@ import { getAllPosts, getAllMembers } from "@/lib/api"; // Import getAllMembers
 import HeroSection from "@/components/HeroSection";
 import FeaturedNews from "@/components/FeaturedNews";
 import TeamSpotlight from "@/components/TeamSpotlight";
-import Container from "@/app/_components/container"; // Keep container if sections don't have their own full-width bg
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
