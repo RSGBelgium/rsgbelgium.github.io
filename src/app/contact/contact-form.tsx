@@ -16,7 +16,7 @@ import Link from 'next/link';
  */
 export default function ContactForm() {
   return (
-    <main>
+    <div>
       <Container>
         <div className="py-12 md:py-20">
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
@@ -35,6 +35,6 @@ export default function ContactForm() {
           </div>
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

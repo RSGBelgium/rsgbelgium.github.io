@@ -28,24 +28,22 @@ export default async function NewsPage() {
   const morePosts = allPosts.slice(1);
 
   return (
-    <main>
-      <Container>
-        <Intro
-          title="News"
-          description={`Stay updated with the latest news and events from ${SITE_NAME}.`}
+    <Container>
+      <Intro
+        title="News"
+        description={`Stay updated with the latest news and events from ${SITE_NAME}.`}
+      />
+      {heroPost && (
+        <HeroPost
+          title={heroPost.title}
+          coverImage={heroPost.coverImage}
+          date={heroPost.date}
+          author={heroPost.author || DEFAULT_AUTHOR}
+          slug={heroPost.slug}
+          excerpt={heroPost.excerpt}
         />
-        {heroPost && (
-          <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.coverImage}
-            date={heroPost.date}
-            author={heroPost.author || DEFAULT_AUTHOR}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
-          />
-        )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </Container>
-    </main>
+      )}
+      {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+    </Container>
   );
 }

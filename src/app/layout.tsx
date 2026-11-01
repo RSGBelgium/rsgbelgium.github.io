@@ -4,7 +4,8 @@
  * - Sets up global fonts and CSS.
  * - Provides site-wide metadata for SEO and social sharing.
  * - Wraps the app in a ThemeProvider for dark/light mode support.
- * - Renders the main page structure including header, footer, and children.
+ * - Renders the main page structure: a "Skip to main content" link, the
+ *   header, the page's single <main> landmark around the children, and the footer.
  *
  * This file follows Next.js App Router conventions for layouts.
  */
@@ -14,6 +15,7 @@ import { Inter, Roboto_Mono } from "next/font/google";
 import { ThemeProvider } from "./providers"; // Import the new ThemeProvider
 import Header from '@/app/_components/header'; // Corrected path
 import Footer from '@/app/_components/footer'; // Corrected path
+import SkipLink from '@/app/_components/skip-link';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { BASE_OPEN_GRAPH, FEED_ALTERNATE_TYPES } from "@/lib/metadata";
 
@@ -31,6 +33,9 @@ const roboto_mono = Roboto_Mono({
   display: 'swap',
   variable: '--font-roboto-mono',
 });
+
+/** Id of the <main> landmark, the target of the "Skip to main content" link. */
+const MAIN_CONTENT_ID = "main-content";
 
 /** Brand blue: Safari pinned-tab and Windows tile colour. */
 const BRAND_COLOR = "#004AAD";
@@ -117,9 +122,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen flex flex-col">
-            {/* The old ThemeSwitcher rendering is removed. The new one will be in Header or elsewhere. */}
+            {/* First focusable element: lets keyboard users jump past the header. */}
+            <SkipLink targetId={MAIN_CONTENT_ID} />
             <Header />
-            <main className="flex-grow"> {/* Removed container classes, pages/components will manage their own */}
+            {/* The page's only <main>: pages render their content inside it, not another <main>.
+                tabIndex={-1} lets the skip link move focus here; main itself shows no focus outline.
+                scroll-mt-16 keeps the top of the content clear of the sticky header. */}
+            <main id={MAIN_CONTENT_ID} tabIndex={-1} className="flex-grow scroll-mt-16 focus:outline-none">
               {children}
             </main>
             <Footer />
