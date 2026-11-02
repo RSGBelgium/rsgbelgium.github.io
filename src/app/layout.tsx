@@ -50,6 +50,9 @@ const BRAND_COLOR = "#004AAD";
  *   share image comes from src/app/opengraph-image.png.
  * - `alternates` only advertises the RSS feed here. Canonical URLs are set per
  *   page with pageAlternates(), so a page can never inherit "/" as its canonical.
+ * - `icons`: the RSG-Belgium mark, public/favicon/favicon.svg, for browsers that
+ *   show SVG favicons. `npm run optimize:images` generates the other files in
+ *   public/favicon/ from it (favicon.ico holds 16, 32 and 48 px icons).
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -70,7 +73,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon.ico", sizes: "16x16 32x32 48x48" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
