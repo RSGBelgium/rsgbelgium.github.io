@@ -55,7 +55,8 @@ Ask a developer if you need to change them.
 4. **Write the post** in Markdown. See [Markdown](markdown.md).
 5. **Add images and files** to `public/` and link them. See
    [Images and files](images-and-files.md).
-6. **Preview** it locally (see below), then open a pull request.
+6. **Preview** it locally and run `npm run check:content` (see below), then
+   open a pull request.
 
 ### The file name is the URL
 
@@ -80,6 +81,8 @@ Posts are ordered by the `date` in their front matter, not by file name.
    `affiliation` (university), `position` (e.g. "PhD student"), `city`,
    `image`, and `linkedin`/`orcid` profile URLs if they have them. Write a
    short bio below the front matter.
+4. Run `npm run check:content`. Never add e-mail addresses or phone numbers:
+   profiles are public, and the check rejects them.
 
 Only `name` is required; empty fields are hidden on the website. For data
 you don't have yet, use the placeholders below and add a `# TODO: ...`
@@ -105,7 +108,8 @@ anyway.
 
 ## Previewing your changes
 
-You need [Node.js](https://nodejs.org/) (version 18.18 or later) and the
+You need [Node.js](https://nodejs.org/) 26 (the current LTS version; the
+exact version is in the `.nvmrc` file, so `nvm use` picks it) and the
 repository on your computer.
 
 ```bash
@@ -123,7 +127,35 @@ Check that:
 - every image shows up and every link works, including `#anchor` links;
 - nothing appears as raw code, such as `{{ ... }}`, `{: ... }` or `{#...}`.
 
-Optionally, run `npx next build` to check that the whole site still builds.
+## Checking your changes
+
+Before you open a pull request, run the content check:
+
+```bash
+npm run check:content
+```
+
+It checks every post and team profile and lists each problem with the file,
+the line and how to fix it, for example:
+
+```text
+content/news/2026-10-15-beerformatics-ghent.md:3: error: the date must be in quotes, e.g. date: "2026-10-15". ...
+```
+
+It finds, among other things: a missing `title` or `date`, a date without
+quotes, images and files that don't exist in `public/`, links to posts that
+don't exist, broken links such as `ttps://...` or `assets/...` without the
+leading `/`, leftover `{{ }}` or `{: }` syntax, `<iframe>`s without a
+`title`, and e-mail addresses or phone numbers in team profiles.
+
+The same check runs automatically on every pull request (GitHub Actions,
+"CI"), together with a build of the whole site and a check of every built
+page. Don't merge a pull request with a red ✗: open the failed check, read
+the messages (they are also shown next to the changed lines under "Files
+changed"), fix them and push again. A change to `main` is only published
+when these checks pass.
+
+To run everything CI runs, including the build, use `npm run ci`.
 
 ## Publishing (branch, pull request, review)
 
@@ -143,11 +175,15 @@ Nobody commits directly to `main`. Every change goes through a pull request:
    git push -u origin content/beerformatics-ghent-announcement
    ```
 3. Open a pull request on GitHub and ask another board member to review it.
-4. When the pull request is merged into `main`, GitHub Actions rebuilds and
-   publishes the site automatically. It is usually live within a few minutes.
+   CI checks it automatically (see [Checking your changes](#checking-your-changes)):
+   wait for the green ✓, or fix what it reports.
+4. When the pull request is merged into `main`, GitHub Actions checks, builds
+   and publishes the site automatically. It is usually live within a few minutes.
 
 Never commit personal data such as member lists, registration exports or
 spreadsheets. Git keeps every committed file in its history, even after the
-file is deleted, and everyone with access to the repository can see it.
+file is deleted, and everyone with access to the repository can see it. The
+content check fails if a spreadsheet (`.csv`, `.xlsx`, ...) is added to git,
+or if a team profile contains an e-mail address or phone number.
 
 If you get stuck, ask in the board Slack channel or open an issue on GitHub.

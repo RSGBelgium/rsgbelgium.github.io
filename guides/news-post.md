@@ -87,3 +87,4 @@ Use `YYYY-MM-DD` with leading zeros (`"2026-05-04"`, not `"2026-5-4"`).
 - [ ] No Liquid (`{{ }}`, `{% %}`), kramdown (`{: .class}`) or "fancy" Unicode bold text
 - [ ] Checked for typos, and every link opens the right page
 - [ ] Previewed with `npm run dev`
+- [ ] `npm run check:content` reports no errors (CI runs it on your pull request too, see [Checking your changes](README.md#checking-your-changes))
