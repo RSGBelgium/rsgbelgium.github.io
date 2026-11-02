@@ -11,8 +11,8 @@
  *   a post or profile in content/, next.config.js, or a text file in
  *   public/ (the web manifest, browserconfig.xml). A member photo given by
  *   file name only (`image: "anis.webp"`) counts, and so does a quoted file
- *   name in src/ ("rsg-logo.webp"). Files that browsers request without a
- *   link are listed in IMPLICITLY_USED.
+ *   name in src/ ("rsg-logo.webp"). Mentions in comments don't count. Files
+ *   that browsers request without a link are listed in IMPLICITLY_USED.
  * - Size budget (BUDGETS): raster images (WebP, JPEG, PNG, ICO, ...) at
  *   most 300 KB and SVGs at most 100 KB. After `npm run optimize:images`
  *   the largest image is well below that. PDFs and calendar files are
@@ -90,6 +90,14 @@ const SOURCES = [
 /** Test files: the paths in them are fixtures, not real uses. */
 const IS_TEST = /(^|\/)__tests__\/|\.(test|spec)\.[cm]?[jt]sx?$/;
 
+/**
+ * A string or a comment in JavaScript or TypeScript: group 1 is a string
+ * (kept), anything else a comment (masked). Matching both in one pass keeps
+ * "//" inside strings, as in "https://...", from being read as a comment.
+ */
+const JS_STRING_OR_COMMENT =
+  /("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
+
 /** Folder of member profiles, whose `image` may be a bare file name in /images/team/. */
 const MEMBERS_DIR = "content/organization";
 
@@ -100,10 +108,28 @@ const PUBLIC_PATH = /(?<![\w.~%/-])\/(?:images|assets|favicon)\/[^\s"'`()<>{}$\\
 const UNSAFE_NAME = /[\s#?%"'<>\\^`{|}]/;
 
 const report = new Report("Asset check");
+
+/** Replaces text with spaces, keeping line breaks so that line numbers stay right. */
+const blank = (text) => text.replace(/[^\n]/g, " ");
+
+/**
+ * Masks the comments in a source file: a path in a comment (an example in
+ * documentation, a commented-out image) is not a use of the file.
+ *
+ * @param {string} file - Path, for the file type
+ * @param {string} text - Contents
+ */
+function maskComments(file, text) {
+  if (/\.[cm]?[jt]sx?$/.test(file))
+    return text.replace(JS_STRING_OR_COMMENT, (match, string) => string ?? blank(match));
+  if (/\.css$/.test(file)) return text.replace(/\/\*[\s\S]*?\*\//g, blank);
+  if (/\.(md|markdown|html|xml)$/.test(file)) return text.replace(/<!--[\s\S]*?-->/g, blank);
+  return text;
+}
 const publicFileExists = createPublicFileExists(root);
 
 /**
- * Reads the text files that can reference public files.
+ * Reads the text files that can reference public files, with their comments masked.
  *
  * @returns {{ file: string, text: string }[]} paths relative to the root
  */
@@ -113,13 +139,17 @@ function readSources() {
     if (source.file) {
       const absolute = path.join(root, source.file);
       if (fs.existsSync(absolute))
-        sources.push({ file: source.file, text: fs.readFileSync(absolute, "utf8") });
+        sources.push({
+          file: source.file,
+          text: maskComments(source.file, fs.readFileSync(absolute, "utf8")),
+        });
       continue;
     }
     for (const relative of listFiles(path.join(root, source.dir))) {
       const file = `${source.dir}/${relative}`;
       if (!source.pattern.test(relative) || IS_TEST.test(file)) continue;
-      sources.push({ file, text: fs.readFileSync(path.join(root, file), "utf8") });
+      const text = fs.readFileSync(path.join(root, file), "utf8");
+      sources.push({ file, text: maskComments(file, text) });
     }
   }
   return sources;

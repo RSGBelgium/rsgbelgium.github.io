@@ -149,6 +149,29 @@ describe("check-assets", () => {
     );
   });
 
+  test("ignores paths in comments, but not in strings that contain //", () => {
+    const root = createRepo({
+      ...CLEAN_REPO,
+      "src/lib/image.ts": [
+        "/**",
+        ' * Reads an image, e.g. "/images/poster/example.webp".',
+        " */",
+        '// const OLD = "/images/poster/old.webp";',
+        'export const URL = "https://rsg-belgium.org"; export const MAP = "/images/maps/map.webp";',
+      ].join("\n"),
+      "content/news/2026-01-02-event.md":
+        '---\ntitle: "Event"\ndate: "2026-01-02"\n---\n\n<!-- ![Photo](/images/photo_gallery/photo.webp) -->\n',
+      "public/images/maps/map.webp": 1024,
+      "public/images/photo_gallery/photo.webp": 1024,
+    });
+    const { status, output } = runCheck(root);
+    expect(status).toBe(1);
+    expect(output).not.toContain("example.webp");
+    expect(output).not.toContain("old.webp");
+    expect(output).not.toContain("map.webp: error");
+    expect(output).toContain("public/images/photo_gallery/photo.webp: error: not used");
+  });
+
   test("--list prints every file with its size and where it is used", () => {
     const root = createRepo(CLEAN_REPO);
     const { output } = runCheck(root, "--list");
