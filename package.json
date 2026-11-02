@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+    "check:content": "node scripts/check-content.mjs"
   },
   "dependencies": {
     "classnames": "^2.5.1",
