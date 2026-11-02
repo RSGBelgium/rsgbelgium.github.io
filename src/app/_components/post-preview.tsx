@@ -35,7 +35,7 @@ type Props = {
 export function PostPreview({ title, coverImage, date, excerpt, author, slug }: Props) {
   const defaultAuthor = {
     name: "RSG-Belgium",
-    picture: "/images/team/rsg-logo.png",
+    picture: "/images/team/rsg-logo.webp",
   };
 
   return (

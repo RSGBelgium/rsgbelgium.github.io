@@ -29,7 +29,7 @@ type Props = {
 export default function PostHeader({ title, coverImage, date, author }: Props) {
   const defaultAuthor = {
     name: "RSG-Belgium",
-    picture: "/images/team/rsg-logo.png",
+    picture: "/images/team/rsg-logo.webp",
   };
 
   const displayAuthor = author || defaultAuthor;

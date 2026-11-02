@@ -4,7 +4,7 @@ title: "President"
 affiliation: "KU Leuven"
 position: "PhD student"
 city: "Brussels"
-image: "/images/team/anis.JPG"
+image: "/images/team/anis.webp"
 linkedin: "https://www.linkedin.com/in/anisdismail"
 orcid: "https://orcid.org/0009-0006-6990-0893"
 order: 1

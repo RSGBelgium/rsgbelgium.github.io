@@ -78,6 +78,6 @@ The workshop in the morning will be hosted in a nearby building on the same camp
 
 ## Flyer
 
-[![Poster for the RSG-Belgium Bioinformatics Student Symposium and data visualisation workshop on 5 May 2020 at UCLouvain](/images/poster/poster_rsg_symposium-05-05-20.png)](/assets/pdf/poster_rsg_symposium-05-05-20.pdf)
+[![Poster for the RSG-Belgium Bioinformatics Student Symposium and data visualisation workshop on 5 May 2020 at UCLouvain](/images/poster/poster_rsg_symposium-05-05-20.webp)](/assets/pdf/poster_rsg_symposium-05-05-20.pdf)
 
 [form]: https://forms.gle/DqiqF9WSsGCXW2jh6

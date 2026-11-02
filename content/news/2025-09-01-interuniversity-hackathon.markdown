@@ -110,7 +110,7 @@ Please also consult the following map of KU Leuven Gasthuisberg Campus and Leerc
 
 ### Access to Aula O&N5 - Day 1
 For more details regarding accessibility, please consult the following access guide:
-[![Map of KU Leuven Campus Gasthuisberg showing the walking route from the bus stops to Aula O&N5](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
+[![Map of KU Leuven Campus Gasthuisberg showing the walking route from the bus stops to Aula O&N5](/images/maps/map_to_ON5.webp)](/images/maps/map_to_ON5.webp)
 - By Public Transport:<br>
  Leuven Station → De Lijn bus 10, R90, R80, 70 → Stop at Heverlee Berg Tabor or Leuven Gasthuisberg Kliniek<br>
 - By Car: [Logistiek Platform](https://www.kuleuven.be/kulag/nl/lokaal/390-90-00P003) (Parking code available upon request by email)

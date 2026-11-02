@@ -70,7 +70,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 
 ## Flyer
 
-[![Poster for the RSG-Belgium Bioinformatics Student Symposium on 22 May 2018 in Antwerp](/images/poster/poster_rsg_symposium-22-05-18.png)](/assets/pdf/poster_rsg_symposium-22-05-18.pdf)
+[![Poster for the RSG-Belgium Bioinformatics Student Symposium on 22 May 2018 in Antwerp](/images/poster/poster_rsg_symposium-22-05-18.webp)](/assets/pdf/poster_rsg_symposium-22-05-18.pdf)
 
 [biomina]: http://www.biomina.be/
 [krislaukens]: https://www.uantwerpen.be/en/staff/kris-laukens/
