@@ -105,7 +105,7 @@ Every check runs in CI on each pull request; run `npm run ci` to run them all lo
 
 `npm run check:content` ([`scripts/check-content.mjs`](scripts/check-content.mjs)) reports problems in `content/` as `file:line` with a fix:
 
-- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `unlisted` is `true` or `false`; `coverImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`) syntax; no "fancy" Unicode letters; a `title` on every `<iframe>`.
+- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `unlisted` is `true` or `false`; `coverImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts and other internal links to existing pages or files; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`) syntax; no "fancy" Unicode letters; no raw `<h1>`; a `title` on every `<iframe>`.
 - **Team profiles:** `name` set; `linkedin`/`orcid` empty or `https://` URLs; `image` empty or an existing file; `order` a number.
 - **Privacy:** no e-mail addresses or phone numbers in team profiles, and no spreadsheets or data exports (`.csv`, `.xlsx`, `.ods`, ...) tracked by git: board registries and registration exports contain personal data and must never be committed.
 

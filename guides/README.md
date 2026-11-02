@@ -143,7 +143,8 @@ content/news/2026-10-15-beerformatics-ghent.md:3: error: the date must be in quo
 ```
 
 It finds, among other things: a missing `title` or `date`, a date without
-quotes, images and files that don't exist in `public/`, links to posts that
+quotes, images and files that don't exist in `public/` (names are
+case-sensitive: `photo.JPG` is not `photo.jpg`), links to posts or pages that
 don't exist, broken links such as `ttps://...` or `assets/...` without the
 leading `/`, leftover `{{ }}` or `{: }` syntax, `<iframe>`s without a
 `title`, and e-mail addresses or phone numbers in team profiles.
