@@ -4,10 +4,28 @@
 
 /**
  * Tests for the markdown pipeline (src/lib/markdownToHtml.ts): heading ids,
- * `#` headings demoted to `##`, and external links that open in a new tab.
+ * `#` headings demoted to `##`, external links that open in a new tab, and
+ * image attributes (lazy loading, width and height of local images).
  */
 
+import path from "node:path";
+import { imageSizeFromFile } from "image-size/fromFile";
 import markdownToHtml from "@/lib/markdownToHtml";
+
+/** Sizes of the "files" in public/ that the tests use; any other file doesn't exist. */
+const IMAGE_SIZES: Record<string, { width: number; height: number; orientation?: number }> = {
+  "images/poster/poster.webp": { width: 1131, height: 1600 },
+  "images/photo_gallery/upright.jpg": { width: 1600, height: 1200, orientation: 6 },
+};
+
+jest.mock("image-size/fromFile", () => ({
+  imageSizeFromFile: jest.fn(async (file: string) => {
+    const relative = path.relative(path.join(process.cwd(), "public"), file);
+    const size = IMAGE_SIZES[relative.split(path.sep).join("/")];
+    if (!size) throw Object.assign(new Error(`ENOENT: ${file}`), { code: "ENOENT" });
+    return size;
+  }),
+}));
 
 const NEW_TAB = 'target="_blank" rel="noopener noreferrer"';
 
@@ -87,4 +105,67 @@ test("supports GitHub Flavored Markdown tables", async () => {
   const html = await markdownToHtml("| Day | Event |\n|-----|-------|\n| Mon | Talk |");
   expect(html).toContain("<table>");
   expect(html).toContain("<td>Talk</td>");
+});
+
+describe("images", () => {
+  const LAZY = 'loading="lazy" decoding="async"';
+
+  beforeEach(() => jest.mocked(imageSizeFromFile).mockClear());
+
+  test("give local images their width and height, and load them lazily", async () => {
+    const html = await markdownToHtml("![Poster for the symposium](/images/poster/poster.webp)");
+    expect(html).toContain(
+      `<img src="/images/poster/poster.webp" alt="Poster for the symposium" width="1131" height="1600" ${LAZY}>`,
+    );
+  });
+
+  test("handle reference-style images and images wrapped in a link", async () => {
+    const html = await markdownToHtml(
+      [
+        "![Poster][poster]",
+        "",
+        "[![Poster, full size](/images/poster/poster.webp)](/assets/pdf/poster.pdf)",
+        "",
+        "[POSTER]: /images/poster/poster.webp",
+      ].join("\n"),
+    );
+    expect(html.match(/width="1131" height="1600"/g)).toHaveLength(2);
+    expect(html).toContain('<a href="/assets/pdf/poster.pdf"><img');
+  });
+
+  test("swap width and height of photos rotated by their EXIF orientation", async () => {
+    const html = await markdownToHtml("![Photo](/images/photo_gallery/upright.jpg)");
+    expect(html).toContain('width="1200" height="1600"');
+  });
+
+  test("only lazy-load external images, SVGs and missing files", async () => {
+    const html = await markdownToHtml(
+      [
+        "![External](https://example.org/a.png)",
+        "![Logo](/images/logo/logo.svg)",
+        "![Missing](/images/poster/missing.webp)",
+        "![Outside public](/images/../../secret.png)",
+      ].join("\n\n"),
+    );
+    expect(html).not.toContain("width=");
+    expect(html.match(new RegExp(LAZY, "g"))).toHaveLength(4);
+    // Only the missing file was looked up: no URLs, no SVGs, no paths outside public/.
+    expect(imageSizeFromFile).toHaveBeenCalledTimes(1);
+  });
+
+  test("add the attributes to <img> tags in raw HTML, keeping those already written", async () => {
+    const html = await markdownToHtml(
+      [
+        '<img src="/images/poster/poster.webp" alt="Poster" style="border: 5px solid #f8f3da;">',
+        "",
+        'A logo <img src="/images/logo/logo.svg" alt="Logo" loading="eager" /> in a sentence.',
+      ].join("\n"),
+    );
+    expect(html).toContain(
+      `<img src="/images/poster/poster.webp" alt="Poster" style="border: 5px solid #f8f3da;" width="1131" height="1600" ${LAZY}>`,
+    );
+    expect(html).toContain(
+      '<img src="/images/logo/logo.svg" alt="Logo" loading="eager" decoding="async" />',
+    );
+  });
 });
