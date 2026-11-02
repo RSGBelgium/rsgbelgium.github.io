@@ -1,0 +1,19 @@
+# Prettier also skips everything in .gitignore (node_modules, .next, out, coverage, ...).
+# These are listed again so the rules hold even if .gitignore changes.
+
+# Build output, coverage and dependencies
+.next/
+out/
+coverage/
+node_modules/
+package-lock.json
+
+# Static files are served exactly as they are.
+public/
+
+# Website content: reformatting markdown can change how a post renders
+# (line breaks, list markers, escaping, raw HTML), so it is left as written.
+content/
+
+# Templates are copied into content/ as they are: keep them in the content's style.
+guides/templates/
