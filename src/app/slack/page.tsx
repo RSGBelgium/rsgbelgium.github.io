@@ -37,12 +37,12 @@ const SlackPage = () => {
         <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
           We have created a Slack channel where our members can get to know each other,
           discuss RSG events, collaborate, and get more involved in our organization.
-          It's a great place to ask questions, share ideas, and connect with fellow
+          It&apos;s a great place to ask questions, share ideas, and connect with fellow
           bioinformatics and computational biology enthusiasts in Belgium.
         </p>
         <p className="text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-          Don't be shy, come say hello! To join, please send us an email request,
-          and we'll send you an invitation.
+          Don&apos;t be shy, come say hello! To join, please send us an email request,
+          and we&apos;ll send you an invitation.
         </p>
         <Button href={mailtoLink} size="lg" variant="primary">
           Request Invitation to Join Slack

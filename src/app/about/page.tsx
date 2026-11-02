@@ -32,7 +32,7 @@ const AboutPage = () => {
       <article className="py-8">
         <h2 className="text-4xl font-bold mb-6 text-center">Welcome to RSG Belgium!</h2>
         <p className="text-lg leading-relaxed">
-          RSG Belgium is the Belgian branch of the ISCB Student Council's Regional Student Groups.
+          RSG Belgium is the Belgian branch of the ISCB Student Council&apos;s Regional Student Groups.
           We are a vibrant community dedicated to fostering collaboration and innovation among
           bioinformatics and computational biology students across Belgium.
         </p>

@@ -51,8 +51,9 @@ const Button: React.FC<ButtonProps> = ({
   const combinedClassName = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);
 
   if (href) {
+    // As a link, the remaining props (onClick, aria-*, ...) go on the <a>.
     return (
-      <Link href={href} className={combinedClassName} {...(props as any)}>
+      <Link href={href} className={combinedClassName} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {children}
       </Link>
     );

@@ -11,6 +11,7 @@
  */
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Post } from '@/interfaces/post'; // Assuming Post interface exists
 import Button from './Button'; // Reusable button
@@ -44,12 +45,18 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
             >
               {post.coverImage && (
-                // Decorative: the title says what the post is about. Simplified image display, next/image could be used here too.
-                <img
-                  src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
-                  alt=""
-                  className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity duration-200"
-                />
+                // Decorative: the title says what the post is about. The image fills a
+                // full-width, 12rem-tall box (cropped with object-cover), so next/image's
+                // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
+                <div className="relative h-48">
+                  <Image
+                    src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover group-hover:opacity-90 transition-opacity duration-200"
+                  />
+                </div>
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">

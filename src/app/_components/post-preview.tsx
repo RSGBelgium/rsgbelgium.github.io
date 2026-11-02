@@ -5,7 +5,6 @@
  */
 
 import Link from "next/link";
-import { Post } from "@/interfaces/post";
 import Avatar from "@/app/_components/avatar";
 import CoverImage from "@/app/_components/cover-image";
 import DateFormatter from "./date-formatter";
