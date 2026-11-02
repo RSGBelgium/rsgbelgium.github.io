@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --coverage"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -35,7 +36,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.21",
-    "jest": "^30.0.2",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "next": "^15.3.4",
     "postcss": "^8.5.5",
     "react": "^19.1.0",
