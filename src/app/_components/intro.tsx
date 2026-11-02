@@ -24,9 +24,7 @@ export function Intro({ title, description }: IntroProps) {
       <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
         {title}.
       </h1>
-      <p className="text-center md:text-left text-lg mt-5 md:pl-8">
-        {description}
-      </p>
+      <p className="text-center md:text-left text-lg mt-5 md:pl-8">{description}</p>
     </section>
   );
 }

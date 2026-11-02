@@ -53,10 +53,9 @@ describe("Organization page", () => {
 
   test("renders a card per member, in the loader's order, with the bio as HTML", async () => {
     await renderOrganizationPage();
-    expect(screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent)).toEqual([
-      "Alice Wonderland",
-      "Bob </script> Builder",
-    ]);
+    expect(
+      screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    ).toEqual(["Alice Wonderland", "Bob </script> Builder"]);
     expect(screen.getByText("genomics").tagName).toBe("STRONG");
   });
 

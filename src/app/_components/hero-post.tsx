@@ -32,14 +32,7 @@ type Props = {
  * @param author - The author object
  * @param slug - The post slug for linking to the detail page
  */
-export function HeroPost({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}: Props) {
+export function HeroPost({ title, coverImage, date, excerpt, author, slug }: Props) {
   return (
     <section>
       {coverImage && (

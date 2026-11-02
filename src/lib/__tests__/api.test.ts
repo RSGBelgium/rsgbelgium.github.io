@@ -24,7 +24,8 @@ function writeFiles(root: string, files: Record<string, string>) {
 }
 
 /** Builds a markdown file from front-matter lines and a body. */
-const markdown = (frontMatter: string[], body = "") => `---\n${frontMatter.join("\n")}\n---\n${body}`;
+const markdown = (frontMatter: string[], body = "") =>
+  `---\n${frontMatter.join("\n")}\n---\n${body}`;
 
 const NEWS_FIXTURES = {
   // Unquoted date-only value: YAML turns it into a Date object.
@@ -33,7 +34,10 @@ const NEWS_FIXTURES = {
     "\nFirst paragraph of the post, with a [link](https://example.org).\n",
   ),
   // Quoted value with a time, later on the same day: stays a string. `.markdown` extension.
-  "content/news/2021-09-21-quoted-time.markdown": markdown(['title: "Quoted date and time"', 'date: "2021-09-21 18:00"']),
+  "content/news/2021-09-21-quoted-time.markdown": markdown([
+    'title: "Quoted date and time"',
+    'date: "2021-09-21 18:00"',
+  ]),
   "content/news/2021-09-22-newest.md": markdown(
     ['title: "Newest post"', 'date: "2021-09-22"', 'excerpt: "  Explicit excerpt.  "'],
     "\nThe body is not used for the excerpt.\n",
@@ -42,7 +46,11 @@ const NEWS_FIXTURES = {
   "content/news/tie-b.md": markdown(['title: "Tie B"', 'date: "2020-01-01"']),
   "content/news/tie-a.md": markdown(['title: "Tie A"', 'date: "2020-01-01"']),
   // Newer than everything else, but unlisted.
-  "content/news/unlisted.md": markdown(['title: "Unlisted page"', 'date: "2030-01-01"', "unlisted: true"]),
+  "content/news/unlisted.md": markdown([
+    'title: "Unlisted page"',
+    'date: "2030-01-01"',
+    "unlisted: true",
+  ]),
   "content/news/notes.txt": "Not a post.",
 };
 
@@ -208,7 +216,9 @@ describe("getAllMembers", () => {
     expect(slugs).not.toContain("no-name");
     expect(slugs).not.toContain("broken");
     expect(slugs).not.toContain("old-member"); // subfolders are ignored
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('no-name.md: skipping profile without a "name"'));
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining('no-name.md: skipping profile without a "name"'),
+    );
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining("broken.md: skipping profile that could not be read or parsed"),
       expect.anything(),
@@ -216,7 +226,9 @@ describe("getAllMembers", () => {
   });
 
   test("resolves image paths: bare file names go to /images/team/, paths and URLs stay", async () => {
-    const byName = Object.fromEntries((await api.getAllMembers()).map((member) => [member.name, member]));
+    const byName = Object.fromEntries(
+      (await api.getAllMembers()).map((member) => [member.name, member]),
+    );
 
     expect(byName["Bea Officer"].image).toBe("/images/team/bea.jpg");
     expect(byName["Zoe President"].image).toBe("/images/team/zoe.png");
@@ -226,7 +238,9 @@ describe("getAllMembers", () => {
   });
 
   test("keeps http(s) profile URLs and drops anything else with a warning", async () => {
-    const byName = Object.fromEntries((await api.getAllMembers()).map((member) => [member.name, member]));
+    const byName = Object.fromEntries(
+      (await api.getAllMembers()).map((member) => [member.name, member]),
+    );
 
     expect(byName["Zoe President"].linkedin).toBe("https://www.linkedin.com/in/zoe");
     expect(byName["Zoe President"].orcid).toBe("https://orcid.org/0000-0000-0000-0001");
@@ -235,7 +249,9 @@ describe("getAllMembers", () => {
   });
 
   test("parses numeric orders, ignores invalid ones and trims the bio", async () => {
-    const byName = Object.fromEntries((await api.getAllMembers()).map((member) => [member.name, member]));
+    const byName = Object.fromEntries(
+      (await api.getAllMembers()).map((member) => [member.name, member]),
+    );
 
     expect(byName["Adam Officer"].order).toBe(2);
     expect(byName["Anna Member"].order).toBeUndefined();

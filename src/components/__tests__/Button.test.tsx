@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Button from "../Button";
 
 describe("Button", () => {
-  test("renders a <button type=\"button\"> without href", () => {
+  test('renders a <button type="button"> without href', () => {
     render(<Button>Click me</Button>);
     const button = screen.getByRole("button", { name: "Click me" });
     expect(button.tagName).toBe("BUTTON");

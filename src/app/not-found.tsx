@@ -28,7 +28,8 @@ export default function NotFound() {
           Page not found
         </h1>
         <p className="mt-6 text-lg leading-relaxed max-w-xl mx-auto">
-          Sorry, we couldn&apos;t find this page. It may have been moved, or the link may be out of date.
+          Sorry, we couldn&apos;t find this page. It may have been moved, or the link may be out of
+          date.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Button href="/" variant="primary">

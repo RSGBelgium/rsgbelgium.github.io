@@ -10,13 +10,13 @@
  * focus outline when the link is focused.
  */
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Post } from '@/interfaces/post'; // Assuming Post interface exists
-import Button from './Button'; // Reusable button
-import DateFormatter from '@/app/_components/date-formatter'; // Date formatter
-import { postPath } from '@/lib/urls';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Post } from "@/interfaces/post"; // Assuming Post interface exists
+import Button from "./Button"; // Reusable button
+import DateFormatter from "@/app/_components/date-formatter"; // Date formatter
+import { postPath } from "@/lib/urls";
 
 interface FeaturedNewsProps {
   posts: Post[];
@@ -50,7 +50,11 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                 // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
                 <div className="relative h-48">
                   <Image
-                    src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
+                    src={
+                      post.coverImage.startsWith("/")
+                        ? post.coverImage
+                        : `/assets/blog/${post.slug}/${post.coverImage}`
+                    }
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -72,9 +76,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                   <DateFormatter dateString={post.date} />
                 </div>
                 {post.excerpt && (
-                  <p className="text-foreground leading-relaxed mb-4 text-sm">
-                    {post.excerpt}
-                  </p>
+                  <p className="text-foreground leading-relaxed mb-4 text-sm">{post.excerpt}</p>
                 )}
               </div>
               {/* A visual cue only: the title link above already leads to the post. */}

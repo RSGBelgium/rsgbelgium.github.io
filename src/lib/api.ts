@@ -76,11 +76,9 @@ function getDateTimestamp(date: string): number {
 export async function getPostSlugs(): Promise<string[]> {
   try {
     const files = await fs.readdir(postsDirectory);
-    return files
-      .filter(isMarkdownFile)
-      .map(slugFromFileName);
+    return files.filter(isMarkdownFile).map(slugFromFileName);
   } catch (error) {
-    console.error('Error reading post slugs:', error);
+    console.error("Error reading post slugs:", error);
     return [];
   }
 }
@@ -93,7 +91,7 @@ export async function getPostSlugs(): Promise<string[]> {
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    let fileContents = '';
+    let fileContents = "";
 
     for (const ext of MARKDOWN_EXTENSIONS) {
       const path = join(postsDirectory, `${slug}${ext}`);
@@ -103,7 +101,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       } catch (error: unknown) {
         // Continue to next extension if file not found. Only `code` is checked: an
         // `instanceof Error` test fails for errors from another realm (e.g. under Jest).
-        if ((error as NodeJS.ErrnoException | null)?.code === 'ENOENT') continue;
+        if ((error as NodeJS.ErrnoException | null)?.code === "ENOENT") continue;
         throw error;
       }
     }
@@ -144,10 +142,10 @@ export async function getAllPosts(): Promise<Post[]> {
       .sort(
         (post1: Post, post2: Post) =>
           getDateTimestamp(post2.date) - getDateTimestamp(post1.date) ||
-          post1.slug.localeCompare(post2.slug)
+          post1.slug.localeCompare(post2.slug),
       );
   } catch (error) {
-    console.error('Error getting all posts:', error);
+    console.error("Error getting all posts:", error);
     return [];
   }
 }
@@ -210,7 +208,7 @@ function warnIfNotNumberedOneToN(members: Member[]): void {
   if (members.every((member, index) => member.order === index + 1)) return;
   const orders = members.map((member) => member.order).join(", ");
   console.warn(
-    `content/organization: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`
+    `content/organization: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`,
   );
 }
 
@@ -237,7 +235,7 @@ function parseMember(file: string, fileContents: string): Member | null {
   if (order === undefined) {
     warnMember(
       file,
-      `skipping profile without a whole-number "order" from 1 in its front matter (its position on the team page).`
+      `skipping profile without a whole-number "order" from 1 in its front matter (its position on the team page).`,
     );
     return null;
   }
@@ -286,7 +284,7 @@ export async function getAllMembers(): Promise<Member[]> {
         warnMember(file, `skipping profile that could not be read or parsed.`, error);
         return null;
       }
-    })
+    }),
   );
 
   const sorted = members

@@ -16,6 +16,9 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
  * @param children - React children to be wrapped with theme support
  * @param props - Additional props passed to next-themes ThemeProvider (attribute, defaultTheme, ...)
  */
-export function ThemeProvider({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) {
+export function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

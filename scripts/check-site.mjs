@@ -63,7 +63,9 @@ function listFiles(dir, prefix = "") {
 }
 
 const allFiles = new Set(listFiles(outDir));
-const pages = [...allFiles].filter((file) => file.endsWith(".html") && !file.startsWith("_next/")).sort();
+const pages = [...allFiles]
+  .filter((file) => file.endsWith(".html") && !file.startsWith("_next/"))
+  .sort();
 
 /** Parsed pages, by path relative to out/. */
 const parsed = new Map();
@@ -76,7 +78,10 @@ const parsed = new Map();
 function load(page) {
   if (!parsed.has(page)) {
     const html = fs.readFileSync(path.join(outDir, page), "utf8");
-    parsed.set(page, parse(html, { blockTextElements: { script: true, noscript: true, style: true, pre: true } }));
+    parsed.set(
+      page,
+      parse(html, { blockTextElements: { script: true, noscript: true, style: true, pre: true } }),
+    );
   }
   return parsed.get(page);
 }
@@ -144,9 +149,10 @@ function resolvePath(urlPath) {
     return undefined;
   }
   const relative = decoded.replace(/^\/+/, "");
-  const candidates = relative === "" || relative.endsWith("/")
-    ? [`${relative}index.html`]
-    : [relative, `${relative}.html`, `${relative}/index.html`];
+  const candidates =
+    relative === "" || relative.endsWith("/")
+      ? [`${relative}index.html`]
+      : [relative, `${relative}.html`, `${relative}/index.html`];
   return candidates.find((candidate) => allFiles.has(candidate));
 }
 
@@ -165,14 +171,22 @@ function internalTarget(target, page) {
   if (value.startsWith("#")) return { path: `/${page}`, hash: value.slice(1), samePage: true };
 
   let rest;
-  if (SITE_URL && (value === SITE_URL || value.startsWith(`${SITE_URL}/`) || value.startsWith(`${SITE_URL}#`) || value.startsWith(`${SITE_URL}?`))) {
+  if (
+    SITE_URL &&
+    (value === SITE_URL ||
+      value.startsWith(`${SITE_URL}/`) ||
+      value.startsWith(`${SITE_URL}#`) ||
+      value.startsWith(`${SITE_URL}?`))
+  ) {
     rest = value.slice(SITE_URL.length) || "/";
   } else if (value.startsWith("/") && !value.startsWith("//")) {
     rest = value;
   } else if (/^(https?:)?\/\//i.test(value)) {
     return undefined; // another site
   } else {
-    return { error: `link target "${value}" is relative or has an unknown scheme: it resolves against the current page and is most likely broken. Use "/..." or "https://...".` };
+    return {
+      error: `link target "${value}" is relative or has an unknown scheme: it resolves against the current page and is most likely broken. Use "/..." or "https://...".`,
+    };
   }
 
   const hashIndex = rest.indexOf("#");
@@ -208,7 +222,11 @@ function checkTarget(page, target, description) {
 
   const file = resolved.samePage ? page : resolvePath(resolved.path);
   if (!file) {
-    report.error(`${outName}/${page}`, undefined, `${description} "${target}" points to a page or file that does not exist in ${outName}/.`);
+    report.error(
+      `${outName}/${page}`,
+      undefined,
+      `${description} "${target}" points to a page or file that does not exist in ${outName}/.`,
+    );
     return;
   }
   if (resolved.hash && file.endsWith(".html")) {
@@ -219,13 +237,24 @@ function checkTarget(page, target, description) {
       // keep the raw hash
     }
     if (!idsOf(file).has(id)) {
-      report.error(`${outName}/${page}`, undefined, `${description} "${target}": there is no element with id="${id}" on ${file}.`);
+      report.error(
+        `${outName}/${page}`,
+        undefined,
+        `${description} "${target}": there is no element with id="${id}" on ${file}.`,
+      );
     }
   }
 }
 
 /** Link texts that say nothing about where the link goes. */
-const GENERIC_LINK_TEXTS = new Set(["here", "click here", "read more", "more", "link", "this link"]);
+const GENERIC_LINK_TEXTS = new Set([
+  "here",
+  "click here",
+  "read more",
+  "more",
+  "link",
+  "this link",
+]);
 
 /** Leftover Jekyll syntax: Liquid tags/output and kramdown attribute lists or header ids. */
 const LEFTOVER_SYNTAX = /\{\{|\{%|\{:|\{#[A-Za-z]/;
@@ -246,12 +275,23 @@ function checkPage(page) {
 
   // One <h1>.
   const h1Count = root.querySelectorAll("h1").length;
-  if (h1Count !== 1) report.error(file, undefined, `has ${h1Count} <h1> elements; every page needs exactly one (its title).`);
+  if (h1Count !== 1)
+    report.error(
+      file,
+      undefined,
+      `has ${h1Count} <h1> elements; every page needs exactly one (its title).`,
+    );
 
   // One <main id="main-content">, not nested.
   const mains = root.querySelectorAll("main");
-  if (mains.length !== 1) report.error(file, undefined, `has ${mains.length} <main> elements; the root layout provides the only one.`);
-  if (root.querySelectorAll("main main").length > 0) report.error(file, undefined, "has a <main> inside <main>.");
+  if (mains.length !== 1)
+    report.error(
+      file,
+      undefined,
+      `has ${mains.length} <main> elements; the root layout provides the only one.`,
+    );
+  if (root.querySelectorAll("main main").length > 0)
+    report.error(file, undefined, "has a <main> inside <main>.");
   if (mains.length > 0 && mains[0].getAttribute("id") !== "main-content") {
     report.error(file, undefined, '<main> has no id="main-content", the target of the skip link.');
   }
@@ -270,21 +310,37 @@ function checkPage(page) {
       const level = Number(heading[1]);
       if (previousLevel && level > previousLevel + 1) {
         const text = node.text.trim().replace(/\s+/g, " ").slice(0, 60);
-        report.error(file, undefined, `heading levels skip from <h${previousLevel}> to <h${level}> ("${text}"). In markdown, don't skip a level (## then ###).`);
+        report.error(
+          file,
+          undefined,
+          `heading levels skip from <h${previousLevel}> to <h${level}> ("${text}"). In markdown, don't skip a level (## then ###).`,
+        );
       }
       previousLevel = level;
     }
 
     if (name === "img" && node.getAttribute("alt") === undefined) {
-      report.error(file, undefined, `<img src="${node.getAttribute("src")}"> has no alt attribute; use alt="" for decorative images.`);
+      report.error(
+        file,
+        undefined,
+        `<img src="${node.getAttribute("src")}"> has no alt attribute; use alt="" for decorative images.`,
+      );
     }
     if (name === "iframe" && !node.getAttribute("title")?.trim()) {
-      report.error(file, undefined, `<iframe src="${(node.getAttribute("src") ?? "").slice(0, 60)}"> has no title.`);
+      report.error(
+        file,
+        undefined,
+        `<iframe src="${(node.getAttribute("src") ?? "").slice(0, 60)}"> has no title.`,
+      );
     }
     if (name === "a") {
       const text = node.text.trim().replace(/\s+/g, " ").toLowerCase();
       if (GENERIC_LINK_TEXTS.has(text) && !node.getAttribute("aria-label")) {
-        report.error(file, undefined, `link text "${text}" (to ${node.getAttribute("href")}) doesn't say where the link goes; describe the target instead.`);
+        report.error(
+          file,
+          undefined,
+          `link text "${text}" (to ${node.getAttribute("href")}) doesn't say where the link goes; describe the target instead.`,
+        );
       }
     }
 
@@ -293,8 +349,17 @@ function checkPage(page) {
       const value = node.getAttribute(attribute);
       if (value !== undefined) checkTarget(page, value, `<${name} ${attribute}>`);
     }
-    if (name === "meta" && /^(og:image|og:url|twitter:image)$/.test(node.getAttribute("property") ?? node.getAttribute("name") ?? "")) {
-      checkTarget(page, node.getAttribute("content") ?? "", `<meta ${node.getAttribute("property") ?? node.getAttribute("name")}>`);
+    if (
+      name === "meta" &&
+      /^(og:image|og:url|twitter:image)$/.test(
+        node.getAttribute("property") ?? node.getAttribute("name") ?? "",
+      )
+    ) {
+      checkTarget(
+        page,
+        node.getAttribute("content") ?? "",
+        `<meta ${node.getAttribute("property") ?? node.getAttribute("name")}>`,
+      );
     }
     const srcset = node.getAttribute("srcset") ?? node.getAttribute("imagesrcset");
     if (srcset) {
@@ -305,9 +370,19 @@ function checkPage(page) {
     }
   }
 
-  if (!(firstFocusable && tag(firstFocusable) === "a" && firstFocusable.getAttribute("href") === "#main-content")) {
-    const found = firstFocusable ? `<${tag(firstFocusable)} ${firstFocusable.getAttribute("href") ?? ""}>`.replace(" >", ">") : "nothing";
-    report.error(file, undefined, `the first focusable element must be the "Skip to main content" link (href="#main-content"), found ${found}.`);
+  if (!(
+    firstFocusable &&
+    tag(firstFocusable) === "a" &&
+    firstFocusable.getAttribute("href") === "#main-content"
+  )) {
+    const found = firstFocusable
+      ? `<${tag(firstFocusable)} ${firstFocusable.getAttribute("href") ?? ""}>`.replace(" >", ">")
+      : "nothing";
+    report.error(
+      file,
+      undefined,
+      `the first focusable element must be the "Skip to main content" link (href="#main-content"), found ${found}.`,
+    );
   }
 
   // Leftover Jekyll syntax and "fancy" letters in the visible text.
@@ -317,15 +392,25 @@ function checkPage(page) {
       report.error(file, undefined, `the page shows template syntax: "${snippet()}".`);
     }
     if (/[\u{1D400}-\u{1D7FF}]/u.test(text)) {
-      report.error(file, undefined, `the page shows mathematical "fancy font" letters, which screen readers can't read: "${snippet()}".`);
+      report.error(
+        file,
+        undefined,
+        `the page shows mathematical "fancy font" letters, which screen readers can't read: "${snippet()}".`,
+      );
     }
   }
 
   // RSG-Belgium has no Twitter/X or Facebook account.
   for (const region of root.querySelectorAll("header, footer")) {
     for (const link of region.querySelectorAll("a[href]")) {
-      if (/^https?:\/\/(www\.)?(twitter\.com|x\.com|facebook\.com)\//i.test(link.getAttribute("href"))) {
-        report.error(file, undefined, `the site header/footer links to ${link.getAttribute("href")}; RSG-Belgium has no Twitter/X or Facebook account.`);
+      if (
+        /^https?:\/\/(www\.)?(twitter\.com|x\.com|facebook\.com)\//i.test(link.getAttribute("href"))
+      ) {
+        report.error(
+          file,
+          undefined,
+          `the site header/footer links to ${link.getAttribute("href")}; RSG-Belgium has no Twitter/X or Facebook account.`,
+        );
       }
     }
   }
@@ -361,4 +446,6 @@ for (const page of pages) checkPage(page);
 const sitemapUrls = checkXmlUrls("sitemap.xml", /<loc>([^<]+)<\/loc>/g);
 const feedUrls = checkXmlUrls("feed.xml", /<link>([^<]+)<\/link>/g);
 
-report.finish(`${pages.length} pages in ${outName}/, ${sitemapUrls} sitemap URLs and ${feedUrls} feed links`);
+report.finish(
+  `${pages.length} pages in ${outName}/, ${sitemapUrls} sitemap URLs and ${feedUrls} feed links`,
+);

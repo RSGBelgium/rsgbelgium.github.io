@@ -83,7 +83,8 @@ describe("external links", () => {
 });
 
 test("passes raw HTML such as embedded maps through unchanged", async () => {
-  const iframe = '<iframe src="https://www.openstreetmap.org/export/embed.html" title="Map of the venue"></iframe>';
+  const iframe =
+    '<iframe src="https://www.openstreetmap.org/export/embed.html" title="Map of the venue"></iframe>';
   const html = await markdownToHtml(iframe);
   expect(html).toContain(iframe);
 });

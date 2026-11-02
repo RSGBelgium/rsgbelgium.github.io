@@ -19,7 +19,7 @@ type Props = {
  * @param name - The user's name (shown next to the picture, and the fallback initials)
  * @param picture - The URL of the user's avatar image
  */
-const Avatar = ({ name = 'Anonymous', picture }: Props) => {
+const Avatar = ({ name = "Anonymous", picture }: Props) => {
   return (
     <div className="flex items-center">
       <MemberAvatar name={name} image={picture} size="sm" decorative className="mr-4" />

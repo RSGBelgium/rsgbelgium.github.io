@@ -69,7 +69,9 @@ export class Report {
       print(`${location}: ${level}: ${message}`);
       if (IN_GITHUB_ACTIONS) {
         const properties = [`file=${escapeCommand(file, true)}`, ...(line ? [`line=${line}`] : [])];
-        print(`::${level} ${properties.join(",")},title=${escapeCommand(this.title, true)}::${escapeCommand(message)}`);
+        print(
+          `::${level} ${properties.join(",")},title=${escapeCommand(this.title, true)}::${escapeCommand(message)}`,
+        );
       }
     }
 
@@ -80,7 +82,9 @@ export class Report {
       console.error(`\n✖ ${this.title}: ${counts} in ${checkedSummary}.`);
       process.exitCode = 1;
     } else {
-      console.log(`${sorted.length ? "\n" : ""}✔ ${this.title}: ${checkedSummary} checked, ${counts}.`);
+      console.log(
+        `${sorted.length ? "\n" : ""}✔ ${this.title}: ${checkedSummary} checked, ${counts}.`,
+      );
     }
   }
 }

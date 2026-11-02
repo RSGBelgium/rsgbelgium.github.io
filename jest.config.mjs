@@ -34,7 +34,12 @@ const customJestConfig = {
   modulePathIgnorePatterns: ["<rootDir>/out/", "<rootDir>/.next/"],
   coverageProvider: "v8",
   // Type-only files (src/interfaces) have no code to cover.
-  collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/__tests__/**", "!src/**/*.d.ts", "!src/interfaces/**"],
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}",
+    "!src/**/__tests__/**",
+    "!src/**/*.d.ts",
+    "!src/interfaces/**",
+  ],
 };
 
 /**
@@ -59,7 +64,9 @@ function findEsmOnlyPackages() {
       : [entry];
     for (const name of packages) {
       try {
-        const manifest = JSON.parse(fs.readFileSync(path.join(nodeModules, name, "package.json"), "utf8"));
+        const manifest = JSON.parse(
+          fs.readFileSync(path.join(nodeModules, name, "package.json"), "utf8"),
+        );
         if (manifest.type === "module") names.push(name);
       } catch {
         // Not a package (e.g. node_modules/.bin): skip it.

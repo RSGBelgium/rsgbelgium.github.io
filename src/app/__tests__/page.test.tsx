@@ -52,24 +52,32 @@ describe("Homepage", () => {
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
     expect(h1s[0]).toHaveTextContent("Welcome to RSG Belgium");
-    expect(screen.getByRole("link", { name: "Learn More About Us" })).toHaveAttribute("href", "/about");
+    expect(screen.getByRole("link", { name: "Learn More About Us" })).toHaveAttribute(
+      "href",
+      "/about",
+    );
   });
 
   test("features the three newest posts", async () => {
     await renderHomepage();
     const cards = screen.getAllByRole("article");
-    expect(cards.map((card) => within(card).getByRole("link").textContent)).toEqual(["Post 1", "Post 2", "Post 3"]);
+    expect(cards.map((card) => within(card).getByRole("link").textContent)).toEqual([
+      "Post 1",
+      "Post 2",
+      "Post 3",
+    ]);
   });
 
   test("spotlights the first four members", async () => {
     await renderHomepage();
-    const team = screen.getByRole("heading", { level: 2, name: "Meet the Team" }).closest("section")!;
-    expect(within(team).getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual([
-      "Member 1",
-      "Member 2",
-      "Member 3",
-      "Member 4",
-    ]);
+    const team = screen
+      .getByRole("heading", { level: 2, name: "Meet the Team" })
+      .closest("section")!;
+    expect(
+      within(team)
+        .getAllByRole("heading", { level: 3 })
+        .map((h) => h.textContent),
+    ).toEqual(["Member 1", "Member 2", "Member 3", "Member 4"]);
   });
 
   test("hides the news and team sections when there is no content", async () => {

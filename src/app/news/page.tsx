@@ -4,7 +4,7 @@
  * Displays the latest news, events, and announcements.
  */
 
-import { Metadata } from 'next';
+import { Metadata } from "next";
 import Container from "@/app/_components/container";
 import { Intro } from "@/app/_components/intro";
 import { getAllPosts } from "@/lib/api";
@@ -14,9 +14,9 @@ import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
 import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: 'News',
-  description: 'Stay updated with the latest news, events, and announcements from RSG Belgium.',
-  alternates: pageAlternates('/news'),
+  title: "News",
+  description: "Stay updated with the latest news, events, and announcements from RSG Belgium.",
+  alternates: pageAlternates("/news"),
 };
 
 /**

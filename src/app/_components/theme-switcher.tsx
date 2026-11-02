@@ -108,7 +108,7 @@ export function ThemeSwitcher() {
               "group relative inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",
               isActive
                 ? "bg-primary text-primary-foreground"
-                : "text-foreground-muted hover:bg-surface-muted hover:text-foreground"
+                : "text-foreground-muted hover:bg-surface-muted hover:text-foreground",
             )}
           >
             {icon}

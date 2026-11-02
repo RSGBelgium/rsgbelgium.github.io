@@ -27,8 +27,13 @@ describe("Header", () => {
     const desktopNav = screen.getAllByRole("navigation", { name: "Main" })[0];
     const news = within(desktopNav).getByRole("link", { name: "News" });
     expect(news).toHaveAttribute("aria-current", "page");
-    expect(within(desktopNav).getByRole("link", { name: "About" })).not.toHaveAttribute("aria-current");
-    expect(within(desktopNav).getByRole("link", { name: "Join Slack" })).toHaveAttribute("href", "/slack");
+    expect(within(desktopNav).getByRole("link", { name: "About" })).not.toHaveAttribute(
+      "aria-current",
+    );
+    expect(within(desktopNav).getByRole("link", { name: "Join Slack" })).toHaveAttribute(
+      "href",
+      "/slack",
+    );
   });
 
   test("renders the theme switcher once", () => {

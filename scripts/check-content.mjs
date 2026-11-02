@@ -89,7 +89,11 @@ function splitFrontMatter(text) {
 function parseFile(file, text) {
   const parts = splitFrontMatter(text);
   if (!parts) {
-    report.error(file, 1, 'no front matter: the file must start with a block between two "---" lines.');
+    report.error(
+      file,
+      1,
+      'no front matter: the file must start with a block between two "---" lines.',
+    );
     return null;
   }
   try {
@@ -144,7 +148,11 @@ function maskCodeAndComments(text) {
 function publicFileExists(urlPath) {
   const clean = decodeURIComponent(urlPath.replace(/[?#].*$/, ""));
   const file = path.join(root, PUBLIC_DIR, clean);
-  return file.startsWith(path.join(root, PUBLIC_DIR) + path.sep) && fs.existsSync(file) && fs.statSync(file).isFile();
+  return (
+    file.startsWith(path.join(root, PUBLIC_DIR) + path.sep) &&
+    fs.existsSync(file) &&
+    fs.statSync(file).isFile()
+  );
 }
 
 /** Link targets that need no further check. */
@@ -195,14 +203,22 @@ function checkTarget(file, line, target, postSlugs) {
 
   if (/^\/(images|assets)\//.test(target)) {
     if (!publicFileExists(target)) {
-      report.error(file, line, `"${target}" does not exist: add the file to public${target.replace(/[?#].*$/, "")} or fix the path (names are case-sensitive).`);
+      report.error(
+        file,
+        line,
+        `"${target}" does not exist: add the file to public${target.replace(/[?#].*$/, "")} or fix the path (names are case-sensitive).`,
+      );
     }
     return;
   }
 
   const newsLink = target.match(/^\/news\/([^/?#]+)\/?(?:[?#].*)?$/);
   if (newsLink && !postSlugs.has(newsLink[1])) {
-    report.error(file, line, `"${target}" links to a post that does not exist: content/news/${newsLink[1]}.md (or .markdown) is missing.`);
+    report.error(
+      file,
+      line,
+      `"${target}" links to a post that does not exist: content/news/${newsLink[1]}.md (or .markdown) is missing.`,
+    );
   }
 }
 
@@ -219,14 +235,26 @@ function checkMarkdownSyntax(file, body, bodyLine) {
   const at = (offset) => bodyLine + lineAt(masked, offset) - 1;
 
   for (const match of masked.matchAll(/\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}/g)) {
-    report.error(file, at(match.index), `Liquid template syntax "${match[0].slice(0, 40)}" is shown as-is on the website: replace it with the actual value or link.`);
+    report.error(
+      file,
+      at(match.index),
+      `Liquid template syntax "${match[0].slice(0, 40)}" is shown as-is on the website: replace it with the actual value or link.`,
+    );
   }
   for (const match of masked.matchAll(/\{:[^}\n]*\}/g)) {
-    report.error(file, at(match.index), `kramdown attribute "${match[0]}" is shown as-is on the website: remove it.`);
+    report.error(
+      file,
+      at(match.index),
+      `kramdown attribute "${match[0]}" is shown as-is on the website: remove it.`,
+    );
   }
   for (const match of masked.matchAll(/<iframe\b[^>]*>/gi)) {
     if (!/\stitle\s*=\s*["'][^"']*\S[^"']*["']/i.test(match[0])) {
-      report.error(file, at(match.index), '<iframe> without a title: add title="..." describing what it shows, e.g. title="Map of the venue".');
+      report.error(
+        file,
+        at(match.index),
+        '<iframe> without a title: add title="..." describing what it shows, e.g. title="Map of the venue".',
+      );
     }
   }
   return masked;
@@ -243,7 +271,11 @@ const MATH_ALPHANUMERIC = /[\u{1D400}-\u{1D7FF}]/gu;
  */
 function checkMathLetters(file, text) {
   for (const match of text.matchAll(MATH_ALPHANUMERIC)) {
-    report.error(file, lineAt(text, match.index), `"${match[0]}" is a mathematical symbol, not a letter: screen readers and search engines can't read it. Type plain text and use **bold** or *italic* instead.`);
+    report.error(
+      file,
+      lineAt(text, match.index),
+      `"${match[0]}" is a mathematical symbol, not a letter: screen readers and search engines can't read it. Type plain text and use **bold** or *italic* instead.`,
+    );
     return; // One report per file is enough.
   }
 }
@@ -282,20 +314,40 @@ function checkPost(name, postSlugs) {
   const { data, frontMatter, body, bodyLine } = parsed;
 
   if (typeof data.title !== "string" || !data.title.trim()) {
-    report.error(file, findField(frontMatter, "title")?.line ?? 1, 'missing "title": add title: "Your post title" to the front matter.');
+    report.error(
+      file,
+      findField(frontMatter, "title")?.line ?? 1,
+      'missing "title": add title: "Your post title" to the front matter.',
+    );
   }
 
   const dateField = findField(frontMatter, "date");
   if (!dateField || data.date === undefined || data.date === null || data.date === "") {
-    report.error(file, dateField?.line ?? 1, 'missing "date": add date: "YYYY-MM-DD" (the publication date, in quotes) to the front matter.');
+    report.error(
+      file,
+      dateField?.line ?? 1,
+      'missing "date": add date: "YYYY-MM-DD" (the publication date, in quotes) to the front matter.',
+    );
   } else {
     const quoted = dateField.raw.match(/^(["'])(.*)\1\s*(?:#.*)?$/);
     if (!quoted) {
-      report.error(file, dateField.line, `the date must be in quotes, e.g. date: "${String(dateField.raw).replace(/\s*#.*$/, "").trim() || "2026-05-15"}". Without quotes YAML turns it into a different kind of value and posts end up in the wrong order.`);
+      report.error(
+        file,
+        dateField.line,
+        `the date must be in quotes, e.g. date: "${
+          String(dateField.raw)
+            .replace(/\s*#.*$/, "")
+            .trim() || "2026-05-15"
+        }". Without quotes YAML turns it into a different kind of value and posts end up in the wrong order.`,
+      );
     } else {
       const parts = quoted[2].match(DATE_FORMAT);
       if (!parts) {
-        report.error(file, dateField.line, `date "${quoted[2]}" must be "YYYY-MM-DD" or "YYYY-MM-DD HH:mm" with leading zeros, e.g. "2026-05-04".`);
+        report.error(
+          file,
+          dateField.line,
+          `date "${quoted[2]}" must be "YYYY-MM-DD" or "YYYY-MM-DD HH:mm" with leading zeros, e.g. "2026-05-04".`,
+        );
       } else if (!isRealDate(parts)) {
         report.error(file, dateField.line, `date "${quoted[2]}" is not a real date or time.`);
       }
@@ -303,17 +355,29 @@ function checkPost(name, postSlugs) {
   }
 
   if (data.unlisted !== undefined && typeof data.unlisted !== "boolean") {
-    report.error(file, findField(frontMatter, "unlisted")?.line, "unlisted must be true or false, without quotes.");
+    report.error(
+      file,
+      findField(frontMatter, "unlisted")?.line,
+      "unlisted must be true or false, without quotes.",
+    );
   }
 
   if (data.excerpt !== undefined && typeof data.excerpt !== "string") {
-    report.error(file, findField(frontMatter, "excerpt")?.line, 'excerpt must be text in quotes, e.g. excerpt: "One or two sentences."');
+    report.error(
+      file,
+      findField(frontMatter, "excerpt")?.line,
+      'excerpt must be text in quotes, e.g. excerpt: "One or two sentences."',
+    );
   }
 
   if (data.coverImage !== undefined && data.coverImage !== "") {
     const line = findField(frontMatter, "coverImage")?.line;
     if (typeof data.coverImage !== "string" || !data.coverImage.startsWith("/")) {
-      report.error(file, line, 'coverImage must be a path starting with "/images/", e.g. "/images/poster/2026-10-15-event.jpg".');
+      report.error(
+        file,
+        line,
+        'coverImage must be a path starting with "/images/", e.g. "/images/poster/2026-10-15-event.jpg".',
+      );
     } else {
       checkTarget(file, line, data.coverImage, postSlugs);
     }
@@ -348,10 +412,18 @@ function checkMember(name) {
   // Privacy first: this runs even if the front matter is broken.
   const withoutUrls = text.replace(/https?:\/\/\S+/g, (url) => url.replace(/[^\n]/g, " "));
   for (const match of withoutUrls.matchAll(EMAIL)) {
-    report.error(file, lineAt(text, match.index), `contains an e-mail address ("${match[0]}"). Member profiles are public: don't publish personal contact details.`);
+    report.error(
+      file,
+      lineAt(text, match.index),
+      `contains an e-mail address ("${match[0]}"). Member profiles are public: don't publish personal contact details.`,
+    );
   }
   for (const match of withoutUrls.matchAll(PHONE)) {
-    report.error(file, lineAt(text, match.index), `contains what looks like a phone number ("${match[0].trim()}"). Member profiles are public: don't publish personal contact details.`);
+    report.error(
+      file,
+      lineAt(text, match.index),
+      `contains what looks like a phone number ("${match[0].trim()}"). Member profiles are public: don't publish personal contact details.`,
+    );
   }
 
   checkMathLetters(file, text);
@@ -360,14 +432,22 @@ function checkMember(name) {
   const { data, frontMatter, body, bodyLine } = parsed;
 
   if (typeof data.name !== "string" || !data.name.trim()) {
-    report.error(file, findField(frontMatter, "name")?.line ?? 1, 'missing "name": add name: "First Last" to the front matter. Profiles without a name are not shown.');
+    report.error(
+      file,
+      findField(frontMatter, "name")?.line ?? 1,
+      'missing "name": add name: "First Last" to the front matter. Profiles without a name are not shown.',
+    );
   }
 
   for (const field of ["linkedin", "orcid"]) {
     const value = data[field];
     if (value === undefined || value === null || value === "") continue;
     if (typeof value !== "string" || !/^https:\/\/\S+$/.test(value.trim())) {
-      report.error(file, findField(frontMatter, field)?.line, `${field} must be empty ("") or a full https:// profile URL, not "${value}".`);
+      report.error(
+        file,
+        findField(frontMatter, field)?.line,
+        `${field} must be empty ("") or a full https:// profile URL, not "${value}".`,
+      );
     }
   }
 
@@ -375,18 +455,30 @@ function checkMember(name) {
   if (image !== undefined && image !== null && image !== "") {
     const line = findField(frontMatter, "image")?.line;
     if (typeof image !== "string" || /^https?:\/\//.test(image)) {
-      report.error(file, line, 'image must be a file in public/images/team/ (e.g. "jane-doe.jpg"), or "" to show the initials.');
+      report.error(
+        file,
+        line,
+        'image must be a file in public/images/team/ (e.g. "jane-doe.jpg"), or "" to show the initials.',
+      );
     } else {
       // Same rule as src/lib/api.ts: a bare file name is in /images/team/.
       const urlPath = image.startsWith("/") ? image : `/images/team/${image}`;
       if (!publicFileExists(urlPath)) {
-        report.error(file, line, `image "${image}" does not exist: add public${urlPath} or fix the name (names are case-sensitive).`);
+        report.error(
+          file,
+          line,
+          `image "${image}" does not exist: add public${urlPath} or fix the name (names are case-sensitive).`,
+        );
       }
     }
   }
 
   if (data.order !== undefined && data.order !== null && !Number.isFinite(Number(data.order))) {
-    report.error(file, findField(frontMatter, "order")?.line, `order must be a number, e.g. order: 2, not "${data.order}".`);
+    report.error(
+      file,
+      findField(frontMatter, "order")?.line,
+      `order must be a number, e.g. order: 2, not "${data.order}".`,
+    );
   }
 
   checkMarkdownSyntax(file, body, bodyLine);
@@ -403,13 +495,25 @@ const DATA_EXPORT = /\.(csv|tsv|xlsx?|ods|numbers)$/i;
 function checkTrackedDataExports() {
   let tracked;
   try {
-    tracked = execFileSync("git", ["ls-files", "-z"], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+    tracked = execFileSync("git", ["ls-files", "-z"], {
+      cwd: root,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
   } catch {
-    report.warn(".", undefined, "not a git repository (or git is not installed): skipped the check for committed spreadsheets.");
+    report.warn(
+      ".",
+      undefined,
+      "not a git repository (or git is not installed): skipped the check for committed spreadsheets.",
+    );
     return;
   }
   for (const file of tracked.split("\0").filter((f) => DATA_EXPORT.test(f))) {
-    report.error(file, undefined, "spreadsheets and data exports must not be committed: they often contain personal data. Remove it with `git rm --cached` and keep it outside the repository.");
+    report.error(
+      file,
+      undefined,
+      "spreadsheets and data exports must not be committed: they often contain personal data. Remove it with `git rm --cached` and keep it outside the repository.",
+    );
   }
 }
 
@@ -417,7 +521,11 @@ const postFiles = listFiles(NEWS_DIR);
 const posts = postFiles.filter(isMarkdown);
 const postSlugs = new Set(posts.map((file) => file.replace(/\.(md|markdown)$/, "")));
 for (const other of postFiles.filter((file) => !isMarkdown(file))) {
-  report.warn(`${NEWS_DIR}/${other}`, undefined, "not a .md or .markdown file, so it is not published. Move it to public/ if it is an image or attachment.");
+  report.warn(
+    `${NEWS_DIR}/${other}`,
+    undefined,
+    "not a .md or .markdown file, so it is not published. Move it to public/ if it is an image or attachment.",
+  );
 }
 for (const name of posts) checkPost(name, postSlugs);
 

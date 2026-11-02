@@ -65,7 +65,10 @@ describe("createExcerpt", () => {
   });
 
   test("shortens long bodies to the maximum length", () => {
-    const markdown = Array.from({ length: 5 }, (_, i) => `Paragraph ${i + 1} has a few words in it.`).join("\n\n");
+    const markdown = Array.from(
+      { length: 5 },
+      (_, i) => `Paragraph ${i + 1} has a few words in it.`,
+    ).join("\n\n");
     const excerpt = createExcerpt(markdown, 50);
     expect(excerpt.length).toBeLessThanOrEqual(50);
     expect(excerpt).toMatch(/^Paragraph 1 has a few words in it\. Paragraph 2.*…$/);

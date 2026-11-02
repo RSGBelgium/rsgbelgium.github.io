@@ -23,7 +23,10 @@ import type { Definition, Heading, Link, LinkReference, Root } from "mdast";
  * @param node - The markdown node, e.g. a link or a heading
  * @param properties - Attribute names and values, e.g. `{ id: "tracks" }`
  */
-function setHtmlAttributes(node: Heading | Link | LinkReference, properties: Record<string, string>) {
+function setHtmlAttributes(
+  node: Heading | Link | LinkReference,
+  properties: Record<string, string>,
+) {
   node.data = node.data || {};
   node.data.hProperties = { ...node.data.hProperties, ...properties };
 }

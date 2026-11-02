@@ -17,8 +17,21 @@ const posts: Post[] = [
     content: "",
     category: "news",
   },
-  { slug: "2026-04-09-second", title: "Second post", date: "2026-04-09", excerpt: "Second.", content: "", category: "news" },
-  { slug: "2026-03-12-third", title: "Third post", date: "2026-03-12", content: "", category: "news" },
+  {
+    slug: "2026-04-09-second",
+    title: "Second post",
+    date: "2026-04-09",
+    excerpt: "Second.",
+    content: "",
+    category: "news",
+  },
+  {
+    slug: "2026-03-12-third",
+    title: "Third post",
+    date: "2026-03-12",
+    content: "",
+    category: "news",
+  },
 ];
 
 /** Renders the async server component. */
@@ -54,10 +67,9 @@ describe("News page", () => {
   test("lists the other posts under More Stories as h3s", async () => {
     await renderNewsPage();
     expect(screen.getByRole("heading", { level: 2, name: "More Stories" })).toBeInTheDocument();
-    expect(screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent)).toEqual([
-      "Second post",
-      "Third post",
-    ]);
+    expect(
+      screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    ).toEqual(["Second post", "Third post"]);
   });
 
   test("offers one keyboard-reachable link per post", async () => {

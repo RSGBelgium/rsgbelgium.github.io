@@ -11,8 +11,18 @@ import { CONTACT_CHANNELS, CONTACT_EMAIL, isExternalUrl } from "@/lib/social";
 
 describe("CONTACT_CHANNELS", () => {
   test("lists exactly Email, GitHub, Slack and LinkedIn, in that order", () => {
-    expect(CONTACT_CHANNELS.map((channel) => channel.id)).toEqual(["email", "github", "slack", "linkedin"]);
-    expect(CONTACT_CHANNELS.map((channel) => channel.label)).toEqual(["Email", "GitHub", "Slack", "LinkedIn"]);
+    expect(CONTACT_CHANNELS.map((channel) => channel.id)).toEqual([
+      "email",
+      "github",
+      "slack",
+      "linkedin",
+    ]);
+    expect(CONTACT_CHANNELS.map((channel) => channel.label)).toEqual([
+      "Email",
+      "GitHub",
+      "Slack",
+      "LinkedIn",
+    ]);
   });
 
   test("has no Twitter/X or Facebook channel", () => {

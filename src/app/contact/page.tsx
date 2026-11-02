@@ -6,16 +6,16 @@
  * footer's, so the two never disagree.
  */
 
-import { Metadata } from 'next';
-import Container from '@/app/_components/container';
-import { ContactChannelLink, ContactIcon } from '@/components/ContactChannels';
-import { pageAlternates } from '@/lib/metadata';
-import { CONTACT_CHANNELS } from '@/lib/social';
+import { Metadata } from "next";
+import Container from "@/app/_components/container";
+import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
+import { pageAlternates } from "@/lib/metadata";
+import { CONTACT_CHANNELS } from "@/lib/social";
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with RSG-Belgium by e-mail, on Slack, LinkedIn or GitHub.',
-  alternates: pageAlternates('/contact'),
+  title: "Contact Us",
+  description: "Get in touch with RSG-Belgium by e-mail, on Slack, LinkedIn or GitHub.",
+  alternates: pageAlternates("/contact"),
 };
 
 /**
@@ -35,8 +35,8 @@ export default function ContactPage() {
           Get in Touch
         </h1>
         <p className="text-lg text-foreground-muted text-center mb-10 max-w-xl mx-auto">
-          Have a question, an idea for an event, or want to collaborate? We&apos;d love to hear
-          from you. Pick whichever channel suits you best.
+          Have a question, an idea for an event, or want to collaborate? We&apos;d love to hear from
+          you. Pick whichever channel suits you best.
         </p>
 
         {/* grid-cols-1 (minmax(0, 1fr)) and overflow-wrap:anywhere on the link let a long link,

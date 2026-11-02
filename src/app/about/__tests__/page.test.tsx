@@ -11,7 +11,9 @@ describe("About page", () => {
 
   test("has a section for the welcome, mission, values, events and joining", () => {
     render(<AboutPage />);
-    expect(screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)).toEqual([
+    expect(
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent),
+    ).toEqual([
       "Welcome to RSG Belgium!",
       "Our Mission",
       "Our Values",
@@ -24,7 +26,10 @@ describe("About page", () => {
 
   test("links to the Slack page", () => {
     render(<AboutPage />);
-    expect(screen.getByRole("link", { name: "Join us on Slack" })).toHaveAttribute("href", "/slack");
+    expect(screen.getByRole("link", { name: "Join us on Slack" })).toHaveAttribute(
+      "href",
+      "/slack",
+    );
   });
 
   test("sets its title and canonical URL", () => {

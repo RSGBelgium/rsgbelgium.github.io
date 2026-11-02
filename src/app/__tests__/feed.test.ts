@@ -25,9 +25,29 @@ const ALL_POSTS: Post[] = [
     content: "",
     category: "news",
   },
-  { slug: "challenge_track1", title: "Track 1", date: "2026-05-01", content: "", category: "news", unlisted: true },
-  { slug: "2017-10-02-symposium", title: "Student day", date: "2017-10-02 19:10", content: "", category: "news" },
-  { slug: "undated", title: "No date", date: "", excerpt: "Undated.", content: "", category: "news" },
+  {
+    slug: "challenge_track1",
+    title: "Track 1",
+    date: "2026-05-01",
+    content: "",
+    category: "news",
+    unlisted: true,
+  },
+  {
+    slug: "2017-10-02-symposium",
+    title: "Student day",
+    date: "2017-10-02 19:10",
+    content: "",
+    category: "news",
+  },
+  {
+    slug: "undated",
+    title: "No date",
+    date: "",
+    excerpt: "Undated.",
+    content: "",
+    category: "news",
+  },
 ];
 
 /**
@@ -38,7 +58,9 @@ const ALL_POSTS: Post[] = [
 function expectWellFormed(xml: string) {
   const body = xml.replace(/^<\?xml[^>]*\?>\s*/, "");
   const stack: string[] = [];
-  for (const [, closing, name, , selfClosing] of body.matchAll(/<(\/?)([\w:]+)((?:\s+[\w:]+="[^"]*")*)\s*(\/?)>/g)) {
+  for (const [, closing, name, , selfClosing] of body.matchAll(
+    /<(\/?)([\w:]+)((?:\s+[\w:]+="[^"]*")*)\s*(\/?)>/g,
+  )) {
     if (selfClosing) continue;
     if (closing) expect(stack.pop()).toBe(name);
     else stack.push(name);
@@ -70,19 +92,25 @@ describe("GET /feed.xml", () => {
     expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"')).toBe(true);
     expect(xml).toContain("<title>RSG-Belgium News</title>");
     expect(xml).toContain("<link>https://rsg-belgium.org/news</link>");
-    expect(xml).toContain('<atom:link href="https://rsg-belgium.org/feed.xml" rel="self" type="application/rss+xml"/>');
+    expect(xml).toContain(
+      '<atom:link href="https://rsg-belgium.org/feed.xml" rel="self" type="application/rss+xml"/>',
+    );
   });
 
   test("is well-formed XML with escaped titles and descriptions", async () => {
     const { xml } = await fetchFeed();
     expectWellFormed(xml);
-    expect(xml).toContain("<title>Meet the speakers: &quot;Beer &amp; &lt;Bioinformatics&gt;&quot;</title>");
+    expect(xml).toContain(
+      "<title>Meet the speakers: &quot;Beer &amp; &lt;Bioinformatics&gt;&quot;</title>",
+    );
     expect(xml).toContain("<description>Talks &amp; drinks &lt;in Ghent&gt;.</description>");
   });
 
   test("lists the listed posts, newest first, without unlisted posts", async () => {
     const { xml } = await fetchFeed();
-    const links = [...xml.matchAll(/<item>\s*<title>[^<]*<\/title>\s*<link>([^<]+)<\/link>/g)].map((m) => m[1]);
+    const links = [...xml.matchAll(/<item>\s*<title>[^<]*<\/title>\s*<link>([^<]+)<\/link>/g)].map(
+      (m) => m[1],
+    );
     expect(links).toEqual([
       "https://rsg-belgium.org/news/2026-05-15-speakers",
       "https://rsg-belgium.org/news/2017-10-02-symposium",
@@ -102,7 +130,9 @@ describe("GET /feed.xml", () => {
 
   test("describes posts without an excerpt", async () => {
     const { xml } = await fetchFeed();
-    expect(xml).toContain("<description>Read &quot;Student day&quot; on the RSG-Belgium website.</description>");
+    expect(xml).toContain(
+      "<description>Read &quot;Student day&quot; on the RSG-Belgium website.</description>",
+    );
   });
 
   test("is still valid without posts", async () => {
@@ -110,6 +140,8 @@ describe("GET /feed.xml", () => {
     const { xml } = await fetchFeed();
     expectWellFormed(xml);
     expect(xml).not.toContain("<item>");
-    expect(xml).toMatch(/<lastBuildDate>\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} GMT<\/lastBuildDate>/);
+    expect(xml).toMatch(
+      /<lastBuildDate>\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} GMT<\/lastBuildDate>/,
+    );
   });
 });

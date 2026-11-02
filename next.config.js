@@ -11,7 +11,7 @@
  */
 const nextConfig = {
   // Emit a static site to out/: no Node.js server at runtime.
-  output: 'export',
+  output: "export",
 
   // `/about` is exported as `about.html`, which GitHub Pages serves at `/about`.
   trailingSlash: false,

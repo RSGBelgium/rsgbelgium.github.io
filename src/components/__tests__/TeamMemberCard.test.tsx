@@ -46,7 +46,9 @@ describe("TeamMemberCard", () => {
       />,
     );
 
-    const linkedin = screen.getByRole("link", { name: "Jane Doe on LinkedIn (opens in a new tab)" });
+    const linkedin = screen.getByRole("link", {
+      name: "Jane Doe on LinkedIn (opens in a new tab)",
+    });
     expect(linkedin).toHaveAttribute("href", "https://www.linkedin.com/in/janedoe");
     expect(linkedin).toHaveAttribute("target", "_blank");
     expect(linkedin).toHaveAttribute("rel", "noopener noreferrer");

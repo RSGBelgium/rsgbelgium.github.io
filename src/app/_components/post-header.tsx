@@ -4,7 +4,7 @@
  * Renders the title, author avatar, cover image, and publication date for a post.
  */
 
-'use client';
+"use client";
 
 import { Author } from "@/interfaces/author";
 import Avatar from "@/app/_components/avatar";
@@ -29,7 +29,7 @@ type Props = {
 export default function PostHeader({ title, coverImage, date, author }: Props) {
   const defaultAuthor = {
     name: "RSG-Belgium",
-    picture: "/images/team/rsg-logo.png"
+    picture: "/images/team/rsg-logo.png",
   };
 
   const displayAuthor = author || defaultAuthor;

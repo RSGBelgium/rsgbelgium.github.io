@@ -3,15 +3,15 @@
 Images, PDFs and calendar files live in the `public/` folder. Everything in
 `public/` is published as-is, and **the URL is the path without `public/`**:
 
-| Put the file in | It is available at | Use it for |
-|-----------------|--------------------|------------|
-| `public/images/poster/` | `/images/poster/<file>` | Event posters, speaker line-ups, cover images |
-| `public/images/photo_gallery/` | `/images/photo_gallery/<file>` | Event photos, wrap-up collages |
-| `public/images/team/` | `/images/team/<file>` | Team member portraits |
-| `public/images/logo/` | `/images/logo/<file>` | Logos (RSG-Belgium, event series, partner institutions) |
-| `public/images/maps/` | `/images/maps/<file>` | Campus maps, directions |
-| `public/assets/pdf/` | `/assets/pdf/<file>` | Printable flyers, programmes, brochures |
-| `public/assets/ics/` | `/assets/ics/<file>` | Calendar invites ("add to calendar") |
+| Put the file in                | It is available at             | Use it for                                              |
+| ------------------------------ | ------------------------------ | ------------------------------------------------------- |
+| `public/images/poster/`        | `/images/poster/<file>`        | Event posters, speaker line-ups, cover images           |
+| `public/images/photo_gallery/` | `/images/photo_gallery/<file>` | Event photos, wrap-up collages                          |
+| `public/images/team/`          | `/images/team/<file>`          | Team member portraits                                   |
+| `public/images/logo/`          | `/images/logo/<file>`          | Logos (RSG-Belgium, event series, partner institutions) |
+| `public/images/maps/`          | `/images/maps/<file>`          | Campus maps, directions                                 |
+| `public/assets/pdf/`           | `/assets/pdf/<file>`           | Printable flyers, programmes, brochures                 |
+| `public/assets/ics/`           | `/assets/ics/<file>`           | Calendar invites ("add to calendar")                    |
 
 Example: `public/images/poster/2026-10-15-beerformatics-ghent.jpg` is used in
 a post as `/images/poster/2026-10-15-beerformatics-ghent.jpg`.
@@ -33,12 +33,12 @@ There are no other image folders. Paths from the old site such as
 
 ## Size and format
 
-| Kind | Format | Size |
-|------|--------|------|
-| Photos | JPEG (`.jpg`) or WebP (`.webp`) | Max 1600 px on the long side, ideally ≤ 500 KB |
-| Posters, flyers, graphics with text | PNG, JPEG or WebP; SVG for logos | Max 1600 px on the long side, ideally ≤ 500 KB |
-| Team portraits | JPEG or WebP, roughly square, face centred (shown cropped to a circle) | At most about 600 × 600 px, ≤ 200 KB |
-| PDFs | PDF | As small as practical (export "for web"/"smallest file size") |
+| Kind                                | Format                                                                 | Size                                                          |
+| ----------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Photos                              | JPEG (`.jpg`) or WebP (`.webp`)                                        | Max 1600 px on the long side, ideally ≤ 500 KB                |
+| Posters, flyers, graphics with text | PNG, JPEG or WebP; SVG for logos                                       | Max 1600 px on the long side, ideally ≤ 500 KB                |
+| Team portraits                      | JPEG or WebP, roughly square, face centred (shown cropped to a circle) | At most about 600 × 600 px, ≤ 200 KB                          |
+| PDFs                                | PDF                                                                    | As small as practical (export "for web"/"smallest file size") |
 
 Large images make the site slow, especially on phones. Resize them before
 adding them. Free tools: [Squoosh](https://squoosh.app/) (in the browser),

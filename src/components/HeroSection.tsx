@@ -6,10 +6,10 @@
  * (deeper in dark mode); white text stays above 6.4:1 contrast along all of it.
  */
 
-import React from 'react';
-import Button from './Button'; // Assuming Button is in the same directory or adjust path
-import Container from '@/app/_components/container'; // Common container
-import Image from 'next/image';
+import React from "react";
+import Button from "./Button"; // Assuming Button is in the same directory or adjust path
+import Container from "@/app/_components/container"; // Common container
+import Image from "next/image";
 
 interface HeroSectionProps {
   headline: string;
@@ -35,16 +35,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({ headline, introText, ctaLabel
             {/* The logo's black lettering vanishes on the dark-mode gradient, so dark mode
                 shows the variant with grey lettering on its own dark tile (rounded here).
                 An image can't follow the colour tokens, hence the dark: classes. */}
-            <Image src="/images/logo/rsgBe.svg" alt="RSG Belgium Logo" width={240} height={240} priority className="dark:hidden" />
-            <Image src="/images/logo/rsgBe_light.svg" alt="RSG Belgium Logo" width={240} height={240} priority className="hidden dark:block rounded-2xl" />
+            <Image
+              src="/images/logo/rsgBe.svg"
+              alt="RSG Belgium Logo"
+              width={240}
+              height={240}
+              priority
+              className="dark:hidden"
+            />
+            <Image
+              src="/images/logo/rsgBe_light.svg"
+              alt="RSG Belgium Logo"
+              width={240}
+              height={240}
+              priority
+              className="hidden dark:block rounded-2xl"
+            />
           </div>
           <div className="flex-1">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              {headline}
-            </h1>
-            <p className="text-lg md:text-xl mb-10 leading-relaxed">
-              {introText}
-            </p>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">{headline}</h1>
+            <p className="text-lg md:text-xl mb-10 leading-relaxed">{introText}</p>
             <Button href={ctaLink} size="lg" variant="inverse">
               {ctaLabel}
             </Button>

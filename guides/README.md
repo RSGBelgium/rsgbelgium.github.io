@@ -10,33 +10,33 @@ many older posts contain syntax that no longer works.
 
 ## Guides
 
-| Guide | What it covers |
-|-------|----------------|
-| [News posts](news-post.md) | File naming, front matter (`title`, `date`, `excerpt`, ...) |
-| [Markdown](markdown.md) | Supported syntax, headings and anchor links, writing for screen readers, and what **not** to use |
-| [Images and files](images-and-files.md) | Where images, PDFs and calendar files go, naming, sizes, alt text |
+| Guide                                   | What it covers                                                                                   |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [News posts](news-post.md)              | File naming, front matter (`title`, `date`, `excerpt`, ...)                                      |
+| [Markdown](markdown.md)                 | Supported syntax, headings and anchor links, writing for screen readers, and what **not** to use |
+| [Images and files](images-and-files.md) | Where images, PDFs and calendar files go, naming, sizes, alt text                                |
 
 ## Templates
 
 Copy a template, rename it and fill it in. The comments in each template explain
 every section. Delete the comments when you are done.
 
-| Template | Use it for | Copy it to |
-|----------|-----------|------------|
-| [event-announcement.md](templates/event-announcement.md) | Announcing an event (symposium, hackathon, Beerformatics, workshop) | `content/news/` |
-| [speaker-announcement.md](templates/speaker-announcement.md) | "Meet the speakers" posts, e.g. for Beerformatics | `content/news/` |
-| [event-wrapup.md](templates/event-wrapup.md) | A short report with photos after an event | `content/news/` |
-| [general-news.md](templates/general-news.md) | Any other news (board changes, calls, partnerships) | `content/news/` |
-| [member-profile.md](templates/member-profile.md) | A board or team member profile | `content/organization/` |
+| Template                                                     | Use it for                                                          | Copy it to              |
+| ------------------------------------------------------------ | ------------------------------------------------------------------- | ----------------------- |
+| [event-announcement.md](templates/event-announcement.md)     | Announcing an event (symposium, hackathon, Beerformatics, workshop) | `content/news/`         |
+| [speaker-announcement.md](templates/speaker-announcement.md) | "Meet the speakers" posts, e.g. for Beerformatics                   | `content/news/`         |
+| [event-wrapup.md](templates/event-wrapup.md)                 | A short report with photos after an event                           | `content/news/`         |
+| [general-news.md](templates/general-news.md)                 | Any other news (board changes, calls, partnerships)                 | `content/news/`         |
+| [member-profile.md](templates/member-profile.md)             | A board or team member profile                                      | `content/organization/` |
 
 ## Where content lives
 
-| What | Folder | Shown at |
-|------|--------|----------|
-| News posts and event announcements | `content/news/` | `/news` and the homepage ("Latest News") |
-| Team member profiles | `content/organization/` | `/organization` and the homepage ("Meet the Team") |
-| Images, posters, photos | `public/images/...` | see [Images and files](images-and-files.md) |
-| PDFs and calendar files | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md) |
+| What                               | Folder                                     | Shown at                                           |
+| ---------------------------------- | ------------------------------------------ | -------------------------------------------------- |
+| News posts and event announcements | `content/news/`                            | `/news` and the homepage ("Latest News")           |
+| Team member profiles               | `content/organization/`                    | `/organization` and the homepage ("Meet the Team") |
+| Images, posters, photos            | `public/images/...`                        | see [Images and files](images-and-files.md)        |
+| PDFs and calendar files            | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md)        |
 
 The homepage, About, Contact and Slack pages are written in code (`src/app/`).
 Ask a developer if you need to change them.
@@ -86,12 +86,12 @@ you don't have yet, use the placeholders below and add a `# TODO: ...`
 comment after the field, so anyone can find the gaps by searching for
 `TODO` in `content/organization/`:
 
-| Field | Placeholder |
-|-------|-------------|
-| `title` | `"Board Member"` |
-| `image` | `""` (initials are shown) |
-| `affiliation`, `position`, `city`, `linkedin`, `orcid` | `""` |
-| Bio (the text below the front matter) | `Bio coming soon.` |
+| Field                                                  | Placeholder               |
+| ------------------------------------------------------ | ------------------------- |
+| `title`                                                | `"Board Member"`          |
+| `image`                                                | `""` (initials are shown) |
+| `affiliation`, `position`, `city`, `linkedin`, `orcid` | `""`                      |
+| Bio (the text below the front matter)                  | `Bio coming soon.`        |
 
 Members are ordered by their `order` field on `/organization` and on the
 homepage, which shows the first four: lower numbers come first (`1` for the

@@ -31,41 +31,41 @@
     /* Native form controls and scrollbars follow the theme. */
     color-scheme: light;
 
-    --color-background: 248 250 252;          /* #F8FAFC page */
-    --color-surface: 255 255 255;             /* #FFFFFF cards, header, footer */
-    --color-surface-muted: 241 245 249;       /* #F1F5F9 code blocks, table headers */
-    --color-border: 226 232 240;              /* #E2E8F0 dividers, card borders */
-    --color-foreground: 15 23 42;             /* #0F172A body text */
-    --color-foreground-muted: 71 85 105;      /* #475569 dates, captions */
-    --color-primary: 0 74 173;                /* #004AAD buttons, active nav */
-    --color-primary-hover: 0 58 138;          /* #003A8A */
-    --color-primary-foreground: 255 255 255;  /* #FFFFFF text on primary and on the hero */
-    --color-link: 0 74 173;                   /* #004AAD inline links */
-    --color-accent: 227 133 236;              /* #E385EC decorative only */
-    --color-accent-strong: 154 43 166;        /* #9A2BA6 pink text, focus rings */
-    --color-highlight: 214 232 255;           /* #D6E8FF secondary buttons, info */
-    --color-hero-start: 0 74 173;             /* #004AAD homepage hero gradient */
-    --color-hero-end: 154 43 166;             /* #9A2BA6 */
+    --color-background: 248 250 252; /* #F8FAFC page */
+    --color-surface: 255 255 255; /* #FFFFFF cards, header, footer */
+    --color-surface-muted: 241 245 249; /* #F1F5F9 code blocks, table headers */
+    --color-border: 226 232 240; /* #E2E8F0 dividers, card borders */
+    --color-foreground: 15 23 42; /* #0F172A body text */
+    --color-foreground-muted: 71 85 105; /* #475569 dates, captions */
+    --color-primary: 0 74 173; /* #004AAD buttons, active nav */
+    --color-primary-hover: 0 58 138; /* #003A8A */
+    --color-primary-foreground: 255 255 255; /* #FFFFFF text on primary and on the hero */
+    --color-link: 0 74 173; /* #004AAD inline links */
+    --color-accent: 227 133 236; /* #E385EC decorative only */
+    --color-accent-strong: 154 43 166; /* #9A2BA6 pink text, focus rings */
+    --color-highlight: 214 232 255; /* #D6E8FF secondary buttons, info */
+    --color-hero-start: 0 74 173; /* #004AAD homepage hero gradient */
+    --color-hero-end: 154 43 166; /* #9A2BA6 */
   }
 
   .dark {
     color-scheme: dark;
 
-    --color-background: 15 23 42;             /* #0F172A */
-    --color-surface: 30 41 59;                /* #1E293B */
-    --color-surface-muted: 39 52 73;          /* #273449 */
-    --color-border: 51 65 85;                 /* #334155 */
-    --color-foreground: 241 245 249;          /* #F1F5F9 */
-    --color-foreground-muted: 148 163 184;    /* #94A3B8 */
-    --color-primary: 46 111 216;              /* #2E6FD8 */
-    --color-primary-hover: 36 93 191;         /* #245DBF */
-    --color-primary-foreground: 255 255 255;  /* #FFFFFF */
-    --color-link: 143 187 255;                /* #8FBBFF */
-    --color-accent: 227 133 236;              /* #E385EC */
-    --color-accent-strong: 239 168 245;       /* #EFA8F5 */
-    --color-highlight: 30 58 95;              /* #1E3A5F */
-    --color-hero-start: 11 42 91;             /* #0B2A5B */
-    --color-hero-end: 74 23 82;               /* #4A1752 */
+    --color-background: 15 23 42; /* #0F172A */
+    --color-surface: 30 41 59; /* #1E293B */
+    --color-surface-muted: 39 52 73; /* #273449 */
+    --color-border: 51 65 85; /* #334155 */
+    --color-foreground: 241 245 249; /* #F1F5F9 */
+    --color-foreground-muted: 148 163 184; /* #94A3B8 */
+    --color-primary: 46 111 216; /* #2E6FD8 */
+    --color-primary-hover: 36 93 191; /* #245DBF */
+    --color-primary-foreground: 255 255 255; /* #FFFFFF */
+    --color-link: 143 187 255; /* #8FBBFF */
+    --color-accent: 227 133 236; /* #E385EC */
+    --color-accent-strong: 239 168 245; /* #EFA8F5 */
+    --color-highlight: 30 58 95; /* #1E3A5F */
+    --color-hero-start: 11 42 91; /* #0B2A5B */
+    --color-hero-end: 74 23 82; /* #4A1752 */
   }
 
   /* The header is sticky (4rem tall). When the browser scrolls to an anchor

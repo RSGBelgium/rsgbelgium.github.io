@@ -28,7 +28,9 @@ const params = (slug: string) => ({ params: Promise.resolve({ slug }) });
 
 describe("News post page", () => {
   beforeEach(() => {
-    jest.mocked(getPostBySlug).mockImplementation(async (slug) => (slug === post.slug ? post : null));
+    jest
+      .mocked(getPostBySlug)
+      .mockImplementation(async (slug) => (slug === post.slug ? post : null));
   });
 
   test("renders the title as the only h1 and the markdown body below it", async () => {
@@ -37,7 +39,10 @@ describe("News post page", () => {
     expect(h1s).toHaveLength(1);
     expect(h1s[0]).toHaveTextContent("Meet the speakers");
     // The body's "# Programme" is demoted to h2.
-    expect(screen.getByRole("heading", { level: 2, name: "Programme" })).toHaveAttribute("id", "programme");
+    expect(screen.getByRole("heading", { level: 2, name: "Programme" })).toHaveAttribute(
+      "id",
+      "programme",
+    );
     expect(screen.getByRole("link", { name: "venue" })).toHaveAttribute("target", "_blank");
     expect(screen.getByText("May 15, 2026")).toBeInTheDocument();
   });
@@ -61,7 +66,9 @@ describe("News post page", () => {
   });
 
   test("uses the cover image as share image when there is one", async () => {
-    jest.mocked(getPostBySlug).mockResolvedValue({ ...post, coverImage: "/images/poster/speakers.png", date: "" });
+    jest
+      .mocked(getPostBySlug)
+      .mockResolvedValue({ ...post, coverImage: "/images/poster/speakers.png", date: "" });
     const metadata = await generateMetadata(params(post.slug));
     expect(metadata.openGraph).toMatchObject({
       images: [{ url: "/images/poster/speakers.png", alt: "Cover image for Meet the speakers" }],

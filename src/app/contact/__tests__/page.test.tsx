@@ -13,12 +13,9 @@ describe("Contact page", () => {
     render(<ContactPage />);
     const cards = screen.getAllByRole("listitem");
     expect(cards).toHaveLength(4);
-    expect(cards.map((card) => within(card).getByRole("heading", { level: 2 }).textContent)).toEqual([
-      "Email",
-      "GitHub",
-      "Slack",
-      "LinkedIn",
-    ]);
+    expect(
+      cards.map((card) => within(card).getByRole("heading", { level: 2 }).textContent),
+    ).toEqual(["Email", "GitHub", "Slack", "LinkedIn"]);
   });
 
   test("gives every card exactly one descriptive link", () => {
@@ -34,11 +31,12 @@ describe("Contact page", () => {
 
   test("marks the external links as opening in a new tab", () => {
     render(<ContactPage />);
-    expect(screen.getByRole("link", { name: "github.com/RSGBelgium (opens in a new tab)" })).toHaveAttribute(
+    expect(
+      screen.getByRole("link", { name: "github.com/RSGBelgium (opens in a new tab)" }),
+    ).toHaveAttribute("target", "_blank");
+    expect(screen.getByRole("link", { name: "Request an invitation" })).not.toHaveAttribute(
       "target",
-      "_blank",
     );
-    expect(screen.getByRole("link", { name: "Request an invitation" })).not.toHaveAttribute("target");
   });
 
   test("has no contact form and no Twitter or Facebook links", () => {

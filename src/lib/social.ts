@@ -36,14 +36,16 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
     label: "Email",
     href: `mailto:${CONTACT_EMAIL}`,
     linkText: CONTACT_EMAIL,
-    description: "Questions, ideas for an event, partnerships or anything else: write to the board.",
+    description:
+      "Questions, ideas for an event, partnerships or anything else: write to the board.",
   },
   {
     id: "github",
     label: "GitHub",
     href: "https://github.com/RSGBelgium",
     linkText: "github.com/RSGBelgium",
-    description: "The source code of this website. Spotted a mistake? Open an issue or a pull request.",
+    description:
+      "The source code of this website. Spotted a mistake? Open an issue or a pull request.",
   },
   {
     id: "slack",
@@ -60,4 +62,3 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
     description: "Follow us for event announcements, speakers and news.",
   },
 ];
-

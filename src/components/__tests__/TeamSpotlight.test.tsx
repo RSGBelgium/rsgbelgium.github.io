@@ -3,7 +3,13 @@ import type { Member } from "@/interfaces/member";
 import TeamSpotlight from "../TeamSpotlight";
 
 const members: Member[] = [
-  { slug: "alpha", order: 1, name: "Alpha Person", title: "President", image: "/images/team/alpha.jpg" },
+  {
+    slug: "alpha",
+    order: 1,
+    name: "Alpha Person",
+    title: "President",
+    image: "/images/team/alpha.jpg",
+  },
   { slug: "beta", order: 2, name: "Beta Tester", title: "", image: "" },
 ];
 
@@ -15,10 +21,9 @@ describe("TeamSpotlight", () => {
 
   test("renders each member's name and board role", () => {
     render(<TeamSpotlight members={members} />);
-    expect(screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent)).toEqual([
-      "Alpha Person",
-      "Beta Tester",
-    ]);
+    expect(
+      screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    ).toEqual(["Alpha Person", "Beta Tester"]);
     expect(screen.getByText("President")).toBeInTheDocument();
   });
 
@@ -31,7 +36,10 @@ describe("TeamSpotlight", () => {
 
   test("links to the full team", () => {
     render(<TeamSpotlight members={members} />);
-    expect(screen.getByRole("link", { name: "View Full Team" })).toHaveAttribute("href", "/organization");
+    expect(screen.getByRole("link", { name: "View Full Team" })).toHaveAttribute(
+      "href",
+      "/organization",
+    );
   });
 
   test("renders nothing without members", () => {
