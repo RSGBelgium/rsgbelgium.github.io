@@ -66,11 +66,10 @@ describe("FeaturedNews", () => {
     const { container } = render(<FeaturedNews posts={posts} />);
     // Decorative images (alt="") have no img role, so query the DOM directly.
     const images = container.querySelectorAll("img");
-    expect(images).toHaveLength(2);
-    images.forEach((image) => expect(image).toHaveAttribute("alt", ""));
+    // A bare file name ("cover.jpg") is not a site path: that card has no image.
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute("alt", "");
     expect(originalSrc(images[0])).toBe("/images/poster/news1.jpg");
-    // A bare file name is looked up in the post's own folder.
-    expect(originalSrc(images[1])).toBe("/assets/blog/news-2/cover.jpg");
   });
 
   test("links to all news", () => {

@@ -44,17 +44,15 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               key={post.slug}
               className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
             >
-              {post.coverImage && (
+              {post.coverImage?.startsWith("/") && (
                 // Decorative: the title says what the post is about. The image fills a
                 // full-width, 12rem-tall box (cropped with object-cover), so next/image's
                 // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
+                // Only site paths ("/images/...") are shown: `npm run check:content`
+                // rejects any other coverImage, and the card works without an image.
                 <div className="relative h-48">
                   <Image
-                    src={
-                      post.coverImage.startsWith("/")
-                        ? post.coverImage
-                        : `/assets/blog/${post.slug}/${post.coverImage}`
-                    }
+                    src={post.coverImage}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
