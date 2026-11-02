@@ -101,8 +101,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         fileContents = await fs.readFile(path, "utf8");
         break;
       } catch (error: unknown) {
-        // Continue to next extension if file not found
-        if (error instanceof Error && 'code' in error && error.code === 'ENOENT') continue;
+        // Continue to next extension if file not found. Only `code` is checked: an
+        // `instanceof Error` test fails for errors from another realm (e.g. under Jest).
+        if ((error as NodeJS.ErrnoException | null)?.code === 'ENOENT') continue;
         throw error;
       }
     }
