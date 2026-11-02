@@ -24,6 +24,9 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Tests are not part of the site: class names in them must not end up in the CSS.
+    "!./src/**/__tests__/**",
+    "!./src/**/*.test.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
