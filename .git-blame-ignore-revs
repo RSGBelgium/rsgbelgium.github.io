@@ -1,0 +1,10 @@
+# Commits that only reformat code, skipped by `git blame` so it shows who
+# last changed the meaning of a line. GitHub's blame view reads this file
+# automatically; for the command line, run once:
+#
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# Add the full hash of any future formatting-only commit below, with its subject.
+
+# style: apply prettier
+93c4eed50eaed0def73e0cf46843bc18834b84e5
