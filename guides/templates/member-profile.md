@@ -2,7 +2,8 @@
 # TEAM MEMBER PROFILE TEMPLATE
 # 1. Copy this file to content/organization/firstname-lastname.md (lowercase, hyphens, no spaces).
 # 2. Optional: add a portrait to public/images/team/firstname-lastname.jpg
-#    (roughly square, at most about 600 × 600 px, ≤ 200 KB; it is cropped to a circle).
+#    (roughly square, face centred; it is cropped to a circle), then run `npm run optimize:images`:
+#    it resizes the photo to 600 px, saves it as .webp and updates `image` below.
 # 3. Fill in the fields below and delete these instruction comments.
 #
 # `name` and `order` are required. Leave a field you don't know yet as "" (it is then

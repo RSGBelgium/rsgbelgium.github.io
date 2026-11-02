@@ -53,10 +53,11 @@ Ask a developer if you need to change them.
 3. **Fill in the front matter** (the block between the `---` lines). See
    [News posts](news-post.md). Always quote the date: `date: "2026-10-15"`.
 4. **Write the post** in Markdown. See [Markdown](markdown.md).
-5. **Add images and files** to `public/` and link them. See
-   [Images and files](images-and-files.md).
-6. **Preview** it locally and run `npm run check:content` (see below), then
-   open a pull request.
+5. **Add images and files** to `public/` and link them, then run
+   `npm run optimize:images` to shrink the images and convert them to WebP.
+   See [Images and files](images-and-files.md).
+6. **Preview** it locally and run `npm run check:content` and
+   `npm run check:assets` (see below), then open a pull request.
 
 ### The file name is the URL
 
@@ -75,7 +76,8 @@ Posts are ordered by the `date` in their front matter, not by file name.
 1. Copy [`templates/member-profile.md`](templates/member-profile.md) to
    `content/organization/firstname-lastname.md`.
 2. Optionally, add their portrait to `public/images/team/` (roughly square,
-   at most about 600 × 600 px; see [Images and files](images-and-files.md)).
+   face centred) and run `npm run optimize:images`, which resizes it to
+   600 px and converts it to WebP (see [Images and files](images-and-files.md)).
    Without a photo, the website shows their initials in a blue circle.
 3. Fill in the front matter: `name` (required), `title` (their board role),
    `affiliation` (university), `position` (e.g. "PhD student"), `city`,
@@ -102,9 +104,10 @@ President). Number the members 1 to n, each number used once and without
 gaps; a profile without `order` is not shown. To move someone, renumber the
 profiles in between.
 
-When someone leaves the board, delete their file. Git history keeps it, and
-files in subfolders of `content/organization/` are not shown on the site
-anyway.
+When someone leaves the board, delete their file and their photo in
+`public/images/team/` (`npm run check:assets` reports photos nobody uses).
+Git history keeps both, and files in subfolders of `content/organization/`
+are not shown on the site anyway.
 
 ## Previewing your changes
 
@@ -129,10 +132,11 @@ Check that:
 
 ## Checking your changes
 
-Before you open a pull request, run the content check:
+Before you open a pull request, run the content and asset checks:
 
 ```bash
 npm run check:content
+npm run check:assets
 ```
 
 It checks every post and team profile and lists each problem with the file,
@@ -149,7 +153,11 @@ don't exist, broken links such as `ttps://...` or `assets/...` without the
 leading `/`, leftover `{{ }}` or `{: }` syntax, `<iframe>`s without a
 `title`, and e-mail addresses or phone numbers in team profiles.
 
-The same check runs automatically on every pull request (GitHub Actions,
+The asset check lists images that are too big (run `npm run optimize:images`)
+and files in `public/` that nothing uses (delete them). See
+[Images and files](images-and-files.md#the-asset-check).
+
+The same checks run automatically on every pull request (GitHub Actions,
 "CI"), together with a build of the whole site and a check of every built
 page. Don't merge a pull request with a red ✗: open the failed check, read
 the messages (they are also shown next to the changed lines under "Files
@@ -171,7 +179,7 @@ Nobody commits directly to `main`. Every change goes through a pull request:
 2. Add your files and commit. Add files by name, not with `git add .`, so
    that you don't commit unrelated or private files:
    ```bash
-   git add content/news/2026-10-15-beerformatics-ghent.md public/images/poster/2026-10-15-beerformatics-ghent.jpg
+   git add content/news/2026-10-15-beerformatics-ghent.md public/images/poster/2026-10-15-beerformatics-ghent.webp
    git commit -m "Add Beerformatics Ghent announcement"
    git push -u origin content/beerformatics-ghent-announcement
    ```

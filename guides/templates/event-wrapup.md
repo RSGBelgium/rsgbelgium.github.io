@@ -23,7 +23,8 @@ category: "news"
 On DD Month YYYY we held EVENT NAME in CITY. Thank you to everyone who joined us and made it such a great evening!
 
 <!--
-  PHOTOS: put them in public/images/photo_gallery/ (max 1600 px on the long side, ideally ≤ 500 KB).
+  PHOTOS: put them in public/images/photo_gallery/, then run `npm run optimize:images`: it resizes them,
+  converts them to WebP (photo.jpg becomes photo.webp) and updates the link below.
   Describe what the photo shows in the alt text. Only publish photos of people who agreed to be photographed.
 -->
 
