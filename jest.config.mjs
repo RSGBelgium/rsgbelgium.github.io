@@ -12,9 +12,9 @@
  * Run `npm test`, or `npm run test:ci` for a CI run with coverage.
  */
 
-const fs = require("node:fs");
-const path = require("node:path");
-const nextJest = require("next/jest");
+import fs from "node:fs";
+import path from "node:path";
+import nextJest from "next/jest.js";
 
 const createJestConfig = nextJest({
   // Load next.config.js and .env files from the project root.
@@ -51,7 +51,7 @@ const customJestConfig = {
  * @returns Package names, scoped ones included ("@scope/name")
  */
 function findEsmOnlyPackages() {
-  const nodeModules = path.join(__dirname, "node_modules");
+  const nodeModules = path.join(import.meta.dirname, "node_modules");
   const names = [];
   for (const entry of fs.readdirSync(nodeModules)) {
     const packages = entry.startsWith("@")
@@ -72,7 +72,7 @@ function findEsmOnlyPackages() {
 /** Escapes a package name for use in a regular expression. */
 const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-module.exports = async () => {
+export default async function jestConfig() {
   // createJestConfig returns an async function, so that next/jest can load next.config.js.
   const config = await createJestConfig(customJestConfig)();
 
@@ -87,4 +87,4 @@ module.exports = async () => {
   ];
 
   return config;
-};
+}
