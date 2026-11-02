@@ -33,6 +33,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { createPublicFileExists } from "./lib/public-files.mjs";
 import { lineAt, Report } from "./lib/report.mjs";
 // The rules the site itself reads content/ with (Node loads the .ts file directly).
 import {
@@ -47,7 +48,6 @@ import {
 const root = path.resolve(process.argv[2] ?? path.join(import.meta.dirname, ".."));
 const NEWS_DIR = "content/news";
 const MEMBERS_DIR = "content/organization";
-const PUBLIC_DIR = "public";
 
 const report = new Report("Content check");
 
@@ -150,38 +150,12 @@ function maskCodeAndComments(text) {
     .replace(/(`+)(?!`)[^\n]*?[^`]\1(?!`)/g, blank);
 }
 
-/** Directory listings, cached: folder path -> entries (exact names). */
-const listings = new Map();
-
 /**
- * Whether a root-relative path (e.g. "/images/poster/a.png") is a file in
- * public/, with exactly this upper/lower case. The case matters: GitHub
- * Pages (and CI) are case-sensitive even when the editor's computer
- * (macOS, Windows) is not, so "anis.jpg" must not match "anis.JPG".
- *
- * @param {string} urlPath - Path starting with "/", possibly with ?query or #hash
+ * Whether a root-relative path (e.g. "/images/poster/a.webp") is a file in
+ * public/, with exactly this upper/lower case: "anis.jpg" doesn't match
+ * "anis.JPG", as on the live site. Accepts a ?query or #hash.
  */
-function publicFileExists(urlPath) {
-  let clean;
-  try {
-    clean = decodeURIComponent(urlPath.replace(/[?#].*$/, ""));
-  } catch {
-    return false;
-  }
-  let current = path.join(root, PUBLIC_DIR);
-  for (const segment of clean.split("/").filter(Boolean)) {
-    if (segment === "." || segment === "..") return false;
-    if (!listings.has(current)) {
-      listings.set(
-        current,
-        fs.existsSync(current) && fs.statSync(current).isDirectory() ? fs.readdirSync(current) : [],
-      );
-    }
-    if (!listings.get(current).includes(segment)) return false;
-    current = path.join(current, segment);
-  }
-  return fs.statSync(current).isFile();
-}
+const publicFileExists = createPublicFileExists(root);
 
 /**
  * The site's own pages and generated files, from the folders in src/app
