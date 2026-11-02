@@ -15,6 +15,7 @@
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage",
     "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:site": "html-validate out && linkinator out",
     "ci": "npm run lint && npm run format:check && npm run typecheck && npm test -- --ci && npm run check:content && npm run build && npm run check:site"
@@ -54,6 +55,7 @@
     "postcss": "^8.5.5",
     "prettier": "3.9.10",
     "react": "^19.1.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
   }
