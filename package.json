@@ -18,7 +18,7 @@
     "optimize:images": "node scripts/optimize-images.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:site": "html-validate out && linkinator out",
-    "ci": "npm run lint && npm run format:check && npm run typecheck && npm test -- --ci && npm run check:content && npm run build && npm run check:site"
+    "ci": "npm run lint && npm run format:check && npm run typecheck && npm test -- --ci && npm run check:content && npm run check:assets && npm run build && npm run check:site"
   },
   "dependencies": {
     "classnames": "^2.5.1",
