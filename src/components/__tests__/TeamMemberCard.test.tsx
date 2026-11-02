@@ -1,71 +1,67 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import TeamMemberCard from '../TeamMemberCard'; // Adjust path as necessary
-// Mock next/image
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />;
-  },
-}));
+import { render, screen } from "@testing-library/react";
+import TeamMemberCard from "../TeamMemberCard";
 
-describe('TeamMemberCard', () => {
-  const defaultProps = {
-    name: 'John Doe',
-    title: 'Software Engineer',
-    image: 'john-doe.jpg', // This will be prefixed with /assets/img/people/
-  };
+const props = {
+  name: "Jane Doe",
+  title: "President",
+};
 
-  test('renders member\'s name, title, and image', () => {
-    render(<TeamMemberCard {...defaultProps} />);
-
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('Software Engineer')).toBeInTheDocument();
-
-    const image = screen.getByAltText('John Doe');
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', '/assets/img/people/john-doe.jpg');
+describe("TeamMemberCard", () => {
+  test("renders the name as a heading and the board role", () => {
+    render(<TeamMemberCard {...props} />);
+    expect(screen.getByRole("heading", { level: 3, name: "Jane Doe" })).toBeInTheDocument();
+    expect(screen.getByText("President")).toBeInTheDocument();
   });
 
-  test('renders LinkedIn link when provided', () => {
-    const propsWithLinkedIn = { ...defaultProps, linkedin: 'https://linkedin.com/in/johndoe' };
-    render(<TeamMemberCard {...propsWithLinkedIn} />);
+  test("joins the affiliation, position and city that are set", () => {
+    const { rerender } = render(
+      <TeamMemberCard {...props} affiliation="KU Leuven" position="PhD student" city="Leuven" />,
+    );
+    expect(screen.getByText("KU Leuven · PhD student · Leuven")).toBeInTheDocument();
 
-    const linkedinLink = screen.getByRole('link', { name: /LinkedIn/i });
-    expect(linkedinLink).toBeInTheDocument();
-    expect(linkedinLink).toHaveAttribute('href', 'https://linkedin.com/in/johndoe');
+    rerender(<TeamMemberCard {...props} affiliation="KU Leuven" city="Leuven" />);
+    expect(screen.getByText("KU Leuven · Leuven")).toBeInTheDocument();
   });
 
-  test('does not render LinkedIn link when not provided', () => {
-    render(<TeamMemberCard {...defaultProps} />);
-    expect(screen.queryByRole('link', { name: /LinkedIn/i })).not.toBeInTheDocument();
+  test("shows the photo as a decorative image", () => {
+    const { container } = render(<TeamMemberCard {...props} image="/images/team/jane.jpg" />);
+    const image = container.querySelector("img");
+    expect(image).toHaveAttribute("alt", "");
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
-  test('renders ORCID link when provided', () => {
-    const propsWithOrcid = { ...defaultProps, orcid: 'https://orcid.org/0000-0000-0000-0000' };
-    render(<TeamMemberCard {...propsWithOrcid} />);
-
-    const orcidLink = screen.getByRole('link', { name: /ORCID/i });
-    expect(orcidLink).toBeInTheDocument();
-    expect(orcidLink).toHaveAttribute('href', 'https://orcid.org/0000-0000-0000-0000');
+  test("shows hidden initials without a photo", () => {
+    render(<TeamMemberCard {...props} />);
+    const initials = screen.getByText("JD");
+    expect(initials).toHaveAttribute("aria-hidden", "true");
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
-  test('does not render ORCID link when not provided', () => {
-    render(<TeamMemberCard {...defaultProps} />);
-    expect(screen.queryByRole('link', { name: /ORCID/i })).not.toBeInTheDocument();
+  test("links to LinkedIn and ORCID in a new tab, saying so", () => {
+    render(
+      <TeamMemberCard
+        {...props}
+        linkedin="https://www.linkedin.com/in/janedoe"
+        orcid="https://orcid.org/0000-0000-0000-0000"
+      />,
+    );
+
+    const linkedin = screen.getByRole("link", { name: "Jane Doe on LinkedIn (opens in a new tab)" });
+    expect(linkedin).toHaveAttribute("href", "https://www.linkedin.com/in/janedoe");
+    expect(linkedin).toHaveAttribute("target", "_blank");
+    expect(linkedin).toHaveAttribute("rel", "noopener noreferrer");
+
+    const orcid = screen.getByRole("link", { name: "Jane Doe on ORCID (opens in a new tab)" });
+    expect(orcid).toHaveAttribute("href", "https://orcid.org/0000-0000-0000-0000");
   });
 
-  test('uses next/image structure (mocked)', () => {
-    // With the mock, we are essentially checking if the props are passed correctly to our img tag
-    // A more sophisticated mock or snapshot test could verify specific next/image behavior if needed
-    render(<TeamMemberCard {...defaultProps} image="test.png" />);
-    const image = screen.getByAltText(defaultProps.name) as HTMLImageElement;
-    expect(image.src).toContain('/assets/img/people/test.png');
-    // next/image adds specific inline styles or wrapper divs that could be checked too,
-    // but our current mock simplifies it to an <img> tag.
-    // For example, next/image typically involves `layout="fill"` and `objectFit="cover"` as per component code.
-    // These would translate to specific styles or attributes that are not directly on the <img> with the basic mock.
-    // This test, with the current mock, primarily confirms the src and alt text.
+  test("renders no profile links when there are none", () => {
+    render(<TeamMemberCard {...props} />);
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
+
+  test("renders the bio HTML", () => {
+    render(<TeamMemberCard {...props} bioHtml="<p>Jane studies <strong>genomics</strong>.</p>" />);
+    expect(screen.getByText("genomics").tagName).toBe("STRONG");
   });
 });

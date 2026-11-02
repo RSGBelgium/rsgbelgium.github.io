@@ -1,43 +1,33 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import HeroSection from '../HeroSection'; // Adjust path as necessary
-import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import HeroSection from "../HeroSection";
 
-// Mock the Button component
-jest.mock('../Button', () => {
-  return ({ href, children, ...props }: { href: string; children: React.ReactNode} ) => (
-    <a href={href} {...props}>{children}</a>
-  );
-});
+const props = {
+  headline: "Welcome to RSG Belgium",
+  introText: "Your hub for bioinformatics students.",
+  ctaLabel: "Learn More About Us",
+  ctaLink: "/about",
+};
 
-describe('HeroSection Component', () => {
-  const defaultProps = {
-    headline: 'Test Headline',
-    introText: 'This is a test introduction.',
-    ctaLabel: 'Click Here',
-    ctaLink: '/test-cta-link',
-  };
-
-  test('renders headline, intro text, and CTA button correctly', () => {
-    render(<HeroSection {...defaultProps} />);
-
-    // Check for headline
-    expect(screen.getByText(defaultProps.headline)).toBeInTheDocument();
-    // Check for intro text
-    expect(screen.getByText(defaultProps.introText)).toBeInTheDocument();
-
-    // Check for CTA button (mocked as an anchor tag)
-    const ctaButton = screen.getByRole('link', { name: defaultProps.ctaLabel });
-    expect(ctaButton).toBeInTheDocument();
-    expect(ctaButton).toHaveAttribute('href', defaultProps.ctaLink);
+describe("HeroSection", () => {
+  test("renders the headline as the page's h1", () => {
+    render(<HeroSection {...props} />);
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(props.headline);
   });
 
-  test('headline is rendered as a prominent heading (h1)', () => {
-    render(<HeroSection {...defaultProps} />);
-    const headlineElement = screen.getByText(defaultProps.headline);
-    // Check if it's an h1 or has a role that implies a high-level heading.
-    // Depending on styling, it might be an h1 directly or a p/div styled as one.
-    // For this component, the structure is h1.
-    expect(headlineElement.tagName).toBe('H1');
+  test("renders the intro text and the call-to-action link", () => {
+    render(<HeroSection {...props} />);
+    expect(screen.getByText(props.introText)).toBeInTheDocument();
+    const cta = screen.getByRole("link", { name: props.ctaLabel });
+    expect(cta).toHaveAttribute("href", props.ctaLink);
+    expect(cta).toHaveClass("button-inverse");
+  });
+
+  test("shows the logo, with a variant for the dark theme", () => {
+    render(<HeroSection {...props} />);
+    const logos = screen.getAllByRole("img", { name: "RSG Belgium Logo" });
+    expect(logos).toHaveLength(2);
+    expect(logos[0]).toHaveClass("dark:hidden");
+    expect(logos[1]).toHaveClass("hidden", "dark:block");
   });
 });

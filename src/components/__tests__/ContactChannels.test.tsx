@@ -1,0 +1,39 @@
+import { render, screen } from "@testing-library/react";
+import { ContactChannelLink, ContactIcon } from "../ContactChannels";
+import { CONTACT_CHANNELS } from "@/lib/social";
+
+const channel = (id: string) => CONTACT_CHANNELS.find((c) => c.id === id)!;
+
+describe("ContactChannelLink", () => {
+  test("opens external channels in a new tab and says so", () => {
+    render(<ContactChannelLink channel={channel("github")}>GitHub</ContactChannelLink>);
+    const link = screen.getByRole("link", { name: "GitHub (opens in a new tab)" });
+    expect(link).toHaveAttribute("href", "https://github.com/RSGBelgium");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  test("keeps internal and mailto links in the same tab", () => {
+    render(
+      <>
+        <ContactChannelLink channel={channel("slack")}>Slack</ContactChannelLink>
+        <ContactChannelLink channel={channel("email")}>Email</ContactChannelLink>
+      </>,
+    );
+    const slack = screen.getByRole("link", { name: "Slack" });
+    const email = screen.getByRole("link", { name: "Email" });
+    expect(slack).toHaveAttribute("href", "/slack");
+    expect(email).toHaveAttribute("href", channel("email").href);
+    expect(slack).not.toHaveAttribute("target");
+    expect(email).not.toHaveAttribute("target");
+  });
+});
+
+describe("ContactIcon", () => {
+  test.each(CONTACT_CHANNELS.map((c) => c.id))("renders a decorative %s icon", (id) => {
+    const { container } = render(<ContactIcon id={id} />);
+    const svg = container.querySelector("svg");
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(svg).toHaveAttribute("focusable", "false");
+  });
+});
