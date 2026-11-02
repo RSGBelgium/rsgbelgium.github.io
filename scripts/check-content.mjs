@@ -7,11 +7,13 @@
  *   "YYYY-MM-DD" or "YYYY-MM-DD HH:mm", and a real date; `unlisted` is
  *   true/false; `coverImage` points to a file in public/;
  * - links and images to /images/... or /assets/... point to files in
- *   public/, links to /news/... to existing posts, and every other link
- *   starts with /, #, http(s)://, mailto: or tel:;
+ *   public/, links to /news/... to existing posts, other internal links to
+ *   a page of the site (src/app) or a file in public/, and every other
+ *   link starts with /, #, http(s)://, mailto: or tel:;
  * - no Liquid ({{ }}, {% %}) or kramdown ({: ...}) syntax from the old
  *   Jekyll site, no "fancy" mathematical Unicode letters (unreadable for
- *   screen readers), and every <iframe> has a title.
+ *   screen readers), no raw <h1> (the title is the page's <h1>), and every
+ *   <iframe> has a title.
  *
  * Member profiles (content/organization/*.md):
  * - the front matter parses; `name` is set; `linkedin`/`orcid` are empty
@@ -173,6 +175,31 @@ function publicFileExists(urlPath) {
   return fs.statSync(current).isFile();
 }
 
+/**
+ * The site's own pages and generated files, from the folders in src/app
+ * that contain a page or route handler ("/about", "/feed.xml", ...), plus
+ * the sitemap and robots.txt. Dynamic segments ("/news/[slug]") are left
+ * out: links to posts are checked against content/news.
+ */
+function findSitePages() {
+  const appDir = path.join(root, "src/app");
+  const pages = new Set(["/sitemap.xml", "/robots.txt"]);
+  const visit = (dir, route) => {
+    if (!fs.existsSync(dir)) return;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    if (entries.some((entry) => /^(page|route)\.(tsx?|jsx?)$/.test(entry.name)))
+      pages.add(route || "/");
+    for (const entry of entries) {
+      // Skip private folders (_components, __tests__) and dynamic segments ([slug]).
+      if (entry.isDirectory() && !/^[_[]/.test(entry.name))
+        visit(path.join(dir, entry.name), `${route}/${entry.name}`);
+    }
+  };
+  visit(appDir, "");
+  return pages;
+}
+const SITE_PAGES = findSitePages();
+
 /** Link targets that need no further check. */
 const SAFE_SCHEMES = /^(https?:\/\/|mailto:|tel:|#)/i;
 
@@ -231,11 +258,24 @@ function checkTarget(file, line, target, postSlugs) {
   }
 
   const newsLink = target.match(/^\/news\/([^/?#]+)\/?(?:[?#].*)?$/);
-  if (newsLink && !postSlugs.has(newsLink[1])) {
+  if (newsLink) {
+    if (!postSlugs.has(newsLink[1])) {
+      report.error(
+        file,
+        line,
+        `"${target}" links to a post that does not exist: content/news/${newsLink[1]}.md (or .markdown) is missing.`,
+      );
+    }
+    return;
+  }
+
+  // Any other internal link: a page of the site or a file in public/.
+  const pagePath = target.replace(/[?#].*$/, "").replace(/(.)\/$/, "$1");
+  if (!SITE_PAGES.has(pagePath) && !publicFileExists(pagePath)) {
     report.error(
       file,
       line,
-      `"${target}" links to a post that does not exist: content/news/${newsLink[1]}.md (or .markdown) is missing.`,
+      `"${target}" is not a page of the site or a file in public/. The pages are: ${[...SITE_PAGES].sort().join(", ")}, and /news/<post>.`,
     );
   }
 }
@@ -264,6 +304,13 @@ function checkMarkdownSyntax(file, body, bodyLine) {
       file,
       at(match.index),
       `kramdown attribute "${match[0]}" is shown as-is on the website: remove it.`,
+    );
+  }
+  for (const match of masked.matchAll(/<h1[\s>]/gi)) {
+    report.error(
+      file,
+      at(match.index),
+      "an <h1> in the text: the page title is already the page's only <h1>. Use a ## heading instead.",
     );
   }
   for (const match of masked.matchAll(/<iframe\b[^>]*>/gi)) {
