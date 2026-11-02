@@ -21,6 +21,7 @@ import {
   resolveMemberImage,
   slugFromFileName,
 } from "@/lib/content-rules";
+import { readImageSize } from "@/lib/image-size";
 
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
@@ -98,11 +99,15 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     }
 
     const { data, content } = matter(fileContents);
+    // The cover's real size, so pages reserve its space before it loads.
+    const coverImageSize =
+      typeof data.coverImage === "string" ? await readImageSize(data.coverImage) : undefined;
 
     return {
       slug,
       content,
       ...data,
+      ...(coverImageSize && { coverImageSize }),
       date: normalizeFrontMatterDate(data.date),
       // An explicit front-matter excerpt wins; otherwise summarise the body.
       excerpt: optionalString(data.excerpt) || createExcerpt(content),

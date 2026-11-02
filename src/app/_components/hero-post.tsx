@@ -9,6 +9,7 @@
 import Avatar from "@/app/_components/avatar";
 import CoverImage from "@/app/_components/cover-image";
 import { type Author } from "@/interfaces/author";
+import type { ImageSize } from "@/lib/image-size";
 import Link from "next/link";
 import DateFormatter from "./date-formatter";
 import { postPath } from "@/lib/urls";
@@ -16,6 +17,7 @@ import { postPath } from "@/lib/urls";
 type Props = {
   title: string;
   coverImage?: string;
+  coverImageSize?: ImageSize;
   date: string;
   excerpt?: string;
   author: Author;
@@ -27,17 +29,26 @@ type Props = {
  *
  * @param title - The post title
  * @param coverImage - The main image for the post (optional)
+ * @param coverImageSize - Width and height of the cover image (optional)
  * @param date - The publication date (ISO string)
  * @param excerpt - Short summary of the post (optional)
  * @param author - The author object
  * @param slug - The post slug for linking to the detail page
  */
-export function HeroPost({ title, coverImage, date, excerpt, author, slug }: Props) {
+export function HeroPost({
+  title,
+  coverImage,
+  coverImageSize,
+  date,
+  excerpt,
+  author,
+  slug,
+}: Props) {
   return (
     <section>
       {coverImage && (
         <div className="mb-8 md:mb-16">
-          <CoverImage title={title} src={coverImage} slug={slug} />
+          <CoverImage title={title} src={coverImage} size={coverImageSize} slug={slug} />
         </div>
       )}
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">

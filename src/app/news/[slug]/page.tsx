@@ -37,6 +37,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
         <PostHeader
           title={post.title}
           coverImage={post.coverImage}
+          coverImageSize={post.coverImageSize}
           date={post.date}
           author={post.author || DEFAULT_AUTHOR}
         />

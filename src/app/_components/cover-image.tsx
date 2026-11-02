@@ -8,27 +8,38 @@
  * hidden from screen readers and skipped by the Tab key, and the image has
  * empty alt text, so keyboard and screen-reader users meet one link per
  * post, the title.
+ *
+ * The image is as wide as its column and keeps its own proportions. Its
+ * real size (`size`, read from the file by the loader) lets the browser
+ * reserve the right space before it loads; without one (an external image),
+ * a 1300 x 630 placeholder ratio is used.
  */
 
 import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { postPath } from "@/lib/urls";
+import type { ImageSize } from "@/lib/image-size";
 
 type Props = {
   title: string;
   src?: string;
+  size?: ImageSize;
   slug?: string;
 };
+
+/** Proportions assumed for images whose size is unknown. */
+const FALLBACK_SIZE: ImageSize = { width: 1300, height: 630 };
 
 /**
  * Displays a cover image for a post, optionally wrapped in a link.
  *
  * @param title - The title of the post (used for the alt text when the image is not a link)
  * @param src - The image source URL (optional; nothing is rendered without it)
+ * @param size - The image's width and height in pixels, when known
  * @param slug - Optional post slug for linking to the post detail page
  */
-const CoverImage = ({ title, src, slug }: Props) => {
+const CoverImage = ({ title, src, size = FALLBACK_SIZE, slug }: Props) => {
   // If no src is provided, don't render the image
   if (!src) {
     return null;
@@ -38,11 +49,11 @@ const CoverImage = ({ title, src, slug }: Props) => {
     <Image
       src={src}
       alt={slug ? "" : `Cover image for ${title}`}
-      className={cn("shadow-sm w-full", {
+      className={cn("shadow-sm w-full h-auto", {
         "hover:shadow-lg transition-shadow duration-200": slug,
       })}
-      width={1300}
-      height={630}
+      width={size.width}
+      height={size.height}
     />
   );
 

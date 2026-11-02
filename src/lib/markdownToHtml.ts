@@ -8,7 +8,6 @@
  * and lets images load lazily, with their width and height when they are local files.
  */
 
-import { join, sep } from "path";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
@@ -17,7 +16,7 @@ import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
 import { isAbsoluteUrl } from "@/lib/urls";
-import { imageSizeFromFile } from "image-size/fromFile";
+import { readImageSize } from "@/lib/image-size";
 import type {
   Definition,
   Heading,
@@ -129,52 +128,15 @@ function remarkDemoteH1() {
   };
 }
 
-/** The folder served at the site's root: "/images/a.webp" is public/images/a.webp. */
-const PUBLIC_DIR = join(process.cwd(), "public");
-
-/** Images whose width and height are read: raster files in /images/ (not SVGs, which may have no fixed size). */
-const LOCAL_RASTER_IMAGE = /^\/images\/[^?#]+\.(avif|gif|jpe?g|png|webp)(?:[?#].*)?$/i;
-
-/** An `<img>` tag in raw HTML. */
-const IMG_TAG = /<img\b[^>]*>/gi;
-
-/** Width and height of an image, in pixels. */
-type ImageSize = { width: number; height: number };
-
-/**
- * Reads the size of a local image (only the file's first bytes) while the
- * site is built.
- *
- * @param src - The image URL as written in the post, e.g. "/images/poster/a.webp"
- * @returns The size as displayed (EXIF rotation applied), or undefined for
- *   other URLs and for files that can't be read (`npm run check:content`
- *   reports missing files)
- */
-async function readImageSize(src: string): Promise<ImageSize | undefined> {
-  if (!LOCAL_RASTER_IMAGE.test(src)) return undefined;
-  let file: string;
-  try {
-    file = join(PUBLIC_DIR, decodeURIComponent(src.replace(/[?#].*$/, "")));
-  } catch {
-    return undefined; // Malformed %-escape.
-  }
-  if (!file.startsWith(PUBLIC_DIR + sep)) return undefined; // "/images/../../x"
-  try {
-    const { width, height, orientation = 1 } = await imageSizeFromFile(file);
-    if (!width || !height) return undefined;
-    // EXIF orientations 5-8 rotate the photo by 90°: width and height swap.
-    return orientation >= 5 ? { width: height, height: width } : { width, height };
-  } catch {
-    return undefined;
-  }
-}
-
 /**
  * Attributes for every image in a post. Post images are usually below the
  * fold: `loading="lazy"` fetches them only when the reader scrolls near
  * them, and `decoding="async"` decodes them without blocking the page.
  */
 const IMAGE_LOADING = { loading: "lazy", decoding: "async" } as const;
+
+/** An `<img>` tag in raw HTML. */
+const IMG_TAG = /<img\b[^>]*>/gi;
 
 /**
  * Adds the loading attributes, and the width and height of local images,

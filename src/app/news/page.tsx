@@ -37,6 +37,7 @@ export default async function NewsPage() {
         <HeroPost
           title={heroPost.title}
           coverImage={heroPost.coverImage}
+          coverImageSize={heroPost.coverImageSize}
           date={heroPost.date}
           author={heroPost.author || DEFAULT_AUTHOR}
           slug={heroPost.slug}
