@@ -72,17 +72,9 @@ lowercase, spaces become `-`, and punctuation is removed.
 | `### Data Exploration & Classical Bioinformatics` | `data-exploration--classical-bioinformatics` |
 | a second `## Projects` on the same page | `projects-1` |
 
-### Explicit ids
-
-To choose the id yourself (shorter, or stable if you later reword the
-heading), add `{#your-id}` at the **end** of the heading:
-
-```markdown
-## About the Workshops {#event-overview}
-```
-
-This renders as "About the Workshops" with the id `event-overview`. An id
-must start with a letter and may contain letters, digits, `-` and `_`.
+You cannot choose an id yourself: `## Tracks {#tracks}` (old Jekyll syntax)
+shows up as literal text. If you reword a heading, its id changes too, so
+update any links that point to it.
 
 ### Linking to a heading
 
@@ -113,6 +105,7 @@ The old site was built with Jekyll. Old posts contain syntax that does
 |-----------|---------|-------------|
 | Liquid tags and variables | `{{ site.baseurl }}/images/x.png`, `{% include ... %}` | A plain path: `/images/x.png` |
 | kramdown attribute lists | `![poster](/images/x.png){: .center}`, `{: .notice}` | Nothing. Images are centred automatically. |
+| kramdown heading ids | `## Tracks {#tracks}` | `## Tracks`. Every heading gets an id automatically (here `tracks`). |
 | Trailing slashes on internal links | `/news/`, `/contact/` | `/news`, `/contact` |
 | Absolute links to our own site | `https://rsg-belgium.org/news/...` | `/news/...` |
 | Font Awesome icons | `<i class="fab fa-slack"></i>` | Plain text. Font Awesome isn't loaded, so the icon renders as nothing. |

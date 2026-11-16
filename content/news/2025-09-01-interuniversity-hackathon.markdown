@@ -14,7 +14,7 @@ This hackathon will unite top researchers, Msc and PhD students, postdocs, and A
 
 <!-- [![Poster for the Interuniversity Biohackathon Belgium 2025](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
 
-We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#event-overview).
+We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#about-the-workshops).
 
 We have designed three different tracks to choose from, which are described [below](#tracks). The full details of each track will be revealed on the day of the biohackathon.
 
@@ -59,7 +59,7 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 17:00–19:00 | Final project pitches + jury feedback                            |
 | 19:00–20:00 | Awards & closing ceremony                                        |
 
-## About the Workshops {#event-overview} 
+## About the Workshops
 For more details regarding preparing for the workshops, check out this [page](/news/2025-09-23-biohackathon25-workshops)
 ### Exploratory and Confirmatory Data Analysis in Biology and Healthcare
 This talk will explore the complementary roles of exploratory and confirmatory analysis in biology and health research, with a central focus on differential analysis. From traditional differential analysis on tabular data to more complex applications such as gene regulatory network inference and analysis, I will discuss how analytical approaches must be tailored to the specific goals and data characteristics of each application. By understanding these needs—whether generating new hypotheses, validating biological mechanisms, or supporting clinical decisions—we can better integrate exploratory and confirmatory methods to enhance both discovery and rigor in computational biology and health sciences.
@@ -79,7 +79,7 @@ The human genome sequence provides the underlying code for human biology. Unders
 *About the speaker:*
 Bernardo Almeida is a Senior Research Scientist at InstaDeep in Paris where he is developing large language foundational models for biology. He received his PhD in 2023 from the University of Vienna after his work on deep learning models to understand the regulatory information encoded in the genome sequence. Earlier, he obtained his undergraduate degree in Biomedical Sciences and masters in Oncobiology from the University of Algarve, Portugal.
 
-## Tracks {#tracks}
+## Tracks
 
 ### Data Exploration & Classical Bioinformatics
 
@@ -102,7 +102,7 @@ Create a bioinformatics tool that enhances pipelines or addresses a research que
 
 **Challenge:** [Automatic Curation of Oligogenic Disease Evidence from PDFs](/news/challenge_track3)
 
-## How to get there? {#how-to-get-there}
+## How to get there?
 
 The university is accessible by bus and train. Specific signs for the hackathon will be available outside the university to guide you.
 

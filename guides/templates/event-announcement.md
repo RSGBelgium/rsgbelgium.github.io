@@ -65,11 +65,11 @@ Spots are limited, so [register now](https://forms.gle/your-form-id)!
 
 Registration is free but mandatory. Please register **before DD Month YYYY** through the [registration form](https://forms.gle/your-form-id).
 
-## How to get there {#how-to-get-there}
+## How to get there
 
 <!--
   OPTIONAL: public transport, parking, accessibility.
-  The {#how-to-get-there} part gives this heading a fixed id, so you can link to it from
+  This heading automatically gets the id how-to-get-there, so you can link to it from
   elsewhere in the post with [below](#how-to-get-there). See guides/markdown.md.
 -->
 
