@@ -45,6 +45,12 @@ import {
   PUBLIC_DIR,
   urlPathPattern,
 } from "./lib/public-files.mjs";
+import {
+  isMarkdownFile,
+  MEMBERS_DIR,
+  NEWS_DIR,
+  TEAM_IMAGE_PATH,
+} from "../src/lib/content-rules.ts";
 
 const dryRun = process.argv.includes("--dry-run");
 const root = path.join(import.meta.dirname, "..");
@@ -84,9 +90,6 @@ const LINK_SOURCES = [
   { file: "README.md" },
   { file: "next.config.js" },
 ];
-
-/** Folder of member profiles, whose `image` may be a bare file name in /images/team/. */
-const MEMBERS_DIR = "content/organization";
 
 /** The favicon drawing that all favicons are generated from (relative to public/). */
 const FAVICON_SOURCE = "favicon/favicon.svg";
@@ -130,9 +133,9 @@ function writeFile(file, data) {
  */
 function findCoverImages() {
   const covers = new Set();
-  const newsDir = path.join(root, "content/news");
+  const newsDir = path.join(root, NEWS_DIR);
   for (const name of listFiles(newsDir)) {
-    if (name.includes("/") || !/\.(md|markdown)$/.test(name)) continue;
+    if (name.includes("/") || !isMarkdownFile(name)) continue;
     try {
       const { coverImage } = matter(fs.readFileSync(path.join(newsDir, name), "utf8"), {}).data;
       if (typeof coverImage === "string" && coverImage.startsWith("/"))
@@ -379,11 +382,11 @@ function updateLinks(renames) {
     for (const [from, to] of renames) {
       updated = updated.replace(urlPathPattern(from), to);
       // Member photos may be given by file name only: image: "anis.JPG".
-      if (file.startsWith(`${MEMBERS_DIR}/`) && from.startsWith("/images/team/")) {
-        const name = from.slice("/images/team/".length);
+      if (file.startsWith(`${MEMBERS_DIR}/`) && from.startsWith(TEAM_IMAGE_PATH)) {
+        const name = from.slice(TEAM_IMAGE_PATH.length);
         updated = updated.replace(
           new RegExp(`^(image:\\s*["']?)${escapeRegExp(name)}(?=["']?\\s*(?:#.*)?$)`, "m"),
-          `$1${to.slice("/images/team/".length)}`,
+          `$1${to.slice(TEAM_IMAGE_PATH.length)}`,
         );
       }
     }

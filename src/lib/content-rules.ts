@@ -10,6 +10,12 @@
  * TypeScript that can be erased: type annotations, but no enums or namespaces.
  */
 
+/** Folder of the news posts, relative to the repository root. */
+export const NEWS_DIR = "content/news";
+
+/** Folder of the team member profiles, relative to the repository root. */
+export const MEMBERS_DIR = "content/organization";
+
 /** File extensions of markdown content files, in the order they are tried. */
 export const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
 

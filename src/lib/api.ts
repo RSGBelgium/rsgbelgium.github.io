@@ -17,14 +17,16 @@ import {
   isAbsoluteUrl,
   isMarkdownFile,
   MARKDOWN_EXTENSIONS,
+  MEMBERS_DIR,
+  NEWS_DIR,
   parseMemberOrder,
   resolveMemberImage,
   slugFromFileName,
 } from "@/lib/content-rules";
 import { readImageSize } from "@/lib/image-size";
 
-const postsDirectory = join(process.cwd(), "content/news");
-const membersDirectory = join(process.cwd(), "content/organization");
+const postsDirectory = join(process.cwd(), NEWS_DIR);
+const membersDirectory = join(process.cwd(), MEMBERS_DIR);
 
 /**
  * Log a warning about a member profile file.
@@ -34,7 +36,7 @@ const membersDirectory = join(process.cwd(), "content/organization");
  * @param details - Extra values to log, such as the error
  */
 function warnMember(file: string, message: string, ...details: unknown[]): void {
-  console.warn(`content/organization/${file}: ${message}`, ...details);
+  console.warn(`${MEMBERS_DIR}/${file}: ${message}`, ...details);
 }
 
 /**
@@ -173,7 +175,7 @@ function warnIfNotNumberedOneToN(members: Member[]): void {
   if (duplicates.length === 0 && missing.length === 0) return;
   const orders = members.map((member) => member.order).join(", ");
   console.warn(
-    `content/organization: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`,
+    `${MEMBERS_DIR}: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`,
   );
 }
 

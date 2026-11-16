@@ -40,14 +40,14 @@ import {
   checkMemberNumbering,
   isAbsoluteUrl,
   isMarkdownFile,
+  MEMBERS_DIR,
+  NEWS_DIR,
   parseMemberOrder,
   resolveMemberImage,
   slugFromFileName,
 } from "../src/lib/content-rules.ts";
 
 const root = path.resolve(process.argv[2] ?? path.join(import.meta.dirname, ".."));
-const NEWS_DIR = "content/news";
-const MEMBERS_DIR = "content/organization";
 
 const report = new Report("Content check");
 

@@ -40,6 +40,12 @@ import {
   urlPathPattern,
 } from "./lib/public-files.mjs";
 import { lineAt, Report } from "./lib/report.mjs";
+import {
+  isAbsoluteUrl,
+  isMarkdownFile,
+  MEMBERS_DIR,
+  resolveMemberImage,
+} from "../src/lib/content-rules.ts";
 
 const args = process.argv.slice(2);
 const listAll = args.includes("--list");
@@ -98,9 +104,6 @@ const IS_TEST = /(^|\/)__tests__\/|\.(test|spec)\.[cm]?[jt]sx?$/;
 const JS_STRING_OR_COMMENT =
   /("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 
-/** Folder of member profiles, whose `image` may be a bare file name in /images/team/. */
-const MEMBERS_DIR = "content/organization";
-
 /** Paths to public files in code and config: "/images/...", "/assets/...", "/favicon/...". */
 const PUBLIC_PATH = /(?<![\w.~%/-])\/(?:images|assets|favicon)\/[^\s"'`()<>{}$\\,;]*/g;
 
@@ -157,14 +160,15 @@ function readSources() {
 
 /**
  * Member photos given as a bare file name (`image: "anis.webp"`), which the
- * site looks up in /images/team/ (src/lib/api.ts).
+ * site looks up in the team photo folder (resolveMemberImage in
+ * src/lib/content-rules.ts).
  *
  * @returns {Map<string, string>} URL path -> profile that uses it
  */
 function memberPhotosByName() {
   const photos = new Map();
   for (const name of listFiles(path.join(root, MEMBERS_DIR))) {
-    if (name.includes("/") || !/\.(md|markdown)$/.test(name)) continue;
+    if (name.includes("/") || !isMarkdownFile(name)) continue;
     const file = `${MEMBERS_DIR}/${name}`;
     let image;
     try {
@@ -174,8 +178,8 @@ function memberPhotosByName() {
     }
     if (typeof image !== "string" || !image.trim()) continue;
     const value = image.trim();
-    if (!value.startsWith("/") && !/^https?:\/\//.test(value))
-      photos.set(`/images/team/${value}`, file);
+    if (!value.startsWith("/") && !isAbsoluteUrl(value))
+      photos.set(resolveMemberImage(value), file);
   }
   return photos;
 }
