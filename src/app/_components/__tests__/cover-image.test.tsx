@@ -42,6 +42,29 @@ describe("CoverImage", () => {
     expect(container.querySelector("img")).toHaveAttribute("alt", "");
   });
 
+  test("crops the image to the given shape, keeping its top, for previews", () => {
+    const { container } = render(
+      <CoverImage
+        title="Poster"
+        src="/images/poster/a.webp"
+        size={{ width: 1131, height: 1600 }}
+        slug="2026-01-01-post"
+        crop="aspect-video"
+      />,
+    );
+    expect(container.querySelector("img")).toHaveClass(
+      "w-full",
+      "aspect-video",
+      "object-cover",
+      "object-top",
+    );
+  });
+
+  test("shows the whole image when not cropped", () => {
+    render(<CoverImage title="Poster" src="/images/poster/a.webp" />);
+    expect(screen.getByRole("img")).not.toHaveClass("object-cover");
+  });
+
   test("renders nothing without an image", () => {
     const { container } = render(<CoverImage title="No image" />);
     expect(container).toBeEmptyDOMElement();
