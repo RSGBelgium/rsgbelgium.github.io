@@ -1,8 +1,8 @@
 /**
  * XML sitemap for search engines, exported as out/sitemap.xml.
  *
- * Lists the main pages and every listed news post, with absolute URLs on
- * the live domain. Unlisted posts are left out on purpose.
+ * Lists the main pages and every news post, with absolute URLs on the live
+ * domain.
  */
 
 import type { MetadataRoute } from "next";

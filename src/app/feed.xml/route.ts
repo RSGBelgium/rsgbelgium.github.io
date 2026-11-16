@@ -3,8 +3,8 @@
  *
  * Feed readers subscribe to https://rsg-belgium.org/feed.xml; every page
  * links to it with `<link rel="alternate" type="application/rss+xml">`.
- * The XML is built by hand (no dependency) and lists the listed posts,
- * newest first. Unlisted posts are left out.
+ * The XML is built by hand (no dependency) and lists every post, newest
+ * first.
  */
 
 import { getAllPosts } from "@/lib/api";
