@@ -10,6 +10,7 @@
 import { getAllPosts } from "@/lib/api";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { RSS_FEED_PATH } from "@/lib/metadata";
+import { parseDate } from "@/lib/dates";
 import type { Post } from "@/interfaces/post";
 
 /** Generate the file once at build time: required for route handlers with `output: 'export'`. */
@@ -35,18 +36,6 @@ function escapeXml(value: string): string {
 }
 
 /**
- * Formats a post date as an RFC 822 date, as RSS requires
- * (e.g. "Fri, 15 May 2026 00:00:00 GMT").
- *
- * @param date - The post's front-matter date string
- * @returns The formatted date, or undefined when the date is missing or invalid
- */
-function toRfc822(date: string): string | undefined {
-  const parsed = new Date(date);
-  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toUTCString();
-}
-
-/**
  * Renders one post as an RSS `<item>`.
  *
  * @param post - A listed news post
@@ -54,7 +43,8 @@ function toRfc822(date: string): string | undefined {
  */
 function renderItem(post: Post): string {
   const url = `${SITE_URL}/news/${post.slug}`;
-  const pubDate = toRfc822(post.date);
+  // RSS wants RFC 822 dates, e.g. "Fri, 15 May 2026 00:00:00 GMT".
+  const pubDate = parseDate(post.date)?.toUTCString();
   const description = post.excerpt || `Read "${post.title}" on the ${SITE_NAME} website.`;
 
   return [
@@ -77,8 +67,8 @@ function renderItem(post: Post): string {
  * @returns The feed as an `application/rss+xml` response
  */
 export async function GET() {
-  const posts = await getAllPosts(); // listed posts only, newest first
-  const lastBuildDate = (posts.length > 0 && toRfc822(posts[0].date)) || new Date().toUTCString();
+  const posts = await getAllPosts(); // newest first
+  const lastBuildDate = (posts.length > 0 && parseDate(posts[0].date)?.toUTCString()) || new Date().toUTCString();
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',

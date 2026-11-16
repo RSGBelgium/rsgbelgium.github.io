@@ -11,6 +11,7 @@ import matter from "gray-matter";
 import { join } from "path";
 import { Member } from "@/interfaces/member";
 import { createExcerpt } from "@/lib/excerpt";
+import { normalizeFrontMatterDate, parseDate } from "@/lib/dates";
 
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
@@ -35,29 +36,13 @@ function optionalString(value: unknown): string {
 }
 
 /**
- * Normalise a front-matter `date` value to a string.
- *
- * YAML turns unquoted date-only values (`date: 2021-09-21`) into a Date object,
- * while quoted values and values with a time (`date: 2017-10-02 19:10`) stay strings.
- *
- * @param value - The raw `date` value parsed by gray-matter
- * @returns An ISO string for Date values, the original string otherwise, or "" when missing
- */
-function normalizeDate(value: unknown): string {
-  if (value instanceof Date) return value.toISOString();
-  if (typeof value === "string") return value;
-  return "";
-}
-
-/**
  * Convert a post date string to a timestamp for sorting.
  *
  * @param date - The post date string
  * @returns Milliseconds since the epoch, or 0 when the date is missing or invalid (sorts last)
  */
 function getDateTimestamp(date: string): number {
-  const time = new Date(date).getTime();
-  return Number.isNaN(time) ? 0 : time;
+  return parseDate(date)?.getTime() ?? 0;
 }
 
 /**
@@ -110,7 +95,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       slug,
       content,
       ...data,
-      date: normalizeDate(data.date),
+      date: normalizeFrontMatterDate(data.date),
       // An explicit front-matter excerpt wins; otherwise summarise the body.
       excerpt: optionalString(data.excerpt) || createExcerpt(content),
     } as Post;

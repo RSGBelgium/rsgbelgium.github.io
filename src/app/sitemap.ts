@@ -8,23 +8,13 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/api";
 import { SITE_URL } from "@/lib/constants";
+import { parseDate } from "@/lib/dates";
 
 /** Generate the file once at build time: required for metadata routes with `output: 'export'`. */
 export const dynamic = "force-static";
 
 /** Pages written in code (src/app), as paths. */
 const STATIC_PAGES = ["/about", "/news", "/organization", "/contact", "/slack"];
-
-/**
- * Parses a post date into a Date.
- *
- * @param date - The post's front-matter date string
- * @returns The Date, or undefined when the date is missing or invalid
- */
-function toDate(date: string): Date | undefined {
-  const parsed = new Date(date);
-  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
-}
 
 /**
  * Builds the sitemap entries.
@@ -36,8 +26,8 @@ function toDate(date: string): Date | undefined {
  * @returns The sitemap entries, homepage first
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllPosts(); // listed posts only, newest first
-  const newestPostDate = posts.length > 0 ? toDate(posts[0].date) : undefined;
+  const posts = await getAllPosts(); // newest first
+  const newestPostDate = posts.length > 0 ? parseDate(posts[0].date) : undefined;
 
   const pages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: newestPostDate },
@@ -49,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/news/${post.slug}`,
-    lastModified: toDate(post.date),
+    lastModified: parseDate(post.date),
   }));
 
   return [...pages, ...postEntries];

@@ -13,6 +13,7 @@ import { PostBody } from "@/app/_components/post-body";
 import PostHeader from "@/app/_components/post-header";
 import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
 import { DEFAULT_OG_IMAGE, pageAlternates } from "@/lib/metadata";
+import { parseDate } from "@/lib/dates";
 
 /**
  * Renders a single news post page based on the slug parameter.
@@ -47,17 +48,6 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
 }
 
 /**
- * Converts a post date to an ISO 8601 timestamp for `article:published_time`.
- *
- * @param date - The post's front-matter date string
- * @returns The ISO timestamp, or undefined when the date is missing or invalid
- */
-function toIsoDate(date: string): string | undefined {
-  const parsed = new Date(date);
-  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
-}
-
-/**
  * Generates metadata for a single news post page.
  *
  * - The title goes through the root layout's template ("<post title> | RSG-Belgium").
@@ -83,7 +73,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const path = `/news/${post.slug}`;
   const description = post.excerpt || `${post.title}: news from ${SITE_NAME}.`;
-  const publishedTime = toIsoDate(post.date);
+  // `article:published_time` is an ISO 8601 timestamp.
+  const publishedTime = parseDate(post.date)?.toISOString();
 
   return {
     title: post.title,
