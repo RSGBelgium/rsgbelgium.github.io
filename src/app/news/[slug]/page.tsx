@@ -96,12 +96,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 /**
- * Only the posts returned by generateStaticParams exist: any other slug is a 404.
- * Required for the static export, where nothing can be rendered on demand.
- */
-export const dynamicParams = false;
-
-/**
  * Generates static parameters for all news posts for static site generation.
  *
  * @returns Array of objects containing slugs for all posts.
