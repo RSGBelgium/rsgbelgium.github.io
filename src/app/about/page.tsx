@@ -30,8 +30,9 @@ const AboutPage = () => {
         description="Learn more about RSG-Belgium and our mission to support the bioinformatics community."
       />
       {/* PageHeader renders the page's only <h1>; every section below is an <h2> under it,
-          all in the same, smaller section-heading style. */}
-      <article className="pb-16 md:pb-24">
+          all in the same, smaller section-heading style. max-w-3xl keeps lines at a
+          comfortable reading length (about 75 characters) on wide screens. */}
+      <article className="max-w-3xl pb-16 md:pb-24">
         <h2 className={`${SECTION_HEADING} mb-4`}>Welcome to RSG Belgium!</h2>
         <p className="text-lg leading-relaxed">
           RSG Belgium is the Belgian branch of the ISCB Student Council&apos;s Regional Student
@@ -50,7 +51,7 @@ const AboutPage = () => {
         </p>
 
         <h2 className={`${SECTION_HEADING} mt-10 mb-4`}>Our Values</h2>
-        <ul className="list-disc list-inside text-lg leading-relaxed space-y-2">
+        <ul className="list-disc list-outside pl-6 text-lg leading-relaxed space-y-2 mt-4">
           <li>
             Stimulate interaction and co-operativity between students of different research
             institutions.
@@ -61,7 +62,7 @@ const AboutPage = () => {
           </li>
           <li>Provide concrete examples of how their work might benefit the industry.</li>
         </ul>
-        <p className="text-lg leading-relaxed mt-2">
+        <p className="text-lg leading-relaxed mt-4">
           In this way, we aim to stimulate the startup of projects that cross the traditional
           boundaries of academic research.
         </p>
@@ -70,7 +71,7 @@ const AboutPage = () => {
         <p className="text-lg leading-relaxed">
           We organize a variety of events throughout the year to achieve our mission, including:
         </p>
-        <ul className="list-disc list-inside text-lg leading-relaxed space-y-2">
+        <ul className="list-disc list-outside pl-6 text-lg leading-relaxed space-y-2 mt-4">
           <li>
             <strong>Symposia:</strong> Our yearly symposia allow young researchers to present their
             work, either as a talk or as a poster, and to connect with other researchers.
@@ -85,18 +86,14 @@ const AboutPage = () => {
           </li>
         </ul>
 
-        <div className="mt-12 text-center">
-          <h2 className={`${SECTION_HEADING} mb-4`}>Interested in Joining Us?</h2>
+        <div className="mt-12 rounded-lg border border-border bg-surface p-6 md:p-8">
+          <h2 className={`${SECTION_HEADING} mb-3`}>Interested in Joining Us?</h2>
           <p className="text-lg mb-6">
             Connect with our community and stay updated on our activities!
           </p>
           <Button href="/slack" size="lg" variant="primary">
             Join us on Slack
           </Button>
-          {/* You could add more CTAs here, e.g., a link to a /contact page if it exists */}
-          {/* <Button href="/contact" size="lg" variant="secondary" className="ml-4">
-            Contact Us
-          </Button> */}
         </div>
       </article>
     </Container>
