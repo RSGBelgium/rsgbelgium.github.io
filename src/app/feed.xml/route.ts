@@ -9,7 +9,7 @@
 
 import { getAllPosts } from "@/lib/api";
 import { SITE_NAME } from "@/lib/constants";
-import { RSS_FEED_PATH } from "@/lib/metadata";
+import { RSS_FEED_PATH, postDescription } from "@/lib/metadata";
 import { parseDate } from "@/lib/dates";
 import { absoluteUrl, postPath } from "@/lib/urls";
 import type { Post } from "@/interfaces/post";
@@ -46,7 +46,7 @@ function renderItem(post: Post): string {
   const url = absoluteUrl(postPath(post.slug));
   // RSS wants RFC 822 dates, e.g. "Fri, 15 May 2026 00:00:00 GMT".
   const pubDate = parseDate(post.date)?.toUTCString();
-  const description = post.excerpt || `Read "${post.title}" on the ${SITE_NAME} website.`;
+  const description = postDescription(post);
 
   return [
     "    <item>",

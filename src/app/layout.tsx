@@ -15,7 +15,7 @@ import { ThemeProvider } from "./providers"; // Import the new ThemeProvider
 import Header from '@/app/_components/header'; // Corrected path
 import Footer from '@/app/_components/footer'; // Corrected path
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
-import { FEED_ALTERNATE_TYPES } from "@/lib/metadata";
+import { BASE_OPEN_GRAPH, FEED_ALTERNATE_TYPES } from "@/lib/metadata";
 
 import "./globals.css"; // Ensure Tailwind/global styles are imported
 
@@ -57,8 +57,7 @@ export const metadata: Metadata = {
     types: FEED_ALTERNATE_TYPES,
   },
   openGraph: {
-    siteName: SITE_NAME,
-    locale: "en_US",
+    ...BASE_OPEN_GRAPH,
     type: "website",
   },
   twitter: {

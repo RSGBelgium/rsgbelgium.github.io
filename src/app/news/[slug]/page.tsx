@@ -11,8 +11,8 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import Container from "@/app/_components/container";
 import { PostBody } from "@/app/_components/post-body";
 import PostHeader from "@/app/_components/post-header";
-import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
-import { DEFAULT_OG_IMAGE, pageAlternates } from "@/lib/metadata";
+import { DEFAULT_AUTHOR } from "@/lib/constants";
+import { BASE_OPEN_GRAPH, DEFAULT_OG_IMAGE, pageAlternates, postDescription } from "@/lib/metadata";
 import { parseDate } from "@/lib/dates";
 import { postPath } from "@/lib/urls";
 
@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const path = postPath(post.slug);
-  const description = post.excerpt || `${post.title}: news from ${SITE_NAME}.`;
+  const description = postDescription(post);
   // `article:published_time` is an ISO 8601 timestamp.
   const publishedTime = parseDate(post.date)?.toISOString();
 
@@ -86,8 +86,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: post.title,
       description,
       url: path,
-      siteName: SITE_NAME,
-      locale: "en_US",
+      ...BASE_OPEN_GRAPH,
       ...(publishedTime && { publishedTime }),
       images: post.coverImage
         ? [{ url: post.coverImage, alt: `Cover image for ${post.title}` }]
