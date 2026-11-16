@@ -36,7 +36,7 @@ function isCurrentSection(pathname: string, url: string): boolean {
  */
 function navLinkClasses(isCurrent: boolean): string {
   return cn(
-    "rounded-md px-3 py-2 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong",
+    "rounded-md px-3 py-2 font-medium transition-colors",
     isCurrent
       ? "bg-primary text-primary-foreground"
       : "text-foreground hover:bg-primary hover:text-primary-foreground"
@@ -94,7 +94,7 @@ const Header = () => {
               <button
                 onClick={toggleMobileMenu}
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-foreground-muted hover:text-foreground hover:bg-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent-strong"
+                className="inline-flex items-center justify-center p-2 rounded-md text-foreground-muted hover:text-foreground hover:bg-surface-muted"
                 aria-controls="mobile-menu"
                 aria-expanded={isMobileMenuOpen}
               >

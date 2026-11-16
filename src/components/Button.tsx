@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   ...props
 }) => {
-  // Focus rings are part of each variant class, so the inverse variant can use a white one.
+  // Keyboard focus uses the site-wide :focus-visible outline in globals.css.
   const baseStyles = "font-semibold rounded-md transition ease-in-out duration-150";
 
   const sizeStyles = {

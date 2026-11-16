@@ -106,7 +106,6 @@ export function ThemeSwitcher() {
             aria-pressed={isActive}
             className={cn(
               "group relative inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
               isActive
                 ? "bg-primary text-primary-foreground"
                 : "text-foreground-muted hover:bg-surface-muted hover:text-foreground"

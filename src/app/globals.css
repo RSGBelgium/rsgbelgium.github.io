@@ -76,6 +76,17 @@
   a {
     @apply text-link;
   }
+
+  /* The keyboard focus indicator, for every link, button and other focusable
+     element: a 2px accent-strong line with a 2px gap. It is an outline, so
+     the gap is transparent on any background and it stays visible in
+     forced-colors (high contrast) mode. Components don't add their own focus
+     styles; an element that must look different (e.g. .button-inverse on the
+     hero gradient) changes `outline-color` only. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-accent-strong));
+    outline-offset: 2px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -95,39 +106,40 @@
    classes passed to a button (e.g. `w-full`) still override them.
 
    Every variant has a 2px border (transparent when it shouldn't show), so
-   buttons of different variants side by side are the same height.
+   buttons of different variants side by side are the same height. Keyboard
+   focus uses the site-wide :focus-visible outline above.
    --------------------------------------------------------------------------- */
 @layer components {
   .button-primary,
   .button-secondary,
   .button-outline,
   .button-inverse {
-    @apply border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply border-2;
   }
 
   /* Solid brand blue, for the main action on a page. */
   .button-primary {
     @apply border-transparent bg-primary text-primary-foreground hover:bg-primary-hover;
-    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
   }
 
   /* Light blue, for secondary actions such as "View All News". */
   .button-secondary {
     @apply border-transparent bg-highlight text-foreground hover:bg-primary hover:text-primary-foreground;
-    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
   }
 
   /* Bordered, on the page background. The text uses `link`, because the
      dark theme's primary blue is too dim for text on the page (3.7:1). */
   .button-outline {
     @apply border-primary text-link hover:bg-primary hover:text-primary-foreground;
-    @apply focus-visible:ring-accent-strong focus-visible:ring-offset-background;
   }
 
   /* White outline, for the hero gradient and other dark or coloured backgrounds.
-     The focus ring is white too, with the background showing through the gap. */
+     Its focus outline is white too: pink would be hard to see on the gradient. */
   .button-inverse {
     @apply border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary;
-    @apply focus-visible:ring-primary-foreground focus-visible:ring-offset-transparent;
+  }
+
+  .button-inverse:focus-visible {
+    outline-color: rgb(var(--color-primary-foreground));
   }
 }

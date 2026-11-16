@@ -34,7 +34,7 @@ Colours are semantic **tokens** that switch between a light and a dark theme (a 
 | `primary-foreground` | `#FFFFFF` | `#FFFFFF` | Text on primary and on the hero gradient |
 | `link` | `#004AAD` | `#8FBBFF` | Links |
 | `accent` | `#E385EC` | `#E385EC` | Brand pink, **decorative only** |
-| `accent-strong` | `#9A2BA6` | `#EFA8F5` | Pink text, focus rings |
+| `accent-strong` | `#9A2BA6` | `#EFA8F5` | Pink text, the keyboard focus outline |
 | `highlight` | `#D6E8FF` | `#1E3A5F` | Secondary buttons, info panels |
 | `hero-start` → `hero-end` | `#004AAD` → `#9A2BA6` | `#0B2A5B` → `#4A1752` | Homepage hero gradient |
 
@@ -43,7 +43,7 @@ Colours are semantic **tokens** that switch between a light and a dark theme (a 
 - The class names follow the token names: `bg-background`, `bg-surface`, `bg-surface-muted`, `border-border`, `text-foreground`, `text-foreground-muted`, `bg-primary`, `hover:bg-primary-hover`, `text-primary-foreground`, `text-link`, `border-accent`, `text-accent-strong`, `bg-highlight`, `from-hero-start to-hero-end`.
 - Buttons: use `src/components/Button.tsx` with `variant="primary"`, `"secondary"`, `"outline"` or `"inverse"` (white, for the hero gradient). The variant colours are the `.button-*` classes in `globals.css`.
 - The theme is set by [next-themes](https://github.com/pacocoursey/next-themes), which puts `class="dark"` on `<html>`; visitors choose Light, System or Dark with the switcher in the header. Only use `dark:` for what a token can't do, such as swapping an image.
-- To change a colour, edit its value under both `:root` and `.dark` in `globals.css` (as RGB channels, e.g. `0 74 173`) and check the contrast: at least 4.5:1 for text, 3:1 for icons, control borders and focus rings.
+- To change a colour, edit its value under both `:root` and `.dark` in `globals.css` (as RGB channels, e.g. `0 74 173`) and check the contrast: at least 4.5:1 for text, 3:1 for icons, control borders and the focus outline.
 
 ## Getting Started
 
