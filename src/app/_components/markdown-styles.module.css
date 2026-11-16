@@ -27,21 +27,32 @@
   @apply my-6;
 }
 
-/* Headings */
+/* Headings: bold, each level a step smaller. The h2 is the size of a page's
+   section headings (SECTION_HEADING in page-header.tsx), 24px on phones and
+   30px from `md`, so it stays below the post's title; the h4 is the size of
+   the text on phones. */
 .markdown h1 {
   @apply text-4xl font-bold mt-12 mb-4 leading-tight;
 }
 
 .markdown h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
+  @apply text-2xl md:text-3xl font-bold tracking-tight mt-12 mb-4 leading-snug;
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
+  @apply text-xl md:text-2xl font-bold mt-8 mb-4 leading-snug;
 }
 
 .markdown h4 {
-  @apply text-xl font-semibold mt-8 mb-3 leading-snug;
+  @apply text-lg md:text-xl font-bold mt-8 mb-3 leading-snug;
+}
+
+/* Some posts write `## **Title**`: keep such headings as bold as the others
+   (`strong` is "bolder", which would make them black, weight 900). */
+.markdown h2 strong,
+.markdown h3 strong,
+.markdown h4 strong {
+  font-weight: inherit;
 }
 
 .markdown h5,
