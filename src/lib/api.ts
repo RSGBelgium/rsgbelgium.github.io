@@ -17,15 +17,6 @@ const organizationDirectory = join(process.cwd(), "content/organization");
 const membersDirectory = join(process.cwd(), "content/organization");
 
 /**
- * Options for {@link getAllPosts}.
- *
- * @property includeUnlisted - Also return posts with `unlisted: true` in their front matter (default: false)
- */
-export type GetAllPostsOptions = {
-  includeUnlisted?: boolean;
-};
-
-/**
  * Normalise a front-matter `date` value to a string.
  *
  * YAML turns unquoted date-only values (`date: 2021-09-21`) into a Date object,
@@ -53,8 +44,6 @@ function getDateTimestamp(date: string): number {
 
 /**
  * Get all post slugs (filenames without extension) from the news content directory.
- *
- * Includes unlisted posts, so that their pages are still built.
  */
 export async function getPostSlugs(): Promise<string[]> {
   try {
@@ -104,7 +93,6 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       content,
       ...data,
       date: normalizeDate(data.date),
-      unlisted: data.unlisted === true,
     } as Post;
   } catch (error) {
     console.error(`Error reading post for slug ${slug}:`, error);
@@ -115,19 +103,15 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 /**
  * Get all posts, sorted by date descending (newest first).
  *
- * Posts with `unlisted: true` are left out unless `includeUnlisted` is set.
- *
- * @param options - See {@link GetAllPostsOptions}
  * @returns Array of Post objects
  */
-export async function getAllPosts({ includeUnlisted = false }: GetAllPostsOptions = {}): Promise<Post[]> {
+export async function getAllPosts(): Promise<Post[]> {
   try {
     const slugs = await getPostSlugs();
     const postsPromises = slugs.map((slug: string) => getPostBySlug(slug));
     const posts = await Promise.all(postsPromises);
     return posts
       .filter((post): post is Post => post !== null)
-      .filter((post) => includeUnlisted || !post.unlisted)
       .sort(
         (post1: Post, post2: Post) =>
           getDateTimestamp(post2.date) - getDateTimestamp(post1.date) ||

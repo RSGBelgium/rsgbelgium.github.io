@@ -37,7 +37,6 @@ Older posts end in `.markdown`. That still works, but use `.md` for new posts.
 | `excerpt` | Strongly recommended | `"Speakers at the May edition of Beerformatics 2026"` | One or two sentences shown on the post cards and used as the description for search engines and link previews (Slack, LinkedIn, ...). Without it, cards show no summary. |
 | `coverImage` | Optional | `"/images/poster/2026-10-15-beerformatics-ghent.jpg"` | Large image shown at the top of the post, on its card, and in link previews. Use a full path starting with `/images/`. Landscape images (about 2:1) work best. |
 | `category` | Optional | `"news"` | Free-text label. It is not displayed on the site at the moment. Use `"news"`, or an event-specific value such as `"biohackathon2025"`. |
-| `unlisted` | Optional | `true` | Builds the page but hides it from `/news` and the homepage. Write `true` without quotes. See [Unlisted posts](#unlisted-posts). |
 
 ### Always quote the date
 
@@ -54,14 +53,6 @@ you publish the post, not the date of the event. The event date belongs in
 the post text.
 
 Use `YYYY-MM-DD` with leading zeros (`"2026-05-04"`, not `"2026-5-4"`).
-
-### Unlisted posts
-
-`unlisted: true` is for pages that need a URL but are not news themselves,
-such as the detailed challenge descriptions of a hackathon
-(`content/news/challenge_track1.md`). The page is still built at
-`/news/<file-name>`, so link to it from a regular post. It just doesn't show
-up in the lists on `/news` or the homepage.
 
 ### Fields not to use
 

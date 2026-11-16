@@ -12,7 +12,7 @@ many older posts contain syntax that no longer works.
 
 | Guide | What it covers |
 |-------|----------------|
-| [News posts](news-post.md) | File naming, front matter (`title`, `date`, `excerpt`, ...), unlisted posts |
+| [News posts](news-post.md) | File naming, front matter (`title`, `date`, `excerpt`, ...) |
 | [Markdown](markdown.md) | Supported syntax, headings and anchor links, and what **not** to use |
 | [Images and files](images-and-files.md) | Where images, PDFs and calendar files go, naming, sizes, alt text |
 

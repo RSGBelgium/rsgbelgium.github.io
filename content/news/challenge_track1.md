@@ -4,7 +4,6 @@ title: "BioHackathon 2025 Challenge Track 1"
 date: "2025-09-25"
 categories: event biohackathon track1
 category: 'biohackathon2025'
-unlisted: true
 ---
 
 ## **Decoding Cell-Cell Communication Along the Gut-Brain Axis Using Single-Cell Transcriptomics**

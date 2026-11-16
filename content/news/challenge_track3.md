@@ -4,7 +4,6 @@ title: "BioHackathon 2025 Challenge Track 3"
 date: "2025-09-25"
 categories: event biohackathon track3
 category: 'biohackathon2025'
-unlisted: true
 ---
 ## Automatic Curation of Oligogenic Disease Evidence from PDFs
 

@@ -19,7 +19,6 @@ import { type Author } from "./author";
  * @property content - Markdown/HTML content for the post
  * @property preview - If true, this is a preview post (optional)
  * @property category - Category of the post
- * @property unlisted - If true, the page is built but hidden from news listings (optional)
  */
 export type Post = {
   slug: string;
@@ -34,5 +33,4 @@ export type Post = {
   content: string;
   preview?: boolean;
   category: string;
-  unlisted?: boolean;
 };

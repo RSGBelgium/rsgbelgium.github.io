@@ -92,9 +92,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 /**
  * Generates static parameters for all news posts for static site generation.
  *
- * Uses every post file, including unlisted posts, so that their pages are
- * still built even though they are hidden from the news listings.
- *
  * @returns Array of objects containing slugs for all posts.
  */
 export async function generateStaticParams() {
