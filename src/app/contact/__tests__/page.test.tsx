@@ -1,5 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
-import { CONTACT_CHANNELS } from "@/lib/social";
+import { CONTACT_CHANNELS, CONTACT_EMAIL } from "@/lib/social";
 import ContactPage, { metadata } from "../page";
 
 describe("Contact page", () => {
@@ -27,6 +27,13 @@ describe("Contact page", () => {
       expect(links[0]).toHaveAttribute("href", channel.href);
       expect(links[0]).toHaveTextContent(channel.linkText);
     });
+  });
+
+  test("lets the e-mail address break only before its @, not inside a word", () => {
+    const { container } = render(<ContactPage />);
+    // Found by its href: jsdom, unlike browsers, puts a space at the aria-hidden <wbr> in its name.
+    const link = container.querySelector(`a[href="mailto:${CONTACT_EMAIL}"]`);
+    expect(link?.innerHTML).toBe(CONTACT_EMAIL.replace("@", '<wbr aria-hidden="true">@'));
   });
 
   test("marks the external links as opening in a new tab", () => {
