@@ -6,11 +6,8 @@
  */
 
 import type { Member } from "@/interfaces/member";
+import ExternalLink from "./ExternalLink";
 import MemberAvatar from "./MemberAvatar";
-
-/** Classes for the LinkedIn/ORCID links: a comfortable hit area. */
-const PROFILE_LINK =
-  "inline-flex min-h-11 items-center rounded-md px-2 text-link hover:underline";
 
 type TeamMemberCardProps = Pick<Member, "name" | "title"> &
   Partial<Pick<Member, "image" | "affiliation" | "position" | "city" | "linkedin" | "orcid">> & {
@@ -40,7 +37,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   const profileLinks = [
     { label: "LinkedIn", url: linkedin },
     { label: "ORCID", url: orcid },
-  ].filter((link) => link.url);
+  ].filter((link): link is { label: string; url: string } => Boolean(link.url));
 
   return (
     <div className="bg-surface border border-border shadow-lg rounded-lg p-6 text-center">
@@ -58,16 +55,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       {profileLinks.length > 0 && (
         <div className="flex justify-center space-x-4">
           {profileLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${name} on ${link.label} (opens in a new tab)`}
-              className={PROFILE_LINK}
-            >
+            <ExternalLink key={link.label} href={link.url} className="touch-link px-2">
+              {/* Read as "Jane Doe on LinkedIn": the card has several "LinkedIn"s. */}
+              <span className="sr-only">{name} on </span>
               {link.label}
-            </a>
+            </ExternalLink>
           ))}
         </div>
       )}

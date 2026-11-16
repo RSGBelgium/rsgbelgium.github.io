@@ -168,4 +168,12 @@
   .link-card-link:focus-visible {
     @apply underline outline-none;
   }
+
+  /* A standalone text link, such as the footer links and the LinkedIn/ORCID
+     links on the team cards: at least 44px tall, a comfortable target for
+     touch (WCAG 2.5.5), and underlined on hover. Add spacing or a text size
+     where it's used. */
+  .touch-link {
+    @apply inline-flex min-h-11 items-center rounded-md text-link hover:underline;
+  }
 }

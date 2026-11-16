@@ -18,6 +18,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { type ContactChannel, type ContactChannelId } from "@/lib/social";
 import { isAbsoluteUrl } from "@/lib/urls";
+import ExternalLink from "./ExternalLink";
 
 /** Simple Icons paths (24 x 24 viewBox) for the brand marks. */
 const BRAND_PATHS: Record<Exclude<ContactChannelId, "email">, string> = {
@@ -75,8 +76,8 @@ type ContactChannelLinkProps = {
 /**
  * Links to a contact channel with the attributes its kind of URL needs.
  *
- * External links get `target="_blank"`, `rel="noopener noreferrer"` and a
- * visually hidden "(opens in a new tab)" at the end of their accessible name.
+ * External links are an ExternalLink: a new tab, and a visually hidden
+ * "(opens in a new tab)" at the end of their accessible name.
  *
  * @param channel - The channel to link to
  * @param className - Classes for the link
@@ -94,10 +95,9 @@ export function ContactChannelLink({ channel, className, children }: ContactChan
   // External links open in a new tab; `mailto:` links and internal paths don't.
   if (isAbsoluteUrl(channel.href)) {
     return (
-      <a href={channel.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <ExternalLink href={channel.href} className={className}>
         {children}
-        <span className="sr-only"> (opens in a new tab)</span>
-      </a>
+      </ExternalLink>
     );
   }
 

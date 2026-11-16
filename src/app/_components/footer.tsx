@@ -15,9 +15,8 @@ import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
 import { ALL_NAV_PAGES } from "@/lib/navigation";
 
-/** Classes for every footer link: a tall hit area and an underline on hover. */
-const FOOTER_LINK =
-  "inline-flex min-h-11 items-center gap-3 rounded-md text-sm text-link hover:underline";
+/** Classes for every footer link: a `touch-link` (globals.css), small text, room for an icon. */
+const FOOTER_LINK = "touch-link gap-3 text-sm";
 
 /** Classes for the footer's section titles. */
 const FOOTER_HEADING = "text-lg font-semibold text-foreground mb-3";
