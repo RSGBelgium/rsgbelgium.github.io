@@ -32,9 +32,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ headline, introText, ctaLabel
       <Container>
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-8">
           <div className="flex-shrink-0 flex justify-center md:justify-start w-full md:w-auto">
-            {/* The logo's black lettering vanishes on the dark-mode gradient, so dark mode
-                shows the variant with grey lettering on its own dark tile (rounded here).
-                An image can't follow the colour tokens, hence the dark: classes.
+            {/* The logo's black lettering is hard to read on the gradient, so it sits on a
+                tile in both themes: in light mode on a white (surface) tile, padded so both
+                variants are 240px wide; in dark mode the variant with grey lettering, which
+                has its own dark tile (rounded here). An image can't follow the colour
+                tokens, hence the dark: classes.
                 The logo is the only image on the site that is `priority` (preloaded, never
                 lazy): it is at the top of the home page. Both variants are, because the
                 theme is only known in the browser; each SVG is about 20 KB. */}
@@ -44,7 +46,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ headline, introText, ctaLabel
               width={240}
               height={240}
               priority
-              className="dark:hidden"
+              className="dark:hidden rounded-2xl bg-surface p-3 shadow-md"
             />
             <Image
               src="/images/logo/rsgBe_light.svg"
