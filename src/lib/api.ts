@@ -17,13 +17,37 @@ import { isAbsoluteUrl } from "@/lib/urls";
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
 
+/** File extensions of markdown content files, in the order they are tried. */
+const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
+
 /**
  * Whether a file name is a markdown content file (`.md` or `.markdown`).
  *
  * @param file - A file name from a content directory
  */
 function isMarkdownFile(file: string): boolean {
-  return file.endsWith(".md") || file.endsWith(".markdown");
+  return MARKDOWN_EXTENSIONS.some((extension) => file.endsWith(extension));
+}
+
+/**
+ * The slug of a content file: its name without the markdown extension.
+ *
+ * @param file - A file name such as "2026-05-15-some-post.md"
+ * @returns e.g. "2026-05-15-some-post"
+ */
+function slugFromFileName(file: string): string {
+  return file.replace(/\.(md|markdown)$/, "");
+}
+
+/**
+ * Log a warning about a member profile file.
+ *
+ * @param file - File name inside content/organization/
+ * @param message - What is wrong and what happens because of it
+ * @param details - Extra values to log, such as the error
+ */
+function warnMember(file: string, message: string, ...details: unknown[]): void {
+  console.warn(`content/organization/${file}: ${message}`, ...details);
 }
 
 /**
@@ -54,7 +78,7 @@ export async function getPostSlugs(): Promise<string[]> {
     const files = await fs.readdir(postsDirectory);
     return files
       .filter(isMarkdownFile)
-      .map(file => file.replace(/\.(md|markdown)$/, ''));
+      .map(slugFromFileName);
   } catch (error) {
     console.error('Error reading post slugs:', error);
     return [];
@@ -69,11 +93,9 @@ export async function getPostSlugs(): Promise<string[]> {
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    // Try both .md and .markdown extensions
-    const extensions = ['.md', '.markdown'];
     let fileContents = '';
 
-    for (const ext of extensions) {
+    for (const ext of MARKDOWN_EXTENSIONS) {
       const path = join(postsDirectory, `${slug}${ext}`);
       try {
         fileContents = await fs.readFile(path, "utf8");
@@ -143,7 +165,7 @@ export async function getAllPosts(): Promise<Post[]> {
 function optionalUrl(value: unknown, field: string, file: string): string {
   const url = optionalString(value);
   if (url && !isAbsoluteUrl(url)) {
-    console.warn(`content/organization/${file}: ignoring "${field}" because it is not an http(s) URL: ${url}`);
+    warnMember(file, `ignoring "${field}" because it is not an http(s) URL: ${url}`);
     return "";
   }
   return url;
@@ -190,20 +212,21 @@ function parseMember(file: string, fileContents: string): Member | null {
 
   const name = optionalString(data.name);
   if (!name) {
-    console.warn(`content/organization/${file}: skipping profile without a "name" in its front matter.`);
+    warnMember(file, `skipping profile without a "name" in its front matter.`);
     return null;
   }
 
   const order = parseMemberOrder(data.order);
   if (order === undefined) {
-    console.warn(
-      `content/organization/${file}: skipping profile without a numeric "order" in its front matter (its position on the team page).`
+    warnMember(
+      file,
+      `skipping profile without a numeric "order" in its front matter (its position on the team page).`
     );
     return null;
   }
 
   return {
-    slug: file.replace(/\.(md|markdown)$/, ""),
+    slug: slugFromFileName(file),
     name,
     title: optionalString(data.title),
     image: resolveMemberImage(data.image),
@@ -243,7 +266,7 @@ export async function getAllMembers(): Promise<Member[]> {
         const fileContents = await fs.readFile(join(membersDirectory, file), "utf8");
         return parseMember(file, fileContents);
       } catch (error) {
-        console.warn(`content/organization/${file}: skipping profile that could not be read or parsed.`, error);
+        warnMember(file, `skipping profile that could not be read or parsed.`, error);
         return null;
       }
     })

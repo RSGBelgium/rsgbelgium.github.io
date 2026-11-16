@@ -17,15 +17,23 @@ import { isAbsoluteUrl } from "@/lib/urls";
 import type { Definition, Heading, Link, LinkReference, Root } from "mdast";
 
 /**
+ * Sets HTML attributes that a markdown node's element will get in the output.
+ *
+ * @param node - The markdown node, e.g. a link or a heading
+ * @param properties - Attribute names and values, e.g. `{ id: "tracks" }`
+ */
+function setHtmlAttributes(node: Heading | Link | LinkReference, properties: Record<string, string>) {
+  node.data = node.data || {};
+  node.data.hProperties = { ...node.data.hProperties, ...properties };
+}
+
+/**
  * Makes a link node open in a new tab, by setting the attributes its `<a>` will get.
  *
  * @param node - An inline (`[text](url)`) or reference-style (`[text][ref]`) link
  */
 function openInNewTab(node: Link | LinkReference) {
-  node.data = node.data || {};
-  node.data.hProperties = node.data.hProperties || {};
-  node.data.hProperties.target = "_blank";
-  node.data.hProperties.rel = "noopener noreferrer";
+  setHtmlAttributes(node, { target: "_blank", rel: "noopener noreferrer" });
 }
 
 /**
@@ -68,10 +76,7 @@ function remarkHeadingIds() {
 
     visit(tree, "heading", (node: Heading) => {
       const id = slugger.slug(toString(node, { includeHtml: false }));
-      if (!id) return;
-      node.data = node.data || {};
-      node.data.hProperties = node.data.hProperties || {};
-      node.data.hProperties.id = id;
+      if (id) setHtmlAttributes(node, { id });
     });
   };
 }
