@@ -11,6 +11,7 @@ import TeamMemberCard from "@/components/TeamMemberCard";
 import { getAllMembers } from "@/lib/api";
 import { Member } from "@/interfaces/member";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { splitBio } from "@/lib/bio";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { pageAlternates } from "@/lib/metadata";
 import { absoluteUrl } from "@/lib/urls";
@@ -65,12 +66,17 @@ function serializeJsonLd(data: object): string {
 export default async function OrganizationPage() {
   const teamMembers = await getAllMembers();
 
-  // Convert each member's markdown bio to HTML.
+  // Convert each member's markdown bio to HTML: the first paragraph, and the rest
+  // (shown behind "Read more" on the card).
   const membersWithBio = await Promise.all(
-    teamMembers.map(async (member) => ({
-      member,
-      bioHtml: member.content ? await markdownToHtml(member.content) : "",
-    })),
+    teamMembers.map(async (member) => {
+      const { lead, more } = splitBio(member.content ?? "");
+      return {
+        member,
+        bioHtml: lead ? await markdownToHtml(lead) : "",
+        bioMoreHtml: more ? await markdownToHtml(more) : "",
+      };
+    }),
   );
 
   return (
@@ -90,8 +96,13 @@ export default async function OrganizationPage() {
         <h2 className={`${SECTION_HEADING} mb-6`}>Our Team</h2>
         {membersWithBio.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {membersWithBio.map(({ member, bioHtml }) => (
-              <TeamMemberCard key={member.slug} {...member} bioHtml={bioHtml} />
+            {membersWithBio.map(({ member, bioHtml, bioMoreHtml }) => (
+              <TeamMemberCard
+                key={member.slug}
+                {...member}
+                bioHtml={bioHtml}
+                bioMoreHtml={bioMoreHtml}
+              />
             ))}
           </div>
         ) : (

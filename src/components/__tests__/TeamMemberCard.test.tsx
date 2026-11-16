@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import TeamMemberCard from "../TeamMemberCard";
 
 const props = {
@@ -65,5 +65,25 @@ describe("TeamMemberCard", () => {
   test("renders the bio HTML", () => {
     render(<TeamMemberCard {...props} bioHtml="<p>Jane studies <strong>genomics</strong>.</p>" />);
     expect(screen.getByText("genomics").tagName).toBe("STRONG");
+    expect(screen.queryByText("Read more")).not.toBeInTheDocument();
+  });
+
+  test("puts the rest of a long bio in a collapsed <details>, in the HTML", () => {
+    const { container } = render(
+      <TeamMemberCard
+        {...props}
+        bioHtml="<p>First paragraph.</p>"
+        bioMoreHtml="<p>Second paragraph.</p>"
+      />,
+    );
+    const details = container.querySelector("details")!;
+    expect(details).not.toHaveAttribute("open");
+    // "Read more" while closed, "Show less" while open (CSS); screen readers also hear whose bio.
+    const summary = details.querySelector("summary")!;
+    expect(within(summary).getByText("Read more")).toHaveClass("group-open:hidden");
+    expect(within(summary).getByText("Show less")).toHaveClass("hidden", "group-open:inline");
+    expect(within(summary).getByText("of Jane Doe's bio")).toHaveClass("sr-only");
+    expect(details).toHaveTextContent("Second paragraph.");
+    expect(screen.getByText("First paragraph.").closest("details")).toBeNull();
   });
 });
