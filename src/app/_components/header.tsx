@@ -22,7 +22,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-import { NAV_ITEMS, SLACK_PAGE } from "@/lib/navigation";
+import { NAV_ITEMS, SLACK_PAGE, type NavItem } from "@/lib/navigation";
 
 /**
  * Whether a nav item belongs to the current page: its own URL or a page below
@@ -36,17 +36,42 @@ function isCurrentSection(pathname: string, url: string): boolean {
 }
 
 /**
- * Classes for a nav link: the current section is filled with the primary
- * colour, the others get the same fill on hover.
+ * A link in the main navigation, used by both the desktop bar and the mobile
+ * menu. The current section is filled with the primary colour and marked
+ * with `aria-current="page"`; the others get the same fill on hover.
  *
- * @param isCurrent - Whether the link is the current section
+ * @param item - The page to link to
+ * @param pathname - The current path, from usePathname()
+ * @param className - Classes for this menu's layout, e.g. "text-sm"
+ * @param onClick - Called when the link is followed (the mobile menu closes)
  */
-function navLinkClasses(isCurrent: boolean): string {
-  return cn(
-    "rounded-md px-3 py-2 font-medium transition-colors",
-    isCurrent
-      ? "bg-primary text-primary-foreground"
-      : "text-foreground hover:bg-primary hover:text-primary-foreground"
+function NavLink({
+  item,
+  pathname,
+  className,
+  onClick,
+}: {
+  item: NavItem;
+  pathname: string;
+  className?: string;
+  onClick?: () => void;
+}) {
+  const isCurrent = isCurrentSection(pathname, item.url);
+  return (
+    <Link
+      href={item.url}
+      aria-current={isCurrent ? "page" : undefined}
+      onClick={onClick}
+      className={cn(
+        "rounded-md px-3 py-2 font-medium transition-colors",
+        isCurrent
+          ? "bg-primary text-primary-foreground"
+          : "text-foreground hover:bg-primary hover:text-primary-foreground",
+        className
+      )}
+    >
+      {item.title}
+    </Link>
   );
 }
 
@@ -102,19 +127,9 @@ const Header = () => {
           <div className="flex items-center gap-2 md:gap-4">
             {/* Desktop Navigation */}
             <nav aria-label="Main" className="hidden md:flex md:items-center md:space-x-4">
-              {NAV_ITEMS.map((item) => {
-                const isCurrent = isCurrentSection(pathname, item.url);
-                return (
-                  <Link
-                    key={item.title}
-                    href={item.url}
-                    aria-current={isCurrent ? "page" : undefined}
-                    className={cn(navLinkClasses(isCurrent), "text-sm")}
-                  >
-                    {item.title}
-                  </Link>
-                );
-              })}
+              {NAV_ITEMS.map((item) => (
+                <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
+              ))}
               <Button href={SLACK_PAGE.url} variant="primary" size="sm">
                 {SLACK_PAGE.title}
               </Button>
@@ -153,20 +168,15 @@ const Header = () => {
       {/* Mobile Menu: always rendered, so the toggle's aria-controls is valid; `hidden` while closed. */}
       <div className="md:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
         <nav aria-label="Main" className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border">
-          {NAV_ITEMS.map((item) => {
-            const isCurrent = isCurrentSection(pathname, item.url);
-            return (
-              <Link
-                key={item.title}
-                href={item.url}
-                aria-current={isCurrent ? "page" : undefined}
-                className={cn(navLinkClasses(isCurrent), "block text-base")}
-                onClick={closeMobileMenu}
-              >
-                {item.title}
-              </Link>
-            );
-          })}
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.url}
+              item={item}
+              pathname={pathname}
+              className="block text-base"
+              onClick={closeMobileMenu}
+            />
+          ))}
           <div className="pt-2">
             <Button href={SLACK_PAGE.url} variant="primary" size="md" className="block w-full text-center" onClick={closeMobileMenu}>
               {SLACK_PAGE.title}
