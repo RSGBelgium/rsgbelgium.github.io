@@ -77,7 +77,7 @@ No environment variables or `.env` files are needed.
 | `npm run typecheck`     | Type-checks the app and the tests (`tsc --noEmit`).                                                                       |
 | `npm test`              | Runs the Jest tests. `npm run test:watch` re-runs them on save; `npm run test:ci` adds a coverage report in `coverage/`.  |
 | `npm run check:content` | Checks the posts and team profiles in `content/` (see below).                                                             |
-| `npm run check:site`    | Checks the built site in `out/` (run `npm run build` first; see below).                                                   |
+| `npm run check:site`    | Checks the built site in `out/` with html-validate and linkinator (run `npm run build` first; see below).                 |
 | `npm run ci`            | Everything CI runs, in the same order: lint, format check, type check, tests, content check, build, site check.           |
 
 To preview the exported site as GitHub Pages will serve it, run `npm run build` and then `npx serve@latest out`. (`next start` does not work with a static export.)
@@ -105,13 +105,18 @@ Every check runs in CI on each pull request; run `npm run ci` to run them all lo
 
 `npm run check:content` ([`scripts/check-content.mjs`](scripts/check-content.mjs)) reports problems in `content/` as `file:line` with a fix:
 
-- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `coverImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts and other internal links to existing pages or files; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`, `{#id}`) syntax; no "fancy" Unicode letters; no raw `<h1>`; a `title` on every `<iframe>`.
+- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `coverImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts and other internal links to existing pages or files; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`, `{#id}`) syntax; no "fancy" Unicode letters; no raw `<h1>`; a `title` on every `<iframe>`; no link texts like "here" or "read more".
 - **Team profiles:** `name` set; `linkedin`/`orcid` empty or `https://` URLs; `image` empty or an existing file; `order` set, and the profiles numbered 1 to n (each number once, no gaps).
 - **Privacy:** no e-mail addresses or phone numbers in team profiles, and no spreadsheets or data exports (`.csv`, `.xlsx`, `.ods`, ...) tracked by git: board registries and registration exports contain personal data and must never be committed.
 
 ### Site check
 
-`npm run check:site` ([`scripts/check-site.mjs`](scripts/check-site.mjs)) checks every page in `out/` after a build: exactly one `<h1>`; one `<main>`; the skip link is the first focusable element; no skipped heading levels; `alt` on every image and a `title` on every iframe; no generic link texts; no leftover template syntax; and every internal link, image, `#anchor`, `og:image` and sitemap/feed URL resolves to a file in `out/`.
+`npm run check:site` checks every page in `out/` after a build, with two libraries:
+
+- [html-validate](https://html-validate.org) ([`.htmlvalidate.json`](.htmlvalidate.json)): exactly one `<h1>` and no skipped heading levels, one `<main>`, `alt` on every image, a `title` on every iframe, no duplicate ids.
+- [linkinator](https://github.com/JustinBeckwith/linkinator) ([`linkinator.config.json`](linkinator.config.json)): every internal link, image and `#anchor` resolves. It serves `out/` itself; extensionless URLs such as `/news` are checked as `/news.html`, as GitHub Pages serves them. External links are not fetched.
+
+The skip link coming first is a unit test (`src/app/__tests__/layout.test.tsx`); leftover template syntax and generic link texts are caught earlier, in the markdown, by the content check.
 
 ## CI/CD
 
@@ -142,7 +147,7 @@ content/
   organization/      Team member profiles (Markdown), one file per person
 guides/              Guides and templates for content editors: start here to add content
 public/              Static files served as they are: images/, assets/ (PDFs, calendar files), favicon/
-scripts/             check-content.mjs, check-site.mjs and their shared helpers (lib/)
+scripts/             check-content.mjs and its helpers (lib/)
 src/
   app/               Next.js App Router: pages, the root layout, feed.xml, sitemap and robots
     _components/     Components of the site's layout and posts (header, footer, post body, ...)

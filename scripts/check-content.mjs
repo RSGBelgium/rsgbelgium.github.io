@@ -288,9 +288,19 @@ function checkTarget(file, line, target, postSlugs) {
   }
 }
 
+/** Link texts that don't say where a link goes (screen-reader users often list links out of context). */
+const GENERIC_LINK_TEXTS = new Set([
+  "here",
+  "click here",
+  "read more",
+  "more",
+  "link",
+  "this link",
+]);
+
 /**
  * Checks the parts of a markdown body that are common to posts and members:
- * leftover Jekyll syntax, mathematical letters and iframe titles.
+ * leftover Jekyll syntax, raw <h1>s, iframe titles and link texts.
  *
  * @param {string} file - Path for messages
  * @param {string} body - The body (front matter removed)
@@ -320,6 +330,17 @@ function checkMarkdownSyntax(file, body, bodyLine) {
       at(match.index),
       `kramdown heading id "${match[0]}" is shown as-is on the website: remove it; every heading gets an id from its text automatically.`,
     );
+  }
+  // [text](url), [text][ref] and <a ...>text</a>; not images (![alt](...)).
+  for (const match of masked.matchAll(/(?<!!)\[([^\]\n]+)\][([]|<a\b[^>]*>([^<]*)<\/a>/gi)) {
+    const text = (match[1] ?? match[2]).trim().toLowerCase();
+    if (GENERIC_LINK_TEXTS.has(text)) {
+      report.error(
+        file,
+        at(match.index),
+        `link text "${text}" doesn't say where the link goes: describe the target instead, e.g. "the registration form".`,
+      );
+    }
   }
   for (const match of masked.matchAll(/<h1[\s>]/gi)) {
     report.error(
