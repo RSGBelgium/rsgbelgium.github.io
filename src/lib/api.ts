@@ -12,32 +12,18 @@ import { join } from "path";
 import { Member } from "@/interfaces/member";
 import { createExcerpt } from "@/lib/excerpt";
 import { normalizeFrontMatterDate, parseDate } from "@/lib/dates";
-import { isAbsoluteUrl } from "@/lib/urls";
+import {
+  checkMemberNumbering,
+  isAbsoluteUrl,
+  isMarkdownFile,
+  MARKDOWN_EXTENSIONS,
+  parseMemberOrder,
+  resolveMemberImage,
+  slugFromFileName,
+} from "@/lib/content-rules";
 
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
-
-/** File extensions of markdown content files, in the order they are tried. */
-const MARKDOWN_EXTENSIONS = [".md", ".markdown"];
-
-/**
- * Whether a file name is a markdown content file (`.md` or `.markdown`).
- *
- * @param file - A file name from a content directory
- */
-function isMarkdownFile(file: string): boolean {
-  return MARKDOWN_EXTENSIONS.some((extension) => file.endsWith(extension));
-}
-
-/**
- * The slug of a content file: its name without the markdown extension.
- *
- * @param file - A file name such as "2026-05-15-some-post.md"
- * @returns e.g. "2026-05-15-some-post"
- */
-function slugFromFileName(file: string): string {
-  return file.replace(/\.(md|markdown)$/, "");
-}
 
 /**
  * Log a warning about a member profile file.
@@ -171,33 +157,6 @@ function optionalUrl(value: unknown, field: string, file: string): string {
 }
 
 /**
- * Resolve a member's `image` front-matter value to a public path.
- *
- * @param value - The raw front-matter value
- * @returns "" when there is no photo; absolute paths and URLs unchanged;
- *   a bare file name ("jane.jpg") prefixed with "/images/team/"
- */
-function resolveMemberImage(value: unknown): string {
-  const image = optionalString(value);
-  if (!image) return "";
-  if (image.startsWith("/") || isAbsoluteUrl(image)) return image;
-  return `/images/team/${image}`;
-}
-
-/**
- * Read a member's `order` from front matter: their position on the team
- * page, 1 being the first.
- *
- * @param value - The raw front-matter value (a number, or a numeric string)
- * @returns The order, or undefined when it is missing or not a whole number from 1
- */
-function parseMemberOrder(value: unknown): number | undefined {
-  if (value === undefined || value === null || value === "") return undefined;
-  const order = typeof value === "number" ? value : Number(value);
-  return Number.isInteger(order) && order >= 1 ? order : undefined;
-}
-
-/**
  * Warns when the members are not numbered exactly 1 to n, i.e. when an
  * `order` is used twice or a number is skipped. Members are sorted by
  * `order` alone, so the team page would then not show the intended order.
@@ -205,7 +164,8 @@ function parseMemberOrder(value: unknown): number | undefined {
  * @param members - The valid members, sorted by order
  */
 function warnIfNotNumberedOneToN(members: Member[]): void {
-  if (members.every((member, index) => member.order === index + 1)) return;
+  const { duplicates, missing } = checkMemberNumbering(members.map((member) => member.order));
+  if (duplicates.length === 0 && missing.length === 0) return;
   const orders = members.map((member) => member.order).join(", ");
   console.warn(
     `content/organization: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`,
@@ -244,7 +204,7 @@ function parseMember(file: string, fileContents: string): Member | null {
     slug: slugFromFileName(file),
     name,
     title: optionalString(data.title),
-    image: resolveMemberImage(data.image),
+    image: resolveMemberImage(optionalString(data.image)),
     affiliation: optionalString(data.affiliation),
     position: optionalString(data.position),
     city: optionalString(data.city),

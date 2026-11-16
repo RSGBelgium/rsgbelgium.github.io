@@ -34,6 +34,15 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { lineAt, Report } from "./lib/report.mjs";
+// The rules the site itself reads content/ with (Node loads the .ts file directly).
+import {
+  checkMemberNumbering,
+  isAbsoluteUrl,
+  isMarkdownFile,
+  parseMemberOrder,
+  resolveMemberImage,
+  slugFromFileName,
+} from "../src/lib/content-rules.ts";
 
 const root = path.resolve(process.argv[2] ?? path.join(import.meta.dirname, ".."));
 const NEWS_DIR = "content/news";
@@ -41,9 +50,6 @@ const MEMBERS_DIR = "content/organization";
 const PUBLIC_DIR = "public";
 
 const report = new Report("Content check");
-
-/** Markdown files the site reads: `.md` and `.markdown`, directly in the folder. */
-const isMarkdown = (file) => /\.(md|markdown)$/.test(file);
 
 /**
  * Lists the files directly inside a content folder (subfolders are not read
@@ -508,11 +514,11 @@ function checkMember(name) {
   for (const field of ["linkedin", "orcid"]) {
     const value = data[field];
     if (value === undefined || value === null || value === "") continue;
-    if (typeof value !== "string" || !/^https:\/\/\S+$/.test(value.trim())) {
+    if (typeof value !== "string" || !isAbsoluteUrl(value.trim())) {
       report.error(
         file,
         findField(frontMatter, field)?.line,
-        `${field} must be empty ("") or a full https:// profile URL, not "${value}".`,
+        `${field} must be empty ("") or a full profile URL starting with https://, not "${value}". The site ignores anything else.`,
       );
     }
   }
@@ -520,15 +526,15 @@ function checkMember(name) {
   const image = data.image;
   if (image !== undefined && image !== null && image !== "") {
     const line = findField(frontMatter, "image")?.line;
-    if (typeof image !== "string" || /^https?:\/\//.test(image)) {
+    // Stricter than the site, which also accepts a URL: photos must be in public/.
+    if (typeof image !== "string" || isAbsoluteUrl(image)) {
       report.error(
         file,
         line,
         'image must be a file in public/images/team/ (e.g. "jane-doe.jpg"), or "" to show the initials.',
       );
     } else {
-      // Same rule as src/lib/api.ts: a bare file name is in /images/team/.
-      const urlPath = image.startsWith("/") ? image : `/images/team/${image}`;
+      const urlPath = resolveMemberImage(image.trim());
       if (!publicFileExists(urlPath)) {
         report.error(
           file,
@@ -540,30 +546,21 @@ function checkMember(name) {
   }
 
   const orderLine = findField(frontMatter, "order")?.line;
+  const order = parseMemberOrder(data.order);
   if (data.order === undefined || data.order === null || data.order === "") {
     report.error(
       file,
       orderLine ?? 1,
       'missing "order": add order: <number> to the front matter (its position on the team page, 1 first). Profiles without an order are not shown.',
     );
-  } else if (!Number.isInteger(Number(data.order)) || Number(data.order) < 1) {
+  } else if (order === undefined) {
     report.error(
       file,
       orderLine,
       `order must be a whole number from 1, e.g. order: 2, not "${data.order}".`,
     );
   } else {
-    const order = Number(data.order);
-    const other = memberOrders.get(order);
-    if (other) {
-      report.error(
-        file,
-        orderLine,
-        `order ${order} is also used by ${other}: give every member their own number.`,
-      );
-    } else {
-      memberOrders.set(order, file);
-    }
+    memberOrders.push({ order, file, line: orderLine });
   }
 
   checkMarkdownSyntax(file, body, bodyLine);
@@ -603,9 +600,9 @@ function checkTrackedDataExports() {
 }
 
 const postFiles = listFiles(NEWS_DIR);
-const posts = postFiles.filter(isMarkdown);
-const postSlugs = new Set(posts.map((file) => file.replace(/\.(md|markdown)$/, "")));
-for (const other of postFiles.filter((file) => !isMarkdown(file))) {
+const posts = postFiles.filter(isMarkdownFile);
+const postSlugs = new Set(posts.map(slugFromFileName));
+for (const other of postFiles.filter((file) => !isMarkdownFile(file))) {
   report.warn(
     `${NEWS_DIR}/${other}`,
     undefined,
@@ -614,21 +611,32 @@ for (const other of postFiles.filter((file) => !isMarkdown(file))) {
 }
 for (const name of posts) checkPost(name, postSlugs);
 
-const members = listFiles(MEMBERS_DIR).filter(isMarkdown);
-/** Member `order` numbers seen so far, and the file that uses each. */
-const memberOrders = new Map();
+const members = listFiles(MEMBERS_DIR).filter(isMarkdownFile);
+/** The valid `order` of each profile, and where it is written. */
+const memberOrders = [];
 for (const name of members) checkMember(name);
 
 // The team page lists members by `order` alone, so the numbers must be exactly
-// 1 to n: a gap means a number is missing (or a profile has an invalid order).
-const missingOrders = members
-  .map((_, index) => index + 1)
-  .filter((order) => !memberOrders.has(order));
-if (members.length > 0 && missingOrders.length > 0) {
+// 1 to n: each used once, without gaps (a profile with an invalid order leaves one).
+const { duplicates, missing } = checkMemberNumbering(
+  memberOrders.map(({ order }) => order),
+  members.length,
+);
+for (const order of duplicates) {
+  const [first, ...others] = memberOrders.filter((entry) => entry.order === order);
+  for (const { file, line } of others) {
+    report.error(
+      file,
+      line,
+      `order ${order} is also used by ${first.file}: give every member their own number.`,
+    );
+  }
+}
+if (missing.length > 0) {
   report.error(
-    "content/organization",
+    MEMBERS_DIR,
     undefined,
-    `the members must be numbered 1 to ${members.length} with "order", each number used once; not used: ${missingOrders.join(", ")}.`,
+    `the members must be numbered 1 to ${members.length} with "order", each number used once; not used: ${missing.join(", ")}.`,
   );
 }
 

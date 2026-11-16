@@ -3,15 +3,10 @@
  */
 
 import { SITE_URL } from "./constants";
+import { isAbsoluteUrl } from "./content-rules";
 
-/**
- * Whether a URL is an absolute http(s) URL, i.e. one that leaves the site.
- *
- * @param url - A URL or site path
- */
-export function isAbsoluteUrl(url: string): boolean {
-  return /^https?:\/\//.test(url);
-}
+// Defined with the other rules that scripts/check-content.mjs shares.
+export { isAbsoluteUrl };
 
 /**
  * Turns a site path into an absolute URL on the live site; absolute URLs are
