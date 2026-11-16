@@ -10,11 +10,11 @@
  * 1. Photos and posters (.jpg, .jpeg, .png and .webp files in
  *    public/images/) are turned upright from their EXIF orientation,
  *    scaled down (never up) to at most 1600 px on the long side (team
- *    photos 600 px, the RSG-Belgium logo avatar 256 px), stripped of
- *    metadata (camera details, GPS location) and saved as WebP:
- *    `poster.png` becomes `poster.webp`. The original is deleted, and every
- *    link to it in content/, src/, guides/, README.md and the text files
- *    in public/ is updated (exact path, upper/lower case included).
+ *    photos 600 px), stripped of metadata (camera details, GPS location)
+ *    and saved as WebP: `poster.png` becomes `poster.webp`. The original
+ *    is deleted, and every link to it in content/, src/, guides/,
+ *    README.md and the text files in public/ is updated (exact path,
+ *    upper/lower case included).
  *    A post's `coverImage` is also its link-preview image, and not every
  *    social network shows WebP previews: cover images are saved as JPEG.
  * 2. SVGs in public/images/ that embed bitmaps (photos pasted into a
@@ -58,9 +58,6 @@ const MAX_SIZE = 1600;
 
 /** Team photos: shown at most 128 px wide, 256 px on high-density screens. */
 const TEAM_PHOTO_MAX_SIZE = 600;
-
-/** The RSG-Belgium logo used as the 48 px author avatar on news posts. */
-const LOGO_AVATAR = { stem: "images/team/rsg-logo", maxSize: 256 };
 
 /**
  * WebP settings: quality 80 keeps text on posters crisp at a fraction of
@@ -140,8 +137,6 @@ function findCoverImages() {
  * @param {string} file - Path relative to public/
  */
 function maxSizeFor(file) {
-  const stem = file.replace(/\.[^./]+$/, "");
-  if (stem === LOGO_AVATAR.stem) return LOGO_AVATAR.maxSize;
   if (file.startsWith("images/team/")) return TEAM_PHOTO_MAX_SIZE;
   return MAX_SIZE;
 }
