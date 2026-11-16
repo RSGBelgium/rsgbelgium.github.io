@@ -17,7 +17,12 @@
  * Previews pass `crop` instead: the image then fills a box of that shape
  * (object-cover), so a tall poster takes no more room than a wide photo and
  * the previews in a grid line up. The crop keeps the top of the image,
- * where a poster has its title. A post's own page shows the whole image.
+ * where a poster has its title.
+ *
+ * A post's own page shows the whole image, centred, and never wider than the
+ * image itself (scaled up, it looks blurred) nor taller than 60% of the
+ * screen: a tall poster becomes narrower instead of pushing the post's text a
+ * screen or two down.
  */
 
 import cn from "classnames";
@@ -38,6 +43,9 @@ type Props = {
 /** Proportions assumed for images whose size is unknown. */
 const FALLBACK_SIZE: ImageSize = { width: 1300, height: 630 };
 
+/** The tallest a cover may be on a post's page: 60% of the (smallest) screen height. */
+const MAX_COVER_HEIGHT = "60svh";
+
 /**
  * Displays a cover image for a post, optionally wrapped in a link.
  *
@@ -53,13 +61,20 @@ const CoverImage = ({ title, src, size = FALLBACK_SIZE, slug, crop }: Props) => 
     return null;
   }
 
+  // Uncropped, the width is capped, not the height, so that the image keeps
+  // its proportions and its space is still reserved before it loads.
+  const maxWidth = `min(${size.width}px, ${MAX_COVER_HEIGHT} * ${size.width} / ${size.height})`;
+
   const image = (
     <Image
       src={src}
       alt={slug ? "" : `Cover image for ${title}`}
-      className={cn("shadow-sm w-full h-auto", crop && ["object-cover object-top", crop], {
-        "hover:shadow-lg transition-shadow duration-200": slug,
-      })}
+      className={cn(
+        "shadow-sm w-full h-auto",
+        crop ? ["object-cover object-top", crop] : "block mx-auto",
+        { "hover:shadow-lg transition-shadow duration-200": slug },
+      )}
+      style={crop ? undefined : { maxWidth }}
       width={size.width}
       height={size.height}
     />
