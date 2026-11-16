@@ -7,6 +7,7 @@ city: "Brussels"
 image: "" # TODO: add a photo to public/images/team/ (initials are shown until then)
 linkedin: "https://www.linkedin.com/in/yurasong/"
 orcid: "" # TODO (optional): ORCID iD URL
+order: 9
 ---
 
 Yura Song is an FNRS Research Fellow (Chargée de recherches) and bioinformatician at the Université libre de Bruxelles (ULB), working in the Laboratory of Stem Cells and Cancer led by Prof. Cédric Blanpain.

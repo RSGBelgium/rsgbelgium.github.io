@@ -23,6 +23,7 @@ jest.mock('../Button', () => {
 const mockMembers: Member[] = [
   {
     slug: 'member-alpha',
+    order: 1,
     name: 'Alpha Person',
     title: 'Lead Developer',
     image: 'alpha.jpg',
@@ -31,6 +32,7 @@ const mockMembers: Member[] = [
   },
   {
     slug: 'member-beta',
+    order: 2,
     name: 'Beta Tester',
     title: 'QA Specialist',
     image: 'beta.jpg',

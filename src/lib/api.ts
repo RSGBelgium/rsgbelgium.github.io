@@ -128,10 +128,6 @@ export async function getAllPosts(): Promise<Post[]> {
   }
 }
 
-
-/** Members whose profile has no `order` are listed after all ordered members. */
-const UNORDERED = Number.POSITIVE_INFINITY;
-
 /**
  * Read an optional profile URL (LinkedIn, ORCID) from front matter.
  *
@@ -167,27 +163,22 @@ function resolveMemberImage(value: unknown): string {
 }
 
 /**
- * Read a member's optional `order` from front matter.
+ * Read a member's `order` from front matter.
  *
  * @param value - The raw front-matter value (a number, or a numeric string)
- * @param file - Source file name, for the warning on invalid values
- * @returns The order, or undefined when missing or not a number
+ * @returns The order, or undefined when it is missing or not a number
  */
-function parseMemberOrder(value: unknown, file: string): number | undefined {
+function parseMemberOrder(value: unknown): number | undefined {
   if (value === undefined || value === null || value === "") return undefined;
   const order = typeof value === "number" ? value : Number(value);
-  if (!Number.isFinite(order)) {
-    console.warn(`content/organization/${file}: ignoring "order" because it is not a number: ${String(value)}`);
-    return undefined;
-  }
-  return order;
+  return Number.isFinite(order) ? order : undefined;
 }
 
 /**
  * Parse and validate one member profile.
  *
- * Only `name` is required. Optional text fields default to "" so that
- * components can simply hide empty values.
+ * `name` and `order` are required. Optional text fields default to "" so
+ * that components can simply hide empty values.
  *
  * @param file - File name inside content/organization/ (used for the slug and warnings)
  * @param fileContents - The raw markdown file, front matter included
@@ -202,6 +193,14 @@ function parseMember(file: string, fileContents: string): Member | null {
     return null;
   }
 
+  const order = parseMemberOrder(data.order);
+  if (order === undefined) {
+    console.warn(
+      `content/organization/${file}: skipping profile without a numeric "order" in its front matter (its position on the team page).`
+    );
+    return null;
+  }
+
   return {
     slug: file.replace(/\.(md|markdown)$/, ""),
     name,
@@ -212,32 +211,21 @@ function parseMember(file: string, fileContents: string): Member | null {
     city: optionalString(data.city),
     linkedin: optionalUrl(data.linkedin, "linkedin", file),
     orcid: optionalUrl(data.orcid, "orcid", file),
-    order: parseMemberOrder(data.order, file),
+    order,
     content: content.trim(),
   };
-}
-
-/**
- * Sort comparator for members: by `order` ascending (members without an
- * order last), then alphabetically by name.
- */
-function compareMembers(a: Member, b: Member): number {
-  const orderA = a.order ?? UNORDERED;
-  const orderB = b.order ?? UNORDERED;
-  if (orderA !== orderB) return orderA - orderB;
-  return a.name.localeCompare(b.name);
 }
 
 /**
  * Get all team members from content/organization/, in display order.
  *
  * Every `.md`/`.markdown` file directly in that folder is one member
- * (subfolders are ignored). A profile that can't be read or has no `name` is
- * skipped with a warning instead of emptying the whole team list.
+ * (subfolders are ignored). A profile that can't be read, or has no `name`
+ * or `order`, is skipped with a warning instead of emptying the whole team list.
  *
  * Used by the /organization page and the homepage team spotlight.
  *
- * @returns Members sorted by `order` (missing last), then by name
+ * @returns Members sorted by their `order` front-matter field, lowest first
  */
 export async function getAllMembers(): Promise<Member[]> {
   let files: string[];
@@ -262,5 +250,7 @@ export async function getAllMembers(): Promise<Member[]> {
 
   return members
     .filter((member): member is Member => member !== null)
-    .sort(compareMembers);
+    // Two profiles with the same order fall back to their names, so the
+    // result never depends on the order in which the file system lists files.
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 }

@@ -5,7 +5,7 @@
 #    (roughly square, at most about 600 × 600 px, ≤ 200 KB; it is cropped to a circle).
 # 3. Fill in the fields below and delete these instruction comments.
 #
-# Only `name` is required. Leave a field you don't know yet as "" (it is then
+# `name` and `order` are required. Leave a field you don't know yet as "" (it is then
 # hidden on the website) and put a `# TODO: ...` comment after it, so the next
 # editor can find it with a search for "TODO". Known placeholders:
 #   title: "Board Member"   -> role not decided or not known yet
@@ -30,10 +30,10 @@ image: "" # TODO: add a photo to public/images/team/ (initials are shown until t
 # Full profile URLs starting with https://. Anything else is ignored.
 linkedin: "" # TODO: LinkedIn profile URL
 orcid: "" # TODO (optional): ORCID iD URL
-# Optional. Position in the team list: lower numbers come first. Use 1 for the
-# President and 2 for the other officers; delete the line for everyone else.
-# Members without `order` follow, sorted alphabetically by name.
-order: 2
+# Required. Position in the team list: lower numbers come first (1 is the
+# President). Give every member their own number. A profile without `order`
+# is not shown.
+order: 10
 ---
 
 <!--
