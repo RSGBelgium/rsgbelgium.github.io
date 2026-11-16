@@ -16,7 +16,10 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Contact", url: "/contact" },
 ];
 
-/** The Slack join page: a call-to-action button in the header, a link in the footer. */
+/**
+ * The Slack join page: a call-to-action button in the header; the footer and
+ * the Contact page link to it as the "Slack" contact channel (src/lib/social.ts).
+ */
 export const SLACK_PAGE: NavItem = { title: "Join Slack", url: "/slack" };
 
 /** Every page in the navigation, in order: the main sections, then Slack. */

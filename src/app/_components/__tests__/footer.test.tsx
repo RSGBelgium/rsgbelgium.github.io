@@ -9,7 +9,14 @@ describe("Footer", () => {
       within(nav)
         .getAllByRole("link")
         .map((link) => link.getAttribute("href")),
-    ).toEqual(["/about", "/news", "/organization", "/contact", "/slack"]);
+    ).toEqual(["/about", "/news", "/organization", "/contact"]);
+  });
+
+  test("links to the Slack page once, as a contact channel", () => {
+    const { container } = render(<Footer />);
+    const slackLinks = container.querySelectorAll('a[href="/slack"]');
+    expect(slackLinks).toHaveLength(1);
+    expect(slackLinks[0]).toHaveTextContent("Slack");
   });
 
   test("lists the four contact channels with icons and labels", () => {

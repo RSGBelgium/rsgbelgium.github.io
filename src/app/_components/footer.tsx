@@ -3,6 +3,8 @@
  *
  * Renders the footer with a short description, the "Quick Links" footer
  * navigation and the contact channels (src/lib/social.ts), plus the copyright.
+ * The Slack page is linked once, as the "Slack" contact channel: Quick Links
+ * lists the main sections only.
  *
  * The section titles are <h2>s: the footer follows each page's content, so
  * they continue that page's heading outline instead of skipping levels.
@@ -13,7 +15,7 @@ import Link from "next/link";
 import Container from "@/app/_components/container";
 import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
-import { ALL_NAV_PAGES } from "@/lib/navigation";
+import { NAV_ITEMS } from "@/lib/navigation";
 
 /** Classes for every footer link: a `touch-link` (globals.css), small text, room for an icon. */
 const FOOTER_LINK = "touch-link gap-3 text-sm";
@@ -45,7 +47,7 @@ export function Footer() {
           <nav aria-label="Footer" className="mb-6 md:mb-0">
             <h2 className={FOOTER_HEADING}>Quick Links</h2>
             <ul>
-              {ALL_NAV_PAGES.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <li key={item.title}>
                   <Link href={item.url} className={FOOTER_LINK}>
                     {item.title}
