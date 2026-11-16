@@ -9,7 +9,7 @@ import React from "react";
 import Container from "@/app/_components/container";
 import Button from "@/components/Button"; // Path to the new Button component
 import { Metadata } from "next";
-import { Intro } from "@/app/_components/intro";
+import { PageHeader, SECTION_HEADING } from "@/app/_components/page-header";
 import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -25,20 +25,21 @@ export const metadata: Metadata = {
 const AboutPage = () => {
   return (
     <Container>
-      <Intro
+      <PageHeader
         title="About"
         description="Learn more about RSG-Belgium and our mission to support the bioinformatics community."
       />
-      {/* Intro renders the page's only <h1>; every section below is an <h2> under it. */}
-      <article className="py-8">
-        <h2 className="text-4xl font-bold mb-6 text-center">Welcome to RSG Belgium!</h2>
+      {/* PageHeader renders the page's only <h1>; every section below is an <h2> under it,
+          all in the same, smaller section-heading style. */}
+      <article className="pb-16 md:pb-24">
+        <h2 className={`${SECTION_HEADING} mb-4`}>Welcome to RSG Belgium!</h2>
         <p className="text-lg leading-relaxed">
           RSG Belgium is the Belgian branch of the ISCB Student Council&apos;s Regional Student
           Groups. We are a vibrant community dedicated to fostering collaboration and innovation
           among bioinformatics and computational biology students across Belgium.
         </p>
 
-        <h2 className="text-3xl font-semibold mt-8 mb-4">Our Mission</h2>
+        <h2 className={`${SECTION_HEADING} mt-10 mb-4`}>Our Mission</h2>
         <p className="text-lg leading-relaxed">
           Our mission is to bring bioinformatics and computational biology students from different
           institutions together and offer them additional opportunities which can contribute to the
@@ -48,7 +49,7 @@ const AboutPage = () => {
           traditional academic research boundaries.
         </p>
 
-        <h2 className="text-3xl font-semibold mt-8 mb-4">Our Values</h2>
+        <h2 className={`${SECTION_HEADING} mt-10 mb-4`}>Our Values</h2>
         <ul className="list-disc list-inside text-lg leading-relaxed space-y-2">
           <li>
             Stimulate interaction and co-operativity between students of different research
@@ -65,7 +66,7 @@ const AboutPage = () => {
           boundaries of academic research.
         </p>
 
-        <h2 className="text-3xl font-semibold mt-8 mb-4">Our Events</h2>
+        <h2 className={`${SECTION_HEADING} mt-10 mb-4`}>Our Events</h2>
         <p className="text-lg leading-relaxed">
           We organize a variety of events throughout the year to achieve our mission, including:
         </p>
@@ -85,7 +86,7 @@ const AboutPage = () => {
         </ul>
 
         <div className="mt-12 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Interested in Joining Us?</h2>
+          <h2 className={`${SECTION_HEADING} mb-4`}>Interested in Joining Us?</h2>
           <p className="text-lg mb-6">
             Connect with our community and stay updated on our activities!
           </p>

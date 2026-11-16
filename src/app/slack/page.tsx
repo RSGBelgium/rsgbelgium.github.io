@@ -8,7 +8,7 @@ import React from "react";
 import Container from "@/app/_components/container";
 import Button from "@/components/Button"; // Path to the new Button component
 import { Metadata } from "next";
-import { Intro } from "@/app/_components/intro";
+import { PageHeader, SECTION_HEADING } from "@/app/_components/page-header";
 import { pageAlternates } from "@/lib/metadata";
 import { CONTACT_EMAIL } from "@/lib/social";
 
@@ -27,21 +27,22 @@ const SlackPage = () => {
 
   return (
     <Container>
-      <Intro
+      <PageHeader
         title="Slack"
         description="Join the RSG-Belgium Slack workspace to meet fellow students and researchers, hear about events first and get involved."
       />
-      <div className="py-12 text-center">
-        <h2 className="text-4xl font-bold mb-6">
+      {/* A section heading under the page's <h1>, not a second page title. */}
+      <div className="max-w-3xl pb-16 md:pb-24">
+        <h2 className={`${SECTION_HEADING} mb-4`}>
           Join the RSG Belgium Slack Channel <span aria-hidden="true">💬</span>
         </h2>
-        <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+        <p className="text-lg leading-relaxed mb-6">
           We have created a Slack channel where our members can get to know each other, discuss RSG
           events, collaborate, and get more involved in our organization. It&apos;s a great place to
           ask questions, share ideas, and connect with fellow bioinformatics and computational
           biology enthusiasts in Belgium.
         </p>
-        <p className="text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p className="text-lg leading-relaxed mb-8">
           Don&apos;t be shy, come say hello! To join, please send us an email request, and
           we&apos;ll send you an invitation.
         </p>

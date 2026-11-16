@@ -5,7 +5,7 @@
  */
 
 import type { Metadata } from "next";
-import { Intro } from "@/app/_components/intro";
+import { PageHeader, SECTION_HEADING } from "@/app/_components/page-header";
 import Container from "@/app/_components/container";
 import TeamMemberCard from "@/components/TeamMemberCard";
 import { getAllMembers } from "@/lib/api";
@@ -83,13 +83,11 @@ export default async function OrganizationPage() {
         />
       ))}
       <Container>
-        <Intro
+        <PageHeader
           title="Organization"
           description="Meet the team behind RSG-Belgium and learn about our organizational structure."
         />
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter leading-tight text-center my-8">
-          Our Team
-        </h2>
+        <h2 className={`${SECTION_HEADING} mb-6`}>Our Team</h2>
         {membersWithBio.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {membersWithBio.map(({ member, bioHtml }) => (
@@ -97,7 +95,7 @@ export default async function OrganizationPage() {
             ))}
           </div>
         ) : (
-          <p className="text-center text-lg mb-16">No team member information available.</p>
+          <p className="text-lg mb-16">No team member information available.</p>
         )}
       </Container>
     </>

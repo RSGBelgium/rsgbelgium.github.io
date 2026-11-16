@@ -3,11 +3,12 @@ import { CONTACT_EMAIL } from "@/lib/social";
 import SlackPage, { metadata } from "../page";
 
 describe("Slack page", () => {
-  test("has one h1 from the intro and an h2 below it", () => {
+  test("has one h1 from the page header and an h2 below it", () => {
     render(<SlackPage />);
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0]).toHaveTextContent("Slack.");
+    // The page title, without the blog template's full stop.
+    expect(h1s[0].textContent).toBe("Slack");
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       "Join the RSG Belgium Slack Channel",
     );

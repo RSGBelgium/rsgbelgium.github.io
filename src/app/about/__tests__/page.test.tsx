@@ -2,11 +2,12 @@ import { render, screen } from "@testing-library/react";
 import AboutPage, { metadata } from "../page";
 
 describe("About page", () => {
-  test("has one h1 from the intro", () => {
+  test("has one h1 from the page header", () => {
     render(<AboutPage />);
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0]).toHaveTextContent("About.");
+    // The page title, without the blog template's full stop.
+    expect(h1s[0].textContent).toBe("About");
   });
 
   test("has a section for the welcome, mission, values, events and joining", () => {

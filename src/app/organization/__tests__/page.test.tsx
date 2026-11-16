@@ -35,11 +35,12 @@ describe("Organization page", () => {
     jest.mocked(getAllMembers).mockResolvedValue(members);
   });
 
-  test("has one h1 from the intro and the team as an h2", async () => {
+  test("has one h1 from the page header and the team as an h2", async () => {
     await renderOrganizationPage();
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0]).toHaveTextContent("Organization.");
+    // The page title, without the blog template's full stop.
+    expect(h1s[0].textContent).toBe("Organization");
     expect(screen.getByRole("heading", { level: 2, name: "Our Team" })).toBeInTheDocument();
   });
 
