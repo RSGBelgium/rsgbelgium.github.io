@@ -10,12 +10,10 @@ import { getAllPosts } from "@/lib/api";
 import { SITE_URL } from "@/lib/constants";
 import { parseDate } from "@/lib/dates";
 import { absoluteUrl, postPath } from "@/lib/urls";
+import { ALL_NAV_PAGES } from "@/lib/navigation";
 
 /** Generate the file once at build time: required for metadata routes with `output: 'export'`. */
 export const dynamic = "force-static";
-
-/** Pages written in code (src/app), as paths. */
-const STATIC_PAGES = ["/about", "/news", "/organization", "/contact", "/slack"];
 
 /**
  * Builds the sitemap entries.
@@ -32,9 +30,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const pages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: newestPostDate },
-    ...STATIC_PAGES.map((path) => ({
-      url: absoluteUrl(path),
-      lastModified: path === "/news" ? newestPostDate : undefined,
+    ...ALL_NAV_PAGES.map(({ url }) => ({
+      url: absoluteUrl(url),
+      lastModified: url === "/news" ? newestPostDate : undefined,
     })),
   ];
 
