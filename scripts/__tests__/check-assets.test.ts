@@ -13,6 +13,18 @@ import os from "node:os";
 import path from "node:path";
 
 const SCRIPT = path.join(__dirname, "..", "check-assets.mjs");
+/** ls-lint, which `npm run check:assets` runs first, and its configuration. */
+const LS_LINT = path.join(
+  __dirname,
+  "..",
+  "..",
+  "node_modules",
+  "@ls-lint",
+  "ls-lint",
+  "bin",
+  "cli.js",
+);
+const LS_LINT_CONFIG = path.join(__dirname, "..", "..", ".ls-lint.yml");
 
 /** Throwaway repositories created by the tests, removed afterwards. */
 const roots: string[] = [];
@@ -118,22 +130,32 @@ describe("check-assets", () => {
     expect(output).not.toContain("programme.pdf: error");
   });
 
-  test("reports upper-case extensions and spaces in file names", () => {
+  test("ls-lint (.ls-lint.yml) reports upper-case extensions and unsafe file names", () => {
     const root = createRepo({
-      ...CLEAN_REPO,
-      "content/news/2026-01-02-event.md":
-        '---\ntitle: "Event"\ndate: "2026-01-02"\n---\n\n![A](/images/team/photo.JPG) ![B](/images/team/my%20photo.webp)\n',
+      "public/images/team/anis.webp": 1024,
+      "public/images/photo_gallery/Beerformatics_speakers.png": 1024,
       "public/images/team/photo.JPG": 1024,
       "public/images/team/my photo.webp": 1024,
+      "public/assets/notes#1.pdf": 1024,
+      "public/images/team/.DS_Store": 1024,
     });
-    const { status, output } = runCheck(root);
-    expect(status).toBe(1);
-    expect(output).toContain(
-      'public/images/team/photo.JPG: error: upper-case file extension ".JPG" → rename it to "photo.jpg"',
+    const result = spawnSync(
+      process.execPath,
+      [LS_LINT, "--config", LS_LINT_CONFIG, "--workdir", root],
+      {
+        encoding: "utf8",
+      },
     );
+    const output = `${result.stdout}${result.stderr}`;
+
+    expect(result.status).toBe(1);
     expect(output).toContain(
-      "public/images/team/my photo.webp: error: the name contains spaces or characters that have to be escaped",
+      "public/images/team/photo.JPG failed for `.*` rules: regex:rename-to-a-lowercase-extension-listed-in-ls-lint-yml",
     );
+    expect(output).toContain("public/images/team/my photo.webp failed for `.webp` rules");
+    expect(output).toContain("public/assets/notes#1.pdf failed for `.pdf` rules");
+    // Letters of either case, digits, "-" and "_" are fine; OS files are ignored.
+    expect(output).not.toMatch(/anis\.webp|Beerformatics_speakers|photo_gallery|\.DS_Store/);
   });
 
   test("reports paths in the code that are not files in public/", () => {

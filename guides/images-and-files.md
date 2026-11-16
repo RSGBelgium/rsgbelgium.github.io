@@ -82,7 +82,10 @@ request too, and fails when:
 - a file isn't used by any post, profile or page. Delete it (git keeps old
   versions) or link to it. When you take an image out of a post, or a member
   leaves the board, delete their image too.
-- a file name has an upper-case extension (`.JPG`) or spaces.
+- a file name has an upper-case extension (`.JPG`), a file type that isn't
+  allowed yet, or spaces or other characters such as `#` (this part is
+  checked by ls-lint: the message names the file and the rule in
+  `.ls-lint.yml`).
 
 Each problem is listed with the file and how to fix it.
 `npm run check:assets -- --list` shows every file, its size and where it is

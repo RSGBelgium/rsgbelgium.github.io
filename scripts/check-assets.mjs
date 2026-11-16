@@ -17,11 +17,12 @@
  *   most 300 KB and SVGs at most 100 KB. After `npm run optimize:images`
  *   the largest image is well below that. PDFs and calendar files are
  *   exempt: they are print-quality downloads that nobody loads by accident.
- * - File names: no upper-case extensions (".JPG") and no spaces or other
- *   characters that have to be escaped in a URL.
  * - Broken references: every /images/..., /assets/... and /favicon/... path
  *   in src/, next.config.js and the text files in public/ is a file in
  *   public/ (links in content/ are checked by `npm run check:content`).
+ *
+ * File names (lower-case extensions, no spaces) are checked by ls-lint
+ * (.ls-lint.yml), which `npm run check:assets` runs first.
  *
  * Usage: node scripts/check-assets.mjs [--list] [repository root]
  *   --list  also print every file in public/ with its size and where it is used
@@ -95,9 +96,6 @@ const JS_STRING_OR_COMMENT =
 
 /** Paths to public files in code and config: "/images/...", "/assets/...", "/favicon/...". */
 const PUBLIC_PATH = /(?<![\w.~%/-])\/(?:images|assets|favicon)\/[^\s"'`()<>{}$\\,;]*/g;
-
-/** Characters that have to be escaped in a URL, or that some systems handle badly. */
-const UNSAFE_NAME = /[\s#?%"'<>\\^`{|}]/;
 
 const report = new Report("Asset check");
 
@@ -184,30 +182,6 @@ function findUses(file, sources, memberPhotos) {
 }
 
 /**
- * Checks a file's name: lower-case extension, nothing that needs escaping in a URL.
- *
- * @param {string} file - Path relative to public/
- */
-function checkName(file) {
-  const where = `${PUBLIC_DIR}/${file}`;
-  const extension = path.posix.extname(file);
-  if (extension !== extension.toLowerCase()) {
-    report.error(
-      where,
-      undefined,
-      `upper-case file extension "${extension}" → rename it to "${path.posix.basename(file, extension)}${extension.toLowerCase()}" and update the links to it (\`npm run optimize:images\` does both for images). Links are case-sensitive on the live site.`,
-    );
-  }
-  if (UNSAFE_NAME.test(file)) {
-    report.error(
-      where,
-      undefined,
-      "the name contains spaces or characters that have to be escaped in links → rename it using only lowercase letters, digits and hyphens, and update the links to it.",
-    );
-  }
-}
-
-/**
  * Checks a file against its size budget.
  *
  * @param {string} file - Path relative to public/
@@ -266,7 +240,6 @@ for (const file of files) {
       `not used: nothing in src/, content/ or the site's config links to /${file} → delete it (git keeps the old version), or link to it.`,
     );
   }
-  checkName(file);
   checkBudget(file, size);
 }
 checkReferences(sources);
