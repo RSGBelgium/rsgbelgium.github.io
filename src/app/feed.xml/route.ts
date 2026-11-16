@@ -8,9 +8,10 @@
  */
 
 import { getAllPosts } from "@/lib/api";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { SITE_NAME } from "@/lib/constants";
 import { RSS_FEED_PATH } from "@/lib/metadata";
 import { parseDate } from "@/lib/dates";
+import { absoluteUrl, postPath } from "@/lib/urls";
 import type { Post } from "@/interfaces/post";
 
 /** Generate the file once at build time: required for route handlers with `output: 'export'`. */
@@ -42,7 +43,7 @@ function escapeXml(value: string): string {
  * @returns The `<item>` XML
  */
 function renderItem(post: Post): string {
-  const url = `${SITE_URL}/news/${post.slug}`;
+  const url = absoluteUrl(postPath(post.slug));
   // RSS wants RFC 822 dates, e.g. "Fri, 15 May 2026 00:00:00 GMT".
   const pubDate = parseDate(post.date)?.toUTCString();
   const description = post.excerpt || `Read "${post.title}" on the ${SITE_NAME} website.`;
@@ -75,11 +76,11 @@ export async function GET() {
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     "  <channel>",
     `    <title>${escapeXml(`${SITE_NAME} News`)}</title>`,
-    `    <link>${escapeXml(`${SITE_URL}/news`)}</link>`,
+    `    <link>${escapeXml(absoluteUrl("/news"))}</link>`,
     `    <description>${escapeXml(`News, events and announcements from ${SITE_NAME}, the community of bioinformatics and computational biology students and young researchers in Belgium.`)}</description>`,
     "    <language>en</language>",
     `    <lastBuildDate>${lastBuildDate}</lastBuildDate>`,
-    `    <atom:link href="${escapeXml(`${SITE_URL}${RSS_FEED_PATH}`)}" rel="self" type="application/rss+xml"/>`,
+    `    <atom:link href="${escapeXml(absoluteUrl(RSS_FEED_PATH))}" rel="self" type="application/rss+xml"/>`,
     ...posts.map(renderItem),
     "  </channel>",
     "</rss>",

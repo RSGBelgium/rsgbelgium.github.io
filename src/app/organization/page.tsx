@@ -13,21 +13,13 @@ import { Member } from "@/interfaces/member";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { pageAlternates } from "@/lib/metadata";
+import { absoluteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Our Team",
   description: "Meet the board of RSG-Belgium: the students and young researchers who organise our events.",
   alternates: pageAlternates("/organization"),
 };
-
-/**
- * Turns a site path into an absolute URL; absolute URLs are returned unchanged.
- *
- * @param path - A path such as "/images/team/anis.JPG", or a full URL
- */
-function toAbsoluteUrl(path: string): string {
-  return /^https?:\/\//.test(path) ? path : `${SITE_URL}${path}`;
-}
 
 /**
  * Builds the schema.org Person structured data for a member.
@@ -46,10 +38,10 @@ function personJsonLd(member: Member) {
     "@type": "Person",
     name: member.name,
     ...(member.title && { jobTitle: member.title }),
-    ...(member.image && { image: toAbsoluteUrl(member.image) }),
+    ...(member.image && { image: absoluteUrl(member.image) }),
     ...(member.affiliation && { affiliation: { "@type": "Organization", name: member.affiliation } }),
     memberOf: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    url: `${SITE_URL}/organization`,
+    url: absoluteUrl("/organization"),
     ...(sameAs.length > 0 && { sameAs }),
   };
 }

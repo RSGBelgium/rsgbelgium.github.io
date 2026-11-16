@@ -13,10 +13,8 @@ import remarkHtml from "remark-html";
 import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
+import { isAbsoluteUrl } from "@/lib/urls";
 import type { Definition, Heading, Link, LinkReference, Root } from "mdast";
-
-/** Matches absolute http(s) URLs, i.e. links that leave the site. */
-const EXTERNAL_URL = /^https?:\/\//;
 
 /**
  * Makes a link node open in a new tab, by setting the attributes its `<a>` will get.
@@ -48,12 +46,12 @@ function remarkExternalLinks() {
     });
 
     visit(tree, "link", (node: Link) => {
-      if (node.url && EXTERNAL_URL.test(node.url)) openInNewTab(node);
+      if (node.url && isAbsoluteUrl(node.url)) openInNewTab(node);
     });
 
     visit(tree, "linkReference", (node: LinkReference) => {
       const url = definitionUrls.get(node.identifier.toUpperCase());
-      if (url && EXTERNAL_URL.test(url)) openInNewTab(node);
+      if (url && isAbsoluteUrl(url)) openInNewTab(node);
     });
   };
 }

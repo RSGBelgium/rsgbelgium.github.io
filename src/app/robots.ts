@@ -6,6 +6,7 @@
 
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/constants";
+import { absoluteUrl } from "@/lib/urls";
 
 /** Generate the file once at build time: required for metadata routes with `output: 'export'`. */
 export const dynamic = "force-static";
@@ -21,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: absoluteUrl("/sitemap.xml"),
     host: SITE_URL,
   };
 }

@@ -9,6 +9,7 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/api";
 import { SITE_URL } from "@/lib/constants";
 import { parseDate } from "@/lib/dates";
+import { absoluteUrl, postPath } from "@/lib/urls";
 
 /** Generate the file once at build time: required for metadata routes with `output: 'export'`. */
 export const dynamic = "force-static";
@@ -32,13 +33,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: newestPostDate },
     ...STATIC_PAGES.map((path) => ({
-      url: `${SITE_URL}${path}`,
+      url: absoluteUrl(path),
       lastModified: path === "/news" ? newestPostDate : undefined,
     })),
   ];
 
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${SITE_URL}/news/${post.slug}`,
+    url: absoluteUrl(postPath(post.slug)),
     lastModified: parseDate(post.date),
   }));
 

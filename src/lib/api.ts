@@ -12,6 +12,7 @@ import { join } from "path";
 import { Member } from "@/interfaces/member";
 import { createExcerpt } from "@/lib/excerpt";
 import { normalizeFrontMatterDate, parseDate } from "@/lib/dates";
+import { isAbsoluteUrl } from "@/lib/urls";
 
 const postsDirectory = join(process.cwd(), "content/news");
 const membersDirectory = join(process.cwd(), "content/organization");
@@ -141,7 +142,7 @@ export async function getAllPosts(): Promise<Post[]> {
  */
 function optionalUrl(value: unknown, field: string, file: string): string {
   const url = optionalString(value);
-  if (url && !/^https?:\/\//.test(url)) {
+  if (url && !isAbsoluteUrl(url)) {
     console.warn(`content/organization/${file}: ignoring "${field}" because it is not an http(s) URL: ${url}`);
     return "";
   }
@@ -158,7 +159,7 @@ function optionalUrl(value: unknown, field: string, file: string): string {
 function resolveMemberImage(value: unknown): string {
   const image = optionalString(value);
   if (!image) return "";
-  if (image.startsWith("/") || /^https?:\/\//.test(image)) return image;
+  if (image.startsWith("/") || isAbsoluteUrl(image)) return image;
   return `/images/team/${image}`;
 }
 

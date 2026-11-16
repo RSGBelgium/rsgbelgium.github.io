@@ -7,6 +7,7 @@
 import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
+import { postPath } from "@/lib/urls";
 
 type Props = {
   title: string;
@@ -42,7 +43,7 @@ const CoverImage = ({ title, src, slug }: Props) => {
   return (
     <div className="sm:mx-0">
       {slug ? (
-        <Link href={`/news/${slug}`} aria-label={title}>
+        <Link href={postPath(slug)} aria-label={title}>
           {image}
         </Link>
       ) : (

@@ -9,6 +9,7 @@ import { Post } from "@/interfaces/post";
 import Avatar from "@/app/_components/avatar";
 import CoverImage from "@/app/_components/cover-image";
 import DateFormatter from "./date-formatter";
+import { postPath } from "@/lib/urls";
 
 type Props = {
   title: string;
@@ -53,7 +54,7 @@ export function PostPreview({
         </div>
       )}
       <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={`/news/${slug}`} className="text-primary hover:underline hover:text-secondary dark:text-lightblue dark:hover:text-white">
+        <Link href={postPath(slug)} className="text-primary hover:underline hover:text-secondary dark:text-lightblue dark:hover:text-white">
           {title}
         </Link>
       </h3>
