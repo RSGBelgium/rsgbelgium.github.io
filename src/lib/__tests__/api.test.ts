@@ -45,12 +45,6 @@ const NEWS_FIXTURES = {
   "content/news/no-date.md": markdown(['title: "No date"']),
   "content/news/tie-b.md": markdown(['title: "Tie B"', 'date: "2020-01-01"']),
   "content/news/tie-a.md": markdown(['title: "Tie A"', 'date: "2020-01-01"']),
-  // Newer than everything else, but unlisted.
-  "content/news/unlisted.md": markdown([
-    'title: "Unlisted page"',
-    'date: "2030-01-01"',
-    "unlisted: true",
-  ]),
   "content/news/notes.txt": "Not a post.",
 };
 
@@ -125,7 +119,7 @@ describe("posts", () => {
     api = await loadApi(fixtureRoot);
   });
 
-  test("getPostSlugs lists .md and .markdown files, unlisted ones included", async () => {
+  test("getPostSlugs lists .md and .markdown files", async () => {
     const slugs = await api.getPostSlugs();
     expect(slugs.sort()).toEqual([
       "2021-09-21-quoted-time",
@@ -134,7 +128,6 @@ describe("posts", () => {
       "no-date",
       "tie-a",
       "tie-b",
-      "unlisted",
     ]);
   });
 
@@ -158,16 +151,6 @@ describe("posts", () => {
     expect(unquoted?.date).toBe("2021-09-21T00:00:00.000Z");
     expect(quoted?.date).toBe("2021-09-21 18:00");
     expect(noDate?.date).toBe("");
-  });
-
-  test("leaves unlisted posts out unless includeUnlisted is set", async () => {
-    const listed = await api.getAllPosts();
-    const all = await api.getAllPosts({ includeUnlisted: true });
-
-    expect(listed.map((post) => post.slug)).not.toContain("unlisted");
-    expect(all[0].slug).toBe("unlisted");
-    expect(all[0].unlisted).toBe(true);
-    expect(all).toHaveLength(listed.length + 1);
   });
 
   test("uses the trimmed front-matter excerpt, or falls back to the body text", async () => {

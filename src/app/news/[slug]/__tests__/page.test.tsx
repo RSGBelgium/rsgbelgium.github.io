@@ -80,7 +80,7 @@ describe("News post page", () => {
     await expect(generateMetadata(params("missing"))).resolves.toEqual({ title: "Page not found" });
   });
 
-  test("builds every post, unlisted ones included, and nothing else", async () => {
+  test("builds every post and nothing else", async () => {
     jest.mocked(getPostSlugs).mockResolvedValue(["2026-05-15-speakers", "challenge_track1"]);
     await expect(generateStaticParams()).resolves.toEqual([
       { slug: "2026-05-15-speakers" },

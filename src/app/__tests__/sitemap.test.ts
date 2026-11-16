@@ -6,7 +6,6 @@
  * Tests for sitemap.xml (src/app/sitemap.ts) and robots.txt (src/app/robots.ts).
  */
 
-import type { GetAllPostsOptions } from "@/lib/api";
 import { getAllPosts } from "@/lib/api";
 import type { Post } from "@/interfaces/post";
 import robots from "../robots";
@@ -16,16 +15,8 @@ jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
 }));
 
-/** Posts as getAllPosts returns them: newest first; one is unlisted. */
+/** Posts as getAllPosts returns them: newest first. */
 const ALL_POSTS: Post[] = [
-  {
-    slug: "challenge_track1",
-    title: "Track 1",
-    date: "2026-06-01",
-    content: "",
-    category: "news",
-    unlisted: true,
-  },
   {
     slug: "2026-05-15-speakers",
     title: "Speakers",
@@ -45,14 +36,10 @@ const ALL_POSTS: Post[] = [
 
 describe("sitemap", () => {
   beforeEach(() => {
-    jest
-      .mocked(getAllPosts)
-      .mockImplementation(async ({ includeUnlisted = false }: GetAllPostsOptions = {}) =>
-        ALL_POSTS.filter((post) => includeUnlisted || !post.unlisted),
-      );
+    jest.mocked(getAllPosts).mockResolvedValue(ALL_POSTS);
   });
 
-  test("lists the homepage, the static pages and every listed post, as absolute URLs", async () => {
+  test("lists the homepage, the static pages and every post, as absolute URLs", async () => {
     const entries = await sitemap();
     expect(entries.map((entry) => entry.url)).toEqual([
       "https://rsg-belgium.org",
@@ -67,12 +54,7 @@ describe("sitemap", () => {
     ]);
   });
 
-  test("leaves out unlisted posts", async () => {
-    const entries = await sitemap();
-    expect(entries.some((entry) => entry.url.includes("challenge_track1"))).toBe(false);
-  });
-
-  test("dates posts, the homepage and /news by the newest listed post", async () => {
+  test("dates posts, the homepage and /news by the newest post", async () => {
     const byUrl = Object.fromEntries(
       (await sitemap()).map((entry) => [entry.url, entry.lastModified]),
     );

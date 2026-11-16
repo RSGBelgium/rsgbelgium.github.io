@@ -4,13 +4,13 @@
  *
  * News posts (content/news/*.md, *.markdown):
  * - the front matter parses; `title` is set; `date` is set, in quotes, as
- *   "YYYY-MM-DD" or "YYYY-MM-DD HH:mm", and a real date; `unlisted` is
- *   true/false; `coverImage` points to a file in public/;
+ *   "YYYY-MM-DD" or "YYYY-MM-DD HH:mm", and a real date; `coverImage`
+ *   points to a file in public/;
  * - links and images to /images/... or /assets/... point to files in
  *   public/, links to /news/... to existing posts, other internal links to
  *   a page of the site (src/app) or a file in public/, and every other
  *   link starts with /, #, http(s)://, mailto: or tel:;
- * - no Liquid ({{ }}, {% %}) or kramdown ({: ...}) syntax from the old
+ * - no Liquid ({{ }}, {% %}) or kramdown ({: ...}, {#id}) syntax from the old
  *   Jekyll site, no "fancy" mathematical Unicode letters (unreadable for
  *   screen readers), no raw <h1> (the title is the page's <h1>), and every
  *   <iframe> has a title.
@@ -306,6 +306,13 @@ function checkMarkdownSyntax(file, body, bodyLine) {
       `kramdown attribute "${match[0]}" is shown as-is on the website: remove it.`,
     );
   }
+  for (const match of masked.matchAll(/\{#[A-Za-z][\w-]*\}/g)) {
+    report.error(
+      file,
+      at(match.index),
+      `kramdown heading id "${match[0]}" is shown as-is on the website: remove it; every heading gets an id from its text automatically.`,
+    );
+  }
   for (const match of masked.matchAll(/<h1[\s>]/gi)) {
     report.error(
       file,
@@ -417,14 +424,6 @@ function checkPost(name, postSlugs) {
         report.error(file, dateField.line, `date "${quoted[2]}" is not a real date or time.`);
       }
     }
-  }
-
-  if (data.unlisted !== undefined && typeof data.unlisted !== "boolean") {
-    report.error(
-      file,
-      findField(frontMatter, "unlisted")?.line,
-      "unlisted must be true or false, without quotes.",
-    );
   }
 
   if (data.excerpt !== undefined && typeof data.excerpt !== "string") {

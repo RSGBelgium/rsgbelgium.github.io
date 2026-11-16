@@ -40,10 +40,9 @@ describe("Homepage", () => {
     jest.clearAllMocks();
   });
 
-  test("loads the listed posts and the members", async () => {
+  test("loads the posts and the members", async () => {
     await renderHomepage();
     expect(getAllPosts).toHaveBeenCalledTimes(1);
-    expect(getAllPosts).toHaveBeenCalledWith(); // unlisted posts are not included
     expect(getAllMembers).toHaveBeenCalledTimes(1);
   });
 

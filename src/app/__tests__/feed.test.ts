@@ -6,7 +6,6 @@
  * Tests for the RSS feed route handler (src/app/feed.xml/route.ts).
  */
 
-import type { GetAllPostsOptions } from "@/lib/api";
 import { getAllPosts } from "@/lib/api";
 import type { Post } from "@/interfaces/post";
 import { GET } from "../feed.xml/route";
@@ -15,7 +14,7 @@ jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
 }));
 
-/** Posts as getAllPosts returns them: newest first; one is unlisted. */
+/** Posts as getAllPosts returns them: newest first. */
 const ALL_POSTS: Post[] = [
   {
     slug: "2026-05-15-speakers",
@@ -24,14 +23,6 @@ const ALL_POSTS: Post[] = [
     excerpt: "Talks & drinks <in Ghent>.",
     content: "",
     category: "news",
-  },
-  {
-    slug: "challenge_track1",
-    title: "Track 1",
-    date: "2026-05-01",
-    content: "",
-    category: "news",
-    unlisted: true,
   },
   {
     slug: "2017-10-02-symposium",
@@ -78,12 +69,7 @@ async function fetchFeed() {
 
 describe("GET /feed.xml", () => {
   beforeEach(() => {
-    // Behave like the real loader: unlisted posts only with includeUnlisted.
-    jest
-      .mocked(getAllPosts)
-      .mockImplementation(async ({ includeUnlisted = false }: GetAllPostsOptions = {}) =>
-        ALL_POSTS.filter((post) => includeUnlisted || !post.unlisted),
-      );
+    jest.mocked(getAllPosts).mockResolvedValue(ALL_POSTS);
   });
 
   test("responds with RSS", async () => {
@@ -106,7 +92,7 @@ describe("GET /feed.xml", () => {
     expect(xml).toContain("<description>Talks &amp; drinks &lt;in Ghent&gt;.</description>");
   });
 
-  test("lists the listed posts, newest first, without unlisted posts", async () => {
+  test("lists every post, newest first", async () => {
     const { xml } = await fetchFeed();
     const links = [...xml.matchAll(/<item>\s*<title>[^<]*<\/title>\s*<link>([^<]+)<\/link>/g)].map(
       (m) => m[1],
@@ -116,7 +102,6 @@ describe("GET /feed.xml", () => {
       "https://rsg-belgium.org/news/2017-10-02-symposium",
       "https://rsg-belgium.org/news/undated",
     ]);
-    expect(xml).not.toContain("challenge_track1");
   });
 
   test("dates items in RFC 822 format and uses the newest post as lastBuildDate", async () => {
