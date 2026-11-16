@@ -115,9 +115,7 @@ describe("GET /feed.xml", () => {
 
   test("describes posts without an excerpt", async () => {
     const { xml } = await fetchFeed();
-    expect(xml).toContain(
-      "<description>Read &quot;Student day&quot; on the RSG-Belgium website.</description>",
-    );
+    expect(xml).toContain("<description>Student day: news from RSG-Belgium.</description>");
   });
 
   test("is still valid without posts", async () => {

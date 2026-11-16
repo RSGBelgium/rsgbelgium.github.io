@@ -17,7 +17,9 @@
  *
  * Member profiles (content/organization/*.md):
  * - the front matter parses; `name` is set; `linkedin`/`orcid` are empty
- *   or https URLs; `image` is empty or a file in public/; `order` is a number;
+ *   or https URLs; `image` is empty or a file in public/; `order` is set
+ *   and a whole number, and the profiles are numbered 1 to n: each number
+ *   used once, without gaps;
  * - privacy: no e-mail addresses or phone numbers.
  *
  * Repository: no spreadsheets or data exports (.csv, .xlsx, ...) are
@@ -537,12 +539,31 @@ function checkMember(name) {
     }
   }
 
-  if (data.order !== undefined && data.order !== null && !Number.isFinite(Number(data.order))) {
+  const orderLine = findField(frontMatter, "order")?.line;
+  if (data.order === undefined || data.order === null || data.order === "") {
     report.error(
       file,
-      findField(frontMatter, "order")?.line,
-      `order must be a number, e.g. order: 2, not "${data.order}".`,
+      orderLine ?? 1,
+      'missing "order": add order: <number> to the front matter (its position on the team page, 1 first). Profiles without an order are not shown.',
     );
+  } else if (!Number.isInteger(Number(data.order)) || Number(data.order) < 1) {
+    report.error(
+      file,
+      orderLine,
+      `order must be a whole number from 1, e.g. order: 2, not "${data.order}".`,
+    );
+  } else {
+    const order = Number(data.order);
+    const other = memberOrders.get(order);
+    if (other) {
+      report.error(
+        file,
+        orderLine,
+        `order ${order} is also used by ${other}: give every member their own number.`,
+      );
+    } else {
+      memberOrders.set(order, file);
+    }
   }
 
   checkMarkdownSyntax(file, body, bodyLine);
@@ -594,7 +615,22 @@ for (const other of postFiles.filter((file) => !isMarkdown(file))) {
 for (const name of posts) checkPost(name, postSlugs);
 
 const members = listFiles(MEMBERS_DIR).filter(isMarkdown);
+/** Member `order` numbers seen so far, and the file that uses each. */
+const memberOrders = new Map();
 for (const name of members) checkMember(name);
+
+// The team page lists members by `order` alone, so the numbers must be exactly
+// 1 to n: a gap means a number is missing (or a profile has an invalid order).
+const missingOrders = members
+  .map((_, index) => index + 1)
+  .filter((order) => !memberOrders.has(order));
+if (members.length > 0 && missingOrders.length > 0) {
+  report.error(
+    "content/organization",
+    undefined,
+    `the members must be numbered 1 to ${members.length} with "order", each number used once; not used: ${missingOrders.join(", ")}.`,
+  );
+}
 
 checkTrackedDataExports();
 

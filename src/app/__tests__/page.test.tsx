@@ -20,6 +20,7 @@ const posts: Post[] = [1, 2, 3, 4].map((n) => ({
 
 const members: Member[] = [1, 2, 3, 4, 5].map((n) => ({
   slug: `member-${n}`,
+  order: n,
   name: `Member ${n}`,
   title: `Role ${n}`,
   image: "",

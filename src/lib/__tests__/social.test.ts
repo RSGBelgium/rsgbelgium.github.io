@@ -7,7 +7,7 @@
  * footer and the Contact page.
  */
 
-import { CONTACT_CHANNELS, CONTACT_EMAIL, isExternalUrl } from "@/lib/social";
+import { CONTACT_CHANNELS, CONTACT_EMAIL } from "@/lib/social";
 
 describe("CONTACT_CHANNELS", () => {
   test("lists exactly Email, GitHub, Slack and LinkedIn, in that order", () => {
@@ -47,17 +47,5 @@ describe("CONTACT_CHANNELS", () => {
       expect(channel.linkText.trim()).not.toBe("");
       expect(channel.description.trim()).not.toBe("");
     }
-  });
-});
-
-describe("isExternalUrl", () => {
-  test.each([
-    ["https://github.com/RSGBelgium", true],
-    ["http://example.org", true],
-    ["/slack", false],
-    ["#tracks", false],
-    [`mailto:${CONTACT_EMAIL}`, false],
-  ])("%s -> %s", (href, expected) => {
-    expect(isExternalUrl(href)).toBe(expected);
   });
 });

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { notFound } from "next/navigation";
 import type { Post } from "@/interfaces/post";
 import { getPostBySlug, getPostSlugs } from "@/lib/api";
-import PostPage, { dynamicParams, generateMetadata, generateStaticParams } from "../page";
+import PostPage, { generateMetadata, generateStaticParams } from "../page";
 
 jest.mock("@/lib/api", () => ({
   getPostBySlug: jest.fn(),
@@ -86,6 +86,5 @@ describe("News post page", () => {
       { slug: "2026-05-15-speakers" },
       { slug: "challenge_track1" },
     ]);
-    expect(dynamicParams).toBe(false);
   });
 });

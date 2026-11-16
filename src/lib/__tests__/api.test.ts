@@ -60,23 +60,35 @@ const MEMBER_FIXTURES = {
     ],
     "\n  Bio of Zoe.  \n\n",
   ),
-  "content/organization/bea.md": markdown(['name: "Bea Officer"', 'image: "bea.jpg"', "order: 2"]),
   // A numeric string is accepted as an order.
   "content/organization/adam.md": markdown(['name: "Adam Officer"', 'order: "2"']),
+  "content/organization/bea.md": markdown(['name: "Bea Officer"', 'image: "bea.jpg"', "order: 3"]),
   "content/organization/carl.md": markdown([
     'name: "Carl Member"',
     'image: "https://example.org/carl.jpg"',
     'linkedin: "Carl Member | LinkedIn"',
+    "order: 4",
   ]),
+  // `order` is required and must be a whole number from 1: these profiles are skipped.
   "content/organization/anna.md": markdown(['name: "Anna Member"', 'image: ""', 'order: "first"']),
+  "content/organization/dave.md": markdown(['name: "Dave Member"']),
+  "content/organization/eve.md": markdown(['name: "Eve Member"', "order: 2.5"]),
   "content/organization/no-name.md": markdown(['title: "Board Member"']),
   "content/organization/broken.md": "---\nname: [unclosed\n---\n",
   "content/organization/README.txt": "Not a member.",
   "content/organization/alumni/old-member.md": markdown(['name: "Old Member"']),
 };
 
+/** A team whose orders are not 1 to n: a duplicate 1 and no 2. */
+const MISNUMBERED_MEMBER_FIXTURES = {
+  "content/organization/a.md": markdown(['name: "Member A"', "order: 1"]),
+  "content/organization/b.md": markdown(['name: "Member B"', "order: 1"]),
+  "content/organization/c.md": markdown(['name: "Member C"', "order: 3"]),
+};
+
 let fixtureRoot: string;
 let emptyRoot: string;
+let misnumberedRoot: string;
 let warn: jest.SpyInstance;
 let error: jest.SpyInstance;
 
@@ -96,11 +108,14 @@ beforeAll(() => {
   fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "rsg-api-"));
   writeFiles(fixtureRoot, { ...NEWS_FIXTURES, ...MEMBER_FIXTURES });
   emptyRoot = fs.mkdtempSync(path.join(os.tmpdir(), "rsg-api-empty-"));
+  misnumberedRoot = fs.mkdtempSync(path.join(os.tmpdir(), "rsg-api-misnumbered-"));
+  writeFiles(misnumberedRoot, MISNUMBERED_MEMBER_FIXTURES);
 });
 
 afterAll(() => {
   fs.rmSync(fixtureRoot, { recursive: true, force: true });
   fs.rmSync(emptyRoot, { recursive: true, force: true });
+  fs.rmSync(misnumberedRoot, { recursive: true, force: true });
 });
 
 beforeEach(() => {
@@ -181,15 +196,36 @@ describe("getAllMembers", () => {
     api = await loadApi(fixtureRoot);
   });
 
-  test("sorts by order, then by name; members without an order come last", async () => {
+  test("sorts by order alone, 1 first", async () => {
     const members = await api.getAllMembers();
     expect(members.map((member) => member.name)).toEqual([
       "Zoe President",
       "Adam Officer",
       "Bea Officer",
-      "Anna Member",
       "Carl Member",
     ]);
+    expect(warn).not.toHaveBeenCalledWith(expect.stringContaining("must be 1 to"));
+  });
+
+  test("skips profiles without a whole-number order from 1", async () => {
+    const slugs = (await api.getAllMembers()).map((member) => member.slug);
+
+    for (const slug of ["anna", "dave", "eve"]) {
+      expect(slugs).not.toContain(slug);
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining(`${slug}.md: skipping profile without a whole-number "order"`),
+      );
+    }
+  });
+
+  test("warns when the orders are not exactly 1 to n", async () => {
+    const misnumberedApi = await loadApi(misnumberedRoot);
+    const orders = (await misnumberedApi.getAllMembers()).map((member) => member.order);
+
+    expect(orders).toEqual([1, 1, 3]);
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining('the "order" numbers must be 1 to 3, each used once (found 1, 1, 3)'),
+    );
   });
 
   test("skips profiles without a name or with invalid front matter, and ignores other files", async () => {
@@ -216,7 +252,6 @@ describe("getAllMembers", () => {
     expect(byName["Bea Officer"].image).toBe("/images/team/bea.jpg");
     expect(byName["Zoe President"].image).toBe("/images/team/zoe.png");
     expect(byName["Carl Member"].image).toBe("https://example.org/carl.jpg");
-    expect(byName["Anna Member"].image).toBe("");
     expect(byName["Adam Officer"].image).toBe("");
   });
 
@@ -231,14 +266,13 @@ describe("getAllMembers", () => {
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('carl.md: ignoring "linkedin"'));
   });
 
-  test("parses numeric orders, ignores invalid ones and trims the bio", async () => {
+  test("parses numeric orders and trims the bio", async () => {
     const byName = Object.fromEntries(
       (await api.getAllMembers()).map((member) => [member.name, member]),
     );
 
-    expect(byName["Adam Officer"].order).toBe(2);
-    expect(byName["Anna Member"].order).toBeUndefined();
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('anna.md: ignoring "order"'));
+    expect(byName["Zoe President"].order).toBe(1);
+    expect(byName["Adam Officer"].order).toBe(2); // written as the string "2"
     expect(byName["Zoe President"].content).toBe("Bio of Zoe.");
     expect(byName["Bea Officer"].title).toBe("");
   });
