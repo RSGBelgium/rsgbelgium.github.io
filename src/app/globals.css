@@ -89,8 +89,10 @@
      the gap is transparent on any background and it stays visible in
      forced-colors (high contrast) mode. Components don't add their own focus
      styles; an element that must look different (e.g. .button-inverse on the
-     hero gradient) changes `outline-color` only. */
-  :focus-visible {
+     hero gradient) changes `outline-color` only. A .link-card (see below)
+     shows the outline around the whole card instead of around its link. */
+  :focus-visible,
+  .link-card:has(.link-card-link:focus-visible) {
     outline: 2px solid rgb(var(--color-accent-strong));
     outline-offset: 2px;
   }
@@ -148,5 +150,22 @@
 
   .button-inverse:focus-visible {
     outline-color: rgb(var(--color-primary-foreground));
+  }
+
+  /* A card that works as one big link (the homepage news cards, the contact
+     cards): put `link-card` on the card and `link-card-link` on its one link.
+     The link's ::after stretches over the card, so the whole card is
+     clickable, and the focus outline goes around the card (rule above), while
+     the link itself shows an underline instead. */
+  .link-card {
+    @apply relative;
+  }
+
+  .link-card-link {
+    @apply after:absolute after:inset-0;
+  }
+
+  .link-card-link:focus-visible {
+    @apply underline outline-none;
   }
 }

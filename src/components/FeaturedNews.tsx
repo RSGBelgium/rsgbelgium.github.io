@@ -6,8 +6,8 @@
  * Each card has exactly one link, the post title, stretched over the whole
  * card (a "stretched link"): keyboard and screen-reader users meet one link
  * per post instead of three (image, title, "Read more"), while the whole
- * card is still clickable. The card shows the focus ring when the link is
- * focused.
+ * card is still clickable (`link-card` in globals.css). The card shows the
+ * focus outline when the link is focused.
  */
 
 import React from 'react';
@@ -41,7 +41,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="group relative bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-strong has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background"
+              className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
             >
               {post.coverImage && (
                 // Decorative: the title says what the post is about. Simplified image display, next/image could be used here too.
@@ -53,10 +53,10 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
-                  {/* The card's only link; its ::after covers the whole card, so the card is clickable. */}
+                  {/* The card's only link: .link-card-link stretches it over the whole card. */}
                   <Link
                     href={postPath(post.slug)}
-                    className="text-link hover:underline focus:outline-none focus-visible:underline after:absolute after:inset-0"
+                    className="link-card-link text-link hover:underline"
                   >
                     {post.title}
                   </Link>

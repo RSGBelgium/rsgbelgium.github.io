@@ -6,7 +6,7 @@
  *
  * The section titles are <h2>s: the footer follows each page's content, so
  * they continue that page's heading outline instead of skipping levels.
- * Links are at least 44px tall and show a focus ring when tabbed to.
+ * Links are at least 44px tall.
  */
 
 import Link from 'next/link';
@@ -15,9 +15,9 @@ import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
 import { ALL_NAV_PAGES } from "@/lib/navigation";
 
-/** Classes for every footer link: a tall hit area, underline on hover, focus ring. */
+/** Classes for every footer link: a tall hit area and an underline on hover. */
 const FOOTER_LINK =
-  "inline-flex min-h-11 items-center gap-3 rounded-md text-sm text-link hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
+  "inline-flex min-h-11 items-center gap-3 rounded-md text-sm text-link hover:underline";
 
 /** Classes for the footer's section titles. */
 const FOOTER_HEADING = "text-lg font-semibold text-foreground mb-3";

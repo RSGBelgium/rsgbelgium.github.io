@@ -23,7 +23,7 @@ export default function SkipLink({ targetId }: Props) {
   return (
     <a
       href={`#${targetId}`}
-      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:border focus:border-border focus:bg-surface focus:px-4 focus:py-3 focus:font-semibold focus:text-link focus:shadow-md focus:outline-none focus:ring-2 focus:ring-accent-strong"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:border focus:border-border focus:bg-surface focus:px-4 focus:py-3 focus:font-semibold focus:text-link focus:shadow-md"
     >
       Skip to main content
     </a>

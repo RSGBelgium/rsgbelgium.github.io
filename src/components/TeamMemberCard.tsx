@@ -8,9 +8,9 @@
 import type { Member } from "@/interfaces/member";
 import MemberAvatar from "./MemberAvatar";
 
-/** Classes for the LinkedIn/ORCID links: a comfortable hit area and a focus ring. */
+/** Classes for the LinkedIn/ORCID links: a comfortable hit area. */
 const PROFILE_LINK =
-  "inline-flex min-h-11 items-center rounded-md px-2 text-link hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
+  "inline-flex min-h-11 items-center rounded-md px-2 text-link hover:underline";
 
 type TeamMemberCardProps = Pick<Member, "name" | "title"> &
   Partial<Pick<Member, "image" | "affiliation" | "position" | "city" | "linkedin" | "orcid">> & {

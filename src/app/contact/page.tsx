@@ -24,7 +24,8 @@ export const metadata: Metadata = {
  * Each card has one link (the channel's descriptive link text). The link's
  * `after:` pseudo-element is stretched over the whole card, so the entire
  * card is clickable without nesting the heading and description inside the
- * link; the card shows the focus ring when the link is focused.
+ * link (`link-card` in globals.css); the card shows the focus outline when
+ * the link is focused.
  */
 export default function ContactPage() {
   return (
@@ -44,7 +45,7 @@ export default function ContactPage() {
           {CONTACT_CHANNELS.map((channel) => (
             <li
               key={channel.id}
-              className="relative flex gap-4 rounded-lg border border-border bg-surface p-6 shadow-md transition-shadow hover:shadow-lg has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-strong has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background"
+              className="link-card flex gap-4 rounded-lg border border-border bg-surface p-6 shadow-md transition-shadow hover:shadow-lg"
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-highlight text-link">
                 <ContactIcon id={channel.id} className="h-6 w-6" />
@@ -54,7 +55,7 @@ export default function ContactPage() {
                 <p className="mt-1 text-sm text-foreground-muted">{channel.description}</p>
                 <ContactChannelLink
                   channel={channel}
-                  className="mt-3 inline-block [overflow-wrap:anywhere] font-medium text-link hover:underline focus:outline-none focus-visible:underline after:absolute after:inset-0 after:rounded-lg"
+                  className="link-card-link mt-3 inline-block [overflow-wrap:anywhere] font-medium text-link hover:underline after:rounded-lg"
                 >
                   {channel.linkText}
                 </ContactChannelLink>
