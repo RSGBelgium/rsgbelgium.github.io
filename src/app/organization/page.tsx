@@ -90,18 +90,7 @@ export default async function OrganizationPage() {
         {membersWithBio.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {membersWithBio.map(({ member, bioHtml }) => (
-              <TeamMemberCard
-                key={member.slug}
-                name={member.name}
-                title={member.title}
-                image={member.image}
-                affiliation={member.affiliation}
-                position={member.position}
-                city={member.city}
-                bioHtml={bioHtml}
-                linkedin={member.linkedin}
-                orcid={member.orcid}
-              />
+              <TeamMemberCard key={member.slug} {...member} bioHtml={bioHtml} />
             ))}
           </div>
         ) : (

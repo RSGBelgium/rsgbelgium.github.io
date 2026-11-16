@@ -5,32 +5,20 @@
  * bio and profile links. Empty fields are left out.
  */
 
+import type { Member } from "@/interfaces/member";
 import MemberAvatar from "./MemberAvatar";
 
-type TeamMemberCardProps = {
-  name: string;
-  title: string;
-  image?: string;
-  affiliation?: string;
-  position?: string;
-  city?: string;
-  bioHtml?: string;
-  linkedin?: string;
-  orcid?: string;
-};
+type TeamMemberCardProps = Pick<Member, "name" | "title"> &
+  Partial<Pick<Member, "image" | "affiliation" | "position" | "city" | "linkedin" | "orcid">> & {
+    /** The member's bio, already converted from markdown to HTML. */
+    bioHtml?: string;
+  };
 
 /**
  * Displays a profile card for a team member.
  *
- * @param name - Member's name
- * @param title - Member's board role, e.g. "President"
- * @param image - Member's photo URL; without one, their initials are shown
- * @param affiliation - University or institute (optional)
- * @param position - Academic position, e.g. "PhD student" (optional)
- * @param city - City the member is based in (optional)
- * @param bioHtml - The member's bio, already converted from markdown to HTML (optional)
- * @param linkedin - LinkedIn profile URL (optional)
- * @param orcid - ORCID profile URL (optional)
+ * The member fields are documented on the Member interface
+ * (src/interfaces/member.ts); without an `image`, their initials are shown.
  */
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   name,
@@ -45,6 +33,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 }) => {
   // e.g. "KU Leuven · PhD student · Brussels", skipping the parts that are empty.
   const details = [affiliation, position, city].filter(Boolean).join(" · ");
+  const profileLinks = [
+    { label: "LinkedIn", url: linkedin, className: "text-blue-500 hover:text-blue-700" },
+    { label: "ORCID", url: orcid, className: "text-green-500 hover:text-green-700" },
+  ].filter((link) => link.url);
 
   return (
     <div className="bg-white dark:bg-slate-900 shadow-lg rounded-lg p-6 text-center">
@@ -58,30 +50,20 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           dangerouslySetInnerHTML={{ __html: bioHtml }}
         />
       )}
-      {(linkedin || orcid) && (
+      {profileLinks.length > 0 && (
         <div className="flex justify-center space-x-4">
-          {linkedin && (
+          {profileLinks.map((link) => (
             <a
-              href={linkedin}
+              key={link.label}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${name} on LinkedIn`}
-              className="text-blue-500 hover:text-blue-700 dark:text-lightblue dark:hover:text-white"
+              aria-label={`${name} on ${link.label}`}
+              className={`${link.className} dark:text-lightblue dark:hover:text-white`}
             >
-              LinkedIn
+              {link.label}
             </a>
-          )}
-          {orcid && (
-            <a
-              href={orcid}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${name} on ORCID`}
-              className="text-green-500 hover:text-green-700 dark:text-lightblue dark:hover:text-white"
-            >
-              ORCID
-            </a>
-          )}
+          ))}
         </div>
       )}
     </div>

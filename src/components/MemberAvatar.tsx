@@ -1,5 +1,5 @@
 /**
- * Round avatar for a team member.
+ * Round avatar for a person: a team member, or a post author.
  *
  * Shows the member's photo when there is one, otherwise their initials on a
  * brand-coloured circle, so profiles without a photo still look complete.
