@@ -6,6 +6,7 @@
  * built from the theme tokens, so they work in light and dark mode.
  */
 
+import cn from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
@@ -47,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
     inverse: "button-inverse",
   };
 
-  const combinedClassName = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`;
+  const combinedClassName = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);
 
   if (href) {
     return (
