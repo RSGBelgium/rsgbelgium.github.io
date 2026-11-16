@@ -40,6 +40,36 @@ export function listFiles(dir) {
 }
 
 /**
+ * Where the site refers to files in public/: the code, the content, other
+ * public files (web manifest, browserconfig) and the Next.js config. Files
+ * in a folder are read only if their name matches `pattern`.
+ *
+ * @type {({ dir: string, pattern: RegExp } | { file: string })[]}
+ */
+export const SITE_SOURCES = [
+  { dir: "src", pattern: /\.(css|[cm]?[jt]sx?|json|txt)$/ },
+  { dir: "content", pattern: /\.(md|markdown)$/ },
+  { dir: PUBLIC_DIR, pattern: /\.(css|html|json|txt|webmanifest|xml)$/ },
+  { file: "next.config.js" },
+];
+
+/**
+ * Lists the files of some sources (see {@link SITE_SOURCES}).
+ *
+ * @param {string} root - Repository root
+ * @param {({ dir: string, pattern: RegExp } | { file: string })[]} sources - Folders and single files
+ * @returns {string[]} Existing files, relative to the root, e.g. "src/app/layout.tsx"
+ */
+export function listSourceFiles(root, sources) {
+  return sources.flatMap((source) => {
+    if (source.file) return fs.existsSync(path.join(root, source.file)) ? [source.file] : [];
+    return listFiles(path.join(root, source.dir))
+      .filter((relative) => source.pattern.test(relative))
+      .map((relative) => `${source.dir}/${relative}`);
+  });
+}
+
+/**
  * Creates a function that tells whether a root-relative URL path (e.g.
  * "/images/poster/a.webp") is a file in public/, with exactly this
  * upper/lower case. Directory listings are cached.

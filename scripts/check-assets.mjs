@@ -30,22 +30,19 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 import {
   createPublicFileExists,
   escapeRegExp,
   formatBytes,
   listFiles,
+  listSourceFiles,
   PUBLIC_DIR,
+  SITE_SOURCES,
   urlPathPattern,
 } from "./lib/public-files.mjs";
+import { readFrontMatter } from "./lib/content-files.mjs";
 import { lineAt, Report } from "./lib/report.mjs";
-import {
-  isAbsoluteUrl,
-  isMarkdownFile,
-  MEMBERS_DIR,
-  resolveMemberImage,
-} from "../src/lib/content-rules.ts";
+import { isAbsoluteUrl, MEMBERS_DIR, resolveMemberImage } from "../src/lib/content-rules.ts";
 
 const args = process.argv.slice(2);
 const listAll = args.includes("--list");
@@ -83,14 +80,6 @@ const IMPLICITLY_USED = [
   "favicon.ico", // requested by browsers when a page (or a PDF, or the feed) names no icon
   "apple-touch-icon.png", // requested by iOS when a page is added to the home screen
   ".well-known/", // standard locations such as /.well-known/security.txt (a folder)
-];
-
-/** Where public files are referenced from. Files are read only if their name matches `pattern`. */
-const SOURCES = [
-  { dir: "src", pattern: /\.(css|[cm]?[jt]sx?|json|txt)$/ },
-  { dir: "content", pattern: /\.(md|markdown)$/ },
-  { dir: PUBLIC_DIR, pattern: /\.(css|html|json|txt|webmanifest|xml)$/ },
-  { file: "next.config.js" },
 ];
 
 /** Test files: the paths in them are fixtures, not real uses. */
@@ -137,25 +126,12 @@ const publicFileExists = createPublicFileExists(root);
  * @returns {{ file: string, text: string }[]} paths relative to the root
  */
 function readSources() {
-  const sources = [];
-  for (const source of SOURCES) {
-    if (source.file) {
-      const absolute = path.join(root, source.file);
-      if (fs.existsSync(absolute))
-        sources.push({
-          file: source.file,
-          text: maskComments(source.file, fs.readFileSync(absolute, "utf8")),
-        });
-      continue;
-    }
-    for (const relative of listFiles(path.join(root, source.dir))) {
-      const file = `${source.dir}/${relative}`;
-      if (!source.pattern.test(relative) || IS_TEST.test(file)) continue;
-      const text = fs.readFileSync(path.join(root, file), "utf8");
-      sources.push({ file, text: maskComments(file, text) });
-    }
-  }
-  return sources;
+  return listSourceFiles(root, SITE_SOURCES)
+    .filter((file) => !IS_TEST.test(file))
+    .map((file) => ({
+      file,
+      text: maskComments(file, fs.readFileSync(path.join(root, file), "utf8")),
+    }));
 }
 
 /**
@@ -167,15 +143,8 @@ function readSources() {
  */
 function memberPhotosByName() {
   const photos = new Map();
-  for (const name of listFiles(path.join(root, MEMBERS_DIR))) {
-    if (name.includes("/") || !isMarkdownFile(name)) continue;
-    const file = `${MEMBERS_DIR}/${name}`;
-    let image;
-    try {
-      image = matter(fs.readFileSync(path.join(root, file), "utf8"), {}).data.image;
-    } catch {
-      continue; // Broken front matter is reported by `npm run check:content`.
-    }
+  for (const { file, data } of readFrontMatter(root, MEMBERS_DIR)) {
+    const image = data.image;
     if (typeof image !== "string" || !image.trim()) continue;
     const value = image.trim();
     if (!value.startsWith("/") && !isAbsoluteUrl(value))

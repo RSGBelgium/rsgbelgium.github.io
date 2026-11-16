@@ -36,21 +36,18 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 import sharp from "sharp";
 import {
   escapeRegExp,
   formatBytes,
   listFiles,
+  listSourceFiles,
   PUBLIC_DIR,
+  SITE_SOURCES,
   urlPathPattern,
 } from "./lib/public-files.mjs";
-import {
-  isMarkdownFile,
-  MEMBERS_DIR,
-  NEWS_DIR,
-  TEAM_IMAGE_PATH,
-} from "../src/lib/content-rules.ts";
+import { MEMBERS_DIR, NEWS_DIR, TEAM_IMAGE_PATH } from "../src/lib/content-rules.ts";
+import { readFrontMatter } from "./lib/content-files.mjs";
 
 const dryRun = process.argv.includes("--dry-run");
 const root = path.join(import.meta.dirname, "..");
@@ -81,15 +78,11 @@ const RASTER = /\.(jpe?g|png|webp)$/i;
 /** An SVG that embeds a bitmap: `<image href="data:image/...">` or `xlink:href`. */
 const EMBEDDED_BITMAP = /<image\b[^>]*\bhref\s*=\s*["']\s*data:image\//i;
 
-/** Text files whose links to images are updated when an image is renamed. */
-const LINK_SOURCES = [
-  { dir: "content", pattern: /\.(md|markdown)$/ },
-  { dir: "src", pattern: /\.(css|[cm]?[jt]sx?|json|txt)$/ },
-  { dir: "guides", pattern: /\.md$/ },
-  { dir: PUBLIC_DIR, pattern: /\.(css|html|json|txt|webmanifest|xml)$/ },
-  { file: "README.md" },
-  { file: "next.config.js" },
-];
+/**
+ * Text files whose links to images are updated when an image is renamed: the
+ * site's own sources, plus the guides and the README, which show example paths.
+ */
+const LINK_SOURCES = [...SITE_SOURCES, { dir: "guides", pattern: /\.md$/ }, { file: "README.md" }];
 
 /** The favicon drawing that all favicons are generated from (relative to public/). */
 const FAVICON_SOURCE = "favicon/favicon.svg";
@@ -133,16 +126,10 @@ function writeFile(file, data) {
  */
 function findCoverImages() {
   const covers = new Set();
-  const newsDir = path.join(root, NEWS_DIR);
-  for (const name of listFiles(newsDir)) {
-    if (name.includes("/") || !isMarkdownFile(name)) continue;
-    try {
-      const { coverImage } = matter(fs.readFileSync(path.join(newsDir, name), "utf8"), {}).data;
-      if (typeof coverImage === "string" && coverImage.startsWith("/"))
-        covers.add(coverImage.replace(/[?#].*$/, ""));
-    } catch {
-      // Broken front matter is reported by `npm run check:content`.
-    }
+  for (const { data } of readFrontMatter(root, NEWS_DIR)) {
+    const { coverImage } = data;
+    if (typeof coverImage === "string" && coverImage.startsWith("/"))
+      covers.add(coverImage.replace(/[?#].*$/, ""));
   }
   return covers;
 }
@@ -363,16 +350,7 @@ async function generateFavicons() {
  * @returns {string[]} the files that were changed
  */
 function updateLinks(renames) {
-  const files = [];
-  for (const source of LINK_SOURCES) {
-    if (source.file) {
-      if (fs.existsSync(path.join(root, source.file))) files.push(source.file);
-      continue;
-    }
-    for (const relative of listFiles(path.join(root, source.dir))) {
-      if (source.pattern.test(relative)) files.push(`${source.dir}/${relative}`);
-    }
-  }
+  const files = listSourceFiles(root, LINK_SOURCES);
 
   const changed = [];
   for (const file of files) {
