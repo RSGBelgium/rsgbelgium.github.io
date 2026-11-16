@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Post } from "@/interfaces/post"; // Assuming Post interface exists
 import Button from "./Button"; // Reusable button
+import Container from "@/app/_components/container";
 import DateFormatter from "@/app/_components/date-formatter"; // Date formatter
 import { postPath } from "@/lib/urls";
 
@@ -34,7 +35,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
 
   return (
     <section className="py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Latest News
         </h2>
@@ -91,7 +92,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
             View All News
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
