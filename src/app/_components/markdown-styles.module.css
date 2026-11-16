@@ -6,10 +6,16 @@
  * all of these). Colours are the theme tokens from src/app/globals.css,
  * which switch between light and dark by themselves. Don't use `dark:`
  * here: CSS Modules rename the `.dark` class, so those rules never match.
- * The one dark-only rule below names it with `:global(.dark)` instead.
+ * The one dark-only rule below names it with `:global(.dark)` instead, and
+ * the class that src/lib/markdownToHtml.ts puts on the HTML is `:global` too.
+ *
+ * Nothing may make the page wider than the screen (WCAG 1.4.10): a word or
+ * link too long for its line, such as a bare URL, breaks where it must
+ * (`break-words` leaves all other text wrapping as before), and wide tables
+ * scroll sideways in their own box.
  */
 .markdown {
-  @apply text-lg leading-relaxed;
+  @apply text-lg leading-relaxed break-words;
 }
 
 .markdown p,
@@ -17,7 +23,7 @@
 .markdown ol,
 .markdown blockquote,
 .markdown pre,
-.markdown table {
+.markdown :global(.table-scroll) {
   @apply my-6;
 }
 
@@ -118,7 +124,14 @@
   @apply max-w-full;
 }
 
-/* Table styles */
+/* Table styles. Every table is in a `<div class="table-scroll">`
+   (remarkScrollableTables in src/lib/markdownToHtml.ts). A table wider than
+   the text column, by its long values or on a phone, scrolls sideways in that
+   box, so the page doesn't. A narrower table fills the column. */
+.markdown :global(.table-scroll) {
+  @apply overflow-x-auto;
+}
+
 .markdown table {
   @apply w-full border-collapse;
 }
