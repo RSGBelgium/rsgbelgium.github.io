@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import type { Post } from "@/interfaces/post";
 import FeaturedNews from "../FeaturedNews";
+import { makePost } from "@/test-utils/fixtures";
 
 /** The original path of an image rendered by next/image (Jest uses the default image loader). */
 function originalSrc(image: HTMLElement): string | null {
@@ -8,31 +9,21 @@ function originalSrc(image: HTMLElement): string | null {
 }
 
 const posts: Post[] = [
-  {
+  makePost({
     slug: "news-1",
     title: "First news article",
     date: "2023-10-01",
     coverImage: "/images/poster/news1.jpg",
     excerpt: "This is the excerpt for the first news.",
-    content: "",
-    category: "news",
-  },
-  {
+  }),
+  makePost({
     slug: "news-2",
     title: "Second news article",
     date: "2023-10-02",
     coverImage: "cover.jpg",
     excerpt: "Excerpt for the second article.",
-    content: "",
-    category: "news",
-  },
-  {
-    slug: "news-3",
-    title: "Third news article without image",
-    date: "2023-10-03",
-    content: "",
-    category: "news",
-  },
+  }),
+  makePost({ slug: "news-3", title: "Third news article without image", date: "2023-10-03" }),
 ];
 
 describe("FeaturedNews", () => {

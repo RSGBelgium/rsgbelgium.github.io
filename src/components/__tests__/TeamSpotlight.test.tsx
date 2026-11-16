@@ -1,16 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import type { Member } from "@/interfaces/member";
 import TeamSpotlight from "../TeamSpotlight";
+import { makeMember } from "@/test-utils/fixtures";
 
 const members: Member[] = [
-  {
+  makeMember({
     slug: "alpha",
     order: 1,
     name: "Alpha Person",
     title: "President",
     image: "/images/team/alpha.jpg",
-  },
-  { slug: "beta", order: 2, name: "Beta Tester", title: "", image: "" },
+  }),
+  makeMember({ slug: "beta", order: 2, name: "Beta Tester" }),
 ];
 
 describe("TeamSpotlight", () => {

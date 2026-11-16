@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Post } from "@/interfaces/post";
 import { getPostBySlug, getPostSlugs } from "@/lib/api";
 import PostPage, { generateMetadata, generateStaticParams } from "../page";
+import { makePost } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getPostBySlug: jest.fn(),
@@ -15,14 +16,13 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-const post: Post = {
+const post: Post = makePost({
   slug: "2026-05-15-speakers",
   title: "Meet the speakers",
   date: "2026-05-15",
   excerpt: "Three talks in Ghent.",
   content: "# Programme\n\nSee the [venue](https://example.org).",
-  category: "news",
-};
+});
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) });
 

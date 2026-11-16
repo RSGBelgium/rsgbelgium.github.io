@@ -10,6 +10,7 @@ import { getAllPosts } from "@/lib/api";
 import type { Post } from "@/interfaces/post";
 import robots from "../robots";
 import sitemap from "../sitemap";
+import { makePost } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
@@ -17,21 +18,13 @@ jest.mock("@/lib/api", () => ({
 
 /** Posts as getAllPosts returns them: newest first. */
 const ALL_POSTS: Post[] = [
-  {
-    slug: "2026-05-15-speakers",
-    title: "Speakers",
-    date: "2026-05-15",
-    content: "",
-    category: "news",
-  },
-  {
+  makePost({ slug: "2026-05-15-speakers", title: "Speakers", date: "2026-05-15" }),
+  makePost({
     slug: "2021-09-15-beerformatics",
     title: "Beerformatics",
     date: "2021-09-21T00:00:00.000Z",
-    content: "",
-    category: "news",
-  },
-  { slug: "undated", title: "Undated", date: "", content: "", category: "news" },
+  }),
+  makePost({ slug: "undated", title: "Undated" }),
 ];
 
 describe("sitemap", () => {

@@ -9,6 +9,7 @@
 import { getAllPosts } from "@/lib/api";
 import type { Post } from "@/interfaces/post";
 import { GET } from "../feed.xml/route";
+import { makePost } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
@@ -16,29 +17,14 @@ jest.mock("@/lib/api", () => ({
 
 /** Posts as getAllPosts returns them: newest first. */
 const ALL_POSTS: Post[] = [
-  {
+  makePost({
     slug: "2026-05-15-speakers",
     title: 'Meet the speakers: "Beer & <Bioinformatics>"',
     date: "2026-05-15",
     excerpt: "Talks & drinks <in Ghent>.",
-    content: "",
-    category: "news",
-  },
-  {
-    slug: "2017-10-02-symposium",
-    title: "Student day",
-    date: "2017-10-02 19:10",
-    content: "",
-    category: "news",
-  },
-  {
-    slug: "undated",
-    title: "No date",
-    date: "",
-    excerpt: "Undated.",
-    content: "",
-    category: "news",
-  },
+  }),
+  makePost({ slug: "2017-10-02-symposium", title: "Student day", date: "2017-10-02 19:10" }),
+  makePost({ slug: "undated", title: "No date", excerpt: "Undated." }),
 ];
 
 /**

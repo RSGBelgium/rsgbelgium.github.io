@@ -2,36 +2,27 @@ import { render, screen } from "@testing-library/react";
 import type { Post } from "@/interfaces/post";
 import { getAllPosts } from "@/lib/api";
 import NewsPage, { metadata } from "../page";
+import { makePost } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
 }));
 
 const posts: Post[] = [
-  {
+  makePost({
     slug: "2026-05-15-newest",
     title: "Newest post",
     date: "2026-05-15",
     excerpt: "The newest excerpt.",
     coverImage: "/images/poster/newest.png",
-    content: "",
-    category: "news",
-  },
-  {
+  }),
+  makePost({
     slug: "2026-04-09-second",
     title: "Second post",
     date: "2026-04-09",
     excerpt: "Second.",
-    content: "",
-    category: "news",
-  },
-  {
-    slug: "2026-03-12-third",
-    title: "Third post",
-    date: "2026-03-12",
-    content: "",
-    category: "news",
-  },
+  }),
+  makePost({ slug: "2026-03-12-third", title: "Third post", date: "2026-03-12" }),
 ];
 
 /** Renders the async server component. */

@@ -2,13 +2,14 @@ import { render, screen } from "@testing-library/react";
 import type { Member } from "@/interfaces/member";
 import { getAllMembers } from "@/lib/api";
 import OrganizationPage, { metadata } from "../page";
+import { makeMember } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getAllMembers: jest.fn(),
 }));
 
 const members: Member[] = [
-  {
+  makeMember({
     slug: "alice",
     order: 1,
     name: "Alice Wonderland",
@@ -18,17 +19,8 @@ const members: Member[] = [
     linkedin: "https://www.linkedin.com/in/alice",
     orcid: "https://orcid.org/0000-0001-0000-0001",
     content: "Alice studies **genomics**.",
-  },
-  {
-    slug: "bob",
-    order: 2,
-    name: "Bob </script> Builder",
-    title: "",
-    image: "",
-    linkedin: "",
-    orcid: "",
-    content: "",
-  },
+  }),
+  makeMember({ slug: "bob", order: 2, name: "Bob </script> Builder" }),
 ];
 
 /** Renders the async server component and returns its JSON-LD blocks, parsed. */

@@ -3,28 +3,25 @@ import type { Member } from "@/interfaces/member";
 import type { Post } from "@/interfaces/post";
 import { getAllMembers, getAllPosts } from "@/lib/api";
 import Index, { metadata } from "../page";
+import { makeMember, makePost } from "@/test-utils/fixtures";
 
 jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
   getAllMembers: jest.fn(),
 }));
 
-const posts: Post[] = [1, 2, 3, 4].map((n) => ({
-  slug: `post-${n}`,
-  title: `Post ${n}`,
-  date: `2026-0${5 - n}-01`, // newest first, as getAllPosts returns them
-  excerpt: `Excerpt ${n}`,
-  content: "",
-  category: "news",
-}));
+const posts: Post[] = [1, 2, 3, 4].map((n) =>
+  makePost({
+    slug: `post-${n}`,
+    title: `Post ${n}`,
+    date: `2026-0${5 - n}-01`, // newest first, as getAllPosts returns them
+    excerpt: `Excerpt ${n}`,
+  }),
+);
 
-const members: Member[] = [1, 2, 3, 4, 5].map((n) => ({
-  slug: `member-${n}`,
-  order: n,
-  name: `Member ${n}`,
-  title: `Role ${n}`,
-  image: "",
-}));
+const members: Member[] = [1, 2, 3, 4, 5].map((n) =>
+  makeMember({ slug: `member-${n}`, order: n, name: `Member ${n}`, title: `Role ${n}` }),
+);
 
 /** Renders the async server component. */
 async function renderHomepage() {
