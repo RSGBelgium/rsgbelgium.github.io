@@ -186,15 +186,31 @@ function resolveMemberImage(value: unknown): string {
 }
 
 /**
- * Read a member's `order` from front matter.
+ * Read a member's `order` from front matter: their position on the team
+ * page, 1 being the first.
  *
  * @param value - The raw front-matter value (a number, or a numeric string)
- * @returns The order, or undefined when it is missing or not a number
+ * @returns The order, or undefined when it is missing or not a whole number from 1
  */
 function parseMemberOrder(value: unknown): number | undefined {
   if (value === undefined || value === null || value === "") return undefined;
   const order = typeof value === "number" ? value : Number(value);
-  return Number.isFinite(order) ? order : undefined;
+  return Number.isInteger(order) && order >= 1 ? order : undefined;
+}
+
+/**
+ * Warns when the members are not numbered exactly 1 to n, i.e. when an
+ * `order` is used twice or a number is skipped. Members are sorted by
+ * `order` alone, so the team page would then not show the intended order.
+ *
+ * @param members - The valid members, sorted by order
+ */
+function warnIfNotNumberedOneToN(members: Member[]): void {
+  if (members.every((member, index) => member.order === index + 1)) return;
+  const orders = members.map((member) => member.order).join(", ");
+  console.warn(
+    `content/organization: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`
+  );
 }
 
 /**
@@ -220,7 +236,7 @@ function parseMember(file: string, fileContents: string): Member | null {
   if (order === undefined) {
     warnMember(
       file,
-      `skipping profile without a numeric "order" in its front matter (its position on the team page).`
+      `skipping profile without a whole-number "order" from 1 in its front matter (its position on the team page).`
     );
     return null;
   }
@@ -249,7 +265,7 @@ function parseMember(file: string, fileContents: string): Member | null {
  *
  * Used by the /organization page and the homepage team spotlight.
  *
- * @returns Members sorted by their `order` front-matter field, lowest first
+ * @returns Members sorted by their `order` front-matter field (1, 2, 3, ...)
  */
 export async function getAllMembers(): Promise<Member[]> {
   let files: string[];
@@ -272,9 +288,9 @@ export async function getAllMembers(): Promise<Member[]> {
     })
   );
 
-  return members
+  const sorted = members
     .filter((member): member is Member => member !== null)
-    // Two profiles with the same order fall back to their names, so the
-    // result never depends on the order in which the file system lists files.
-    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
+    .sort((a, b) => a.order - b.order);
+  warnIfNotNumberedOneToN(sorted);
+  return sorted;
 }

@@ -95,8 +95,9 @@ comment after the field, so anyone can find the gaps by searching for
 
 Members are ordered by their `order` field on `/organization` and on the
 homepage, which shows the first four: lower numbers come first (`1` for the
-President). Every profile needs its own `order` number; a profile without
-one is not shown. To move someone, change the numbers.
+President). Number the members 1 to n, each number used once and without
+gaps; a profile without `order` is not shown. To move someone, renumber the
+profiles in between.
 
 When someone leaves the board, delete their file. Git history keeps it, and
 files in subfolders of `content/organization/` are not shown on the site

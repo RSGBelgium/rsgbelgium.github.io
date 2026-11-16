@@ -19,7 +19,7 @@
  * @property city - City the member is based in (optional)
  * @property linkedin - LinkedIn profile URL (optional)
  * @property orcid - ORCID profile URL (optional)
- * @property order - Position in team listings, lowest first (required in the front matter)
+ * @property order - Position in team listings: 1 to n, each number used once (required in the front matter)
  * @property content - Markdown body of the profile, i.e. the member's bio (optional)
  */
 export interface Member {
