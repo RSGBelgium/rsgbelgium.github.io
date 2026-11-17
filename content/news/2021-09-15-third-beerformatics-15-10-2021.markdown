@@ -1,17 +1,16 @@
 ---
 layout: single
 title: "Beerformatics - A Dive Into Bioinformatics Startups - 15/10/2021"
-date: 2021-09-21
+date: "2021-09-21"
 categories: event student-beerformatics
 category: 'News'
 ---
 
 Are you curious what it takes to start your own business? You have a great bioinformatic project in mind but you don't know where to start? Are you asking yourself what are the challenges and hurdles that must be tackled when launching a new company?
 
-<img src="{{site.baseurl}}/assets/img/logo/beerformatics_logo.svg" style="max-width:150px;">
+<img src="/images/logo/beerformatics_logo.svg" alt="Beerformatics logo" style="max-width:150px;">
 
-Mark your calendar (or click [here]({{site.baseurl}}/assets/ics/20211015-beerformatics.ics
-))! On **Friday October 15** we will hold the third RSG Belgium **beerformatics** where you will hear from our invited speakers their experience about creating and running a **bioinformatics startup**.
+Mark your calendar (or click [here](/assets/ics/20211015-beerformatics.ics))! On **Friday October 15** we will hold the third RSG Belgium **beerformatics** where you will hear from our invited speakers their experience about creating and running a **bioinformatics startup**.
 
 You're not yet fully convinced to come? Hear that: the event is **free** and we **offer the first drink**! Spots are limited so make sure to [register now!](https://bit.ly/rsg_beerformatics_3)
 
@@ -50,7 +49,7 @@ Kantienberg 9 9000 Gent
 
 You can easily come by train and stop at the Gent-Sint-Pieters station. From there, there is a very nice [20 min walk](https://goo.gl/maps/WmXb95wT5EH5xkhe8) to the café, going through the beautiful Citadelpark.
 
-You can also consider carpooling. Check out our [Slack channel](http://www.rsg-belgium.iscbsc.org/slack/) in the `#beerformatics_ant` channel to join a carpool or organize one yourself. When coming by car, you can best park in the [St Pietersplein parking](https://goo.gl/maps/RCi4spmsCpo4Ducn8)
+You can also consider carpooling. Check out our [Slack channel](/slack) in the `#beerformatics_ant` channel to join a carpool or organize one yourself. When coming by car, you can best park in the [St Pietersplein parking](https://goo.gl/maps/RCi4spmsCpo4Ducn8)
 
 ## Registration
 
@@ -58,4 +57,4 @@ The event is free of charge but registration is mandatory. You can register [her
 
 ## Event poster
 
-<img src="{{ site.baseurl}}/assets/img/poster/2021-10-15-beerformatics.svg" style="max-width:1500px;border: 5px solid #f8f3daff;">
+<img src="/images/poster/2021-10-15-beerformatics.svg" alt="Poster for the RSG-Belgium Beerformatics on bioinformatics startups on 15 October 2021 in Ghent" style="border: 5px solid #f8f3daff;">

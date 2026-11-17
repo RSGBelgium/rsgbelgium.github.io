@@ -13,7 +13,7 @@ import DateFormatter from "./date-formatter";
 
 type Props = {
   title: string;
-  coverImage: string;
+  coverImage?: string;
   date: string;
   author?: Author;
 };
@@ -22,7 +22,7 @@ type Props = {
  * Displays the header for a blog/news post, including title, author, image, and date.
  *
  * @param title - The post title
- * @param coverImage - The main image for the post
+ * @param coverImage - The main image for the post (optional)
  * @param date - The publication date (ISO string)
  * @param author - The author object (optional)
  */

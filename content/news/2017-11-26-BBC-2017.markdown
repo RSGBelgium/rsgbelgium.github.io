@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Benelux Bioinformatics Conference 2017 - Leuven - 13-14 December"
-date:   2017-11-26 17:52
+date:   "2017-11-26 17:52"
 categories: event bbc
 category: 'News'
 ---

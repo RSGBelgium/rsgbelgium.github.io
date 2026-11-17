@@ -67,7 +67,7 @@ describe('FeaturedNews Component', () => {
     mockPosts.forEach(post => {
       expect(screen.getByText(post.title)).toBeInTheDocument();
       expect(screen.getByText(post.date)).toBeInTheDocument(); // Mocked DateFormatter just shows the string
-      expect(screen.getByText(post.excerpt)).toBeInTheDocument();
+      expect(screen.getByText(post.excerpt!)).toBeInTheDocument();
 
       // Check that the link to the full article is correct
       const postLink = screen.getByRole('link', { name: post.title });

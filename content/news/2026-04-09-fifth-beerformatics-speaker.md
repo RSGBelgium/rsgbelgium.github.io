@@ -19,7 +19,7 @@ Join us for an evening of fast-paced science, great conversations, and free beer
 
 We are excited to welcome four speakers who will present their latest research in cancer biology and spatial transcriptomics.
 
-[![full](/images/poster/Beerformaticsfifthspeakers.png)](/images/poster/Beerformaticsfifthspeakers.png)
+[![Poster introducing the speakers of Beerformatics on 21 April 2026 in Brussels](/images/poster/Beerformaticsfifthspeakers.png)](/images/poster/Beerformaticsfifthspeakers.png)
 
 ### **Sebastiaan Vanuytven** - _The Tumour Omics Universe: Decoding EMT, One Cell at a Time_
 
@@ -45,7 +45,7 @@ Valeriia will talk about implementing the Seq-Scope protocol repurposing Illumin
 
 Valeriia is a postdoc in Vincent Detours lab (IRIBHM, Université libre de Bruxelles) specialising in computational biology.
 
-[![full](/images/poster/Beerformaticsfifth.png)](/images/poster/Beerformaticsfifth.png)
+[![Poster for Beerformatics on 21 April 2026 at FARI in Brussels](/images/poster/Beerformaticsfifth.png)](/images/poster/Beerformaticsfifth.png)
 
 Join us for an evening of science, discussion, and beers.
 Spots are limited, register now: [Registration link](https://www.eventbrite.com/e/beerformatics-2026-brussels-edition-tickets-1985999693545)

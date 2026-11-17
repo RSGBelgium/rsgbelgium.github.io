@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Announcing the first RSG Belgium Hackathon"
-date:   2018-10-01 15:00
+date:   "2018-10-01 15:00"
 categories: news event hackathon
 toc: true
 category: 'News'
@@ -11,7 +11,7 @@ RSG Belgium is excited to announce the first RSG Belgium Hackathon, which will t
 
 This event represents a good opportunity for MSc/PhD students from all scientific backgrounds to improve their problem solving, teamwork and coding skills by working together as a multidisciplinary team.
 
-[![full](/assets/img/poster/hackathon_2018.png){: .center}]({{ site.baseurl }}/assets/img/poster/hackathon_2018.png)
+[![Poster for the first RSG-Belgium Hackathon on 16 November 2018 in Brussels](/images/poster/hackathon_2018.png)](/images/poster/hackathon_2018.png)
 
 The RSG Belgium team has chosen four different projects to chose from, which are described [below](#projects). We ask you to already indicate your preference during registration. This is not binding, but it gives us a way to gauge interest.
 
@@ -52,7 +52,7 @@ In general, the university is accessible by metro, bus and train. Specific signs
 
 Please also consult the following map of the ULB Campus de la plaine to guide you to the NO Building.
 
-![full](/assets/img/maps/hackathon-LaPlaineMap.png)
+![Map of the ULB La Plaine campus showing the way to building NO](/images/maps/hackathon-LaPlaineMap.png)
 
 ### Access from the Bruxelles-Central train station
 

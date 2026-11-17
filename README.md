@@ -62,7 +62,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ## Content Management
 
-Website content is managed through Markdown files. See [docs/content-editing.md](docs/content-editing.md) for a detailed guide for content editors.
+Website content is managed through Markdown files. See [guides/README.md](guides/README.md) for a detailed guide for content editors.
 
 - News articles: `content/news/`
 - Team member profiles: `content/organization/`
@@ -112,7 +112,7 @@ Example table:
 ## Project Structure & Editing Guidelines
 
 ### 1. Content Editing (for website content editors)
-See [docs/content-editing.md](docs/content-editing.md) for a full guide.
+See [guides/README.md](guides/README.md) for a full guide.
 
 - `content/news/` — Markdown files for news articles/events.
 - `content/organization/` — Markdown files for organization/team members.
@@ -153,7 +153,7 @@ See [docs/content-editing.md](docs/content-editing.md) for a full guide.
 
 ---
 
-For more information on content editing, see [docs/content-editing.md](docs/content-editing.md).
+For more information on content editing, see [guides/README.md](guides/README.md).
 
 ## Deployment: Static Export & GitHub Pages
 

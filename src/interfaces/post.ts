@@ -11,10 +11,10 @@ import { type Author } from "./author";
  *
  * @property slug - Unique slug for the post
  * @property title - Post title
- * @property date - Publication date (ISO string)
- * @property coverImage - Path to cover image
+ * @property date - Publication date ("YYYY-MM-DD", "YYYY-MM-DD HH:mm" or ISO string)
+ * @property coverImage - Path to cover image (optional)
  * @property author - Author object (optional)
- * @property excerpt - Short summary of the post
+ * @property excerpt - Short summary of the post, used in previews and SEO (optional)
  * @property ogImage - Open Graph image object (optional)
  * @property content - Markdown/HTML content for the post
  * @property preview - If true, this is a preview post (optional)
@@ -24,9 +24,9 @@ export type Post = {
   slug: string;
   title: string;
   date: string;
-  coverImage: string;
+  coverImage?: string;
   author?: Author;
-  excerpt: string;
+  excerpt?: string;
   ogImage?: {
     url: string;
   };
