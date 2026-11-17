@@ -2,8 +2,8 @@
  * Markdown-to-HTML conversion utility.
  *
  * Converts markdown content to HTML using unified, remark, and plugins.
- * Adds target="_blank" and rel="noopener noreferrer" to all external links,
- * and gives every heading an id so in-page anchor links (e.g. `#tracks`) work.
+ * Adds target="_blank" and rel="noopener noreferrer" to all external links
+ * (inline and reference-style), and gives every heading an id so in-page anchor links (e.g. `#tracks`) work.
  */
 
 import { unified } from "unified";
@@ -13,20 +13,53 @@ import remarkHtml from "remark-html";
 import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
-import type { Heading, Link, Root } from "mdast";
+import { isAbsoluteUrl } from "@/lib/urls";
+import type { Definition, Heading, Link, LinkReference, Root } from "mdast";
+
+/**
+ * Sets HTML attributes that a markdown node's element will get in the output.
+ *
+ * @param node - The markdown node, e.g. a link or a heading
+ * @param properties - Attribute names and values, e.g. `{ id: "tracks" }`
+ */
+function setHtmlAttributes(node: Heading | Link | LinkReference, properties: Record<string, string>) {
+  node.data = node.data || {};
+  node.data.hProperties = { ...node.data.hProperties, ...properties };
+}
+
+/**
+ * Makes a link node open in a new tab, by setting the attributes its `<a>` will get.
+ *
+ * @param node - An inline (`[text](url)`) or reference-style (`[text][ref]`) link
+ */
+function openInNewTab(node: Link | LinkReference) {
+  setHtmlAttributes(node, { target: "_blank", rel: "noopener noreferrer" });
+}
 
 /**
  * Remark plugin to add target="_blank" and rel="noopener noreferrer" to external links.
+ *
+ * Handles both inline links (`[text](https://...)`, autolinks) and
+ * reference-style links (`[text][ref]` with `[ref]: https://...` defined
+ * elsewhere in the document), whose URL lives on the matching definition.
  */
 function remarkExternalLinks() {
   return (tree: Root) => {
+    // Definition labels are case-insensitive: key them the same way mdast-util-to-hast does.
+    const definitionUrls = new Map<string, string>();
+    visit(tree, "definition", (node: Definition) => {
+      const id = node.identifier.toUpperCase();
+      // As in CommonMark, the first definition of a label wins.
+      if (!definitionUrls.has(id)) definitionUrls.set(id, node.url);
+    });
+
     visit(tree, "link", (node: Link) => {
-      if (node.url && /^https?:\/\//.test(node.url)) {
-        node.data = node.data || {};
-        node.data.hProperties = node.data.hProperties || {};
-        node.data.hProperties.target = "_blank";
-        node.data.hProperties.rel = "noopener noreferrer";
-      }
+      if (node.url && isAbsoluteUrl(node.url)) openInNewTab(node);
+    });
+
+    visit(tree, "linkReference", (node: LinkReference) => {
+      const url = definitionUrls.get(node.identifier.toUpperCase());
+      if (url && isAbsoluteUrl(url)) openInNewTab(node);
     });
   };
 }
@@ -43,10 +76,7 @@ function remarkHeadingIds() {
 
     visit(tree, "heading", (node: Heading) => {
       const id = slugger.slug(toString(node, { includeHtml: false }));
-      if (!id) return;
-      node.data = node.data || {};
-      node.data.hProperties = node.data.hProperties || {};
-      node.data.hProperties.id = id;
+      if (id) setHtmlAttributes(node, { id });
     });
   };
 }

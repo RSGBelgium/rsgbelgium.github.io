@@ -36,7 +36,8 @@ export default function PostHeader({ title, coverImage, date, author }: Props) {
 
   return (
     <>
-      <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">
+      {/* mt-16: the same space under the sticky header as the page titles in Intro. */}
+      <h1 className="mt-16 text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">
         {title}
       </h1>
       <div className="hidden md:block md:mb-12">

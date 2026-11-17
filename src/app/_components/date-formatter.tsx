@@ -6,17 +6,17 @@
 
 'use client';
 
+import { parseDate } from "@/lib/dates";
+
 /**
  * Formats and displays a date string as a readable date.
  *
  * @param dateString - The ISO date string to format
  */
 export default function DateFormatter({ dateString }: { dateString: string }) {
-  if (!dateString) return null;
+  const date = parseDate(dateString);
 
-  const date = new Date(dateString);
-
-  if (isNaN(date.getTime())) {
+  if (!date) {
     return null;
   }
 

@@ -14,10 +14,9 @@ import { type Author } from "./author";
  * @property date - Publication date ("YYYY-MM-DD", "YYYY-MM-DD HH:mm" or ISO string)
  * @property coverImage - Path to cover image (optional)
  * @property author - Author object (optional)
- * @property excerpt - Short summary of the post, used in previews and SEO (optional)
+ * @property excerpt - Short plain-text summary used in previews, the RSS feed and SEO: the front-matter `excerpt`, or one generated from the body by the loader
  * @property ogImage - Open Graph image object (optional)
  * @property content - Markdown/HTML content for the post
- * @property preview - If true, this is a preview post (optional)
  * @property category - Category of the post
  */
 export type Post = {
@@ -31,6 +30,5 @@ export type Post = {
     url: string;
   };
   content: string;
-  preview?: boolean;
   category: string;
 };

@@ -27,6 +27,7 @@ jest.mock('@/components/TeamMemberCard', () => ({
 const mockMembers: Member[] = [
   {
     slug: 'member-1',
+    order: 1,
     name: 'Alice Wonderland',
     title: 'Chief Storyteller',
     image: 'alice.jpg',
@@ -36,6 +37,7 @@ const mockMembers: Member[] = [
   },
   {
     slug: 'member-2',
+    order: 2,
     name: 'Bob The Builder',
     title: 'Lead Architect',
     image: 'bob.jpg',

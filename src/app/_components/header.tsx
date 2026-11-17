@@ -11,13 +11,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-
-const navItems = [
-  { title: "About", url: "/about" },
-  { title: "News", url: "/news" },
-  { title: "Organization", url: "/organization" },
-  { title: "Contact", url: "/contact" }, // Changed "Contact us" to "Contact" for brevity
-];
+import { NAV_ITEMS, SLACK_PAGE } from "@/lib/navigation";
 
 /**
  * Displays the main site header with navigation and theme switcher.
@@ -42,7 +36,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:items-center md:space-x-4">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.title}
                 href={item.url}
@@ -51,8 +45,8 @@ const Header = () => {
                 {item.title}
               </Link>
             ))}
-            <Button href="/slack" variant="primary" size="sm">
-              Join Slack
+            <Button href={SLACK_PAGE.url} variant="primary" size="sm">
+              {SLACK_PAGE.title}
             </Button>
             <ThemeSwitcher /> {/* Add ThemeSwitcher here */}
           </nav>
@@ -86,7 +80,7 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden" id="mobile-menu">
           <nav className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.title}
                 href={item.url}
@@ -97,8 +91,8 @@ const Header = () => {
               </Link>
             ))}
             <div className="pt-2">
-              <Button href="/slack" variant="primary" size="sm" className="w-full text-center">
-                Join Slack
+              <Button href={SLACK_PAGE.url} variant="primary" size="sm" className="w-full text-center">
+                {SLACK_PAGE.title}
               </Button>
             </div>
             <div className="pt-4 pb-2 px-2"> {/* Add ThemeSwitcher to mobile menu */}

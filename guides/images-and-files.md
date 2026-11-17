@@ -37,7 +37,7 @@ There are no other image folders. Paths from the old site such as
 |------|--------|------|
 | Photos | JPEG (`.jpg`) or WebP (`.webp`) | Max 1600 px on the long side, ideally ≤ 500 KB |
 | Posters, flyers, graphics with text | PNG, JPEG or WebP; SVG for logos | Max 1600 px on the long side, ideally ≤ 500 KB |
-| Team portraits | JPEG or WebP, roughly square | About 600 × 600 px, ≤ 200 KB |
+| Team portraits | JPEG or WebP, roughly square, face centred (shown cropped to a circle) | At most about 600 × 600 px, ≤ 200 KB |
 | PDFs | PDF | As small as practical (export "for web"/"smallest file size") |
 
 Large images make the site slow, especially on phones. Resize them before

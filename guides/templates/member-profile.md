@@ -1,26 +1,46 @@
 ---
 # TEAM MEMBER PROFILE TEMPLATE
 # 1. Copy this file to content/organization/firstname-lastname.md (lowercase, hyphens, no spaces).
-# 2. Add the portrait to public/images/team/ (roughly square, about 600 × 600 px, ≤ 200 KB).
-# 3. Fill in the fields below. Lines starting with # are comments: delete them when done.
-# Members are listed alphabetically by name on /organization; the homepage shows the first four.
+# 2. Optional: add a portrait to public/images/team/firstname-lastname.jpg
+#    (roughly square, at most about 600 × 600 px, ≤ 200 KB; it is cropped to a circle).
+# 3. Fill in the fields below and delete these instruction comments.
+#
+# `name` and `order` are required. Leave a field you don't know yet as "" (it is then
+# hidden on the website) and put a `# TODO: ...` comment after it, so the next
+# editor can find it with a search for "TODO". Known placeholders:
+#   title: "Board Member"   -> role not decided or not known yet
+#   image: ""               -> no photo yet: the member's initials are shown instead
+#   body "Bio coming soon." -> no bio yet
+# Always use quotes around text values.
 
 # Required. Full name as it should appear on the website.
 name: "Firstname Lastname"
-# Required. Role on the board, e.g. "President", "Vice-President", "Treasurer", "Secretary".
-title: "Role"
-# Required: a profile without an image breaks the team page.
-# Either the full path "/images/team/firstname-lastname.jpg" or only the file name
-# "firstname-lastname.jpg" (it is then looked up in /images/team/).
-image: "/images/team/firstname-lastname.jpg"
-# Optional: full profile URLs. Delete a line if it doesn't apply.
-linkedin: "https://www.linkedin.com/in/your-profile"
-orcid: "https://orcid.org/0000-0000-0000-0000"
+# Role on the board, e.g. "President", "Secretary", "Treasurer", "Outreach Officer".
+title: "Board Member" # TODO: board role
+# University or institute, e.g. "KU Leuven".
+affiliation: "" # TODO: university or institute
+# Academic position, e.g. "PhD student", "Master student", "Postdoc".
+position: "" # TODO: academic position
+# City the member is based in, e.g. "Leuven".
+city: "" # TODO: city
+# Path to the portrait, "/images/team/firstname-lastname.jpg", or only the file
+# name "firstname-lastname.jpg" (it is then looked up in /images/team/).
+# Mind capital letters: paths are case-sensitive on the live site.
+image: "" # TODO: add a photo to public/images/team/ (initials are shown until then)
+# Full profile URLs starting with https://. Anything else is ignored.
+linkedin: "" # TODO: LinkedIn profile URL
+orcid: "" # TODO (optional): ORCID iD URL
+# Required. Position in the team list. The members are numbered 1, 2, 3, ...
+# without gaps, each number used once (1 is the President). A new member gets
+# the next number, e.g. 10 when there are 9 members. A profile without `order`
+# is not shown.
+order: 10
 ---
 
 <!--
-  SHORT BIO in Markdown (shown on the team card), 1–3 sentences:
+  SHORT BIO in Markdown (shown on the team card), 1–4 short paragraphs:
   your role in RSG-Belgium, your position and institution, and your research interests.
+  Write "Bio coming soon." if there is no bio yet.
   Delete this comment before publishing.
 -->
 

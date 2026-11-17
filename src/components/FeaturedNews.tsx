@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { Post } from '@/interfaces/post'; // Assuming Post interface exists
 import Button from './Button'; // Reusable button
 import DateFormatter from '@/app/_components/date-formatter'; // Date formatter
+import { postPath } from '@/lib/urls';
 
 interface FeaturedNewsProps {
   posts: Post[];
@@ -34,7 +35,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
           {posts.map((post) => (
             <div key={post.slug} className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
               {post.coverImage && (
-                <Link href={`/news/${post.slug}`} className="block">
+                <Link href={postPath(post.slug)} className="block">
                   {/* Simplified image display, next/image could be used here too */}
                   <img
                     src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
@@ -45,7 +46,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
-                  <Link href={`/news/${post.slug}`} className="hover:text-blue-600 transition-colors duration-200">
+                  <Link href={postPath(post.slug)} className="hover:text-blue-600 transition-colors duration-200">
                     {post.title}
                   </Link>
                 </h3>
@@ -59,7 +60,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                 )}
               </div>
               <div className="p-6 pt-0">
-                 <Link href={`/news/${post.slug}`} className="text-primary hover:text-secondary font-medium text-sm">
+                 <Link href={postPath(post.slug)} className="text-primary hover:text-secondary font-medium text-sm">
                     Read more &rarr;
                   </Link>
               </div>

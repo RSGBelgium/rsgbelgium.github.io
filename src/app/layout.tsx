@@ -8,13 +8,14 @@
  *
  * This file follows Next.js App Router conventions for layouts.
  */
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 // import cn from "classnames"; // cn might not be needed if body class is simple
 import { ThemeProvider } from "./providers"; // Import the new ThemeProvider
 import Header from '@/app/_components/header'; // Corrected path
 import Footer from '@/app/_components/footer'; // Corrected path
-import { SITE_NAME } from "@/lib/constants";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
+import { BASE_OPEN_GRAPH, FEED_ALTERNATE_TYPES } from "@/lib/metadata";
 
 import "./globals.css"; // Ensure Tailwind/global styles are imported
 
@@ -31,27 +32,58 @@ const roboto_mono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
+/** Brand blue: browser UI theme colour, Safari pinned-tab and Windows tile colour. */
+const THEME_COLOR = "#004AAD";
+
 /**
  * Global site metadata for SEO and social platforms.
  * Used by Next.js to populate <head> tags.
+ *
+ * - Pages set `title` to their own short title; the template appends the site name.
+ * - `openGraph`/`twitter` deliberately have no title or description, so that
+ *   each page's own title and description are used for link previews. The
+ *   share image comes from src/app/opengraph-image.png.
+ * - `alternates` only advertises the RSS feed here. Canonical URLs are set per
+ *   page with pageAlternates(), so a page can never inherit "/" as its canonical.
  */
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rsg-belgium.be'),
-  title: SITE_NAME,
-  description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | Bioinformatics & Computational Biology Student Society`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  alternates: {
+    types: FEED_ALTERNATE_TYPES,
+  },
   openGraph: {
-    title: SITE_NAME,
-    description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
-    url: 'https://rsg-belgium.be',
-    siteName: SITE_NAME,
-    locale: 'en_US',
-    type: 'website',
+    ...BASE_OPEN_GRAPH,
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: SITE_NAME,
-    description: 'The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.',
+    card: "summary_large_image",
   },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    other: [{ rel: "mask-icon", url: "/favicon/safari-pinned-tab.svg", color: THEME_COLOR }],
+  },
+  manifest: "/favicon/site.webmanifest",
+  other: {
+    "msapplication-TileColor": THEME_COLOR,
+    "msapplication-config": "/favicon/browserconfig.xml",
+  },
+};
+
+/**
+ * Site-wide viewport settings: the browser UI (address bar) colour.
+ */
+export const viewport: Viewport = {
+  themeColor: THEME_COLOR,
 };
 
 /**
@@ -67,40 +99,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Favicon links and other meta tags from original file can be kept */}
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link
-          rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#000000"
-        />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <meta name="msapplication-TileColor" content="#000000" />
-        <meta
-          name="msapplication-config"
-          content="/favicon/browserconfig.xml"
-        />
-        <meta name="theme-color" content="#000" />
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </head>
       {/* Removed cn() from body, can be added back if complex conditional classes are needed */}
       <body className="dark:bg-slate-900 dark:text-slate-400">
         <ThemeProvider

@@ -9,11 +9,13 @@ import React from 'react';
 import Container from '@/app/_components/container';
 import Button from '@/components/Button'; // Path to the new Button component
 import { Metadata } from 'next';
-import { Intro } from '@/app/_components/intro'; // Assuming an Intro component exists
+import { Intro } from '@/app/_components/intro';
+import { pageAlternates } from '@/lib/metadata';
 
 export const metadata: Metadata = {
-  title: 'About RSG-Belgium | Our Mission, Values, and Events',
+  title: 'About Us: Our Mission, Values and Events',
   description: 'Discover RSG-Belgium: our mission to unite bioinformatics students, our core values, and the variety of events like symposia, hackathons, and Beerformatics we organize.',
+  alternates: pageAlternates('/about'),
 };
 
 /**

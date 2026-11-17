@@ -1,13 +1,17 @@
 /**
  * Global site constants.
  *
- * Contains site name, URL, default images, and default author info.
+ * Contains the site name, canonical URL, default description and default author info.
  */
 
 export const SITE_NAME = "RSG-Belgium";
-export const SITE_URL = "https://rsg-belgium.be";
 
-export const HOME_OG_IMAGE_URL = `${SITE_URL}/images/og-image.jpg`;
+/** Canonical origin of the live site (GitHub Pages custom domain), without a trailing slash. */
+export const SITE_URL = "https://rsg-belgium.org";
+
+/** Default meta description, for pages that don't set their own. */
+export const SITE_DESCRIPTION =
+  "The official website for RSG-Belgium, a community of researchers and students in bioinformatics and computational biology.";
 
 export const DEFAULT_AUTHOR = {
   name: "RSG-Belgium",

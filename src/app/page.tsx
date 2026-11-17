@@ -6,17 +6,17 @@
  * Exports page-level metadata for SEO.
  */
 
-import { getAllPosts, getAllMembers } from "@/lib/api"; // Import getAllMembers
+import { getAllPosts, getAllMembers } from "@/lib/api";
 import HeroSection from "@/components/HeroSection";
 import FeaturedNews from "@/components/FeaturedNews";
 import TeamSpotlight from "@/components/TeamSpotlight";
-import Container from "@/app/_components/container"; // Keep container if sections don't have their own full-width bg
 import { Metadata } from 'next';
+import { pageAlternates } from "@/lib/metadata";
 
+// The title is the layout's default title; the share image is the site-wide default.
 export const metadata: Metadata = {
-  title: 'RSG-Belgium | Bioinformatics & Computational Biology Student Society', // Slight change for consistency
   description: 'Homepage of RSG-Belgium, the student society for computational biology and bioinformatics in Belgium. Discover news, events, meet our team, and learn how to get involved.',
-  // Add more metadata like openGraph images if desired
+  alternates: pageAlternates('/'),
 };
 
 /**
@@ -28,9 +28,9 @@ async function getHomepageData() {
   const allPosts = await getAllPosts(); // Already sorts by date desc in api.ts
   const latestNews = allPosts.slice(0, 3);
 
+  // Already sorted by `order` (president and officers first), then by name.
   const allMembers = await getAllMembers();
-  // Sort members if necessary, e.g., by a specific order field or just take first few
-  const spotlightMembers = allMembers.slice(0, 4); // Take first 4 members
+  const spotlightMembers = allMembers.slice(0, 4);
 
   return { latestNews, spotlightMembers };
 }
