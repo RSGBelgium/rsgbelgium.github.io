@@ -10,7 +10,7 @@ Are you curious what it takes to start your own business? You have a great bioin
 
 <img src="/images/logo/beerformatics_logo.svg" alt="Beerformatics logo" style="max-width:150px;">
 
-Mark your calendar (or click [here](/assets/ics/20211015-beerformatics.ics))! On **Friday October 15** we will hold the third RSG Belgium **beerformatics** where you will hear from our invited speakers their experience about creating and running a **bioinformatics startup**.
+Mark your calendar (or [add the event to your calendar](/assets/ics/20211015-beerformatics.ics))! On **Friday October 15** we will hold the third RSG Belgium **beerformatics** where you will hear from our invited speakers their experience about creating and running a **bioinformatics startup**.
 
 You're not yet fully convinced to come? Hear that: the event is **free** and we **offer the first drink**! Spots are limited so make sure to [register now!](https://bit.ly/rsg_beerformatics_3)
 
@@ -43,7 +43,7 @@ This edition will be held in person in the beautiful city of Ghent. It will take
 > [*Geus van Gent*](https://www.geusvangent.be/),
 Kantienberg 9 9000 Gent
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.6329037926994!2d3.7264580157528657!3d51.04140047956128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c37156d5ec10fb%3A0xbe18db2a3eeb1d1a!2sDe%20Geus%20van%20Gent!5e0!3m2!1sen!2sbe!4v1631700857724!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<iframe title="Map of De Geus van Gent, Kantienberg 9, Ghent" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.6329037926994!2d3.7264580157528657!3d51.04140047956128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c37156d5ec10fb%3A0xbe18db2a3eeb1d1a!2sDe%20Geus%20van%20Gent!5e0!3m2!1sen!2sbe!4v1631700857724!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
 ## Transport
 
@@ -53,7 +53,7 @@ You can also consider carpooling. Check out our [Slack channel](/slack) in the `
 
 ## Registration
 
-The event is free of charge but registration is mandatory. You can register [here](https://bit.ly/rsg_beerformatics_3). **Watch out**, first come first served, so be fast!
+The event is free of charge but registration is mandatory. You can [register for Beerformatics online](https://bit.ly/rsg_beerformatics_3). **Watch out**, first come first served, so be fast!
 
 ## Event poster
 

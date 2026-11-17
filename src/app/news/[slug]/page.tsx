@@ -32,19 +32,17 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
   const content = await markdownToHtml(post.content || "");
 
   return (
-    <main>
-      <Container>
-        <article className="mb-32">
-          <PostHeader
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author || DEFAULT_AUTHOR}
-          />
-          <PostBody content={content} />
-        </article>
-      </Container>
-    </main>
+    <Container>
+      <article className="mb-32">
+        <PostHeader
+          title={post.title}
+          coverImage={post.coverImage}
+          date={post.date}
+          author={post.author || DEFAULT_AUTHOR}
+        />
+        <PostBody content={content} />
+      </article>
+    </Container>
   );
 }
 

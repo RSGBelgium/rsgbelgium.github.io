@@ -26,12 +26,12 @@ We ask you however to already indicate your preference during registration. This
 - Day 1: September 25, 2025, from 15:00 till 20:00 <br>
 Place: Aula O&N5, Onderwijs en Navorsing 5, Herestraat 49, 3000 Leuven
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.43990158107!2d4.664557891823671!3d50.878568109081364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c161b1fa553a5d%3A0xbe95aaca448f0e6c!2sOnderwijs%20en%20Navorsing%205!5e0!3m2!1sen!2sbe!4v1750160371956!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe title="Map of Onderwijs en Navorsing 5, Herestraat 49, Leuven (day 1)" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.43990158107!2d4.664557891823671!3d50.878568109081364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c161b1fa553a5d%3A0xbe95aaca448f0e6c!2sOnderwijs%20en%20Navorsing%205!5e0!3m2!1sen!2sbe!4v1750160371956!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 - Day 2: September 26, 2025, from 9:00 till 20:00<br>
 Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.681604355544!2d4.7012410765823285!3d50.87409397167623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16128598d22e5%3A0x67749a5edbf86510!2sEdward%20van%20Evenstraat%204%2C%203000%20Leuven!5e0!3m2!1sen!2sbe!4v1750160316878!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe title="Map of Leercentrum AGORA, Edward Van Evenstraat 4, Leuven (day 2)" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.681604355544!2d4.7012410765823285!3d50.87409397167623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16128598d22e5%3A0x67749a5edbf86510!2sEdward%20van%20Evenstraat%204%2C%203000%20Leuven!5e0!3m2!1sen!2sbe!4v1750160316878!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 **More information on how to get there is provided [below](#how-to-get-there).**
 
@@ -116,7 +116,7 @@ For more details regarding accessibility, please consult the following access gu
 - By Car: [Logistiek Platform](https://www.kuleuven.be/kulag/nl/lokaal/390-90-00P003) (Parking code available upon request by email)
 
 ### Access to Zaal Couvreur - Day 2
-For more details regarding accessibility, please consult KU Leuven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
+For more details regarding accessibility, please consult the [KU Leuven access guide for Zaal Couvreur](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
 - By Public Transport:
   - Leuven Station → De Lijn bus 12, 79, 11 → Stop at Parkpoort
   - or De Lijn bus 4, 14 → Stop at Leuven Rustoord Remy

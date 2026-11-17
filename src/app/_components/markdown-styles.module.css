@@ -102,6 +102,12 @@
   @apply block mx-auto max-w-full h-auto;
 }
 
+/* Embedded maps: Google's code fixes width="600", wider than a phone. Never
+   wider than the column, so the page doesn't scroll sideways (WCAG 1.4.10). */
+.markdown iframe {
+  @apply max-w-full;
+}
+
 /* Table styles */
 .markdown table {
   @apply w-full border-collapse;

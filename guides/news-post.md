@@ -65,7 +65,10 @@ Use `YYYY-MM-DD` with leading zeros (`"2026-05-04"`, not `"2026-5-4"`).
 ## Body
 
 - Don't repeat the title as a `#` heading. The title is already shown as the
-  page heading. Start your sections at `##`.
+  page heading. Start your sections at `##` and don't skip levels.
+- Write link text that says where the link goes ("register for the
+  symposium"), not "click here", and give every embedded map (`<iframe>`) a
+  `title`. See [Write for everyone](markdown.md#write-for-everyone).
 - Put the essentials (what, when, where, how to register) in the first few
   lines.
 - See [Markdown](markdown.md) for what you can use and what is not
@@ -79,6 +82,8 @@ Use `YYYY-MM-DD` with leading zeros (`"2026-05-04"`, not `"2026-5-4"`).
 - [ ] `excerpt` is set
 - [ ] Every image has descriptive alt text and its file exists under `public/`
 - [ ] Internal links start with `/` and have no trailing slash (`/news/...`, not `https://rsg-belgium.org/news/.../`)
+- [ ] Body headings start at `##` and don't skip a level
+- [ ] Link texts are descriptive (no "here"), and every `<iframe>` has a `title`
 - [ ] No Liquid (`{{ }}`, `{% %}`), kramdown (`{: .class}`) or "fancy" Unicode bold text
 - [ ] Checked for typos, and every link opens the right page
 - [ ] Previewed with `npm run dev`

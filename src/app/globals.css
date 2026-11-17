@@ -68,6 +68,13 @@
     --color-hero-end: 74 23 82;               /* #4A1752 */
   }
 
+  /* The header is sticky (4rem tall). When the browser scrolls to an anchor
+     (#how-to-get-there, the skip link's #main-content) or to an element that
+     receives keyboard focus, keep it below the header instead of under it. */
+  html {
+    scroll-padding-top: 5rem;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -82,8 +89,10 @@
      the gap is transparent on any background and it stays visible in
      forced-colors (high contrast) mode. Components don't add their own focus
      styles; an element that must look different (e.g. .button-inverse on the
-     hero gradient) changes `outline-color` only. */
-  :focus-visible {
+     hero gradient) changes `outline-color` only. A .link-card (see below)
+     shows the outline around the whole card instead of around its link. */
+  :focus-visible,
+  .link-card:has(.link-card-link:focus-visible) {
     outline: 2px solid rgb(var(--color-accent-strong));
     outline-offset: 2px;
   }
@@ -141,5 +150,30 @@
 
   .button-inverse:focus-visible {
     outline-color: rgb(var(--color-primary-foreground));
+  }
+
+  /* A card that works as one big link (the homepage news cards, the contact
+     cards): put `link-card` on the card and `link-card-link` on its one link.
+     The link's ::after stretches over the card, so the whole card is
+     clickable, and the focus outline goes around the card (rule above), while
+     the link itself shows an underline instead. */
+  .link-card {
+    @apply relative;
+  }
+
+  .link-card-link {
+    @apply after:absolute after:inset-0;
+  }
+
+  .link-card-link:focus-visible {
+    @apply underline outline-none;
+  }
+
+  /* A standalone text link, such as the footer links and the LinkedIn/ORCID
+     links on the team cards: at least 44px tall, a comfortable target for
+     touch (WCAG 2.5.5), and underlined on hover. Add spacing or a text size
+     where it's used. */
+  .touch-link {
+    @apply inline-flex min-h-11 items-center rounded-md text-link hover:underline;
   }
 }

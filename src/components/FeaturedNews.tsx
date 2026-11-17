@@ -2,6 +2,12 @@
  * Featured news section component.
  *
  * Renders a grid of recent news posts with title, date, excerpt, and link.
+ *
+ * Each card has exactly one link, the post title, stretched over the whole
+ * card (a "stretched link"): keyboard and screen-reader users meet one link
+ * per post instead of three (image, title, "Read more"), while the whole
+ * card is still clickable (`link-card` in globals.css). The card shows the
+ * focus outline when the link is focused.
  */
 
 import React from 'react';
@@ -33,20 +39,25 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
-            <div key={post.slug} className="bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col">
+            <article
+              key={post.slug}
+              className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
+            >
               {post.coverImage && (
-                <Link href={postPath(post.slug)} className="block">
-                  {/* Simplified image display, next/image could be used here too */}
-                  <img
-                    src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
-                    alt={post.title}
-                    className="w-full h-48 object-cover hover:opacity-90 transition-opacity duration-200"
-                  />
-                </Link>
+                // Decorative: the title says what the post is about. Simplified image display, next/image could be used here too.
+                <img
+                  src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
+                  alt=""
+                  className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity duration-200"
+                />
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
-                  <Link href={postPath(post.slug)} className="text-link hover:underline">
+                  {/* The card's only link: .link-card-link stretches it over the whole card. */}
+                  <Link
+                    href={postPath(post.slug)}
+                    className="link-card-link text-link hover:underline"
+                  >
                     {post.title}
                   </Link>
                 </h3>
@@ -59,12 +70,13 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                   </p>
                 )}
               </div>
-              <div className="p-6 pt-0">
-                 <Link href={postPath(post.slug)} className="text-link hover:underline font-medium text-sm">
-                    Read more &rarr;
-                  </Link>
+              {/* A visual cue only: the title link above already leads to the post. */}
+              <div className="p-6 pt-0" aria-hidden="true">
+                <span className="text-link group-hover:underline font-medium text-sm">
+                  Read more &rarr;
+                </span>
               </div>
-            </div>
+            </article>
           ))}
         </div>
         <div className="text-center mt-12">

@@ -44,7 +44,8 @@ export default async function Index() {
   const { latestNews, spotlightMembers } = await getHomepageData();
 
   return (
-    <main className="flex flex-col min-h-screen">
+    // A fragment, not <main>: the root layout already wraps every page in the <main> landmark.
+    <>
       <HeroSection
         headline="Welcome to RSG Belgium"
         introText="Your hub for bioinformatics and computational biology students in Belgium. We connect, share, and grow together through workshops, symposia, and networking events."
@@ -57,9 +58,6 @@ export default async function Index() {
       <FeaturedNews posts={latestNews} />
 
       <TeamSpotlight members={spotlightMembers} />
-
-      {/* You might want a footer component here eventually */}
-      {/* <Footer /> */}
-    </main>
+    </>
   );
 }

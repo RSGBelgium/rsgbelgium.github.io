@@ -66,13 +66,13 @@ The symposium and poster session will be held at:
 
 > [Auditoires Centraux - room 51B - Campus Brussels](https://uclouvain.be/fr/administrations/adpi/auditoires-ucl-bruxelles-woluwe.html), Avenue Emmanuel Mounier 51, 1200 Brussels
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2180.2205312323567!2d4.452349644100313!3d50.85109739515126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc86938df19f%3A0xec4904c8ce037149!2sAvenue%20E.%20Mounier%2051%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442365048!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+<iframe title="Map of the UCLouvain Auditoires Centraux, Avenue Emmanuel Mounier 51, Woluwe-Saint-Lambert" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2180.2205312323567!2d4.452349644100313!3d50.85109739515126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc86938df19f%3A0xec4904c8ce037149!2sAvenue%20E.%20Mounier%2051%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442365048!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
 The workshop in the morning will be hosted in a nearby building on the same campus:
 
 > [Centre Faculté - salle informatique Avicenne - Campus Brussels](https://uclouvain.be/fr/decouvrir/salles-informatiques-woluwe-sss.html), Avenue Hippocrate 50, 1200 Brussels
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.8904552248537!2d4.452431916091586!3d50.8517127795328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc868b2601d5%3A0x7d393851f1a68e40!2sAvenue%20Hippocrate%2050%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442328397!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+<iframe title="Map of the UCLouvain Centre Faculté, Avenue Hippocrate 50, Woluwe-Saint-Lambert" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.8904552248537!2d4.452431916091586!3d50.8517127795328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3dc868b2601d5%3A0x7d393851f1a68e40!2sAvenue%20Hippocrate%2050%2C%201200%20Woluwe-Saint-Lambert!5e0!3m2!1sen!2sbe!4v1582442328397!5m2!1sen!2sbe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
 **We look forward to seeing you there!**
 

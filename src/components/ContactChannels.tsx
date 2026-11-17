@@ -1,0 +1,109 @@
+/**
+ * Icons and links for RSG-Belgium's contact channels (src/lib/social.ts).
+ *
+ * - ContactIcon: an inline SVG per channel, no icon library. The brand marks
+ *   (GitHub, LinkedIn, Slack) are the single-colour paths from Simple Icons
+ *   (https://simpleicons.org, CC0); LinkedIn and Slack come from Simple
+ *   Icons 10.4.0, as later releases dropped them. They are filled with
+ *   `currentColor`, so they follow the theme's text colour. The envelope is
+ *   an outline icon in the style of the theme switcher's icons.
+ * - ContactChannelLink: the right kind of link for a channel. Internal paths
+ *   use next/link; external URLs open in a new tab and say so to screen
+ *   readers; `mailto:` links stay in the same tab.
+ *
+ * Icons are decorative: always show them next to a visible text label.
+ */
+
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { type ContactChannel, type ContactChannelId } from "@/lib/social";
+import { isAbsoluteUrl } from "@/lib/urls";
+import ExternalLink from "./ExternalLink";
+
+/** Simple Icons paths (24 x 24 viewBox) for the brand marks. */
+const BRAND_PATHS: Record<Exclude<ContactChannelId, "email">, string> = {
+  github:
+    "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
+  linkedin:
+    "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+  slack:
+    "M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z",
+};
+
+type ContactIconProps = {
+  id: ContactChannelId;
+  /** Size and colour classes (default: "h-5 w-5"); the icon uses the current text colour. */
+  className?: string;
+};
+
+/**
+ * Displays a channel's icon. Decorative: hidden from screen readers.
+ *
+ * @param id - The channel whose icon to show
+ * @param className - Size classes, e.g. "h-6 w-6"
+ */
+export function ContactIcon({ id, className = "h-5 w-5" }: ContactIconProps) {
+  const shared = {
+    className,
+    viewBox: "0 0 24 24",
+    "aria-hidden": true,
+    focusable: false,
+  } as const;
+
+  if (id === "email") {
+    // Envelope, outlined like the theme switcher's icons.
+    return (
+      <svg {...shared} fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...shared} fill="currentColor">
+      <path d={BRAND_PATHS[id]} />
+    </svg>
+  );
+}
+
+type ContactChannelLinkProps = {
+  channel: ContactChannel;
+  className?: string;
+  children: ReactNode;
+};
+
+/**
+ * Links to a contact channel with the attributes its kind of URL needs.
+ *
+ * External links are an ExternalLink: a new tab, and a visually hidden
+ * "(opens in a new tab)" at the end of their accessible name.
+ *
+ * @param channel - The channel to link to
+ * @param className - Classes for the link
+ * @param children - The link's visible content (it must include text)
+ */
+export function ContactChannelLink({ channel, className, children }: ContactChannelLinkProps) {
+  if (channel.href.startsWith("/")) {
+    return (
+      <Link href={channel.href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
+  // External links open in a new tab; `mailto:` links and internal paths don't.
+  if (isAbsoluteUrl(channel.href)) {
+    return (
+      <ExternalLink href={channel.href} className={className}>
+        {children}
+      </ExternalLink>
+    );
+  }
+
+  return (
+    <a href={channel.href} className={className}>
+      {children}
+    </a>
+  );
+}

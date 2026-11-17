@@ -6,6 +6,7 @@
  */
 
 import type { Member } from "@/interfaces/member";
+import ExternalLink from "./ExternalLink";
 import MemberAvatar from "./MemberAvatar";
 
 type TeamMemberCardProps = Pick<Member, "name" | "title"> &
@@ -36,11 +37,12 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   const profileLinks = [
     { label: "LinkedIn", url: linkedin },
     { label: "ORCID", url: orcid },
-  ].filter((link) => link.url);
+  ].filter((link): link is { label: string; url: string } => Boolean(link.url));
 
   return (
     <div className="bg-surface border border-border shadow-lg rounded-lg p-6 text-center">
-      <MemberAvatar name={name} image={image} className="mx-auto mb-4" />
+      {/* Decorative: the name is the heading right below it. */}
+      <MemberAvatar name={name} image={image} decorative className="mx-auto mb-4" />
       <h3 className="text-xl font-semibold mb-1">{name}</h3>
       {title && <p className="text-foreground-muted mb-1">{title}</p>}
       {details && <p className="text-sm text-foreground-muted mb-3">{details}</p>}
@@ -53,16 +55,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       {profileLinks.length > 0 && (
         <div className="flex justify-center space-x-4">
           {profileLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${name} on ${link.label}`}
-              className="text-link hover:underline"
-            >
+            <ExternalLink key={link.label} href={link.url} className="touch-link px-2">
+              {/* Read as "Jane Doe on LinkedIn": the card has several "LinkedIn"s. */}
+              <span className="sr-only">{name} on </span>
               {link.label}
-            </a>
+            </ExternalLink>
           ))}
         </div>
       )}
