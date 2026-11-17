@@ -6,13 +6,8 @@
  * its whole row of cards several times taller than the others.
  */
 
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
 import type { RootContent } from "mdast";
-
-/** Shared markdown parser (parsing only, no HTML output). */
-const markdownParser = unified().use(remarkParse).use(remarkGfm);
+import { markdownParser } from "@/lib/markdown-parser";
 
 /** A bio in two parts, both markdown. */
 export type SplitBio = {

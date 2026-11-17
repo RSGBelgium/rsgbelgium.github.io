@@ -8,15 +8,13 @@
  * and lets images load lazily, with their width and height when they are local files.
  */
 
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
 import { isAbsoluteUrl } from "@/lib/urls";
 import { readImageSize } from "@/lib/image-size";
+import { markdownParser } from "@/lib/markdown-parser";
 import type {
   Definition,
   Heading,
@@ -212,9 +210,7 @@ function remarkImageAttributes() {
  * @returns The resulting HTML string
  */
 export default async function markdownToHtml(markdown: string) {
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
+  const result = await markdownParser()
     .use(remarkDemoteH1)
     .use(remarkHeadingIds)
     .use(remarkExternalLinks)
