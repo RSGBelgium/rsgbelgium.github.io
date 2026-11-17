@@ -13,9 +13,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 // import cn from "classnames"; // cn might not be needed if body class is simple
 import { ThemeProvider } from "./providers"; // Import the new ThemeProvider
-import Header from '@/app/_components/header'; // Corrected path
-import Footer from '@/app/_components/footer'; // Corrected path
-import SkipLink from '@/app/_components/skip-link';
+import Header from "@/app/_components/header"; // Corrected path
+import Footer from "@/app/_components/footer"; // Corrected path
+import SkipLink from "@/app/_components/skip-link";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { BASE_OPEN_GRAPH, FEED_ALTERNATE_TYPES } from "@/lib/metadata";
 
@@ -23,15 +23,15 @@ import "./globals.css"; // Ensure Tailwind/global styles are imported
 
 // Font setup (already configured from previous steps)
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 const roboto_mono = Roboto_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto-mono',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto-mono",
 });
 
 /** Id of the <main> landmark, the target of the "Skip to main content" link. */
@@ -112,7 +112,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${roboto_mono.variable}`}
+      suppressHydrationWarning
+    >
       {/* Page background and text colours come from the theme tokens in globals.css. */}
       <body>
         <ThemeProvider

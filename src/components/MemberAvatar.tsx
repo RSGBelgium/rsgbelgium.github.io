@@ -52,17 +52,32 @@ export function getInitials(name: string): string {
  * @param className - Extra classes for the round wrapper, e.g. margins or a border
  * @param decorative - True when the name is visible next to the avatar: empty alt text, hidden initials
  */
-export default function MemberAvatar({ name, image, size = "lg", className, decorative = false }: MemberAvatarProps) {
+export default function MemberAvatar({
+  name,
+  image,
+  size = "lg",
+  className,
+  decorative = false,
+}: MemberAvatarProps) {
   const { box, text, px } = SIZES[size];
 
   return (
     <div className={cn("relative shrink-0 rounded-full overflow-hidden", box, className)}>
       {image ? (
-        <Image src={image} alt={decorative ? "" : name} fill sizes={`${px}px`} className="object-cover" />
+        <Image
+          src={image}
+          alt={decorative ? "" : name}
+          fill
+          sizes={`${px}px`}
+          className="object-cover"
+        />
       ) : (
         <div
           {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": name })}
-          className={cn("w-full h-full flex items-center justify-center bg-primary text-primary-foreground font-bold select-none", text)}
+          className={cn(
+            "w-full h-full flex items-center justify-center bg-primary text-primary-foreground font-bold select-none",
+            text,
+          )}
         >
           {getInitials(name)}
         </div>

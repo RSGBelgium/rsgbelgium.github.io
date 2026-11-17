@@ -53,7 +53,14 @@ export function ContactIcon({ id, className = "h-5 w-5" }: ContactIconProps) {
   if (id === "email") {
     // Envelope, outlined like the theme switcher's icons.
     return (
-      <svg {...shared} fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        {...shared}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.75}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="3" y="5" width="18" height="14" rx="2" />
         <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
       </svg>

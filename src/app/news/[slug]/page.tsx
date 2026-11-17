@@ -60,7 +60,11 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
  * @param params - Promise resolving to route parameters containing the post slug.
  * @returns Metadata for the post or a not found title.
  */
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const post = await getPostBySlug(resolvedParams.slug);
 

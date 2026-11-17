@@ -69,7 +69,8 @@ function renderItem(post: Post): string {
  */
 export async function GET() {
   const posts = await getAllPosts(); // newest first
-  const lastBuildDate = (posts.length > 0 && parseDate(posts[0].date)?.toUTCString()) || new Date().toUTCString();
+  const lastBuildDate =
+    (posts.length > 0 && parseDate(posts[0].date)?.toUTCString()) || new Date().toUTCString();
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',

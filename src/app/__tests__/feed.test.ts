@@ -1,0 +1,116 @@
+/**
+ * @jest-environment node
+ */
+
+/**
+ * Tests for the RSS feed route handler (src/app/feed.xml/route.ts).
+ */
+
+import { getAllPosts } from "@/lib/api";
+import type { Post } from "@/interfaces/post";
+import { GET } from "../feed.xml/route";
+import { makePost } from "@/test-utils/fixtures";
+
+jest.mock("@/lib/api", () => ({
+  getAllPosts: jest.fn(),
+}));
+
+/** Posts as getAllPosts returns them: newest first. */
+const ALL_POSTS: Post[] = [
+  makePost({
+    slug: "2026-05-15-speakers",
+    title: 'Meet the speakers: "Beer & <Bioinformatics>"',
+    date: "2026-05-15",
+    excerpt: "Talks & drinks <in Ghent>.",
+  }),
+  makePost({ slug: "2017-10-02-symposium", title: "Student day", date: "2017-10-02 19:10" }),
+  makePost({ slug: "undated", title: "No date", excerpt: "Undated." }),
+];
+
+/**
+ * Checks that every opening tag has a matching closing tag, in order, and
+ * that no text contains a raw "<" or a bare "&". A minimal well-formedness
+ * check for the hand-built XML, without an XML parser dependency.
+ */
+function expectWellFormed(xml: string) {
+  const body = xml.replace(/^<\?xml[^>]*\?>\s*/, "");
+  const stack: string[] = [];
+  for (const [, closing, name, , selfClosing] of body.matchAll(
+    /<(\/?)([\w:]+)((?:\s+[\w:]+="[^"]*")*)\s*(\/?)>/g,
+  )) {
+    if (selfClosing) continue;
+    if (closing) expect(stack.pop()).toBe(name);
+    else stack.push(name);
+  }
+  expect(stack).toEqual([]);
+  const text = body.replace(/<[^>]+>/g, "");
+  expect(text).not.toMatch(/[<>]/);
+  expect(text).not.toMatch(/&(?!(amp|lt|gt|quot|apos);)/);
+}
+
+async function fetchFeed() {
+  const response = await GET();
+  return { response, xml: await response.text() };
+}
+
+describe("GET /feed.xml", () => {
+  beforeEach(() => {
+    jest.mocked(getAllPosts).mockResolvedValue(ALL_POSTS);
+  });
+
+  test("responds with RSS", async () => {
+    const { response, xml } = await fetchFeed();
+    expect(response.headers.get("Content-Type")).toBe("application/rss+xml; charset=utf-8");
+    expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"')).toBe(true);
+    expect(xml).toContain("<title>RSG-Belgium News</title>");
+    expect(xml).toContain("<link>https://rsg-belgium.org/news</link>");
+    expect(xml).toContain(
+      '<atom:link href="https://rsg-belgium.org/feed.xml" rel="self" type="application/rss+xml"/>',
+    );
+  });
+
+  test("is well-formed XML with escaped titles and descriptions", async () => {
+    const { xml } = await fetchFeed();
+    expectWellFormed(xml);
+    expect(xml).toContain(
+      "<title>Meet the speakers: &quot;Beer &amp; &lt;Bioinformatics&gt;&quot;</title>",
+    );
+    expect(xml).toContain("<description>Talks &amp; drinks &lt;in Ghent&gt;.</description>");
+  });
+
+  test("lists every post, newest first", async () => {
+    const { xml } = await fetchFeed();
+    const links = [...xml.matchAll(/<item>\s*<title>[^<]*<\/title>\s*<link>([^<]+)<\/link>/g)].map(
+      (m) => m[1],
+    );
+    expect(links).toEqual([
+      "https://rsg-belgium.org/news/2026-05-15-speakers",
+      "https://rsg-belgium.org/news/2017-10-02-symposium",
+      "https://rsg-belgium.org/news/undated",
+    ]);
+  });
+
+  test("dates items in RFC 822 format and uses the newest post as lastBuildDate", async () => {
+    const { xml } = await fetchFeed();
+    expect(xml).toContain("<pubDate>Fri, 15 May 2026 00:00:00 GMT</pubDate>");
+    expect(xml).toContain("<lastBuildDate>Fri, 15 May 2026 00:00:00 GMT</lastBuildDate>");
+    // An undated post has no pubDate rather than an invalid one.
+    const undated = xml.slice(xml.indexOf("<title>No date</title>"));
+    expect(undated.slice(0, undated.indexOf("</item>"))).not.toContain("<pubDate>");
+  });
+
+  test("describes posts without an excerpt", async () => {
+    const { xml } = await fetchFeed();
+    expect(xml).toContain("<description>Student day: news from RSG-Belgium.</description>");
+  });
+
+  test("is still valid without posts", async () => {
+    jest.mocked(getAllPosts).mockResolvedValue([]);
+    const { xml } = await fetchFeed();
+    expectWellFormed(xml);
+    expect(xml).not.toContain("<item>");
+    expect(xml).toMatch(
+      /<lastBuildDate>\w{3}, \d{2} \w{3} \d{4} \d{2}:\d{2}:\d{2} GMT<\/lastBuildDate>/,
+    );
+  });
+});

@@ -17,7 +17,8 @@ import { absoluteUrl } from "@/lib/urls";
 
 export const metadata: Metadata = {
   title: "Our Team",
-  description: "Meet the board of RSG-Belgium: the students and young researchers who organise our events.",
+  description:
+    "Meet the board of RSG-Belgium: the students and young researchers who organise our events.",
   alternates: pageAlternates("/organization"),
 };
 
@@ -39,7 +40,9 @@ function personJsonLd(member: Member) {
     name: member.name,
     ...(member.title && { jobTitle: member.title }),
     ...(member.image && { image: absoluteUrl(member.image) }),
-    ...(member.affiliation && { affiliation: { "@type": "Organization", name: member.affiliation } }),
+    ...(member.affiliation && {
+      affiliation: { "@type": "Organization", name: member.affiliation },
+    }),
     memberOf: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     url: absoluteUrl("/organization"),
     ...(sameAs.length > 0 && { sameAs }),
@@ -67,7 +70,7 @@ export default async function OrganizationPage() {
     teamMembers.map(async (member) => ({
       member,
       bioHtml: member.content ? await markdownToHtml(member.content) : "",
-    }))
+    })),
   );
 
   return (
@@ -100,4 +103,3 @@ export default async function OrganizationPage() {
     </>
   );
 }
-

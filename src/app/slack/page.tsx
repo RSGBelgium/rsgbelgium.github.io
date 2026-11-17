@@ -4,18 +4,19 @@
  * Provides information and a call-to-action for joining the RSG-Belgium Slack channel.
  */
 
-import React from 'react';
-import Container from '@/app/_components/container';
-import Button from '@/components/Button'; // Path to the new Button component
-import { Metadata } from 'next';
-import { Intro } from '@/app/_components/intro';
-import { pageAlternates } from '@/lib/metadata';
-import { CONTACT_EMAIL } from '@/lib/social';
+import React from "react";
+import Container from "@/app/_components/container";
+import Button from "@/components/Button"; // Path to the new Button component
+import { Metadata } from "next";
+import { Intro } from "@/app/_components/intro";
+import { pageAlternates } from "@/lib/metadata";
+import { CONTACT_EMAIL } from "@/lib/social";
 
 export const metadata: Metadata = {
-  title: 'Join Us on Slack',
-  description: 'Become a part of the RSG-Belgium community by joining our Slack channel. Request an invitation to discuss events, collaborate, and network with fellow bioinformaticians.',
-  alternates: pageAlternates('/slack'),
+  title: "Join Us on Slack",
+  description:
+    "Become a part of the RSG-Belgium community by joining our Slack channel. Request an invitation to discuss events, collaborate, and network with fellow bioinformaticians.",
+  alternates: pageAlternates("/slack"),
 };
 
 /**
@@ -35,14 +36,14 @@ const SlackPage = () => {
           Join the RSG Belgium Slack Channel <span aria-hidden="true">💬</span>
         </h2>
         <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-          We have created a Slack channel where our members can get to know each other,
-          discuss RSG events, collaborate, and get more involved in our organization.
-          It's a great place to ask questions, share ideas, and connect with fellow
-          bioinformatics and computational biology enthusiasts in Belgium.
+          We have created a Slack channel where our members can get to know each other, discuss RSG
+          events, collaborate, and get more involved in our organization. It&apos;s a great place to
+          ask questions, share ideas, and connect with fellow bioinformatics and computational
+          biology enthusiasts in Belgium.
         </p>
         <p className="text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-          Don't be shy, come say hello! To join, please send us an email request,
-          and we'll send you an invitation.
+          Don&apos;t be shy, come say hello! To join, please send us an email request, and
+          we&apos;ll send you an invitation.
         </p>
         <Button href={mailtoLink} size="lg" variant="primary">
           Request Invitation to Join Slack

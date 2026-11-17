@@ -15,5 +15,5 @@ export const SITE_DESCRIPTION =
 
 export const DEFAULT_AUTHOR = {
   name: "RSG-Belgium",
-  picture: "/images/team/rsg-logo.png"
+  picture: "/images/team/rsg-logo.png",
 };

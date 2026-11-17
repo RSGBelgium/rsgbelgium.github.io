@@ -6,9 +6,9 @@
  * built from the theme tokens, so they work in light and dark mode.
  */
 
-import cn from 'classnames';
-import Link from 'next/link';
-import React from 'react';
+import cn from "classnames";
+import Link from "next/link";
+import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
@@ -20,16 +20,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
    * - outline: bordered, for use on the page background
    * - inverse: white outline, for the hero gradient and other coloured backgrounds
    */
-  variant?: 'primary' | 'secondary' | 'outline' | 'inverse';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "inverse";
+  size?: "sm" | "md" | "lg";
 }
 
 const Button: React.FC<ButtonProps> = ({
   href,
   children,
   className,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   ...props
 }) => {
   // Keyboard focus uses the site-wide :focus-visible outline in globals.css.
@@ -51,8 +51,13 @@ const Button: React.FC<ButtonProps> = ({
   const combinedClassName = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);
 
   if (href) {
+    // As a link, the remaining props (onClick, aria-*, ...) go on the <a>.
     return (
-      <Link href={href} className={combinedClassName} {...(props as any)}>
+      <Link
+        href={href}
+        className={combinedClassName}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
         {children}
       </Link>
     );

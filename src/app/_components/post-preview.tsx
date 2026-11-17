@@ -5,7 +5,6 @@
  */
 
 import Link from "next/link";
-import { Post } from "@/interfaces/post";
 import Avatar from "@/app/_components/avatar";
 import CoverImage from "@/app/_components/cover-image";
 import DateFormatter from "./date-formatter";
@@ -33,17 +32,10 @@ type Props = {
  * @param author - The author object (optional)
  * @param slug - The post slug for linking to the detail page
  */
-export function PostPreview({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}: Props) {
+export function PostPreview({ title, coverImage, date, excerpt, author, slug }: Props) {
   const defaultAuthor = {
     name: "RSG-Belgium",
-    picture: "/images/team/rsg-logo.png"
+    picture: "/images/team/rsg-logo.png",
   };
 
   return (

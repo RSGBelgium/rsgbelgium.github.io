@@ -67,7 +67,7 @@ function NavLink({
         isCurrent
           ? "bg-primary text-primary-foreground"
           : "text-foreground hover:bg-primary hover:text-primary-foreground",
-        className
+        className,
       )}
     >
       {item.title}
@@ -148,15 +148,41 @@ const Header = () => {
                 aria-controls="mobile-menu"
                 aria-expanded={isMobileMenuOpen}
               >
-                <span className="sr-only">{isMobileMenuOpen ? "Close main menu" : "Open main menu"}</span>
+                <span className="sr-only">
+                  {isMobileMenuOpen ? "Close main menu" : "Open main menu"}
+                </span>
                 {/* Icon for hamburger menu */}
                 {!isMobileMenuOpen ? (
-                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  <svg
+                    className="block h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16m-7 6h7"
+                    />
                   </svg>
                 ) : (
-                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="block h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 )}
               </button>
@@ -178,7 +204,13 @@ const Header = () => {
             />
           ))}
           <div className="pt-2">
-            <Button href={SLACK_PAGE.url} variant="primary" size="md" className="block w-full text-center" onClick={closeMobileMenu}>
+            <Button
+              href={SLACK_PAGE.url}
+              variant="primary"
+              size="md"
+              className="block w-full text-center"
+              onClick={closeMobileMenu}
+            >
               {SLACK_PAGE.title}
             </Button>
           </div>

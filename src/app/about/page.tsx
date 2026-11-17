@@ -5,17 +5,18 @@
  * Includes a call-to-action for joining the community.
  */
 
-import React from 'react';
-import Container from '@/app/_components/container';
-import Button from '@/components/Button'; // Path to the new Button component
-import { Metadata } from 'next';
-import { Intro } from '@/app/_components/intro';
-import { pageAlternates } from '@/lib/metadata';
+import React from "react";
+import Container from "@/app/_components/container";
+import Button from "@/components/Button"; // Path to the new Button component
+import { Metadata } from "next";
+import { Intro } from "@/app/_components/intro";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: 'About Us: Our Mission, Values and Events',
-  description: 'Discover RSG-Belgium: our mission to unite bioinformatics students, our core values, and the variety of events like symposia, hackathons, and Beerformatics we organize.',
-  alternates: pageAlternates('/about'),
+  title: "About Us: Our Mission, Values and Events",
+  description:
+    "Discover RSG-Belgium: our mission to unite bioinformatics students, our core values, and the variety of events like symposia, hackathons, and Beerformatics we organize.",
+  alternates: pageAlternates("/about"),
 };
 
 /**
@@ -32,29 +33,36 @@ const AboutPage = () => {
       <article className="py-8">
         <h2 className="text-4xl font-bold mb-6 text-center">Welcome to RSG Belgium!</h2>
         <p className="text-lg leading-relaxed">
-          RSG Belgium is the Belgian branch of the ISCB Student Council's Regional Student Groups.
-          We are a vibrant community dedicated to fostering collaboration and innovation among
-          bioinformatics and computational biology students across Belgium.
+          RSG Belgium is the Belgian branch of the ISCB Student Council&apos;s Regional Student
+          Groups. We are a vibrant community dedicated to fostering collaboration and innovation
+          among bioinformatics and computational biology students across Belgium.
         </p>
 
         <h2 className="text-3xl font-semibold mt-8 mb-4">Our Mission</h2>
         <p className="text-lg leading-relaxed">
           Our mission is to bring bioinformatics and computational biology students from different
-          institutions together and offer them additional opportunities which can contribute to
-          the development of their scientific career. We aim to stimulate interaction and
-          co-operativity between students, connect them with international research, and provide
-          insights into how their work can benefit industry. Ultimately, we hope to encourage
-          projects that transcend traditional academic research boundaries.
+          institutions together and offer them additional opportunities which can contribute to the
+          development of their scientific career. We aim to stimulate interaction and co-operativity
+          between students, connect them with international research, and provide insights into how
+          their work can benefit industry. Ultimately, we hope to encourage projects that transcend
+          traditional academic research boundaries.
         </p>
 
         <h2 className="text-3xl font-semibold mt-8 mb-4">Our Values</h2>
         <ul className="list-disc list-inside text-lg leading-relaxed space-y-2">
-          <li>Stimulate interaction and co-operativity between students of different research institutions.</li>
-          <li>Bring students in contact with research happening at an international level to allow them to visualize their work in a much larger scope.</li>
+          <li>
+            Stimulate interaction and co-operativity between students of different research
+            institutions.
+          </li>
+          <li>
+            Bring students in contact with research happening at an international level to allow
+            them to visualize their work in a much larger scope.
+          </li>
           <li>Provide concrete examples of how their work might benefit the industry.</li>
         </ul>
         <p className="text-lg leading-relaxed mt-2">
-          In this way, we aim to stimulate the startup of projects that cross the traditional boundaries of academic research.
+          In this way, we aim to stimulate the startup of projects that cross the traditional
+          boundaries of academic research.
         </p>
 
         <h2 className="text-3xl font-semibold mt-8 mb-4">Our Events</h2>
@@ -63,8 +71,8 @@ const AboutPage = () => {
         </p>
         <ul className="list-disc list-inside text-lg leading-relaxed space-y-2">
           <li>
-            <strong>Symposia:</strong> Our yearly symposia allow young researchers to present their work,
-            either as a talk or as a poster, and to connect with other researchers.
+            <strong>Symposia:</strong> Our yearly symposia allow young researchers to present their
+            work, either as a talk or as a poster, and to connect with other researchers.
           </li>
           <li>
             <strong>Hackathons:</strong> One-day competitions where bioinformaticians across Belgium

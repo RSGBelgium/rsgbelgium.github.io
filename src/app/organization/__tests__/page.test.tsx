@@ -1,114 +1,93 @@
-import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import OrganizationPage from '../page'; // Adjust path as necessary
-import * as api from '@/lib/api'; // Import to mock getAllMembers
-import { Member } from '@/interfaces/member';
+import { render, screen } from "@testing-library/react";
+import type { Member } from "@/interfaces/member";
+import { getAllMembers } from "@/lib/api";
+import OrganizationPage, { metadata } from "../page";
+import { makeMember } from "@/test-utils/fixtures";
 
-// Mock the getAllMembers function
-jest.mock('@/lib/api', () => ({
-  ...jest.requireActual('@/lib/api'),
+jest.mock("@/lib/api", () => ({
   getAllMembers: jest.fn(),
 }));
 
-// Mock TeamMemberCard to simplify testing and focus on OrganizationPage logic
-jest.mock('@/components/TeamMemberCard', () => ({
-  __esModule: true,
-  default: ({ name, title, image, linkedin, orcid }: any) => (
-    <div data-testid="team-member-card">
-      <h3>{name}</h3>
-      <p>{title}</p>
-      <img src={`/assets/img/people/${image}`} alt={name} />
-      {linkedin && <a href={linkedin}>LinkedIn</a>}
-      {orcid && <a href={orcid}>ORCID</a>}
-    </div>
-  ),
-}));
-
-const mockMembers: Member[] = [
-  {
-    slug: 'member-1',
+const members: Member[] = [
+  makeMember({
+    slug: "alice",
     order: 1,
-    name: 'Alice Wonderland',
-    title: 'Chief Storyteller',
-    image: 'alice.jpg',
-    linkedin: 'https://linkedin.com/in/alicew',
-    orcid: 'https://orcid.org/0000-0001-0000-0001',
-    content: 'Loves to tell stories.',
-  },
-  {
-    slug: 'member-2',
-    order: 2,
-    name: 'Bob The Builder',
-    title: 'Lead Architect',
-    image: 'bob.jpg',
-    linkedin: 'https://linkedin.com/in/bobtheb',
-    // no orcid
-    content: 'Can he fix it? Yes, he can!',
-  },
+    name: "Alice Wonderland",
+    title: "President",
+    image: "/images/team/alice.jpg",
+    affiliation: "KU Leuven",
+    linkedin: "https://www.linkedin.com/in/alice",
+    orcid: "https://orcid.org/0000-0001-0000-0001",
+    content: "Alice studies **genomics**.",
+  }),
+  makeMember({ slug: "bob", order: 2, name: "Bob </script> Builder" }),
 ];
 
-const SITE_URL = "https://www.rsg-belgium.org";
+/** Renders the async server component and returns its JSON-LD blocks, parsed. */
+async function renderOrganizationPage() {
+  const { container } = render(await OrganizationPage());
+  const scripts = [...container.querySelectorAll('script[type="application/ld+json"]')];
+  return { container, scripts, jsonLd: scripts.map((script) => JSON.parse(script.innerHTML)) };
+}
 
-describe('OrganizationPage', () => {
+describe("Organization page", () => {
   beforeEach(() => {
-    (api.getAllMembers as jest.Mock).mockReturnValue(mockMembers);
+    jest.mocked(getAllMembers).mockResolvedValue(members);
   });
 
-  test('renders a card for each team member', async () => {
-    // OrganizationPage is an async component
-    await act(async () => {
-      render(<OrganizationPage />);
-    });
-
-    const memberCards = screen.getAllByTestId('team-member-card');
-    expect(memberCards).toHaveLength(mockMembers.length);
-
-    // Check if names are present (simple check that data is passed to mocked cards)
-    expect(screen.getByText('Alice Wonderland')).toBeInTheDocument();
-    expect(screen.getByText('Bob The Builder')).toBeInTheDocument();
+  test("has one h1 from the intro and the team as an h2", async () => {
+    await renderOrganizationPage();
+    const h1s = screen.getAllByRole("heading", { level: 1 });
+    expect(h1s).toHaveLength(1);
+    expect(h1s[0]).toHaveTextContent("Organization.");
+    expect(screen.getByRole("heading", { level: 2, name: "Our Team" })).toBeInTheDocument();
   });
 
-  test('generates JSON-LD script tags for each member', async () => {
-    await act(async () => {
-      render(<OrganizationPage />);
-    });
-
-    const scripts = document.head.querySelectorAll('script[type="application/ld+json"]');
-    expect(scripts.length).toBe(mockMembers.length);
-
-    scripts.forEach((script, index) => {
-      const member = mockMembers[index];
-      const jsonLd = JSON.parse(script.innerHTML);
-
-      expect(jsonLd['@context']).toBe('https://schema.org');
-      expect(jsonLd['@type']).toBe('Person');
-      expect(jsonLd.name).toBe(member.name);
-      expect(jsonLd.image).toBe(`${SITE_URL}/assets/img/people/${member.image}`);
-      expect(jsonLd.jobTitle).toBe(member.title);
-      expect(jsonLd.url).toBe(`${SITE_URL}/organization`);
-
-      const expectedSameAs = [];
-      if (member.linkedin) expectedSameAs.push(member.linkedin);
-      if (member.orcid) expectedSameAs.push(member.orcid);
-      expect(jsonLd.sameAs).toEqual(expectedSameAs);
-    });
+  test("renders a card per member, in the loader's order, with the bio as HTML", async () => {
+    await renderOrganizationPage();
+    expect(
+      screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    ).toEqual(["Alice Wonderland", "Bob </script> Builder"]);
+    expect(screen.getByText("genomics").tagName).toBe("STRONG");
   });
 
-  test('renders page title', async () => {
-     await act(async () => {
-      render(<OrganizationPage />);
+  test("adds schema.org Person data for every member", async () => {
+    const { jsonLd } = await renderOrganizationPage();
+    expect(jsonLd).toHaveLength(2);
+
+    expect(jsonLd[0]).toEqual({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Alice Wonderland",
+      jobTitle: "President",
+      image: "https://rsg-belgium.org/images/team/alice.jpg",
+      affiliation: { "@type": "Organization", name: "KU Leuven" },
+      memberOf: { "@type": "Organization", name: "RSG-Belgium", url: "https://rsg-belgium.org" },
+      url: "https://rsg-belgium.org/organization",
+      sameAs: ["https://www.linkedin.com/in/alice", "https://orcid.org/0000-0001-0000-0001"],
     });
-    expect(screen.getByRole('heading', { name: /Our Team/i, level: 1 })).toBeInTheDocument();
+
+    // Empty fields are left out.
+    expect(jsonLd[1]).not.toHaveProperty("image");
+    expect(jsonLd[1]).not.toHaveProperty("jobTitle");
+    expect(jsonLd[1]).not.toHaveProperty("sameAs");
   });
 
-  test('handles case with no team members', async () => {
-    (api.getAllMembers as jest.Mock).mockReturnValue([]);
-    await act(async () => {
-      render(<OrganizationPage />);
-    });
+  test("escapes < so a value can't close the script tag", async () => {
+    const { scripts, jsonLd } = await renderOrganizationPage();
+    expect(scripts[1].innerHTML).toContain("Bob \\u003c/script> Builder");
+    expect(jsonLd[1].name).toBe("Bob </script> Builder");
+  });
 
-    expect(screen.getByText(/No team member information available./i)).toBeInTheDocument();
-    const scripts = document.head.querySelectorAll('script[type="application/ld+json"]');
-    expect(scripts.length).toBe(0); // No JSON-LD scripts if no members
+  test("says so when there are no members", async () => {
+    jest.mocked(getAllMembers).mockResolvedValue([]);
+    const { scripts } = await renderOrganizationPage();
+    expect(screen.getByText("No team member information available.")).toBeInTheDocument();
+    expect(scripts).toHaveLength(0);
+  });
+
+  test("sets its title and canonical URL", () => {
+    expect(metadata.title).toBe("Our Team");
+    expect(metadata.alternates?.canonical).toBe("/organization");
   });
 });

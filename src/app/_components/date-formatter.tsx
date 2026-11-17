@@ -4,7 +4,7 @@
  * Renders a date string in a human-readable, localized format for display.
  */
 
-'use client';
+"use client";
 
 import { parseDate } from "@/lib/dates";
 
@@ -22,11 +22,11 @@ export default function DateFormatter({ dateString }: { dateString: string }) {
 
   return (
     <time dateTime={dateString}>
-      {date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'UTC'
+      {date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC",
       })}
     </time>
   );

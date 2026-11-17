@@ -40,4 +40,4 @@ Ward is a master’s student in Evolutionary and Behavioural Biology at the Univ
 [![Poster for Beerformatics on 28 May 2026 at the Speciale Belge Taproom in Antwerp](/images/poster/Beerformaticssixth.png)](/images/poster/Beerformaticssixth.png)
 
 Join us for an evening of science, discussion, and beers.
-Spots are limited, register now: [Registration link](ttps://www.eventbrite.com/e/beerformatics-2026-antwerp-edition-tickets-1987902464785)
+Spots are limited, register now: [Registration link](https://www.eventbrite.com/e/beerformatics-2026-antwerp-edition-tickets-1987902464785)

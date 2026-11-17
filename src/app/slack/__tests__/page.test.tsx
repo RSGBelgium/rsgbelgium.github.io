@@ -1,41 +1,44 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import SlackPage from '../page'; // Adjust path
-import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import { CONTACT_EMAIL } from "@/lib/social";
+import SlackPage, { metadata } from "../page";
 
-// Mock Button component
-jest.mock('@/components/Button', () => {
-  return ({ href, children, ...props }: { href: string; children: React.ReactNode } & React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <a href={href} {...props}>{children}</a>
-  );
-});
-
-// Mock Intro component
-jest.mock('@/app/_components/intro', () => {
-  return () => <div data-testid="intro-component">Intro Component Mock</div>;
-});
-
-describe('SlackPage', () => {
-  test('renders the main heading', () => {
+describe("Slack page", () => {
+  test("has one h1 from the intro and an h2 below it", () => {
     render(<SlackPage />);
-    expect(screen.getByRole('heading', { name: /Join the RSG Belgium Slack Channel/i, level: 1 })).toBeInTheDocument();
+    const h1s = screen.getAllByRole("heading", { level: 1 });
+    expect(h1s).toHaveLength(1);
+    expect(h1s[0]).toHaveTextContent("Slack.");
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      "Join the RSG Belgium Slack Channel",
+    );
   });
 
-  test('renders introductory text about the Slack channel', () => {
+  test("hides the decorative emoji from screen readers", () => {
     render(<SlackPage />);
-    expect(screen.getByText(/We have created a Slack channel where our members can get to know each other/i)).toBeInTheDocument();
-    expect(screen.getByText(/To join, please send us an email request/i)).toBeInTheDocument();
+    expect(screen.getByText("💬")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("heading", { level: 2 })).toHaveAccessibleName(
+      "Join the RSG Belgium Slack Channel",
+    );
   });
 
-  test('renders the "Request Invitation to Join Slack" button with correct mailto link', () => {
+  test("explains how to join", () => {
     render(<SlackPage />);
-    const joinButton = screen.getByRole('link', { name: /Request Invitation to Join Slack/i });
-    expect(joinButton).toBeInTheDocument();
-    expect(joinButton).toHaveAttribute('href', 'mailto:iscb.rsg.belgium@gmail.com?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E');
+    expect(
+      screen.getByText(/We have created a Slack channel where our members/),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/To join, please send us an email request/)).toBeInTheDocument();
   });
 
-  test('renders the Intro component', () => {
+  test("links to a pre-filled invitation e-mail", () => {
     render(<SlackPage />);
-    expect(screen.getByTestId('intro-component')).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Request Invitation to Join Slack" })).toHaveAttribute(
+      "href",
+      `mailto:${CONTACT_EMAIL}?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E`,
+    );
+  });
+
+  test("sets its title and canonical URL", () => {
+    expect(metadata.title).toBe("Join Us on Slack");
+    expect(metadata.alternates?.canonical).toBe("/slack");
   });
 });

@@ -9,7 +9,7 @@
  * Links are at least 44px tall.
  */
 
-import Link from 'next/link';
+import Link from "next/link";
 import Container from "@/app/_components/container";
 import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
@@ -36,7 +36,8 @@ export function Footer() {
             <div className="mb-6 md:mb-0">
               <h2 className={FOOTER_HEADING}>RSG-Belgium</h2>
               <p className="text-sm leading-relaxed">
-                Fostering a community of bioinformatics and computational biology students and young researchers in Belgium.
+                Fostering a community of bioinformatics and computational biology students and young
+                researchers in Belgium.
               </p>
             </div>
 
@@ -71,9 +72,7 @@ export function Footer() {
           </div>
 
           <div className="mt-10 pt-8 border-t border-border text-center">
-            <p className="text-sm">
-              &copy; {currentYear} RSG-Belgium. All rights reserved.
-            </p>
+            <p className="text-sm">&copy; {currentYear} RSG-Belgium. All rights reserved.</p>
           </div>
         </div>
       </Container>
