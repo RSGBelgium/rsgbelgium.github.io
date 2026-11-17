@@ -1,6 +1,5 @@
 # RSG-Belgium Website
 
-[![CI](https://github.com/RSGBelgium/rsgbelgium.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/RSGBelgium/rsgbelgium.github.io/actions/workflows/ci.yml)
 [![Deploy](https://github.com/RSGBelgium/rsgbelgium.github.io/actions/workflows/nextjs.yml/badge.svg)](https://github.com/RSGBelgium/rsgbelgium.github.io/actions/workflows/nextjs.yml)
 
 The website of RSG-Belgium, the community of bioinformatics and computational biology students and young researchers in Belgium: **<https://rsg-belgium.org>**.
