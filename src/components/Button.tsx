@@ -2,15 +2,25 @@
  * Reusable button/link component.
  *
  * Renders a styled button or Next.js link with variant and size options.
+ * The variant colours are the `.button-*` classes in src/app/globals.css,
+ * built from the theme tokens, so they work in light and dark mode.
  */
 
+import cn from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline'; // Example variants
+  /**
+   * Colour variant (default: "primary"):
+   * - primary: solid brand blue, for the main action
+   * - secondary: light blue, for secondary actions
+   * - outline: bordered, for use on the page background
+   * - inverse: white outline, for the hero gradient and other coloured backgrounds
+   */
+  variant?: 'primary' | 'secondary' | 'outline' | 'inverse';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -22,7 +32,8 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   ...props
 }) => {
-  const baseStyles = "font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150";
+  // Keyboard focus uses the site-wide :focus-visible outline in globals.css.
+  const baseStyles = "font-semibold rounded-md transition ease-in-out duration-150";
 
   const sizeStyles = {
     sm: "px-3 py-1.5 text-sm",
@@ -31,12 +42,13 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const variantStyles = {
-    primary: "button-primary dark:bg-secondary dark:text-lightblue dark:hover:text-lightblue",
-    secondary: "bg-secondary text-white hover:bg-primary focus:ring-secondary dark:bg-primary dark:text-lightblue dark:hover:bg-secondary dark:focus:ring-primary",
-    outline: "button-outline dark:border-secondary dark:text-lightblue dark:hover:text-lightblue",
+    primary: "button-primary",
+    secondary: "button-secondary",
+    outline: "button-outline",
+    inverse: "button-inverse",
   };
 
-  const combinedClassName = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className || ''}`;
+  const combinedClassName = cn(baseStyles, sizeStyles[size], variantStyles[variant], className);
 
   if (href) {
     return (

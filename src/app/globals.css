@@ -1,8 +1,8 @@
 /* ===========================================================================
    Global Styles for RSG-Belgium Website
    - Loads Tailwind base, components, and utilities
-   - Adds custom transitions, hero, and feature styles
-   - Organizes custom CSS for clarity and maintainability
+   - Defines the light and dark colour tokens (see "Color Palette" in README.md)
+   - Sets the default page background, text and link colours
    =========================================================================== */
 
 @tailwind base;
@@ -10,13 +10,83 @@
 @tailwind utilities;
 
 /* ---------------------------------------------------------------------------
-   Theme Transitions
+   Colour Tokens
+   ---------------------------------------------------------------------------
+   Every colour on the site comes from these variables. tailwind.config.ts
+   turns each one into a Tailwind colour, e.g. --color-surface-muted becomes
+   `bg-surface-muted`, `text-surface-muted`, `border-surface-muted`.
+
+   - Values are bare RGB channels ("248 250 252", not "#F8FAFC"), so that
+     Tailwind's opacity modifiers work, e.g. `bg-highlight/50`.
+   - :root is the light theme. For the dark theme next-themes puts
+     class="dark" on <html>, and .dark redefines the same variables. A
+     component therefore needs one class (`bg-surface`), not a light/dark
+     pair (`bg-white dark:bg-slate-800`).
+   - `accent` is decorative only (borders, gradients): as text on a light
+     background it fails WCAG contrast (2.4:1). Use `accent-strong` for
+     pink text and focus rings.
    --------------------------------------------------------------------------- */
-body {
-  transition-property: background-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-  @apply text-gray-900;
+@layer base {
+  :root {
+    /* Native form controls and scrollbars follow the theme. */
+    color-scheme: light;
+
+    --color-background: 248 250 252;          /* #F8FAFC page */
+    --color-surface: 255 255 255;             /* #FFFFFF cards, header, footer */
+    --color-surface-muted: 241 245 249;       /* #F1F5F9 code blocks, table headers */
+    --color-border: 226 232 240;              /* #E2E8F0 dividers, card borders */
+    --color-foreground: 15 23 42;             /* #0F172A body text */
+    --color-foreground-muted: 71 85 105;      /* #475569 dates, captions */
+    --color-primary: 0 74 173;                /* #004AAD buttons, active nav */
+    --color-primary-hover: 0 58 138;          /* #003A8A */
+    --color-primary-foreground: 255 255 255;  /* #FFFFFF text on primary and on the hero */
+    --color-link: 0 74 173;                   /* #004AAD inline links */
+    --color-accent: 227 133 236;              /* #E385EC decorative only */
+    --color-accent-strong: 154 43 166;        /* #9A2BA6 pink text, focus rings */
+    --color-highlight: 214 232 255;           /* #D6E8FF secondary buttons, info */
+    --color-hero-start: 0 74 173;             /* #004AAD homepage hero gradient */
+    --color-hero-end: 154 43 166;             /* #9A2BA6 */
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --color-background: 15 23 42;             /* #0F172A */
+    --color-surface: 30 41 59;                /* #1E293B */
+    --color-surface-muted: 39 52 73;          /* #273449 */
+    --color-border: 51 65 85;                 /* #334155 */
+    --color-foreground: 241 245 249;          /* #F1F5F9 */
+    --color-foreground-muted: 148 163 184;    /* #94A3B8 */
+    --color-primary: 46 111 216;              /* #2E6FD8 */
+    --color-primary-hover: 36 93 191;         /* #245DBF */
+    --color-primary-foreground: 255 255 255;  /* #FFFFFF */
+    --color-link: 143 187 255;                /* #8FBBFF */
+    --color-accent: 227 133 236;              /* #E385EC */
+    --color-accent-strong: 239 168 245;       /* #EFA8F5 */
+    --color-highlight: 30 58 95;              /* #1E3A5F */
+    --color-hero-start: 11 42 91;             /* #0B2A5B */
+    --color-hero-end: 74 23 82;               /* #4A1752 */
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Links that don't set their own colour. */
+  a {
+    @apply text-link;
+  }
+
+  /* The keyboard focus indicator, for every link, button and other focusable
+     element: a 2px accent-strong line with a 2px gap. It is an outline, so
+     the gap is transparent on any background and it stays visible in
+     forced-colors (high contrast) mode. Components don't add their own focus
+     styles; an element that must look different (e.g. .button-inverse on the
+     hero gradient) changes `outline-color` only. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-accent-strong));
+    outline-offset: 2px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -29,154 +99,47 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   CSS Variables
+   Buttons
+   ---------------------------------------------------------------------------
+   Colour variants used by src/components/Button.tsx, which adds the size,
+   font and corner radius. They live in the components layer, so utility
+   classes passed to a button (e.g. `w-full`) still override them.
+
+   Every variant has a 2px border (transparent when it shouldn't show), so
+   buttons of different variants side by side are the same height. Keyboard
+   focus uses the site-wide :focus-visible outline above.
    --------------------------------------------------------------------------- */
-:root {
-  --primary-color: #0d9ea5;
-}
-
-/* ---------------------------------------------------------------------------
-   Hero Section Styles
-   --------------------------------------------------------------------------- */
-.page__hero {
-  position: relative;
-  margin-bottom: 2em;
-  animation: fadeIn 0.5s ease-in;
-  animation-delay: 0.25s;
-}
-
-.page__hero--overlay {
-  position: relative;
-  margin-bottom: 2em;
-  padding: 3em 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  animation: fadeIn 0.5s ease-in;
-  animation-delay: 0.25s;
-}
-
-.page__hero--overlay a {
-  color: #fff;
-}
-
-.page__hero--overlay .page__title,
-.page__hero--overlay .page__meta,
-.page__hero--overlay .page__lead {
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-.page__hero-image {
-  width: 100%;
-  height: auto;
-}
-
-.page__hero-caption {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0 auto;
-  padding: 2px 5px;
-  color: #fff;
-  font-size: 0.75rem;
-  background: #000;
-  text-align: right;
-  z-index: 5;
-  opacity: 0.5;
-  border-radius: 4px 0 0 0;
-}
-
-@media (min-width: 1024px) {
-  .page__hero-caption {
-    padding: 5px 10px;
+@layer components {
+  .button-primary,
+  .button-secondary,
+  .button-outline,
+  .button-inverse {
+    @apply border-2;
   }
-}
 
-.page__hero-caption a {
-  color: #fff;
-  text-decoration: none;
-}
-
-/* Dark mode overrides for white text */
-@media (prefers-color-scheme: dark) {
-  .page__hero--overlay a,
-  .page__hero--overlay .page__title,
-  .page__hero--overlay .page__meta,
-  .page__hero--overlay .page__lead,
-  .page__hero-caption,
-  .page__hero-caption a {
-    color: #D6E8FF;
+  /* Solid brand blue, for the main action on a page. */
+  .button-primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary-hover;
   }
-}
 
-/* SUGGESTION: The following could be replaced in JSX/TSX with Tailwind classes:
-   - .page__hero-image: 'w-full h-auto'
-   - .page__hero-caption: 'absolute bottom-0 right-0 m-auto px-1.5 py-0.5 text-white text-xs bg-black text-right z-50 opacity-50 rounded-tl'
-*/
-
-/* ---------------------------------------------------------------------------
-   Feature Item Styles
-   --------------------------------------------------------------------------- */
-.feature__item--left .archive__item-teaser,
-.feature__item--right .archive__item-teaser {
-  border-radius: 10%;
-  width: 25%;
-}
-
-.feature__item--left .archive__item-body,
-.feature__item--right .archive__item-body {
-  width: 70%;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.feature__item--right .archive__item-body {
-  padding-right: 5%;
-  float: unset;
-}
-
-/* SUGGESTION: Consider using Tailwind's 'rounded-[10%]' and 'w-1/4' for teasers,
-   and 'w-[70%]' for bodies, if possible in your markup. */
-
-/* ---------------------------------------------------------------------------
-   Animations
-   --------------------------------------------------------------------------- */
-/* fadeIn: Used for smooth entrance of hero and overlay sections */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  /* Light blue, for secondary actions such as "View All News". */
+  .button-secondary {
+    @apply border-transparent bg-highlight text-foreground hover:bg-primary hover:text-primary-foreground;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  /* Bordered, on the page background. The text uses `link`, because the
+     dark theme's primary blue is too dim for text on the page (3.7:1). */
+  .button-outline {
+    @apply border-primary text-link hover:bg-primary hover:text-primary-foreground;
   }
-}
 
-/* ---------------------------------------------------------------------------
-   Global Text and Link Colors for Dark Mode
-   --------------------------------------------------------------------------- */
-/*
-  NOTE: Do NOT use @apply with Tailwind variants (like dark:) for custom colors.
-  Instead, add dark: classes directly in your JSX/TSX, e.g.:
-    <a className="text-primary hover:text-secondary dark:text-secondary dark:hover:text-white">Link</a>
-    <button className="bg-primary text-white hover:bg-secondary dark:bg-secondary dark:text-slate-900 dark:hover:bg-primary">Button</button>
-*/
+  /* White outline, for the hero gradient and other dark or coloured backgrounds.
+     Its focus outline is white too: pink would be hard to see on the gradient. */
+  .button-inverse {
+    @apply border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary;
+  }
 
-body {
-  @apply text-gray-900;
-}
-
-a {
-  @apply text-primary hover:text-secondary transition-colors;
-}
-
-/* Remove all .dark\:text-secondary, .button-primary.dark\:bg-secondary, etc. */
-.button-primary {
-  @apply bg-primary text-white hover:bg-secondary;
-}
-
-.button-outline {
-  @apply border-primary text-primary hover:bg-primary hover:text-white;
+  .button-inverse:focus-visible {
+    outline-color: rgb(var(--color-primary-foreground));
+  }
 }

@@ -51,12 +51,12 @@ export default function MemberAvatar({ name, image, size = "lg", className }: Me
   return (
     <div className={cn("relative shrink-0 rounded-full overflow-hidden", box, className)}>
       {image ? (
-        <Image src={image} alt={name} fill sizes={`${px}px`} style={{ objectFit: "cover" }} />
+        <Image src={image} alt={name} fill sizes={`${px}px`} className="object-cover" />
       ) : (
         <div
           role="img"
           aria-label={name}
-          className={cn("w-full h-full flex items-center justify-center bg-primary text-white font-bold select-none", text)}
+          className={cn("w-full h-full flex items-center justify-center bg-primary text-primary-foreground font-bold select-none", text)}
         >
           {getInitials(name)}
         </div>

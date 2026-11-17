@@ -24,13 +24,13 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-800 text-gray-300 border-t border-gray-700">
+    <footer className="bg-surface text-foreground-muted border-t border-border">
       <Container>
         <div className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* About Section */}
             <div className="mb-6 md:mb-0">
-              <h3 className="text-lg font-semibold text-white mb-3">RSG-Belgium</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">RSG-Belgium</h3>
               <p className="text-sm leading-relaxed">
                 Fostering a community of bioinformatics and computational biology students and young researchers in Belgium.
               </p>
@@ -38,11 +38,11 @@ export function Footer() {
 
             {/* Navigation Links */}
             <div className="mb-6 md:mb-0">
-              <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Quick Links</h3>
               <ul className="space-y-2">
                 {ALL_NAV_PAGES.map((item) => (
                   <li key={item.title}>
-                    <Link href={item.url} className="text-sm text-lightblue hover:text-white hover:underline transition-colors">
+                    <Link href={item.url} className="text-sm text-link hover:underline">
                       {item.title}
                     </Link>
                   </li>
@@ -52,7 +52,7 @@ export function Footer() {
 
             {/* Social Media & Contact */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-3 dark:text-lightblue">Connect With Us</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Connect With Us</h3>
               {socialLinks.length > 0 && (
                 <div className="flex space-x-4 mb-4">
                   {socialLinks.map((social) => (
@@ -61,7 +61,7 @@ export function Footer() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lightblue hover:text-white transition-colors"
+                      className="text-link hover:text-accent-strong transition-colors"
                       aria-label={social.name}
                     >
                       {/* Placeholder for actual icons - using text for now */}
@@ -71,13 +71,13 @@ export function Footer() {
                   ))}
                 </div>
               )}
-              <p className="text-sm text-lightblue">
-                Email: <a href="mailto:iscb.rsg.belgium@gmail.com" className="hover:text-white hover:underline text-lightblue">iscb.rsg.belgium@gmail.com</a>
+              <p className="text-sm">
+                Email: <a href="mailto:iscb.rsg.belgium@gmail.com" className="text-link hover:underline">iscb.rsg.belgium@gmail.com</a>
               </p>
             </div>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-gray-700 text-center">
+          <div className="mt-10 pt-8 border-t border-border text-center">
             <p className="text-sm">
               &copy; {currentYear} RSG-Belgium. All rights reserved.
             </p>

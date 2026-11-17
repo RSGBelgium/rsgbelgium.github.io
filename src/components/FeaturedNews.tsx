@@ -26,14 +26,14 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
   }
 
   return (
-    <section className="bg-white dark:bg-slate-900 py-16 md:py-24">
+    <section className="py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-lightblue">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Latest News
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
-            <div key={post.slug} className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+            <div key={post.slug} className="bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col">
               {post.coverImage && (
                 <Link href={postPath(post.slug)} className="block">
                   {/* Simplified image display, next/image could be used here too */}
@@ -46,21 +46,21 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
-                  <Link href={postPath(post.slug)} className="hover:text-blue-600 transition-colors duration-200">
+                  <Link href={postPath(post.slug)} className="text-link hover:underline">
                     {post.title}
                   </Link>
                 </h3>
-                <div className="text-sm text-gray-500 mb-3">
+                <div className="text-sm text-foreground-muted mb-3">
                   <DateFormatter dateString={post.date} />
                 </div>
                 {post.excerpt && (
-                  <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                  <p className="text-foreground leading-relaxed mb-4 text-sm">
                     {post.excerpt}
                   </p>
                 )}
               </div>
               <div className="p-6 pt-0">
-                 <Link href={postPath(post.slug)} className="text-primary hover:text-secondary font-medium text-sm">
+                 <Link href={postPath(post.slug)} className="text-link hover:underline font-medium text-sm">
                     Read more &rarr;
                   </Link>
               </div>

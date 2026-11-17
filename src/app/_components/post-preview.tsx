@@ -54,11 +54,11 @@ export function PostPreview({
         </div>
       )}
       <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={postPath(slug)} className="text-primary hover:underline hover:text-secondary dark:text-lightblue dark:hover:text-white">
+        <Link href={postPath(slug)} className="text-link hover:underline">
           {title}
         </Link>
       </h3>
-      <div className="text-lg mb-4">
+      <div className="text-lg mb-4 text-foreground-muted">
         <DateFormatter dateString={date} />
       </div>
       {excerpt && <p className="text-lg leading-relaxed mb-4">{excerpt}</p>}

@@ -52,7 +52,7 @@ export default function PostHeader({ title, coverImage, date, author }: Props) {
         <div className="block md:hidden mb-6">
           <Avatar name={displayAuthor.name} picture={displayAuthor.picture} />
         </div>
-        <div className="mb-6 text-lg">
+        <div className="mb-6 text-lg text-foreground-muted">
           <DateFormatter dateString={date} />
         </div>
       </div>

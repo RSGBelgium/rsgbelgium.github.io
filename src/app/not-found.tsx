@@ -21,7 +21,7 @@ export default function NotFound() {
   return (
     <Container>
       <div className="py-24 text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary dark:text-lightblue">
+        <p className="text-sm font-semibold uppercase tracking-wide text-accent-strong">
           Error 404
         </p>
         <h1 className="mt-2 text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
