@@ -59,6 +59,9 @@ jobs:
       - name: Check the content (front matter, links, images, privacy)
         run: npm run check:content
 
+      - name: Check the files in public/ (unused files, size budget, file names)
+        run: npm run check:assets
+
       - name: Restore the Next.js build cache
         uses: actions/cache@v6
         with:

@@ -6,18 +6,13 @@
  * description, in the RSS feed and in post previews.
  */
 
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
 import { visit, EXIT } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import type { Paragraph } from "mdast";
+import { markdownParser } from "@/lib/markdown-parser";
 
 /** Default excerpt length, in characters: about what search engines show of a description. */
 export const EXCERPT_MAX_LENGTH = 160;
-
-/** Shared markdown parser (parsing only, no HTML output). */
-const markdownParser = unified().use(remarkParse).use(remarkGfm);
 
 /**
  * Shortens text to at most `maxLength` characters, cutting at a word

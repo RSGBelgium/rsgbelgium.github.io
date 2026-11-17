@@ -40,11 +40,12 @@ describe("News page", () => {
     expect(getAllPosts).toHaveBeenCalledWith();
   });
 
-  test("has one h1 from the intro", async () => {
+  test("has one h1 from the page header", async () => {
     await renderNewsPage();
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0]).toHaveTextContent("News.");
+    // The page title, without the blog template's full stop.
+    expect(h1s[0].textContent).toBe("News");
   });
 
   test("features the newest post as an h2, with the RSG-Belgium author by default", async () => {
@@ -74,7 +75,7 @@ describe("News page", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
-  test("renders only the intro when there are no posts", async () => {
+  test("renders only the page header when there are no posts", async () => {
     jest.mocked(getAllPosts).mockResolvedValue([]);
     await renderNewsPage();
     expect(screen.getAllByRole("heading")).toHaveLength(1);

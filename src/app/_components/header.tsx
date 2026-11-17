@@ -21,6 +21,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
+import Container from "./container";
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
 import { NAV_ITEMS, SLACK_PAGE, type NavItem } from "@/lib/navigation";
 
@@ -112,7 +113,8 @@ const Header = () => {
 
   return (
     <header className="bg-surface border-b border-border shadow-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* The same page-width wrapper as the pages and the footer: the logo lines up with their content. */}
+      <Container>
         <div className="flex items-center justify-between h-16">
           {/* Logo (one size smaller on the narrowest phones, to leave room for the theme switcher) */}
           <div className="flex-shrink-0">
@@ -189,7 +191,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile Menu: always rendered, so the toggle's aria-controls is valid; `hidden` while closed. */}
       <div className="md:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>

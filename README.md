@@ -67,17 +67,19 @@ No environment variables or `.env` files are needed.
 
 ## Scripts
 
-| Command                 | What it does                                                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `npm run dev`           | Development server at <http://localhost:3000>, with hot reload.                                                           |
-| `npm run build`         | Builds the static site into `out/` (`next build`).                                                                        |
-| `npm run lint`          | ESLint with the Next.js core-web-vitals and TypeScript rules. Fails on any warning. `npm run lint:fix` fixes what it can. |
-| `npm run format`        | Formats the code with Prettier. `npm run format:check` only checks (CI runs this).                                        |
-| `npm run typecheck`     | Type-checks the app and the tests (`tsc --noEmit`).                                                                       |
-| `npm test`              | Runs the Jest tests. `npm run test:watch` re-runs them on save; `npm run test:ci` adds a coverage report in `coverage/`.  |
-| `npm run check:content` | Checks the posts and team profiles in `content/` (see below).                                                             |
-| `npm run check:site`    | Checks the built site in `out/` with html-validate and linkinator (run `npm run build` first; see below).                 |
-| `npm run ci`            | Everything CI runs, in the same order: lint, format check, type check, tests, content check, build, site check.           |
+| Command                   | What it does                                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`             | Development server at <http://localhost:3000>, with hot reload.                                                              |
+| `npm run build`           | Builds the static site into `out/` (`next build`).                                                                           |
+| `npm run lint`            | ESLint with the Next.js core-web-vitals and TypeScript rules. Fails on any warning. `npm run lint:fix` fixes what it can.    |
+| `npm run format`          | Formats the code with Prettier. `npm run format:check` only checks (CI runs this).                                           |
+| `npm run typecheck`       | Type-checks the app and the tests (`tsc --noEmit`).                                                                          |
+| `npm test`                | Runs the Jest tests. `npm run test:watch` re-runs them on save; `npm run test:ci` adds a coverage report in `coverage/`.     |
+| `npm run check:content`   | Checks the posts and team profiles in `content/` (see below).                                                                |
+| `npm run optimize:images` | Shrinks the images in `public/images/` and converts them to WebP, updating their links (see below).                          |
+| `npm run check:assets`    | Checks the files in `public/`: no unused files, size budget, file names (see below).                                         |
+| `npm run check:site`      | Checks the built site in `out/` with html-validate and linkinator (run `npm run build` first; see below).                    |
+| `npm run ci`              | Everything CI runs, in the same order: lint, format check, type check, tests, content check, asset check, build, site check. |
 
 To preview the exported site as GitHub Pages will serve it, run `npm run build` and then `npx serve@latest out`. (`next start` does not work with a static export.)
 
@@ -108,6 +110,14 @@ Every check runs in CI on each pull request; run `npm run ci` to run them all lo
 - **Team profiles:** `name` set; `linkedin`/`orcid` empty or `https://` URLs; `image` empty or an existing file; `order` set, and the profiles numbered 1 to n (each number once, no gaps).
 - **Privacy:** no e-mail addresses or phone numbers in team profiles, and no spreadsheets or data exports (`.csv`, `.xlsx`, `.ods`, ...) tracked by git: board registries and registration exports contain personal data and must never be committed.
 
+### Images and the asset check
+
+The site is a static export with `images.unoptimized` ([`next.config.js`](next.config.js)): nothing resizes or converts images at build time, and visitors download the files in `public/` exactly as they are. Images are therefore optimised **at the source**, before they are committed:
+
+- `npm run optimize:images` ([`scripts/optimize-images.mjs`](scripts/optimize-images.mjs), with [sharp](https://sharp.pixelplumbing.com)) turns the JPEG, PNG and WebP files in `public/images/` upright (EXIF), scales them down to at most 1600 px on the long side (team photos 600 px), strips their metadata (camera, GPS location) and saves them as WebP at quality 80. A post's `coverImage` is also its link preview, so cover images are saved as JPEG instead. SVGs that embed photos are rendered to WebP; plain drawings such as logos stay SVG. Converted originals are deleted and every link to them (in `content/`, `src/`, `guides/`, this README and `public/`) is updated. It also generates all favicons in `public/favicon/` from `public/favicon/favicon.svg`, including a 16/32/48 px `favicon.ico`. Optimised files are left alone: running it twice changes nothing the second time. `src/app/opengraph-image.png` (the default link preview) stays a PNG.
+- `npm run check:assets` ([`scripts/check-assets.mjs`](scripts/check-assets.mjs)) fails on any file in `public/` that nothing links to (matched by URL path, with the exact upper/lower case; links in tests don't count), on raster images over **300 KB** and SVGs over **100 KB** (PDFs and calendar files are exempt), and on `/images/`, `/assets/` or `/favicon/` paths in the code that are not files. Before that, [ls-lint](https://ls-lint.org) ([`.ls-lint.yml`](.ls-lint.yml)) checks the file names: lower-case extensions of the allowed file types, and only letters, digits, `-` and `_` (no spaces). `npm run check:assets -- --list` prints every file with its size and where it is used. After optimisation the largest image is about 180 KB.
+- In posts, every image gets `loading="lazy"` and `decoding="async"`, and local images also get their `width` and `height`, read from the file at build time ([`src/lib/image-size.ts`](src/lib/image-size.ts)), so pages don't jump while images load. Only the home page's logo is preloaded (`priority`).
+
 ### Site check
 
 `npm run check:site` checks every page in `out/` after a build, with two libraries:
@@ -121,7 +131,7 @@ The skip link coming first is a unit test (`src/app/__tests__/layout.test.tsx`);
 
 GitHub Actions workflows live in [`.github/workflows/`](.github/workflows/).
 
-**On every pull request**, [CI](.github/workflows/ci.yml) runs on Node.js from `.nvmrc`: `npm ci`, lint, format check, type check, tests with coverage, content check, build (with the Next.js build cache) and site check. The built site is attached to the run as the `site` artifact, so reviewers can download and look at it. A new push to the pull request cancels the outdated run. CI can also be started by hand from the Actions tab.
+**On every pull request**, [CI](.github/workflows/ci.yml) runs on Node.js from `.nvmrc`: `npm ci`, lint, format check, type check, tests with coverage, content check, asset check, build (with the Next.js build cache) and site check. The built site is attached to the run as the `site` artifact, so reviewers can download and look at it. A new push to the pull request cancels the outdated run. CI can also be started by hand from the Actions tab.
 
 **On every push to `main`** (a merged pull request), [Deploy to GitHub Pages](.github/workflows/nextjs.yml) runs the same CI first. Only when it passes does it take the `site` artifact that CI built and checked, and publish exactly those files to GitHub Pages. One deployment runs at a time.
 
@@ -146,7 +156,7 @@ content/
   organization/      Team member profiles (Markdown), one file per person
 guides/              Guides and templates for content editors: start here to add content
 public/              Static files served as they are: images/, assets/ (PDFs, calendar files), favicon/
-scripts/             check-content.mjs and its helpers (lib/)
+scripts/             check-content.mjs, check-assets.mjs, optimize-images.mjs and their shared helpers (lib/)
 src/
   app/               Next.js App Router: pages, the root layout, feed.xml, sitemap and robots
     _components/     Components of the site's layout and posts (header, footer, post body, ...)
@@ -166,6 +176,6 @@ Pages are written to work with a keyboard and a screen reader: semantic HTML, on
 
 1. Create a branch from an up-to-date `main`. Nobody commits to `main` directly.
 2. Make your change. Content editors: follow the [content editing guides](guides/README.md).
-3. Run `npm run ci` (or at least `npm run check:content` for content-only changes).
+3. Run `npm run ci` (or at least `npm run check:content` for content-only changes). If you added images, run `npm run optimize:images` first.
 4. Add files by name (`git add path/to/file`), not with `git add .`, so that you never commit unrelated or private files, and never commit personal data such as member lists or registration exports.
 5. Push the branch and open a pull request. CI checks it, and another board member reviews it. Once it is merged, the site is deployed automatically.

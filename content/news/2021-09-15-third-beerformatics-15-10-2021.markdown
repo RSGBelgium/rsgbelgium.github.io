@@ -57,4 +57,4 @@ The event is free of charge but registration is mandatory. You can [register for
 
 ## Event poster
 
-<img src="/images/poster/2021-10-15-beerformatics.svg" alt="Poster for the RSG-Belgium Beerformatics on bioinformatics startups on 15 October 2021 in Ghent" style="border: 5px solid #f8f3daff;">
+<img src="/images/poster/2021-10-15-beerformatics.webp" alt="Poster for the RSG-Belgium Beerformatics on bioinformatics startups on 15 October 2021 in Ghent" style="border: 5px solid #f8f3daff;">

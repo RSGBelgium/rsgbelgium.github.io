@@ -81,10 +81,11 @@ Use `YYYY-MM-DD` with leading zeros (`"2026-05-04"`, not `"2026-5-4"`).
 - [ ] `title` and `date` are set, and `date` is in quotes
 - [ ] `excerpt` is set
 - [ ] Every image has descriptive alt text and its file exists under `public/`
+- [ ] New images were shrunk with `npm run optimize:images`
 - [ ] Internal links start with `/` and have no trailing slash (`/news/...`, not `https://rsg-belgium.org/news/.../`)
 - [ ] Body headings start at `##` and don't skip a level
 - [ ] Link texts are descriptive (no "here"), and every `<iframe>` has a `title`
 - [ ] No Liquid (`{{ }}`, `{% %}`), kramdown (`{: .class}`) or "fancy" Unicode bold text
 - [ ] Checked for typos, and every link opens the right page
 - [ ] Previewed with `npm run dev`
-- [ ] `npm run check:content` reports no errors (CI runs it on your pull request too, see [Checking your changes](README.md#checking-your-changes))
+- [ ] `npm run check:content` and `npm run check:assets` report no errors (CI runs them on your pull request too, see [Checking your changes](README.md#checking-your-changes))

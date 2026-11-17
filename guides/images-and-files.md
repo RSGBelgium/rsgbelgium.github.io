@@ -13,8 +13,8 @@ Images, PDFs and calendar files live in the `public/` folder. Everything in
 | `public/assets/pdf/`           | `/assets/pdf/<file>`           | Printable flyers, programmes, brochures                 |
 | `public/assets/ics/`           | `/assets/ics/<file>`           | Calendar invites ("add to calendar")                    |
 
-Example: `public/images/poster/2026-10-15-beerformatics-ghent.jpg` is used in
-a post as `/images/poster/2026-10-15-beerformatics-ghent.jpg`.
+Example: `public/images/poster/2026-10-15-beerformatics-ghent.webp` is used in
+a post as `/images/poster/2026-10-15-beerformatics-ghent.webp`.
 
 There are no other image folders. Paths from the old site such as
 `/assets/img/...` or `/assets/pdf/poster/...` don't exist.
@@ -27,40 +27,85 @@ There are no other image folders. Paths from the old site such as
   together and are easy to find.
 - Paths are **case-sensitive** on the live site: `photo.JPG` and `photo.jpg`
   are different files. A wrong capital letter works on some laptops but
-  breaks on the website.
+  breaks on the website. (`npm run optimize:images` turns `photo.JPG` into
+  `photo.webp` and fixes the links for you.)
 - Don't rename or delete files that published posts already use. That
   breaks those posts.
 
 ## Size and format
 
-| Kind                                | Format                                                                 | Size                                                          |
-| ----------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Photos                              | JPEG (`.jpg`) or WebP (`.webp`)                                        | Max 1600 px on the long side, ideally ≤ 500 KB                |
-| Posters, flyers, graphics with text | PNG, JPEG or WebP; SVG for logos                                       | Max 1600 px on the long side, ideally ≤ 500 KB                |
-| Team portraits                      | JPEG or WebP, roughly square, face centred (shown cropped to a circle) | At most about 600 × 600 px, ≤ 200 KB                          |
-| PDFs                                | PDF                                                                    | As small as practical (export "for web"/"smallest file size") |
+The website doesn't shrink images for you: visitors download every file
+exactly as it is in `public/`. A photo straight from a phone is 3-5 MB; on
+the website it should be 50-200 KB.
 
-Large images make the site slow, especially on phones. Resize them before
-adding them. Free tools: [Squoosh](https://squoosh.app/) (in the browser),
-Preview on macOS (Tools → Adjust Size), or the Photos app on Windows
-(Resize image).
+So add your images in any common format (JPEG, PNG or WebP; export posters
+from Canva or Illustrator as PNG or JPEG), link them in your post, and then
+run:
 
-Don't add images you don't use, and don't add several copies of the same
-image.
+```bash
+npm run optimize:images
+```
+
+It does everything for you:
+
+- scales images down (never up) to at most **1600 px** on the long side,
+  team portraits to **600 px**;
+- turns photos upright and removes their metadata (camera details, GPS
+  location);
+- converts them to **WebP**: `poster.png` becomes `poster.webp`, the
+  original is deleted, and the links in your posts are updated. A post's
+  cover image (`coverImage`) becomes a **JPEG** instead, because not every
+  social network shows WebP link previews;
+- renders SVG posters that contain photos (e.g. from Inkscape) to WebP.
+  Logos stay SVG.
+
+Look at the result in the preview, then commit the new files and the
+deleted originals. Running it again changes nothing, and
+`npm run optimize:images -- --dry-run` only shows what it would do.
+
+| Kind                                | Folder           | After `npm run optimize:images`                                          |
+| ----------------------------------- | ---------------- | ------------------------------------------------------------------------ |
+| Photos                              | `photo_gallery/` | WebP, at most 1600 px                                                    |
+| Posters, flyers, graphics with text | `poster/`        | WebP, at most 1600 px (a cover image: JPEG)                              |
+| Team portraits                      | `team/`          | WebP, at most 600 px. Roughly square, face centred (cropped to a circle) |
+| Logos                               | `logo/`          | SVG, unchanged                                                           |
+| PDFs                                | `assets/pdf/`    | Unchanged: export them "for web" or "smallest file size"                 |
+
+### The asset check
+
+`npm run check:assets` checks every file in `public/`. It runs on every pull
+request too, and fails when:
+
+- an image is too big: more than **300 KB** for a WebP, JPEG or PNG, or
+  **100 KB** for an SVG. Run `npm run optimize:images`. PDFs and calendar
+  files have no limit: they are downloads for printing.
+- a file isn't used by any post, profile or page. Delete it (git keeps old
+  versions) or link to it. When you take an image out of a post, or a member
+  leaves the board, delete their image too.
+- a file name has an upper-case extension (`.JPG`), a file type that isn't
+  allowed yet, or spaces or other characters such as `#` (this part is
+  checked by ls-lint: the message names the file and the rule in
+  `.ls-lint.yml`).
+
+Each problem is listed with the file and how to fix it.
+`npm run check:assets -- --list` shows every file, its size and where it is
+used.
 
 ## Using images in a post
 
 ```markdown
-![Poster for Beerformatics on 5 November 2026 in Ghent](/images/poster/2026-10-15-beerformatics-ghent.jpg)
+![Poster for Beerformatics on 5 November 2026 in Ghent](/images/poster/2026-10-15-beerformatics-ghent.webp)
 ```
 
-Images are centred and scaled to the width of the text automatically.
+Images are centred and scaled to the width of the text automatically. They
+load as readers scroll down, and the page keeps their space free while they
+load, so the text doesn't jump.
 
 To let readers open the full-size image or a PDF by clicking it, wrap the
 image in a link:
 
 ```markdown
-[![Poster for the RSG-Belgium Student Symposium on 4 December 2026](/images/poster/2026-12-04-student-symposium.png)](/assets/pdf/2026-12-04-student-symposium.pdf)
+[![Poster for the RSG-Belgium Student Symposium on 4 December 2026](/images/poster/2026-12-04-student-symposium.webp)](/assets/pdf/2026-12-04-student-symposium.pdf)
 ```
 
 To use an image as the post's cover (shown at the top of the post, on its

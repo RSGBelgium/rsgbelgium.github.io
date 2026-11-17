@@ -6,6 +6,7 @@
  * all of these). Colours are the theme tokens from src/app/globals.css,
  * which switch between light and dark by themselves. Don't use `dark:`
  * here: CSS Modules rename the `.dark` class, so those rules never match.
+ * The one dark-only rule below names it with `:global(.dark)` instead.
  */
 .markdown {
   @apply text-lg leading-relaxed;
@@ -100,6 +101,15 @@
 /* Images: centred and scaled down to fit the content column */
 .markdown img {
   @apply block mx-auto max-w-full h-auto;
+}
+
+/* A post may frame an image with an inline style chosen for the light page,
+   e.g. the 2021 Beerformatics poster's `border: 5px solid #f8f3da`, a cream
+   frame that glares on the dark page. In the dark theme such borders take the
+   theme's border colour; their width and style stay. `!important` is the only
+   way a stylesheet can override an inline style. */
+:global(.dark) .markdown img[style*="border"] {
+  border-color: rgb(var(--color-border)) !important;
 }
 
 /* Embedded maps: Google's code fixes width="600", wider than a phone. Never

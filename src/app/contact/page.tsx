@@ -8,6 +8,7 @@
 
 import { Metadata } from "next";
 import Container from "@/app/_components/container";
+import { PageHeader } from "@/app/_components/page-header";
 import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { pageAlternates } from "@/lib/metadata";
 import { CONTACT_CHANNELS } from "@/lib/social";
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * Renders the Contact page: a heading, a short welcome and one card per channel.
+ * Renders the Contact page: the page header (title and a short welcome) and
+ * one card per channel.
  *
  * Each card has one link (the channel's descriptive link text). The link's
  * `after:` pseudo-element is stretched over the whole card, so the entire
@@ -30,18 +32,14 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <Container>
-      <div className="py-12 md:py-20">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
-          Get in Touch
-        </h1>
-        <p className="text-lg text-foreground-muted text-center mb-10 max-w-xl mx-auto">
-          Have a question, an idea for an event, or want to collaborate? We&apos;d love to hear from
-          you. Pick whichever channel suits you best.
-        </p>
-
+      <PageHeader
+        title="Get in Touch"
+        description="Have a question, an idea for an event, or want to collaborate? We'd love to hear from you. Pick whichever channel suits you best."
+      />
+      <div className="pb-16 md:pb-24">
         {/* grid-cols-1 (minmax(0, 1fr)) and overflow-wrap:anywhere on the link let a long link,
             such as the e-mail address, wrap on narrow phones instead of widening the page. */}
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {CONTACT_CHANNELS.map((channel) => (
             <li
               key={channel.id}

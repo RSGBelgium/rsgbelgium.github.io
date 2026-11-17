@@ -11,7 +11,7 @@ After last year's success, RSG Belgium is excited to announce the second RSG Bel
 
 Like last year, we want to provide an environment for young researchers to improve their problem solving skills and to cooperate in a multidisciplinary team with a common goal.
 
-[![Poster for the second RSG-Belgium Hackathon on 6 December 2019 in Brussels](/images/poster/hackathon_2019.png)](/images/poster/hackathon_2019.png)
+[![Poster for the second RSG-Belgium Hackathon on 6 December 2019 in Brussels](/images/poster/hackathon_2019.webp)](/images/poster/hackathon_2019.webp)
 
 We have chosen a number of different projects that could be tackled during the event. We ask you to already indicate your preference during registration, so that we can make preparations for the most popular topics.
 
@@ -67,7 +67,7 @@ In general, the university is accessible by metro, bus and train. Specific signs
 
 Please also consult the following map of the ULB Campus de la plaine to guide you to the NO Building.
 
-![Map of the ULB La Plaine campus showing the way to building NO](/images/maps/hackathon-LaPlaineMap.png)
+![Map of the ULB La Plaine campus showing the way to building NO](/images/maps/hackathon-LaPlaineMap.webp)
 
 ### Access from the Bruxelles-Central train station
 

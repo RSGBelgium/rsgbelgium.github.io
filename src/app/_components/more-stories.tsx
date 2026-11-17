@@ -5,6 +5,7 @@
  */
 
 import { Post } from "@/interfaces/post";
+import { SECTION_HEADING } from "./page-header";
 import { PostPreview } from "./post-preview";
 
 type Props = {
@@ -19,15 +20,14 @@ type Props = {
 export function MoreStories({ posts }: Props) {
   return (
     <section>
-      <h2 className="mb-8 text-5xl md:text-7xl font-bold tracking-tighter leading-tight">
-        More Stories
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
+      <h2 className={`${SECTION_HEADING} mb-6 md:mb-8`}>More Stories</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 md:gap-y-12 pb-16 md:pb-24">
         {posts.map((post) => (
           <PostPreview
             key={post.slug}
             title={post.title}
             coverImage={post.coverImage}
+            coverImageSize={post.coverImageSize}
             date={post.date}
             author={post.author}
             slug={post.slug}

@@ -7,6 +7,7 @@
 import React from "react";
 import { Member } from "@/interfaces/member";
 import Button from "./Button"; // Reusable button
+import Container from "@/app/_components/container";
 import MemberAvatar from "./MemberAvatar";
 
 interface TeamSpotlightProps {
@@ -25,7 +26,7 @@ const TeamSpotlight: React.FC<TeamSpotlightProps> = ({ members }) => {
 
   return (
     <section className="py-12 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Meet the Team
         </h2>
@@ -52,7 +53,7 @@ const TeamSpotlight: React.FC<TeamSpotlightProps> = ({ members }) => {
             View Full Team
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

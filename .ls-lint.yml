@@ -1,0 +1,42 @@
+# File and folder names in public/, checked by ls-lint (https://ls-lint.org)
+# as part of `npm run check:assets`.
+#
+# Everything in public/ is published under its own name, and links are
+# case-sensitive on the live site, so:
+# - names use only letters, digits, "-" and "_": no spaces or characters
+#   that have to be escaped in a link;
+# - extensions are lower case. Only the file types listed below are
+#   allowed; any other extension, such as ".JPG", fails with the message
+#   "rename-to-a-lowercase-extension-listed-in-ls-lint-yml" (a pattern no
+#   file name can match). Add a new lower-case file type here when needed.
+#
+# ls-lint applies these rules per folder, so the same rules (the YAML
+# anchor below) are given for public/ and for every folder inside it.
+
+_public_names: &public_names
+  .dir: regex:[A-Za-z0-9_-]+
+  .*: regex:rename-to-a-lowercase-extension-listed-in-ls-lint-yml
+  .webp: regex:[A-Za-z0-9_-]+
+  .jpg: regex:[A-Za-z0-9_-]+
+  .jpeg: regex:[A-Za-z0-9_-]+
+  .png: regex:[A-Za-z0-9_-]+
+  .gif: regex:[A-Za-z0-9_-]+
+  .avif: regex:[A-Za-z0-9_-]+
+  .svg: regex:[A-Za-z0-9_-]+
+  .ico: regex:[A-Za-z0-9_-]+
+  .pdf: regex:[A-Za-z0-9_-]+
+  .ics: regex:[A-Za-z0-9_-]+
+  .webmanifest: regex:[A-Za-z0-9_-]+
+  .xml: regex:[A-Za-z0-9_-]+
+  .json: regex:[A-Za-z0-9_-]+
+  .txt: regex:[A-Za-z0-9_-]+
+
+ls:
+  public: *public_names
+  public/**: *public_names
+
+ignore:
+  # Files operating systems drop into folders; git ignores them and they are never published.
+  - "**/.DS_Store"
+  - "**/Thumbs.db"
+  - "**/desktop.ini"

@@ -6,7 +6,7 @@
 
 import { Metadata } from "next";
 import Container from "@/app/_components/container";
-import { Intro } from "@/app/_components/intro";
+import { PageHeader } from "@/app/_components/page-header";
 import { getAllPosts } from "@/lib/api";
 import { MoreStories } from "@/app/_components/more-stories";
 import { HeroPost } from "@/app/_components/hero-post";
@@ -29,7 +29,7 @@ export default async function NewsPage() {
 
   return (
     <Container>
-      <Intro
+      <PageHeader
         title="News"
         description={`Stay updated with the latest news and events from ${SITE_NAME}.`}
       />
@@ -37,6 +37,7 @@ export default async function NewsPage() {
         <HeroPost
           title={heroPost.title}
           coverImage={heroPost.coverImage}
+          coverImageSize={heroPost.coverImageSize}
           date={heroPost.date}
           author={heroPost.author || DEFAULT_AUTHOR}
           slug={heroPost.slug}

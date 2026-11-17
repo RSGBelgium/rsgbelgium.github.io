@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Post } from "@/interfaces/post"; // Assuming Post interface exists
 import Button from "./Button"; // Reusable button
+import Container from "@/app/_components/container";
 import DateFormatter from "@/app/_components/date-formatter"; // Date formatter
 import { postPath } from "@/lib/urls";
 
@@ -34,7 +35,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
 
   return (
     <section className="py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Latest News
         </h2>
@@ -44,17 +45,15 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               key={post.slug}
               className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
             >
-              {post.coverImage && (
+              {post.coverImage?.startsWith("/") && (
                 // Decorative: the title says what the post is about. The image fills a
                 // full-width, 12rem-tall box (cropped with object-cover), so next/image's
                 // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
+                // Only site paths ("/images/...") are shown: `npm run check:content`
+                // rejects any other coverImage, and the card works without an image.
                 <div className="relative h-48">
                   <Image
-                    src={
-                      post.coverImage.startsWith("/")
-                        ? post.coverImage
-                        : `/assets/blog/${post.slug}/${post.coverImage}`
-                    }
+                    src={post.coverImage}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -93,7 +92,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
             View All News
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
