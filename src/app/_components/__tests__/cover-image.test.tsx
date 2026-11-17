@@ -65,6 +65,32 @@ describe("CoverImage", () => {
     expect(screen.getByRole("img")).not.toHaveClass("object-cover");
   });
 
+  test("uncropped, is centred and neither wider than the image nor taller than 60% of the screen", () => {
+    render(
+      <CoverImage
+        title="Poster"
+        src="/images/poster/a.webp"
+        size={{ width: 1131, height: 1600 }}
+      />,
+    );
+    const image = screen.getByRole("img");
+    expect(image).toHaveClass("block", "mx-auto");
+    expect(image.style.maxWidth).toBe("min(1131px, 60svh * 1131 / 1600)");
+  });
+
+  test("cropped, has no maximum width: it fills its column", () => {
+    const { container } = render(
+      <CoverImage
+        title="Poster"
+        src="/images/poster/a.webp"
+        size={{ width: 1131, height: 1600 }}
+        slug="2026-01-01-post"
+        crop="aspect-video"
+      />,
+    );
+    expect(container.querySelector("img")?.style.maxWidth).toBe("");
+  });
+
   test("renders nothing without an image", () => {
     const { container } = render(<CoverImage title="No image" />);
     expect(container).toBeEmptyDOMElement();

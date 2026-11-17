@@ -107,6 +107,15 @@ test("supports GitHub Flavored Markdown tables", async () => {
   expect(html).toContain("<td>Talk</td>");
 });
 
+test("puts every table, also one in a quote, in a box that scrolls sideways", async () => {
+  const table = "| Day | Event |\n|-----|-------|\n| Mon | Talk |";
+  const quoted = table.replace(/^/gm, "> ");
+  const html = await markdownToHtml(`${table}\n\nText\n\n${quoted}`);
+  expect(html.match(/<div class="table-scroll"><table>/g)).toHaveLength(2);
+  expect(html.match(/<\/table><\/div>/g)).toHaveLength(2);
+  expect(html).toContain("<p>Text</p>");
+});
+
 describe("images", () => {
   const LAZY = 'loading="lazy" decoding="async"';
 

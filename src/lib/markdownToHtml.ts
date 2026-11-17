@@ -5,11 +5,12 @@
  * Adds target="_blank" and rel="noopener noreferrer" to all external links
  * (inline and reference-style), gives every heading an id so in-page anchor links (e.g. `#tracks`) work,
  * demotes `#` headings to `##`, because the page already has its `<h1>`,
- * and lets images load lazily, with their width and height when they are local files.
+ * lets images load lazily, with their width and height when they are local files,
+ * and puts every table in a box that scrolls sideways when the table is wider than the text.
  */
 
 import remarkHtml from "remark-html";
-import { visit } from "unist-util-visit";
+import { SKIP, visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import GithubSlugger from "github-slugger";
 import { isAbsoluteUrl } from "@/lib/urls";
@@ -23,7 +24,9 @@ import type {
   ImageReference,
   Link,
   LinkReference,
+  Parent,
   Root,
+  Table,
 } from "mdast";
 
 /**
@@ -204,6 +207,56 @@ function remarkImageAttributes() {
 }
 
 /**
+ * Class of the `<div>` around every table. It is styled in
+ * src/app/_components/markdown-styles.module.css (`:global(.table-scroll)`).
+ */
+const TABLE_SCROLL_CLASS = "table-scroll";
+
+/** The box around a table that remarkScrollableTables adds: a `<div class="table-scroll">`. */
+interface TableScroll extends Parent {
+  type: "tableScroll";
+  children: [Table];
+}
+
+// Registers the box as an mdast node, so that it may stand wherever a table may.
+declare module "mdast" {
+  interface BlockContentMap {
+    tableScroll: TableScroll;
+  }
+  interface RootContentMap {
+    tableScroll: TableScroll;
+  }
+}
+
+/**
+ * Remark plugin that puts every table in a `<div class="table-scroll">`.
+ *
+ * A table is never narrower than its longest words, e.g. the variant
+ * notations in the Track 3 challenge, so on a phone it can be much wider than
+ * the screen. The div scrolls sideways instead, inside the text column, so the
+ * page itself doesn't (WCAG 1.4.10). CSS alone can't make the table scroll
+ * without `display: block` on it, and then the tables that are narrower than
+ * the column no longer fill it.
+ *
+ * mdast-util-to-hast turns a node type it doesn't know, like this box, into a
+ * `<div>` with the node's `hProperties`, around its children.
+ */
+function remarkScrollableTables() {
+  return (tree: Root) => {
+    visit(tree, "table", (node: Table, index, parent) => {
+      if (!parent || index === undefined) return;
+      const box: TableScroll = {
+        type: "tableScroll",
+        data: { hProperties: { className: [TABLE_SCROLL_CLASS] } },
+        children: [node],
+      };
+      parent.children[index] = box;
+      return SKIP;
+    });
+  };
+}
+
+/**
  * Converts a markdown string to HTML.
  *
  * @param markdown - The markdown content to convert
@@ -215,6 +268,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkHeadingIds)
     .use(remarkExternalLinks)
     .use(remarkImageAttributes)
+    .use(remarkScrollableTables)
     .use(remarkHtml, { sanitize: false })
     .process(markdown);
   return result.toString();
