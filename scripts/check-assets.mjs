@@ -10,9 +10,9 @@
  *   the site's code in src/ (tests don't count: their paths are made up),
  *   a post or profile in content/, next.config.js, or a text file in
  *   public/ (the web manifest, browserconfig.xml). A member photo given by
- *   file name only (`image: "anis.webp"`) counts, and so does a quoted file
- *   name in src/ ("rsg-logo.webp"). Mentions in comments don't count. Files
- *   that browsers request without a link are listed in IMPLICITLY_USED.
+ *   file name only (`image: "anis.webp"`) counts. Mentions in comments
+ *   don't count. Files that browsers request without a link are listed in
+ *   IMPLICITLY_USED.
  * - Size budget (BUDGETS): raster images (WebP, JPEG, PNG, ICO, ...) at
  *   most 300 KB and SVGs at most 100 KB. After `npm run optimize:images`
  *   the largest image is well below that. PDFs and calendar files are
@@ -33,7 +33,6 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   createPublicFileExists,
-  escapeRegExp,
   formatBytes,
   listFiles,
   listSourceFiles,
@@ -167,13 +166,6 @@ function findUses(file, sources, memberPhotos) {
     .map((source) => source.file);
   if (memberPhotos.has(urlPath)) uses.push(memberPhotos.get(urlPath));
   if (uses.length > 0) return uses;
-
-  // A file name in quotes in the site's code, e.g. a constant that is joined with a folder.
-  const quotedName = new RegExp(`(["'\`])${escapeRegExp(path.posix.basename(file))}\\1`);
-  const byName = sources
-    .filter((source) => source.file.startsWith("src/") && quotedName.test(source.text))
-    .map((source) => `${source.file} (by file name)`);
-  if (byName.length > 0) return byName;
 
   const implicit = IMPLICITLY_USED.find((entry) =>
     entry.endsWith("/") ? file.startsWith(entry) : file === entry,

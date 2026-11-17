@@ -65,10 +65,8 @@ const CLEAN_REPO = {
     '---\ntitle: "Post"\ndate: "2026-01-01"\n---\n\n![Poster](/images/poster/2026-01-01-poster.webp)\n',
   "content/organization/jane-doe.md": '---\nname: "Jane Doe"\nimage: "jane-doe.webp"\n---\n',
   "src/app/layout.tsx": 'export const icons = [{ url: "/favicon/favicon.ico" }];\n',
-  "src/lib/constants.ts": 'export const LOGO_FILE = "rsg-logo.webp";\n',
   "public/images/poster/2026-01-01-poster.webp": 200 * 1024,
   "public/images/team/jane-doe.webp": 20 * 1024,
-  "public/images/team/rsg-logo.webp": 5 * 1024,
   "public/favicon/favicon.ico": 5 * 1024,
   "public/favicon/site.webmanifest": '{ "icons": [{ "src": "/favicon/icon-512.png" }] }\n',
   "public/favicon/icon-512.png": 10 * 1024,
@@ -82,7 +80,7 @@ describe("check-assets", () => {
         'export const icons = [{ url: "/favicon/favicon.ico" }];\nexport const manifest = "/favicon/site.webmanifest";\n',
     });
     const { status, output } = runCheck(root);
-    expect(output).toContain("✔ Asset check: 6 files in public/");
+    expect(output).toContain("✔ Asset check: 5 files in public/");
     expect(status).toBe(0);
   });
 
@@ -162,12 +160,12 @@ describe("check-assets", () => {
     const root = createRepo({
       ...CLEAN_REPO,
       "src/lib/constants.ts":
-        'export const LOGO_FILE = "rsg-logo.webp";\nexport const AUTHOR = { picture: "/images/team/rsg-logo.png" };\n',
+        'export const SITE_NAME = "RSG-Belgium";\nexport const AUTHOR = { picture: "/images/team/logo.png" };\n',
     });
     const { status, output } = runCheck(root);
     expect(status).toBe(1);
     expect(output).toContain(
-      'src/lib/constants.ts:2: error: "/images/team/rsg-logo.png" is not a file in public/',
+      'src/lib/constants.ts:2: error: "/images/team/logo.png" is not a file in public/',
     );
   });
 
@@ -200,9 +198,7 @@ describe("check-assets", () => {
     expect(output).toMatch(
       /images\/team\/jane-doe\.webp\s+20\.0 KB\s+content\/organization\/jane-doe\.md/,
     );
-    expect(output).toMatch(
-      /images\/team\/rsg-logo\.webp\s+5\.0 KB\s+src\/lib\/constants\.ts \(by file name\)/,
-    );
+    expect(output).toMatch(/favicon\/favicon\.ico\s+5\.0 KB\s+src\/app\/layout\.tsx/);
     expect(output).toMatch(/favicon\/site\.webmanifest\s+\d+ B\s+UNUSED/);
   });
 });
