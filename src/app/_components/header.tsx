@@ -127,8 +127,11 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
-            {/* Desktop Navigation */}
-            <nav aria-label="Main" className="hidden md:flex md:items-center md:space-x-4">
+            {/* Desktop Navigation (8px gaps on tablets, below lg, so the bar fits at 768px) */}
+            <nav
+              aria-label="Main"
+              className="hidden md:flex md:items-center md:space-x-2 lg:space-x-4"
+            >
               {NAV_ITEMS.map((item) => (
                 <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
               ))}
