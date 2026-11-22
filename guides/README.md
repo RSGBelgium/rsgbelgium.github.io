@@ -99,10 +99,11 @@ comment after the field, so anyone can find the gaps by searching for
 | Bio (the text below the front matter)                  | `Bio coming soon.`        |
 
 Members are ordered by their `order` field on `/organization` and on the
-homepage, which shows the first four: lower numbers come first (`1` for the
-President). Number the members 1 to n, each number used once and without
-gaps; a profile without `order` is not shown. To move someone, renumber the
-profiles in between.
+homepage, which shows the first four: lower numbers come first. The numbers
+follow the rows of the board's team registry, so the first row (the
+President) is `1`. Number the members 1 to n, each number used once and
+without gaps; a profile without `order` is not shown. To move someone,
+renumber the profiles in between.
 
 When someone leaves the board, delete their file and their photo in
 `public/images/team/` (`npm run check:assets` reports photos nobody uses).

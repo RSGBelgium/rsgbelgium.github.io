@@ -31,10 +31,10 @@ image: "" # TODO: add a photo to public/images/team/ (initials are shown until t
 # Full profile URLs starting with https://. Anything else is ignored.
 linkedin: "" # TODO: LinkedIn profile URL
 orcid: "" # TODO (optional): ORCID iD URL
-# Required. Position in the team list. The members are numbered 1, 2, 3, ...
-# without gaps, each number used once (1 is the President). A new member gets
-# the next number, e.g. 10 when there are 9 members. A profile without `order`
-# is not shown.
+# Required. Position in the team list: the member's row in the board's team
+# registry. The members are numbered 1, 2, 3, ... without gaps, each number
+# used once (1 is the President). A new member gets the next number, e.g. 10
+# when there are 9 members. A profile without `order` is not shown.
 order: 10
 ---
 

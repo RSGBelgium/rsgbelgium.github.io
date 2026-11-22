@@ -1,6 +1,6 @@
 ---
 name: "Wim Cuypers"
-title: "Board Member" # TODO: board role
+title: "Advisor"
 affiliation: "" # TODO: university or institute
 position: "" # TODO: academic position, e.g. "PhD student"
 city: "" # TODO: city

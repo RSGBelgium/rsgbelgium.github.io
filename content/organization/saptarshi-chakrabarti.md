@@ -1,14 +1,13 @@
 ---
 name: "Saptarshi Chakrabarti"
-title: "Board Member" # TODO: board role
-affiliation: "" # TODO: university or institute
-position: "" # TODO: academic position, e.g. "PhD student"
+title: "Treasurer"
+affiliation: "KU Leuven"
+position: "Data Engineer"
 city: "Leuven"
 image: "" # TODO: add a photo to public/images/team/ (initials are shown until then)
-linkedin: "" # TODO: LinkedIn profile URL
+linkedin: "https://www.linkedin.com/in/saptarshic96/"
 orcid: "" # TODO (optional): ORCID iD URL
-order: 7
-# TODO: replace "Bio coming soon." below with a short bio
+order: 4
 ---
 
-Bio coming soon.
+Saptarshi works as a Data Engineer at LISCO in KU Leuven where he helps build tools to manage large volumes of single cell data which further aids in AI development and research.
