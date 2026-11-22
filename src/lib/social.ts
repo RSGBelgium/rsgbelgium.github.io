@@ -11,7 +11,7 @@
 import { DISCORD_PAGE } from "./navigation";
 
 /** The society's e-mail address. */
-export const CONTACT_EMAIL = "iscb.rsg.belgium@gmail.com";
+export const CONTACT_EMAIL = "rsg-belgium@iscbsc.org";
 
 /**
  * The invite link to RSG-Belgium's Discord server, linked from the /discord

@@ -14,7 +14,7 @@ describe("isAbsoluteUrl", () => {
     ["http://example.org", true],
     ["/discord", false],
     ["#tracks", false],
-    ["mailto:iscb.rsg.belgium@gmail.com", false],
+    ["mailto:rsg-belgium@iscbsc.org", false],
     ["images/team/anis.webp", false],
   ])("%s -> %s", (url, expected) => {
     expect(isAbsoluteUrl(url)).toBe(expected);

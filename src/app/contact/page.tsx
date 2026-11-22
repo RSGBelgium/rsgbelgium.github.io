@@ -24,11 +24,11 @@ export const metadata: Metadata = {
 /**
  * Lets a link text break before the "@" of an e-mail address, with `<wbr>`.
  *
- * The address is wider than a card on phones narrower than 375px and in the
- * two-column grid just above `sm` (640-720px). It then breaks as
- * "iscb.rsg.belgium" / "@gmail.com" instead of in the middle of a word.
+ * The address is wider than a card on phones narrower than 335px and in the
+ * two-column grid just above `sm` (640-677px). It then breaks as
+ * "rsg-belgium" / "@iscbsc.org" instead of in the middle of a word.
  * The `<wbr>` is aria-hidden: Chrome would otherwise put a space in the
- * link's accessible name ("iscb.rsg.belgium @gmail.com"). Copying the
+ * link's accessible name ("rsg-belgium @iscbsc.org"). Copying the
  * address gives it whole.
  *
  * @param text - A channel's link text; returned unchanged if it has no "@"
