@@ -100,11 +100,11 @@ place. A typo in the id just leaves you at the top of the page.
 
 Use a **relative** link that starts with `/` and has **no trailing slash**:
 
-| Do                                                                       | Don't                                                                           |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| `[news](/news)`                                                          | `[news](/news/)`                                                                |
-| `[workshops](/news/2025-09-23-biohackathon25-workshops)`                 | `[workshops](https://rsg-belgium.org/news/2025-09-23-biohackathon25-workshops)` |
-| `[our team](/organization)`, `[contact us](/contact)`, `[Slack](/slack)` | `[Slack](http://www.rsg-belgium.iscbsc.org/slack/)` (old site)                  |
+| Do                                                                           | Don't                                                                           |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `[news](/news)`                                                              | `[news](/news/)`                                                                |
+| `[workshops](/news/2025-09-23-biohackathon25-workshops)`                     | `[workshops](https://rsg-belgium.org/news/2025-09-23-biohackathon25-workshops)` |
+| `[our team](/organization)`, `[contact us](/contact)`, `[Discord](/discord)` | `[Slack](http://www.rsg-belgium.iscbsc.org/slack/)` (old site)                  |
 
 ## Write for everyone
 

@@ -1,45 +1,32 @@
 import { render, screen } from "@testing-library/react";
-import { CONTACT_EMAIL } from "@/lib/social";
+import { DISCORD_INVITE_URL } from "@/lib/social";
 import SlackPage, { metadata } from "../page";
 
-describe("Slack page", () => {
-  test("has one h1 from the page header and an h2 below it", () => {
+describe("/slack page", () => {
+  test("forwards to the Discord page at once, without JavaScript", () => {
     render(<SlackPage />);
-    const h1s = screen.getAllByRole("heading", { level: 1 });
-    expect(h1s).toHaveLength(1);
-    // The page title, without the blog template's full stop.
-    expect(h1s[0].textContent).toBe("Slack");
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Join the RSG Belgium Slack Channel",
+    expect(document.querySelector('meta[http-equiv="refresh"]')).toHaveAttribute(
+      "content",
+      "0;url=/discord",
     );
   });
 
-  test("hides the decorative emoji from screen readers", () => {
+  test("invites visitors to join us on Discord directly", () => {
     render(<SlackPage />);
-    expect(screen.getByText("💬")).toHaveAttribute("aria-hidden", "true");
-    expect(screen.getByRole("heading", { level: 2 })).toHaveAccessibleName(
-      "Join the RSG Belgium Slack Channel",
-    );
-  });
-
-  test("explains how to join", () => {
-    render(<SlackPage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Join us on Discord");
     expect(
-      screen.getByText(/We have created a Slack channel where our members/),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/To join, please send us an email request/)).toBeInTheDocument();
+      screen.getByRole("link", { name: "Join Our Discord Server (opens in a new tab)" }),
+    ).toHaveAttribute("href", DISCORD_INVITE_URL);
   });
 
-  test("links to a pre-filled invitation e-mail", () => {
-    render(<SlackPage />);
-    expect(screen.getByRole("link", { name: "Request Invitation to Join Slack" })).toHaveAttribute(
-      "href",
-      `mailto:${CONTACT_EMAIL}?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E`,
-    );
+  test("says nothing about Slack", () => {
+    const { container } = render(<SlackPage />);
+    expect(container.textContent).not.toMatch(/slack|moved/i);
+    expect(metadata.title).toBe("Join Us on Discord");
+    expect(metadata.description).not.toMatch(/slack|moved/i);
   });
 
-  test("sets its title and canonical URL", () => {
-    expect(metadata.title).toBe("Join Us on Slack");
-    expect(metadata.alternates?.canonical).toBe("/slack");
+  test("gives the Discord page as its canonical URL", () => {
+    expect(metadata.alternates?.canonical).toBe("/discord");
   });
 });

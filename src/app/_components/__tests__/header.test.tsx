@@ -30,9 +30,9 @@ describe("Header", () => {
     expect(within(desktopNav).getByRole("link", { name: "About" })).not.toHaveAttribute(
       "aria-current",
     );
-    expect(within(desktopNav).getByRole("link", { name: "Join Slack" })).toHaveAttribute(
+    expect(within(desktopNav).getByRole("link", { name: "Join Discord" })).toHaveAttribute(
       "href",
-      "/slack",
+      "/discord",
     );
   });
 

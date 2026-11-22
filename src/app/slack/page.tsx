@@ -1,57 +1,45 @@
 /**
- * Slack invitation page for RSG-Belgium.
+ * /slack: kept so that links to it (older news posts, bookmarks, other
+ * websites) still work. It invites visitors to join us on Discord.
  *
- * Provides information and a call-to-action for joining the RSG-Belgium Slack channel.
+ * The static export has no server redirects, and permanentRedirect() would
+ * export an empty page that only redirects with JavaScript. So the page
+ * forwards to the Discord page itself, at once and without JavaScript, with a
+ * `<meta http-equiv="refresh">` (React puts it in the <head>); in case the
+ * browser doesn't follow it, its button opens the Discord invite. Its
+ * canonical URL is /discord; it is not in the navigation or the sitemap.
  */
 
-import React from "react";
+import type { Metadata } from "next";
 import Container from "@/app/_components/container";
-import Button from "@/components/Button"; // Path to the new Button component
-import { Metadata } from "next";
-import { PageHeader, SECTION_HEADING } from "@/app/_components/page-header";
+import { PageHeader } from "@/app/_components/page-header";
+import Button from "@/components/Button";
 import { pageAlternates } from "@/lib/metadata";
-import { CONTACT_EMAIL } from "@/lib/social";
+import { DISCORD_PAGE } from "@/lib/navigation";
+import { DISCORD_INVITE_URL } from "@/lib/social";
 
 export const metadata: Metadata = {
-  title: "Join Us on Slack",
-  description:
-    "Become a part of the RSG-Belgium community by joining our Slack channel. Request an invitation to discuss events, collaborate, and network with fellow bioinformaticians.",
-  alternates: pageAlternates("/slack"),
+  title: "Join Us on Discord",
+  description: "Join the RSG-Belgium community on Discord directly.",
+  alternates: pageAlternates(DISCORD_PAGE.url),
 };
 
 /**
- * Renders the Slack invitation page with instructions and a mailto link.
+ * Forwards to the Discord page, and invites visitors to join us on Discord.
  */
-const SlackPage = () => {
-  const mailtoLink = `mailto:${CONTACT_EMAIL}?Subject=RSG%20Slack%20Subscription&Body=I%20would%20like%20to%20join%20the%20RSG%20Belgium%20Slack%20channel%2E`;
-
+export default function SlackPage() {
   return (
     <Container>
+      <meta httpEquiv="refresh" content={`0;url=${DISCORD_PAGE.url}`} />
       <PageHeader
-        title="Slack"
-        description="Join the RSG-Belgium Slack workspace to meet fellow students and researchers, hear about events first and get involved."
+        title="Join us on Discord"
+        description="You can join the RSG-Belgium community on Discord directly."
       />
-      {/* A section heading under the page's <h1>, not a second page title. */}
-      <div className="max-w-3xl pb-16 md:pb-24">
-        <h2 className={`${SECTION_HEADING} mb-4`}>
-          Join the RSG Belgium Slack Channel <span aria-hidden="true">💬</span>
-        </h2>
-        <p className="text-lg leading-relaxed mb-6">
-          We have created a Slack channel where our members can get to know each other, discuss RSG
-          events, collaborate, and get more involved in our organization. It&apos;s a great place to
-          ask questions, share ideas, and connect with fellow bioinformatics and computational
-          biology enthusiasts in Belgium.
-        </p>
-        <p className="text-lg leading-relaxed mb-8">
-          Don&apos;t be shy, come say hello! To join, please send us an email request, and
-          we&apos;ll send you an invitation.
-        </p>
-        <Button href={mailtoLink} size="lg" variant="primary">
-          Request Invitation to Join Slack
+      <div className="pb-16 md:pb-24">
+        <Button href={DISCORD_INVITE_URL} variant="primary">
+          Join Our Discord Server
         </Button>
       </div>
     </Container>
   );
-};
-
-export default SlackPage;
+}

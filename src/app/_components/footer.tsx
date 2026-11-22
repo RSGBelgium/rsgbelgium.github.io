@@ -3,8 +3,8 @@
  *
  * Renders the footer with a short description, the "Quick Links" footer
  * navigation and the contact channels (src/lib/social.ts), plus the copyright.
- * The Slack page is linked once, as the "Slack" contact channel: Quick Links
- * lists the main sections only.
+ * The Discord page is linked once, as the "Discord" contact channel: Quick
+ * Links lists the main sections only.
  *
  * The section titles are <h2>s: the footer follows each page's content, so
  * they continue that page's heading outline instead of skipping levels.

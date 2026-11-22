@@ -38,7 +38,7 @@ every section. Delete the comments when you are done.
 | Images, posters, photos            | `public/images/...`                        | see [Images and files](images-and-files.md)        |
 | PDFs and calendar files            | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md)        |
 
-The homepage, About, Contact and Slack pages are written in code (`src/app/`).
+The homepage, About, Contact and Discord pages are written in code (`src/app/`).
 Ask a developer if you need to change them.
 
 ## Adding a news post
@@ -195,4 +195,4 @@ file is deleted, and everyone with access to the repository can see it. The
 content check fails if a spreadsheet (`.csv`, `.xlsx`, ...) is added to git,
 or if a team profile contains an e-mail address or phone number.
 
-If you get stuck, ask in the board Slack channel or open an issue on GitHub.
+If you get stuck, ask another board member or open an issue on GitHub.

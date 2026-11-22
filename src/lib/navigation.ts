@@ -17,10 +17,10 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 /**
- * The Slack join page: a call-to-action button in the header; the footer and
- * the Contact page link to it as the "Slack" contact channel (src/lib/social.ts).
+ * The Discord join page: a call-to-action button in the header; the footer and
+ * the Contact page link to it as the "Discord" contact channel (src/lib/social.ts).
  */
-export const SLACK_PAGE: NavItem = { title: "Join Slack", url: "/slack" };
+export const DISCORD_PAGE: NavItem = { title: "Join Discord", url: "/discord" };
 
-/** Every page in the navigation, in order: the main sections, then Slack. */
-export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, SLACK_PAGE];
+/** Every page in the navigation, in order: the main sections, then Discord. */
+export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, DISCORD_PAGE];

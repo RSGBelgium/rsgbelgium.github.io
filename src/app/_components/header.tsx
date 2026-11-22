@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import Container from "./container";
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-import { NAV_ITEMS, SLACK_PAGE, type NavItem } from "@/lib/navigation";
+import { NAV_ITEMS, DISCORD_PAGE, type NavItem } from "@/lib/navigation";
 
 /**
  * Whether a nav item belongs to the current page: its own URL or a page below
@@ -132,8 +132,8 @@ const Header = () => {
               {NAV_ITEMS.map((item) => (
                 <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
               ))}
-              <Button href={SLACK_PAGE.url} variant="primary" size="sm">
-                {SLACK_PAGE.title}
+              <Button href={DISCORD_PAGE.url} variant="primary" size="sm">
+                {DISCORD_PAGE.title}
               </Button>
             </nav>
 
@@ -207,13 +207,13 @@ const Header = () => {
           ))}
           <div className="pt-2">
             <Button
-              href={SLACK_PAGE.url}
+              href={DISCORD_PAGE.url}
               variant="primary"
               size="md"
               className="block w-full text-center"
               onClick={closeMobileMenu}
             >
-              {SLACK_PAGE.title}
+              {DISCORD_PAGE.title}
             </Button>
           </div>
         </nav>

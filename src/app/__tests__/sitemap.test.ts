@@ -40,7 +40,7 @@ describe("sitemap", () => {
       "https://rsg-belgium.org/news",
       "https://rsg-belgium.org/organization",
       "https://rsg-belgium.org/contact",
-      "https://rsg-belgium.org/slack",
+      "https://rsg-belgium.org/discord",
       "https://rsg-belgium.org/news/2026-05-15-speakers",
       "https://rsg-belgium.org/news/2021-09-15-beerformatics",
       "https://rsg-belgium.org/news/undated",

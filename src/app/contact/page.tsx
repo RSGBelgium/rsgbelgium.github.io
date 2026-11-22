@@ -1,7 +1,7 @@
 /**
  * Contact page for RSG-Belgium.
  *
- * Lists the ways to reach RSG-Belgium (e-mail, GitHub, Slack, LinkedIn) as
+ * Lists the ways to reach RSG-Belgium (e-mail, GitHub, Discord, LinkedIn) as
  * cards. The channels come from src/lib/social.ts, the same list as the
  * footer's, so the two never disagree. This is the one page that shows the
  * e-mail address itself: the footer shows the label "Email".
@@ -17,7 +17,7 @@ import { CONTACT_CHANNELS } from "@/lib/social";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with RSG-Belgium by e-mail, on Slack, LinkedIn or GitHub.",
+  description: "Get in touch with RSG-Belgium by e-mail, on Discord, LinkedIn or GitHub.",
   alternates: pageAlternates("/contact"),
 };
 

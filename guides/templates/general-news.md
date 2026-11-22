@@ -36,4 +36,4 @@ More details here.
 
 <!-- Optional call to action. Delete this section if not applicable. -->
 
-Questions or ideas? [Contact us](/contact) or join us on [Slack](/slack).
+Questions or ideas? [Contact us](/contact) or join us on [Discord](/discord).

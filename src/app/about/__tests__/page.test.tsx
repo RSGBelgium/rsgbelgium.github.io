@@ -25,11 +25,11 @@ describe("About page", () => {
     expect(screen.getByText("Symposia:")).toBeInTheDocument();
   });
 
-  test("links to the Slack page", () => {
+  test("links to the Discord page", () => {
     render(<AboutPage />);
-    expect(screen.getByRole("link", { name: "Join us on Slack" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Join us on Discord" })).toHaveAttribute(
       "href",
-      "/slack",
+      "/discord",
     );
   });
 
