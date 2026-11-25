@@ -41,6 +41,11 @@ describe("Header", () => {
     expect(screen.getAllByRole("group", { name: "Colour theme" })).toHaveLength(1);
   });
 
+  test("leaves out the Sponsor page: the desktop bar has no room for it", () => {
+    const { container } = render(<Header />);
+    expect(container.querySelector('a[href="/sponsor"]')).toBeNull();
+  });
+
   describe("mobile menu", () => {
     test("is a closed disclosure that stays in the DOM", () => {
       render(<Header />);

@@ -2,14 +2,18 @@ import { render, screen, within } from "@testing-library/react";
 import Footer from "../footer";
 
 describe("Footer", () => {
-  test("has a labelled footer navigation", () => {
+  test("has a labelled footer navigation: the main sections, then the Sponsor page", () => {
     render(<Footer />);
     const nav = screen.getByRole("navigation", { name: "Footer" });
-    expect(
-      within(nav)
-        .getAllByRole("link")
-        .map((link) => link.getAttribute("href")),
-    ).toEqual(["/about", "/news", "/organization", "/contact"]);
+    const links = within(nav).getAllByRole("link");
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/about",
+      "/news",
+      "/organization",
+      "/contact",
+      "/sponsor",
+    ]);
+    expect(links[4]).toHaveTextContent("Sponsorship");
   });
 
   test("links to the Discord page once, as a contact channel", () => {

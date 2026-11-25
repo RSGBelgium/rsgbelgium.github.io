@@ -22,12 +22,15 @@ export const NAV_ITEMS: NavItem[] = [
  */
 export const DISCORD_PAGE: NavItem = { title: "Join Discord", url: "/discord" };
 
-/** Every page in the navigation, in order: the main sections, then Discord. */
-export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, DISCORD_PAGE];
-
 /**
- * The page for sponsors, with our sponsorship proposals. A section on the
- * homepage links to it, with this title as its button. It is not in the
- * header: the desktop bar only just fits at 768px.
+ * The page for sponsors, with our sponsorship proposals. The footer lists it
+ * after the main sections, and a section on the homepage invites sponsors to
+ * it. It is not in the header: the desktop bar only just fits at 768px.
  */
-export const SPONSOR_PAGE: NavItem = { title: "Become a Sponsor", url: "/sponsor" };
+export const SPONSOR_PAGE: NavItem = { title: "Sponsorship", url: "/sponsor" };
+
+/** The footer's Quick Links, in order: the main sections, then the Sponsor page. */
+export const FOOTER_NAV_ITEMS: NavItem[] = [...NAV_ITEMS, SPONSOR_PAGE];
+
+/** Every page in the navigation, in order: the main sections, Discord, then the Sponsor page. */
+export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, DISCORD_PAGE, SPONSOR_PAGE];

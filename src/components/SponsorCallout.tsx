@@ -29,7 +29,7 @@ const SponsorCallout: React.FC = () => {
             </p>
           </div>
           <Button href={SPONSOR_PAGE.url} size="lg" className="shrink-0">
-            {SPONSOR_PAGE.title}
+            Become a Sponsor
           </Button>
         </div>
       </Container>

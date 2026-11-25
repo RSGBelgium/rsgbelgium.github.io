@@ -4,8 +4,8 @@
  * Presents our sponsorship proposals, one card per event, and how to get in
  * touch. Each proposal is a PDF in public/assets/pdf/, published as its
  * authors designed it; the facts on its card come from it, so update the two
- * together. The homepage links here (src/components/SponsorCallout.tsx); the
- * header doesn't.
+ * together. The homepage (src/components/SponsorCallout.tsx) and the footer
+ * link here; the header doesn't.
  *
  * Each card has one link, its PDF, stretched over the whole card
  * (`link-card` in globals.css, as on the Contact page). It is a plain `<a>`,
