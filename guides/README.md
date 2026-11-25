@@ -38,8 +38,9 @@ every section. Delete the comments when you are done.
 | Images, posters, photos            | `public/images/...`                        | see [Images and files](images-and-files.md)        |
 | PDFs and calendar files            | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md)        |
 
-The homepage, About, Contact and Discord pages are written in code (`src/app/`).
-Ask a developer if you need to change them.
+The homepage, About, Contact, Discord and Sponsor pages are written in code
+(`src/app/`). Ask a developer if you need to change them, for example to link
+a new sponsorship proposal (a PDF in `public/assets/pdf/`) from the Sponsor page.
 
 ## Adding a news post
 

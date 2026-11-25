@@ -1,7 +1,8 @@
 /**
  * Homepage entry point for the RSG-Belgium website.
  *
- * Fetches and displays the hero section, featured news, and team spotlight.
+ * Fetches and displays the hero section, featured news, an invitation to
+ * sponsor our events, and team spotlight.
  * Uses server components and async data fetching with the App Router.
  * Exports page-level metadata for SEO.
  */
@@ -9,6 +10,7 @@
 import { getAllPosts, getAllMembers } from "@/lib/api";
 import HeroSection from "@/components/HeroSection";
 import FeaturedNews from "@/components/FeaturedNews";
+import SponsorCallout from "@/components/SponsorCallout";
 import TeamSpotlight from "@/components/TeamSpotlight";
 import { Metadata } from "next";
 import { pageAlternates } from "@/lib/metadata";
@@ -39,7 +41,7 @@ async function getHomepageData() {
 /**
  * The main homepage component.
  *
- * @returns The homepage layout with hero, news, and team sections.
+ * @returns The homepage layout with hero, news, sponsor, and team sections.
  */
 export default async function Index() {
   const { latestNews, spotlightMembers } = await getHomepageData();
@@ -57,6 +59,9 @@ export default async function Index() {
       {/* These sections could be wrapped in <Container> if they don't have full-width backgrounds */}
       {/* Or Container can be used inside them as done in the component definitions */}
       <FeaturedNews posts={latestNews} />
+
+      {/* After the news, which are mostly event announcements: the events to sponsor. */}
+      <SponsorCallout />
 
       <TeamSpotlight members={spotlightMembers} />
     </>

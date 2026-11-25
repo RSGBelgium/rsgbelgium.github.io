@@ -1,5 +1,5 @@
 /**
- * The site's pages, as linked from the header, the footer and the sitemap.
+ * The site's pages, as linked from the header, the footer, the homepage and the sitemap.
  */
 
 /** A page in the site navigation. */
@@ -24,3 +24,10 @@ export const DISCORD_PAGE: NavItem = { title: "Join Discord", url: "/discord" };
 
 /** Every page in the navigation, in order: the main sections, then Discord. */
 export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, DISCORD_PAGE];
+
+/**
+ * The page for sponsors, with our sponsorship proposals. A section on the
+ * homepage links to it, with this title as its button. It is not in the
+ * header: the desktop bar only just fits at 768px.
+ */
+export const SPONSOR_PAGE: NavItem = { title: "Become a Sponsor", url: "/sponsor" };

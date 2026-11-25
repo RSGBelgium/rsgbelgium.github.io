@@ -1,7 +1,8 @@
 /**
  * XML sitemap for search engines, exported as out/sitemap.xml.
  *
- * Lists the main pages and every news post, with absolute URLs on the live
+ * Lists the main pages (the navigation's, and the Sponsor page that the
+ * homepage links to) and every news post, with absolute URLs on the live
  * domain.
  */
 
@@ -10,7 +11,7 @@ import { getAllPosts } from "@/lib/api";
 import { SITE_URL } from "@/lib/constants";
 import { parseDate } from "@/lib/dates";
 import { absoluteUrl, postPath } from "@/lib/urls";
-import { ALL_NAV_PAGES } from "@/lib/navigation";
+import { ALL_NAV_PAGES, SPONSOR_PAGE } from "@/lib/navigation";
 
 /** Generate the file once at build time: required for metadata routes with `output: 'export'`. */
 export const dynamic = "force-static";
@@ -30,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const pages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: newestPostDate },
-    ...ALL_NAV_PAGES.map(({ url }) => ({
+    ...[...ALL_NAV_PAGES, SPONSOR_PAGE].map(({ url }) => ({
       url: absoluteUrl(url),
       lastModified: url === "/news" ? newestPostDate : undefined,
     })),

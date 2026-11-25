@@ -19,6 +19,9 @@ type PageHeaderProps = {
 /** Classes for a page's section headings (`<h2>`): 24px on phones, 30px from `md`. */
 export const SECTION_HEADING = "text-2xl md:text-3xl font-bold tracking-tight leading-snug";
 
+/** Classes for a short label above a title or heading, e.g. "Error 404": small pink capitals. */
+export const EYEBROW = "text-sm font-semibold uppercase tracking-wide text-accent-strong";
+
 /**
  * Displays a page's title (`<h1>`) and description.
  *
@@ -32,11 +35,7 @@ export const SECTION_HEADING = "text-2xl md:text-3xl font-bold tracking-tight le
 export function PageHeader({ title, description, eyebrow }: PageHeaderProps) {
   return (
     <div className="pt-10 pb-8 md:pt-16 md:pb-12">
-      {eyebrow && (
-        <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-accent-strong">
-          {eyebrow}
-        </p>
-      )}
+      {eyebrow && <p className={`${EYEBROW} mb-2`}>{eyebrow}</p>}
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-balance">
         {title}
       </h1>
