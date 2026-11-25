@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ContactChannelLink, ContactIcon } from "../ContactChannels";
+import { breakBeforeAt, ContactChannelLink, ContactIcon } from "../ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
 
 const channel = (id: string) => CONTACT_CHANNELS.find((c) => c.id === id)!;
@@ -26,6 +26,19 @@ describe("ContactChannelLink", () => {
     expect(email).toHaveAttribute("href", channel("email").href);
     expect(discord).not.toHaveAttribute("target");
     expect(email).not.toHaveAttribute("target");
+  });
+});
+
+describe("breakBeforeAt", () => {
+  test("puts a hidden line-break opportunity before the @ of an e-mail address", () => {
+    const { container } = render(<p>{breakBeforeAt("rsg-belgium@iscbsc.org")}</p>);
+    expect(container.querySelector("p")?.innerHTML).toBe(
+      'rsg-belgium<wbr aria-hidden="true">@iscbsc.org',
+    );
+  });
+
+  test("returns other text unchanged", () => {
+    expect(breakBeforeAt("Join our Discord server")).toBe("Join our Discord server");
   });
 });
 

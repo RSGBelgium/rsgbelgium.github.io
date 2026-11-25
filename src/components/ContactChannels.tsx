@@ -10,6 +10,7 @@
  * - ContactChannelLink: the right kind of link for a channel. Internal paths
  *   use next/link; external URLs open in a new tab and say so to screen
  *   readers; `mailto:` links stay in the same tab.
+ * - breakBeforeAt: lets an e-mail address in a link break before its "@".
  *
  * Icons are decorative: always show them next to a visible text label.
  */
@@ -71,6 +72,31 @@ export function ContactIcon({ id, className = "h-5 w-5" }: ContactIconProps) {
     <svg {...shared} fill="currentColor">
       <path d={BRAND_PATHS[id]} />
     </svg>
+  );
+}
+
+/**
+ * Lets a link text break before the "@" of an e-mail address, with `<wbr>`.
+ *
+ * The address can be wider than its line, e.g. in a Contact page card on
+ * phones below 335px and in the two-column grid just above `sm` (640-677px).
+ * It then breaks as "rsg-belgium" / "@iscbsc.org" instead of in the middle
+ * of a word.
+ * The `<wbr>` is aria-hidden: Chrome would otherwise put a space in the
+ * link's accessible name ("rsg-belgium @iscbsc.org"). Copying the
+ * address gives it whole.
+ *
+ * @param text - A link text; returned unchanged if it has no "@"
+ */
+export function breakBeforeAt(text: string): ReactNode {
+  const at = text.indexOf("@");
+  if (at === -1) return text;
+  return (
+    <>
+      {text.slice(0, at)}
+      <wbr aria-hidden="true" />
+      {text.slice(at)}
+    </>
   );
 }
 
