@@ -14,7 +14,7 @@ We are delighted to introduce four researchers joining us for an evening of bioi
 - **Date:** Wednesday 25 November 2026, 18:30
 - **Location:** O&N6 Lounge, Campus Gasthuisberg, KU Leuven, Herestraat 49, 3000 Leuven
 
-This edition brings together exciting research at the intersection of computational biology, genomics, neuroscience and biomedical research: four 10-minute talks, followed by informal networking. Entry is free, but spots are limited, so [register for Beerformatics Leuven on Eventbrite](https://www.eventbrite.com/e/beerformatics-2026-back-in-leuven-tickets-2004357606557).
+This edition brings together exciting research at the intersection of computational biology, genomics, neuroscience and biomedical research: four 10-minute talks, followed by informal networking. Entry is free.
 
 [![Poster introducing the four speakers of Beerformatics on 25 November 2026 in Leuven](/images/poster/2026-11-25-beerformatics-leuven-speakers.webp)](/images/poster/2026-11-25-beerformatics-leuven-speakers.webp)
 
@@ -42,6 +42,6 @@ Katerina will present promoter interaction maps generated across different cell 
 
 Katerina is a medical doctor and third-year PhD researcher at the Laboratory of Cytogenetics and Genome Research, KU Leuven. Her research focuses on identifying non-coding genetic variants that alter gene regulation and contribute to craniofacial malformations.
 
-Join us for an evening of science, discussion and drinks: [register for Beerformatics Leuven on Eventbrite](https://www.eventbrite.com/e/beerformatics-2026-back-in-leuven-tickets-2004357606557). We look forward to welcoming you!
+Join us for an evening of science, discussion and drinks. We look forward to welcoming you!
 
 Can't make it? [Join us on Discord](/discord) to hear about the next Beerformatics first.
