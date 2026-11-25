@@ -1,28 +1,25 @@
-/** @type {import('next').NextConfig} */
+/**
+ * Next.js configuration for the RSG-Belgium website.
+ *
+ * The site is a fully static export (`next build` writes it to `out/`), which
+ * GitHub Pages serves at https://rsg-belgium.org. This file is the only
+ * place these settings live: CI builds with it exactly as a local build
+ * does (the deploy workflow doesn't let actions/configure-pages rewrite it),
+ * and no basePath is needed because the site has its own domain.
+ *
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
-  // Configure allowed development origins for cross-origin requests
-  allowedDevOrigins: [
-    '10.40.147.252',
-    'localhost',
-    '127.0.0.1',
-    // Add any other IP addresses or domains you use for development
-  ],
+  // Emit a static site to out/: no Node.js server at runtime.
+  output: "export",
 
-  // Other Next.js configuration options can be added here
+  // `/about` is exported as `about.html`, which GitHub Pages serves at `/about`.
   trailingSlash: false,
 
-  // Enable experimental features if needed
-  experimental: {
-    // Add any experimental features you want to enable
-  },
-
-  // Configure image domains if you're using next/image
   images: {
-    domains: [
-      'rsg-belgium.be',
-      // Add other domains as needed
-    ],
+    // The default image optimizer needs a server, so serve images as they are.
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

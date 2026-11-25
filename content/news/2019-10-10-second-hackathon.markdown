@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Announcing the second RSG Belgium Hackathon"
-date:   2019-10-10 10:00
+date:   "2019-10-10 10:00"
 categories: news event hackathon
 toc: true
 category: 'News'
@@ -11,7 +11,7 @@ After last year's success, RSG Belgium is excited to announce the second RSG Bel
 
 Like last year, we want to provide an environment for young researchers to improve their problem solving skills and to cooperate in a multidisciplinary team with a common goal.
 
-[![full](/assets/img/poster/hackathon_2019.png){: .center}]({{ site.baseurl }}/assets/img/poster/hackathon_2019.png)
+[![Poster for the second RSG-Belgium Hackathon on 6 December 2019 in Brussels](/images/poster/hackathon_2019.webp)](/images/poster/hackathon_2019.webp)
 
 We have chosen a number of different projects that could be tackled during the event. We ask you to already indicate your preference during registration, so that we can make preparations for the most popular topics.
 
@@ -33,7 +33,7 @@ We have chosen a number of different projects that could be tackled during the e
 
 **More information on how to get there is provided [below](#how-to-get-there).**
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4363.244626829035!2d4.3951958277813965!3d50.82110086482844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xdce9335a43c9dfb5!2sBatiment+NO!5e0!3m2!1sen!2sbe!4v1538399705300" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<iframe title="Map of building NO on the ULB La Plaine campus, Brussels" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4363.244626829035!2d4.3951958277813965!3d50.82110086482844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xdce9335a43c9dfb5!2sBatiment+NO!5e0!3m2!1sen!2sbe!4v1538399705300" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ## Projects
 
@@ -67,7 +67,7 @@ In general, the university is accessible by metro, bus and train. Specific signs
 
 Please also consult the following map of the ULB Campus de la plaine to guide you to the NO Building.
 
-![full](/assets/img/maps/hackathon-LaPlaineMap.png)
+![Map of the ULB La Plaine campus showing the way to building NO](/images/maps/hackathon-LaPlaineMap.webp)
 
 ### Access from the Bruxelles-Central train station
 

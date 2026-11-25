@@ -1,0 +1,86 @@
+# CI: the quality gate for the RSG-Belgium website.
+#
+# Runs on every pull request, can be started by hand (Actions tab > CI >
+# Run workflow), and is the first stage of every deployment: nextjs.yml calls
+# it on each push to main and only deploys when it passes.
+#
+# The same checks run locally with `npm run ci`.
+#
+# The checked site (out/) is uploaded as the "site" artifact: reviewers can
+# download it from a pull request's run, and the deploy workflow publishes
+# exactly these files instead of building again.
+
+name: CI
+
+on:
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # One run per pull request or branch; a new push to a pull request cancels
+  # its older, now outdated run. Runs for main (deployments) are never cancelled.
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: Lint, test, build and check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js (version from .nvmrc)
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (ESLint, no warnings allowed)
+        run: npm run lint
+
+      - name: Check formatting (Prettier)
+        run: npm run format:check
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Run the tests, with coverage
+        run: npm run test:ci
+
+      - name: Check the content (front matter, links, images, privacy)
+        run: npm run check:content
+
+      - name: Check the files in public/ (unused files, size budget, file names)
+        run: npm run check:assets
+
+      - name: Restore the Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: .next/cache
+          # A new cache whenever dependencies or sources change; otherwise start from the last one.
+          key: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'content/**', '*.js', '*.mjs', '*.ts') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - name: Build the static site
+        run: npm run build
+
+      - name: Check the built site (accessibility basics, links, anchors)
+        run: npm run check:site
+
+      - name: Upload the built site
+        uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: out/
+          if-no-files-found: error
+          retention-days: 7

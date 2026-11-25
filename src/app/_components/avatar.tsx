@@ -1,31 +1,40 @@
 /**
- * User avatar display component.
+ * A post's byline: the author's round avatar (or initials) next to their
+ * name and, optionally, the post's date.
  *
- * Renders a circular avatar image or a fallback with the user's initial.
+ * The name is always shown as text next to the picture, so the picture is
+ * decorative (`alt=""`): screen readers read the name once, not twice.
  */
+
+import MemberAvatar from "@/components/MemberAvatar";
+import DateFormatter from "./date-formatter";
 
 type Props = {
   name?: string;
   picture?: string;
+  /** The post's date (ISO string), shown under the name. */
+  date?: string;
 };
 
 /**
- * Renders a user avatar with optional image and name.
+ * Renders a user avatar with the user's name and an optional date.
  *
- * @param name - The user's name (used for alt text and fallback initial)
+ * @param name - The user's name (shown next to the picture, and the fallback initials)
  * @param picture - The URL of the user's avatar image
+ * @param date - Optional date to show under the name
  */
-const Avatar = ({ name = 'Anonymous', picture }: Props) => {
+const Avatar = ({ name = "Anonymous", picture, date }: Props) => {
   return (
-    <div className="flex items-center">
-      {picture ? (
-        <img src={picture} className="w-12 h-12 rounded-full mr-4" alt={name} />
-      ) : (
-        <div className="w-12 h-12 rounded-full mr-4 bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-500 text-lg">{name.charAt(0)}</span>
-        </div>
-      )}
-      <div className="text-xl font-bold">{name}</div>
+    <div className="flex items-center gap-3">
+      <MemberAvatar name={name} image={picture} size="sm" decorative />
+      <div className="leading-snug">
+        <div className="font-semibold">{name}</div>
+        {date && (
+          <div className="text-sm text-foreground-muted">
+            <DateFormatter dateString={date} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

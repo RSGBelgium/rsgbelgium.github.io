@@ -14,8 +14,11 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
  * Provides theme context (dark/light/system) to the app using next-themes.
  *
  * @param children - React children to be wrapped with theme support
- * @param props - Additional props passed to next-themes ThemeProvider
+ * @param props - Additional props passed to next-themes ThemeProvider (attribute, defaultTheme, ...)
  */
-export function ThemeProvider({ children, ...props }: React.PropsWithChildren<any>) {
+export function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

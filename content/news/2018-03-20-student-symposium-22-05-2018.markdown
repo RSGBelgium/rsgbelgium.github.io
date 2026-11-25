@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Bioinformatics Student Symposium - 22/05/2018 - Antwerp"
-date:   2018-03-20 13:00
+date:   "2018-03-20 13:00"
 categories: event student-symposium
 toc: true
 category: 'News'
@@ -24,7 +24,7 @@ Our keynote speaker is [Prof. dr. Kris Laukens][krislaukens] of the Antwerp Univ
 Room C101 - City Campus University of Antwerp,
 Prinsstraat 13, 2000 Antwerp.
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3533.889170065036!2d4.412807736335474!3d51.22207838842954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x47c3f703e7404c69%3A0x270b07bbe1f68aa6!2sAntwerpen-Centraal%2C+Antwerp!3m2!1d51.217191799999995!2d4.4212529!4m5!1s0x47c3f6566cd25cc1%3A0x9ece4584afb0cd6d!2sUAntwerpen+-+Building+C+-+City+Campus%2C+Prinsstraat+13%2C+2000+Antwerpen!3m2!1d51.2234817!2d4.4101775!5e0!3m2!1sen!2sbe!4v1521550821427" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<iframe title="Route from Antwerpen-Centraal station to the University of Antwerp City Campus, building C, Prinsstraat 13" src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3533.889170065036!2d4.412807736335474!3d51.22207838842954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x47c3f703e7404c69%3A0x270b07bbe1f68aa6!2sAntwerpen-Centraal%2C+Antwerp!3m2!1d51.217191799999995!2d4.4212529!4m5!1s0x47c3f6566cd25cc1%3A0x9ece4584afb0cd6d!2sUAntwerpen+-+Building+C+-+City+Campus%2C+Prinsstraat+13%2C+2000+Antwerpen!3m2!1d51.2234817!2d4.4101775!5e0!3m2!1sen!2sbe!4v1521550821427" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
 ## Registration (deadline 14th of May)
 
@@ -42,7 +42,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 
 * 12:30 Registration
 * 13:00 Opening remarks
-* 13:10 Keynote by [Kris Laukens (UAntwerp)](krislaukens): Hacking the molecular networks of life, from _in vitro_ to _in silico_
+* 13:10 Keynote by [Kris Laukens (UAntwerp)][krislaukens]: Hacking the molecular networks of life, from _in vitro_ to _in silico_
 * 14:00 Tour of RSG Belgium
 * 14:20 1<sup>st</sup> student talks session
 * 15:00 Coffee break with poster session
@@ -51,7 +51,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 * 17:35 Networking session with drinks
 * 18:30 Dinner at [Verona][verona]
 
-#### Talks
+### Talks
 
 |Time|Speaker|Affiliation|Topic|
 |---|---|---|---|
@@ -70,7 +70,7 @@ After the symposium we will go to the restaurant [Verona][verona] in the city ce
 
 ## Flyer
 
-[![full](/assets/img/poster/poster_rsg_symposium-22-05-18.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_rsg_symposium-22-05-18.pdf)
+[![Poster for the RSG-Belgium Bioinformatics Student Symposium on 22 May 2018 in Antwerp](/images/poster/poster_rsg_symposium-22-05-18.webp)](/assets/pdf/poster_rsg_symposium-22-05-18.pdf)
 
 [biomina]: http://www.biomina.be/
 [krislaukens]: https://www.uantwerpen.be/en/staff/kris-laukens/

@@ -11,7 +11,7 @@ We are pleased to mark the successful return of Beerinformatics in Leuven, follo
 
 We extend our sincere thanks to everyone who joined us and contributed to making the evening such a success. The event brought together an engaged and enthusiastic community, resulting in insightful discussions and meaningful exchanges throughout the programme.
 
-[![full](/images/photo_gallery/beerformatic_march2026.png)](/images/photo_gallery/beerformatic_march2026.png)
+[![Photo collage of Beerformatics in Leuven in March 2026: speakers presenting their research and attendees networking](/images/photo_gallery/beerformatic_march2026.webp)](/images/photo_gallery/beerformatic_march2026.webp)
 
 We are especially grateful to our speakers - Marcello Giunta, Yura Song, and Julia Bandera - for sharing their expertise, experiences, and valuable perspectives.
 

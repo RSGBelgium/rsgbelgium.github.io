@@ -1,0 +1,198 @@
+# Content editing guides
+
+These guides are for anyone who adds or updates content on the RSG-Belgium
+website (<https://rsg-belgium.org>): news posts, event announcements and
+team profiles. You do not need to know React or Next.js. You only edit
+Markdown files and add images to a folder.
+
+Start from a template in [`templates/`](templates/). Don't copy an old post:
+many older posts contain syntax that no longer works.
+
+## Guides
+
+| Guide                                   | What it covers                                                                                   |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [News posts](news-post.md)              | File naming, front matter (`title`, `date`, `excerpt`, ...)                                      |
+| [Markdown](markdown.md)                 | Supported syntax, headings and anchor links, writing for screen readers, and what **not** to use |
+| [Images and files](images-and-files.md) | Where images, PDFs and calendar files go, naming, sizes, alt text                                |
+
+## Templates
+
+Copy a template, rename it and fill it in. The comments in each template explain
+every section. Delete the comments when you are done.
+
+| Template                                                     | Use it for                                                          | Copy it to              |
+| ------------------------------------------------------------ | ------------------------------------------------------------------- | ----------------------- |
+| [event-announcement.md](templates/event-announcement.md)     | Announcing an event (symposium, hackathon, Beerformatics, workshop) | `content/news/`         |
+| [speaker-announcement.md](templates/speaker-announcement.md) | "Meet the speakers" posts, e.g. for Beerformatics                   | `content/news/`         |
+| [event-wrapup.md](templates/event-wrapup.md)                 | A short report with photos after an event                           | `content/news/`         |
+| [general-news.md](templates/general-news.md)                 | Any other news (board changes, calls, partnerships)                 | `content/news/`         |
+| [member-profile.md](templates/member-profile.md)             | A board or team member profile                                      | `content/organization/` |
+
+## Where content lives
+
+| What                               | Folder                                     | Shown at                                           |
+| ---------------------------------- | ------------------------------------------ | -------------------------------------------------- |
+| News posts and event announcements | `content/news/`                            | `/news` and the homepage ("Latest News")           |
+| Team member profiles               | `content/organization/`                    | `/organization` and the homepage ("Meet the Team") |
+| Images, posters, photos            | `public/images/...`                        | see [Images and files](images-and-files.md)        |
+| PDFs and calendar files            | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md)        |
+
+The homepage, About, Contact and Slack pages are written in code (`src/app/`).
+Ask a developer if you need to change them.
+
+## Adding a news post
+
+1. **Pick a template** from [`templates/`](templates/) and copy it to
+   `content/news/`.
+2. **Name the file** `YYYY-MM-DD-short-slug.md`, for example
+   `2026-10-15-beerformatics-ghent.md`:
+   - use the publication date, lowercase letters, digits and hyphens only;
+     no spaces;
+   - keep the slug short and descriptive.
+3. **Fill in the front matter** (the block between the `---` lines). See
+   [News posts](news-post.md). Always quote the date: `date: "2026-10-15"`.
+4. **Write the post** in Markdown. See [Markdown](markdown.md).
+5. **Add images and files** to `public/` and link them, then run
+   `npm run optimize:images` to shrink the images and convert them to WebP.
+   See [Images and files](images-and-files.md).
+6. **Preview** it locally and run `npm run check:content` and
+   `npm run check:assets` (see below), then open a pull request.
+
+### The file name is the URL
+
+The file name without its extension becomes the page address:
+`content/news/2026-10-15-beerformatics-ghent.md` is published at
+`https://rsg-belgium.org/news/2026-10-15-beerformatics-ghent`.
+
+**Never rename, move or delete a published post.** People share these links,
+and other posts link to them, so renaming one breaks those links. To
+correct a published post, edit its content and keep the file name.
+
+Posts are ordered by the `date` in their front matter, not by file name.
+
+## Adding or updating a team member
+
+1. Copy [`templates/member-profile.md`](templates/member-profile.md) to
+   `content/organization/firstname-lastname.md`.
+2. Optionally, add their portrait to `public/images/team/` (roughly square,
+   face centred) and run `npm run optimize:images`, which resizes it to
+   600 px and converts it to WebP (see [Images and files](images-and-files.md)).
+   Without a photo, the website shows their initials in a blue circle.
+3. Fill in the front matter: `name` (required), `title` (their board role),
+   `affiliation` (university), `position` (e.g. "PhD student"), `city`,
+   `image`, and `linkedin`/`orcid` profile URLs if they have them. Write a
+   short bio below the front matter.
+4. Run `npm run check:content`. Never add e-mail addresses or phone numbers:
+   profiles are public, and the check rejects them.
+
+Only `name` is required; empty fields are hidden on the website. For data
+you don't have yet, use the placeholders below and add a `# TODO: ...`
+comment after the field, so anyone can find the gaps by searching for
+`TODO` in `content/organization/`:
+
+| Field                                                  | Placeholder               |
+| ------------------------------------------------------ | ------------------------- |
+| `title`                                                | `"Board Member"`          |
+| `image`                                                | `""` (initials are shown) |
+| `affiliation`, `position`, `city`, `linkedin`, `orcid` | `""`                      |
+| Bio (the text below the front matter)                  | `Bio coming soon.`        |
+
+Members are ordered by their `order` field on `/organization` and on the
+homepage, which shows the first four: lower numbers come first (`1` for the
+President). Number the members 1 to n, each number used once and without
+gaps; a profile without `order` is not shown. To move someone, renumber the
+profiles in between.
+
+When someone leaves the board, delete their file and their photo in
+`public/images/team/` (`npm run check:assets` reports photos nobody uses).
+Git history keeps both, and files in subfolders of `content/organization/`
+are not shown on the site anyway.
+
+## Previewing your changes
+
+You need [Node.js](https://nodejs.org/) 26 (the current LTS version; the
+exact version is in the `.nvmrc` file, so `nvm use` picks it) and the
+repository on your computer.
+
+```bash
+npm ci        # first time only: installs dependencies
+npm run dev   # starts a local preview server
+```
+
+Open <http://localhost:3000/news> and click your post, or go straight to
+`http://localhost:3000/news/<your-file-name-without-extension>`. The page
+reloads when you save the file.
+
+Check that:
+
+- the title, date and excerpt look right on `/news` and on the homepage;
+- every image shows up and every link works, including `#anchor` links;
+- nothing appears as raw code, such as `{{ ... }}`, `{: ... }` or `{#...}`.
+
+## Checking your changes
+
+Before you open a pull request, run the content and asset checks:
+
+```bash
+npm run check:content
+npm run check:assets
+```
+
+It checks every post and team profile and lists each problem with the file,
+the line and how to fix it, for example:
+
+```text
+content/news/2026-10-15-beerformatics-ghent.md:3: error: the date must be in quotes, e.g. date: "2026-10-15". ...
+```
+
+It finds, among other things: a missing `title` or `date`, a date without
+quotes, images and files that don't exist in `public/` (names are
+case-sensitive: `photo.JPG` is not `photo.jpg`), links to posts or pages that
+don't exist, broken links such as `ttps://...` or `assets/...` without the
+leading `/`, leftover `{{ }}` or `{: }` syntax, `<iframe>`s without a
+`title`, and e-mail addresses or phone numbers in team profiles.
+
+The asset check lists images that are too big (run `npm run optimize:images`)
+and files in `public/` that nothing uses (delete them). See
+[Images and files](images-and-files.md#the-asset-check).
+
+The same checks run automatically on every pull request (GitHub Actions,
+"CI"), together with a build of the whole site and a check of every built
+page. Don't merge a pull request with a red ✗: open the failed check, read
+the messages (they are also shown next to the changed lines under "Files
+changed"), fix them and push again. A change to `main` is only published
+when these checks pass.
+
+To run everything CI runs, including the build, use `npm run ci`.
+
+## Publishing (branch, pull request, review)
+
+Nobody commits directly to `main`. Every change goes through a pull request:
+
+1. Update `main` and create a branch named after your change:
+   ```bash
+   git checkout main
+   git pull
+   git checkout -b content/beerformatics-ghent-announcement
+   ```
+2. Add your files and commit. Add files by name, not with `git add .`, so
+   that you don't commit unrelated or private files:
+   ```bash
+   git add content/news/2026-10-15-beerformatics-ghent.md public/images/poster/2026-10-15-beerformatics-ghent.webp
+   git commit -m "Add Beerformatics Ghent announcement"
+   git push -u origin content/beerformatics-ghent-announcement
+   ```
+3. Open a pull request on GitHub and ask another board member to review it.
+   CI checks it automatically (see [Checking your changes](#checking-your-changes)):
+   wait for the green ✓, or fix what it reports.
+4. When the pull request is merged into `main`, GitHub Actions checks, builds
+   and publishes the site automatically. It is usually live within a few minutes.
+
+Never commit personal data such as member lists, registration exports or
+spreadsheets. Git keeps every committed file in its history, even after the
+file is deleted, and everyone with access to the repository can see it. The
+content check fails if a spreadsheet (`.csv`, `.xlsx`, ...) is added to git,
+or if a team profile contains an e-mail address or phone number.
+
+If you get stuck, ask in the board Slack channel or open an issue on GitHub.

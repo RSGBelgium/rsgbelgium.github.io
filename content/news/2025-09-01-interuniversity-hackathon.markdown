@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Announcing the Interuniversity Biohackathon Belgium 2025"
-date:   2025-09-01 15:00
+date:   "2025-09-01 15:00"
 categories: news event hackathon
 toc: true
 category: 'News'
@@ -12,9 +12,9 @@ We are proud to announce the Interuniversity Bioinformatics Hackathon, taking pl
 
 This hackathon will unite top researchers, Msc and PhD students, postdocs, and AI/bioinformatics professionals to address real-world challenges at the intersection of artificial intelligence and bioinformatics.
 
-<!-- [![full](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
+<!-- [![Poster for the Interuniversity Biohackathon Belgium 2025](/images/poster/Interuniversity_Biohackathon_2025.jpg)](/images/poster/Interuniversity_Biohackathon_2025.jpg) -->
 
-We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#event-overview).
+We will kick off this edition of the biohackathon with three keynotes from esteemed speakers from Harvard Biostats, [InstaDeep](https://instadeep.com/) and [Scienta Lab](https://www.scientalab.com/), described [below](#about-the-workshops).
 
 We have designed three different tracks to choose from, which are described [below](#tracks). The full details of each track will be revealed on the day of the biohackathon.
 
@@ -26,12 +26,12 @@ We ask you however to already indicate your preference during registration. This
 - Day 1: September 25, 2025, from 15:00 till 20:00 <br>
 Place: Aula O&N5, Onderwijs en Navorsing 5, Herestraat 49, 3000 Leuven
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.43990158107!2d4.664557891823671!3d50.878568109081364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c161b1fa553a5d%3A0xbe95aaca448f0e6c!2sOnderwijs%20en%20Navorsing%205!5e0!3m2!1sen!2sbe!4v1750160371956!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe title="Map of Onderwijs en Navorsing 5, Herestraat 49, Leuven (day 1)" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.43990158107!2d4.664557891823671!3d50.878568109081364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c161b1fa553a5d%3A0xbe95aaca448f0e6c!2sOnderwijs%20en%20Navorsing%205!5e0!3m2!1sen!2sbe!4v1750160371956!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 - Day 2: September 26, 2025, from 9:00 till 20:00<br>
 Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.681604355544!2d4.7012410765823285!3d50.87409397167623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16128598d22e5%3A0x67749a5edbf86510!2sEdward%20van%20Evenstraat%204%2C%203000%20Leuven!5e0!3m2!1sen!2sbe!4v1750160316878!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe title="Map of Leercentrum AGORA, Edward Van Evenstraat 4, Leuven (day 2)" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.681604355544!2d4.7012410765823285!3d50.87409397167623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c16128598d22e5%3A0x67749a5edbf86510!2sEdward%20van%20Evenstraat%204%2C%203000%20Leuven!5e0!3m2!1sen!2sbe!4v1750160316878!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 **More information on how to get there is provided [below](#how-to-get-there).**
 
@@ -59,8 +59,8 @@ Place: Zaal Couvreur, Leercentrum AGORA, Edward Van Evenstraat 4, 3000 Leuven
 | 17:00–19:00 | Final project pitches + jury feedback                            |
 | 19:00–20:00 | Awards & closing ceremony                                        |
 
-## About the Workshops {#event-overview} 
-For more details regarding preparing for the workshops, check out this [page](https://rsg-belgium.org/news/2025-09-23-biohackathon25-workshops)
+## About the Workshops
+For more details regarding preparing for the workshops, check out this [page](/news/2025-09-23-biohackathon25-workshops)
 ### Exploratory and Confirmatory Data Analysis in Biology and Healthcare
 This talk will explore the complementary roles of exploratory and confirmatory analysis in biology and health research, with a central focus on differential analysis. From traditional differential analysis on tabular data to more complex applications such as gene regulatory network inference and analysis, I will discuss how analytical approaches must be tailored to the specific goals and data characteristics of each application. By understanding these needs—whether generating new hypotheses, validating biological mechanisms, or supporting clinical decisions—we can better integrate exploratory and confirmatory methods to enhance both discovery and rigor in computational biology and health sciences.
 
@@ -79,24 +79,30 @@ The human genome sequence provides the underlying code for human biology. Unders
 *About the speaker:*
 Bernardo Almeida is a Senior Research Scientist at InstaDeep in Paris where he is developing large language foundational models for biology. He received his PhD in 2023 from the University of Vienna after his work on deep learning models to understand the regulatory information encoded in the genome sequence. Earlier, he obtained his undergraduate degree in Biomedical Sciences and masters in Oncobiology from the University of Algarve, Portugal.
 
-## Tracks {#tracks}
+## Tracks
 
 ### Data Exploration & Classical Bioinformatics
 
 Analyze a biological dataset to extract meaningful insights or answer a specific biological question. The novelty lies in the clarity of results and the robustness of applied methods.
 *Best for:* Participants with backgrounds in bioinformatics, biostatistics, or experimental biology with data analysis experience.
 
+**Challenge:** [Decoding Cell-Cell Communication Along the Gut-Brain Axis Using Single-Cell Transcriptomics](/news/challenge_track1)
+
 ### Machine Learning for Prediction
 
 Develop a machine learning model to predict a biological feature or outcome. Emphasis is on justified use of ML, high performance, and model generalizability.
 *Best for:* Participants with experience in machine learning, data science, or computational biology.
+
+**Challenge:** [Prediction of Embryonic Stage from Single Cell RNA-Seq Data](/news/challenge_track2)
 
 ### Tool Development & Integration
 
 Create a bioinformatics tool that enhances pipelines or addresses a research question. Focus on innovation, usability, and practical impact.
 *Best for:* Participants with backgrounds in software engineering, tool development, pipeline integration, or bioinformatics.
 
-## How to get there? {#how-to-get-there}
+**Challenge:** [Automatic Curation of Oligogenic Disease Evidence from PDFs](/news/challenge_track3)
+
+## How to get there?
 
 The university is accessible by bus and train. Specific signs for the hackathon will be available outside the university to guide you.
 
@@ -104,13 +110,13 @@ Please also consult the following map of KU Leuven Gasthuisberg Campus and Leerc
 
 ### Access to Aula O&N5 - Day 1
 For more details regarding accessibility, please consult the following access guide:
-[![full](/images/maps/map_to_ON5.png)](/images/maps/map_to_ON5.png)
+[![Map of KU Leuven Campus Gasthuisberg showing the walking route from the bus stops to Aula O&N5](/images/maps/map_to_ON5.webp)](/images/maps/map_to_ON5.webp)
 - By Public Transport:<br>
  Leuven Station → De Lijn bus 10, R90, R80, 70 → Stop at Heverlee Berg Tabor or Leuven Gasthuisberg Kliniek<br>
 - By Car: [Logistiek Platform](https://www.kuleuven.be/kulag/nl/lokaal/390-90-00P003) (Parking code available upon request by email)
 
 ### Access to Zaal Couvreur - Day 2
-For more details regarding accessibility, please consult KU Leuven access guide [here](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
+For more details regarding accessibility, please consult the [KU Leuven access guide for Zaal Couvreur](https://www.kuleuven.be/kulag/en/lokaal/404-28-040112/onderwijs).
 - By Public Transport:
   - Leuven Station → De Lijn bus 12, 79, 11 → Stop at Parkpoort
   - or De Lijn bus 4, 14 → Stop at Leuven Rustoord Remy

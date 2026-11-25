@@ -9,7 +9,7 @@ excerpt: "Beerformatics relaunch - Spring 2026"
 
 Beerformatics is back after five years, and we are kicking off the Spring 2026 edition in Leuven!
 
-[![full](/images/poster/Beerformatics.png)](/images/poster/Beerformatics.png)
+[![Poster for the Beerformatics Spring 2026 kickoff on 19 March 2026 in Leuven](/images/poster/Beerformatics.webp)](/images/poster/Beerformatics.webp)
 
 Join us for an evening of fast-paced science, great conversations, and free beer (or a soft drink).  March 19, 19:00  Zaal Couvreur, Agora Learning Center, Leuven.
 

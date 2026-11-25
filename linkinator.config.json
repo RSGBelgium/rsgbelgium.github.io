@@ -1,0 +1,12 @@
+{
+  "recurse": true,
+  "checkFragments": true,
+  "skip": ["^(?!http://(localhost|127\\.0\\.0\\.1)[:/])"],
+  "urlRewriteExpressions": [
+    {
+      "pattern": "^(http://(?:localhost|127\\.0\\.0\\.1):\\d+(?:/[^/?#.]+)+)([?#].*)?$",
+      "replacement": "$1.html$2"
+    }
+  ],
+  "verbosity": "error"
+}

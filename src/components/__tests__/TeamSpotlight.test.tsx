@@ -1,76 +1,50 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import TeamSpotlight from '../TeamSpotlight'; // Adjust path
-import { Member } from '@/interfaces/member';
-import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import type { Member } from "@/interfaces/member";
+import TeamSpotlight from "../TeamSpotlight";
+import { makeMember } from "@/test-utils/fixtures";
 
-// Mock next/image
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />;
-  },
-}));
-
-// Mock Button component
-jest.mock('../Button', () => {
-  return ({ href, children }: { href: string; children: React.ReactNode }) => (
-    <a href={href}>{children}</a>
-  );
-});
-
-const mockMembers: Member[] = [
-  {
-    slug: 'member-alpha',
-    name: 'Alpha Person',
-    title: 'Lead Developer',
-    image: 'alpha.jpg',
-    linkedin: 'linkedin.com/alpha',
-    orcid: 'orcid.org/alpha',
-  },
-  {
-    slug: 'member-beta',
-    name: 'Beta Tester',
-    title: 'QA Specialist',
-    image: 'beta.jpg',
-    // No linkedin or orcid
-  },
+const members: Member[] = [
+  makeMember({
+    slug: "alpha",
+    order: 1,
+    name: "Alpha Person",
+    title: "President",
+    image: "/images/team/alpha.jpg",
+  }),
+  makeMember({ slug: "beta", order: 2, name: "Beta Tester" }),
 ];
 
-describe('TeamSpotlight Component', () => {
-  test('renders section title "Meet the Team"', () => {
-    render(<TeamSpotlight members={mockMembers} />);
-    expect(screen.getByRole('heading', { name: /Meet the Team/i, level: 2 })).toBeInTheDocument();
+describe("TeamSpotlight", () => {
+  test("renders the section heading", () => {
+    render(<TeamSpotlight members={members} />);
+    expect(screen.getByRole("heading", { level: 2, name: "Meet the Team" })).toBeInTheDocument();
   });
 
-  test('renders the correct number of member cards', () => {
-    render(<TeamSpotlight members={mockMembers} />);
-    // Each card has a name, we can count these
-    const names = mockMembers.map(member => screen.getByText(member.name));
-    expect(names.length).toBe(mockMembers.length);
+  test("renders each member's name and board role", () => {
+    render(<TeamSpotlight members={members} />);
+    expect(
+      screen.getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent),
+    ).toEqual(["Alpha Person", "Beta Tester"]);
+    expect(screen.getByText("President")).toBeInTheDocument();
   });
 
-  test('each card displays name, title, and image', () => {
-    render(<TeamSpotlight members={mockMembers} />);
-    mockMembers.forEach(member => {
-      expect(screen.getByText(member.name)).toBeInTheDocument();
-      expect(screen.getByText(member.title)).toBeInTheDocument();
-      const image = screen.getByAltText(member.name) as HTMLImageElement;
-      expect(image).toBeInTheDocument();
-      expect(image.src).toContain(`/assets/img/people/${member.image}`);
-    });
+  test("shows decorative avatars: the photo, or the initials", () => {
+    const { container } = render(<TeamSpotlight members={members} />);
+    expect(container.querySelector("img")).toHaveAttribute("alt", "");
+    expect(screen.getByText("BT")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
-  test('renders "View Full Team" button/link', () => {
-    render(<TeamSpotlight members={mockMembers} />);
-    const viewAllLink = screen.getByRole('link', { name: /View Full Team/i });
-    expect(viewAllLink).toBeInTheDocument();
-    expect(viewAllLink).toHaveAttribute('href', '/organization');
+  test("links to the full team", () => {
+    render(<TeamSpotlight members={members} />);
+    expect(screen.getByRole("link", { name: "View Full Team" })).toHaveAttribute(
+      "href",
+      "/organization",
+    );
   });
 
-  test('returns null if no members are provided', () => {
+  test("renders nothing without members", () => {
     const { container } = render(<TeamSpotlight members={[]} />);
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

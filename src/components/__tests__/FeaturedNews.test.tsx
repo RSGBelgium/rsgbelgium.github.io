@@ -1,105 +1,84 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import FeaturedNews from '../FeaturedNews'; // Adjust path
-import { Post } from '@/interfaces/post';
-import '@testing-library/jest-dom';
+import { render, screen, within } from "@testing-library/react";
+import type { Post } from "@/interfaces/post";
+import FeaturedNews from "../FeaturedNews";
+import { makePost } from "@/test-utils/fixtures";
 
-// Mock DateFormatter
-jest.mock('@/app/_components/date-formatter', () => {
-  return ({ dateString }: { dateString: string }) => <span>{dateString}</span>;
-});
+/** The original path of an image rendered by next/image (Jest uses the default image loader). */
+function originalSrc(image: HTMLElement): string | null {
+  return new URL(image.getAttribute("src") ?? "", "http://localhost").searchParams.get("url");
+}
 
-// Mock Button component (if it's used for "View All News", which it is)
-jest.mock('../Button', () => {
-  return ({ href, children }: { href: string; children: React.ReactNode }) => (
-    <a href={href}>{children}</a>
-  );
-});
-
-// Mock next/link as it's used for individual post links
-jest.mock('next/link', () => {
-  return ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & {children: React.ReactNode}) => {
-    return <a href={href} {...props}>{children}</a>;
-  };
-});
-
-
-const mockPosts: Post[] = [
-  {
-    slug: 'news-1',
-    title: 'First News Article',
-    date: '2023-10-01',
-    coverImage: '/assets/news/news1.jpg', // Example path
-    author: { name: 'Author A', picture: 'authorA.jpg' },
-    excerpt: 'This is the excerpt for the first news.',
-    ogImage: { url: 'og1.jpg' },
-    content: 'Full content 1',
-    category: 'Updates',
-  },
-  {
-    slug: 'news-2',
-    title: 'Second News Article',
-    date: '2023-10-02',
-    coverImage: 'news2.jpg', // Example relative path
-    author: { name: 'Author B', picture: 'authorB.jpg' },
-    excerpt: 'Excerpt for the second article.',
-    ogImage: { url: 'og2.jpg' },
-    content: 'Full content 2',
-    category: 'Events',
-  },
+const posts: Post[] = [
+  makePost({
+    slug: "news-1",
+    title: "First news article",
+    date: "2023-10-01",
+    coverImage: "/images/poster/news1.jpg",
+    excerpt: "This is the excerpt for the first news.",
+  }),
+  makePost({
+    slug: "news-2",
+    title: "Second news article",
+    date: "2023-10-02",
+    coverImage: "cover.jpg",
+    excerpt: "Excerpt for the second article.",
+  }),
+  makePost({ slug: "news-3", title: "Third news article without image", date: "2023-10-03" }),
 ];
 
-describe('FeaturedNews Component', () => {
-  test('renders section title "Latest News"', () => {
-    render(<FeaturedNews posts={mockPosts} />);
-    expect(screen.getByRole('heading', { name: /Latest News/i, level: 2 })).toBeInTheDocument();
+describe("FeaturedNews", () => {
+  test("renders the section heading", () => {
+    render(<FeaturedNews posts={posts} />);
+    expect(screen.getByRole("heading", { level: 2, name: "Latest News" })).toBeInTheDocument();
   });
 
-  test('renders the correct number of news cards', () => {
-    render(<FeaturedNews posts={mockPosts} />);
-    // Each card has a title, which we can count
-    const titles = mockPosts.map(post => screen.getByText(post.title));
-    expect(titles.length).toBe(mockPosts.length);
-  });
+  test("renders one card per post with its title as the only link", () => {
+    render(<FeaturedNews posts={posts} />);
+    const cards = screen.getAllByRole("article");
+    expect(cards).toHaveLength(posts.length);
 
-  test('each card displays title, date, and excerpt', () => {
-    render(<FeaturedNews posts={mockPosts} />);
-    mockPosts.forEach(post => {
-      expect(screen.getByText(post.title)).toBeInTheDocument();
-      expect(screen.getByText(post.date)).toBeInTheDocument(); // Mocked DateFormatter just shows the string
-      expect(screen.getByText(post.excerpt)).toBeInTheDocument();
-
-      // Check that the link to the full article is correct
-      const postLink = screen.getByRole('link', { name: post.title });
-      expect(postLink).toHaveAttribute('href', `/news/${post.slug}`);
-
-      const readMoreLink = screen.getAllByRole('link', { name: /Read more →/i }).find(link => (link as HTMLAnchorElement).href.includes(`/news/${post.slug}`));
-      expect(readMoreLink).toBeInTheDocument();
-
+    cards.forEach((card, index) => {
+      const links = within(card).getAllByRole("link");
+      expect(links).toHaveLength(1);
+      expect(links[0]).toHaveAccessibleName(posts[index].title);
+      expect(links[0]).toHaveAttribute("href", `/news/${posts[index].slug}`);
+      expect(within(card).getByRole("heading", { level: 3 })).toHaveTextContent(posts[index].title);
     });
   });
 
-  test('renders "View All News" button/link', () => {
-    render(<FeaturedNews posts={mockPosts} />);
-    const viewAllLink = screen.getByRole('link', { name: /View All News/i });
-    expect(viewAllLink).toBeInTheDocument();
-    expect(viewAllLink).toHaveAttribute('href', '/news');
+  test("shows the formatted date and the excerpt", () => {
+    render(<FeaturedNews posts={posts} />);
+    expect(screen.getByText("October 1, 2023")).toHaveAttribute("dateTime", "2023-10-01");
+    expect(screen.getByText(posts[0].excerpt!)).toBeInTheDocument();
   });
 
-  test('renders cover images with correct src', () => {
-    render(<FeaturedNews posts={mockPosts} />);
-    const firstImage = screen.getByAltText(mockPosts[0].title) as HTMLImageElement;
-    expect(firstImage).toBeInTheDocument();
-    expect(firstImage.src).toContain(mockPosts[0].coverImage); // Absolute path
-
-    const secondImage = screen.getByAltText(mockPosts[1].title) as HTMLImageElement;
-    expect(secondImage).toBeInTheDocument();
-    // The component logic prepends /assets/blog/${post.slug}/ if not starting with /
-    expect(secondImage.src).toContain(`/assets/blog/${mockPosts[1].slug}/${mockPosts[1].coverImage}`);
+  test("hides the 'Read more' cue from screen readers", () => {
+    render(<FeaturedNews posts={posts} />);
+    const cues = screen.getAllByText(/Read more/);
+    expect(cues).toHaveLength(posts.length);
+    for (const cue of cues) {
+      expect(cue.closest('[aria-hidden="true"]')).not.toBeNull();
+      expect(cue.closest("a")).toBeNull();
+    }
   });
 
-  test('returns null if no posts are provided', () => {
+  test("shows cover images as decorative images", () => {
+    const { container } = render(<FeaturedNews posts={posts} />);
+    // Decorative images (alt="") have no img role, so query the DOM directly.
+    const images = container.querySelectorAll("img");
+    // A bare file name ("cover.jpg") is not a site path: that card has no image.
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute("alt", "");
+    expect(originalSrc(images[0])).toBe("/images/poster/news1.jpg");
+  });
+
+  test("links to all news", () => {
+    render(<FeaturedNews posts={posts} />);
+    expect(screen.getByRole("link", { name: "View All News" })).toHaveAttribute("href", "/news");
+  });
+
+  test("renders nothing without posts", () => {
     const { container } = render(<FeaturedNews posts={[]} />);
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

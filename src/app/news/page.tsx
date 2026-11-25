@@ -4,17 +4,19 @@
  * Displays the latest news, events, and announcements.
  */
 
-import { Metadata } from 'next';
+import { Metadata } from "next";
 import Container from "@/app/_components/container";
-import { Intro } from "@/app/_components/intro";
+import { PageHeader } from "@/app/_components/page-header";
 import { getAllPosts } from "@/lib/api";
 import { MoreStories } from "@/app/_components/more-stories";
 import { HeroPost } from "@/app/_components/hero-post";
-import { DEFAULT_AUTHOR } from "@/lib/constants";
+import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: 'News | RSG Belgium',
-  description: 'Stay updated with the latest news, events, and announcements from RSG Belgium.',
+  title: "News",
+  description: "Stay updated with the latest news, events, and announcements from RSG Belgium.",
+  alternates: pageAlternates("/news"),
 };
 
 /**
@@ -26,21 +28,23 @@ export default async function NewsPage() {
   const morePosts = allPosts.slice(1);
 
   return (
-    <main>
-      <Container>
-        <Intro />
-        {heroPost && (
-          <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.coverImage}
-            date={heroPost.date}
-            author={heroPost.author || DEFAULT_AUTHOR}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
-          />
-        )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </Container>
-    </main>
+    <Container>
+      <PageHeader
+        title="News"
+        description={`Stay updated with the latest news and events from ${SITE_NAME}.`}
+      />
+      {heroPost && (
+        <HeroPost
+          title={heroPost.title}
+          coverImage={heroPost.coverImage}
+          coverImageSize={heroPost.coverImageSize}
+          date={heroPost.date}
+          author={heroPost.author || DEFAULT_AUTHOR}
+          slug={heroPost.slug}
+          excerpt={heroPost.excerpt}
+        />
+      )}
+      {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+    </Container>
   );
 }

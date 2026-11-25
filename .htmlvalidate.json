@@ -1,0 +1,21 @@
+{
+  "$schema": "https://html-validate.org/schemas/config.json",
+  "root": true,
+  "elements": [
+    "html5",
+    {
+      "iframe": {
+        "attributes": {
+          "title": { "required": true }
+        }
+      }
+    }
+  ],
+  "rules": {
+    "heading-level": ["error", { "allowMultipleH1": false, "minInitialRank": "h1" }],
+    "no-multiple-main": "error",
+    "wcag/h37": "error",
+    "element-required-attributes": "error",
+    "no-dup-id": "error"
+  }
+}

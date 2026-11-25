@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Virtual Bioinformatics Student Symposium - 04/12/2020"
-date: 2020-10-08 19:30
+date: "2020-10-08 19:30"
 categories: event student-symposium
 toc: true
 category: 'News'
@@ -43,6 +43,6 @@ The symposium and poster session will be held via the Airmeet platform. More inf
 
 ## Flyer
 
-[![full](/assets/img/poster/poster_symposium_2020_logo-virtual.png){: .center}]({{ site.baseurl }}/assets/pdf/poster/poster_symposium_2020_logo-virtual.pdf)
+[![Poster for the virtual RSG-Belgium Bioinformatics Student Symposium on 4 December 2020](/images/poster/poster_symposium_2020_logo-virtual.webp)](/assets/pdf/poster_symposium_2020_logo-virtual.pdf)
 
 [form]: https://forms.gle/DqiqF9WSsGCXW2jh6

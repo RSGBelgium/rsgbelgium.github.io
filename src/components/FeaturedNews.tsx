@@ -2,13 +2,22 @@
  * Featured news section component.
  *
  * Renders a grid of recent news posts with title, date, excerpt, and link.
+ *
+ * Each card has exactly one link, the post title, stretched over the whole
+ * card (a "stretched link"): keyboard and screen-reader users meet one link
+ * per post instead of three (image, title, "Read more"), while the whole
+ * card is still clickable (`link-card` in globals.css). The card shows the
+ * focus outline when the link is focused.
  */
 
-import React from 'react';
-import Link from 'next/link';
-import { Post } from '@/interfaces/post'; // Assuming Post interface exists
-import Button from './Button'; // Reusable button
-import DateFormatter from '@/app/_components/date-formatter'; // Date formatter
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Post } from "@/interfaces/post"; // Assuming Post interface exists
+import Button from "./Button"; // Reusable button
+import Container from "@/app/_components/container";
+import DateFormatter from "@/app/_components/date-formatter"; // Date formatter
+import { postPath } from "@/lib/urls";
 
 interface FeaturedNewsProps {
   posts: Post[];
@@ -25,43 +34,57 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
   }
 
   return (
-    <section className="bg-white dark:bg-slate-900 py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-lightblue">
+    <section className="py-16 md:py-24">
+      <Container>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
           Latest News
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
-            <div key={post.slug} className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
-              {post.coverImage && (
-                <Link href={`/news/${post.slug}`} className="block">
-                  {/* Simplified image display, next/image could be used here too */}
-                  <img
-                    src={post.coverImage.startsWith('/') ? post.coverImage : `/assets/blog/${post.slug}/${post.coverImage}`}
-                    alt={post.title}
-                    className="w-full h-48 object-cover hover:opacity-90 transition-opacity duration-200"
+            <article
+              key={post.slug}
+              className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
+            >
+              {post.coverImage?.startsWith("/") && (
+                // Decorative: the title says what the post is about. The image fills a
+                // full-width, 12rem-tall box (cropped with object-cover), so next/image's
+                // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
+                // Only site paths ("/images/...") are shown: `npm run check:content`
+                // rejects any other coverImage, and the card works without an image.
+                <div className="relative h-48">
+                  <Image
+                    src={post.coverImage}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover group-hover:opacity-90 transition-opacity duration-200"
                   />
-                </Link>
+                </div>
               )}
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
-                  <Link href={`/news/${post.slug}`} className="hover:text-blue-600 transition-colors duration-200">
+                  {/* The card's only link: .link-card-link stretches it over the whole card. */}
+                  <Link
+                    href={postPath(post.slug)}
+                    className="link-card-link text-link hover:underline"
+                  >
                     {post.title}
                   </Link>
                 </h3>
-                <div className="text-sm text-gray-500 mb-3">
+                <div className="text-sm text-foreground-muted mb-3">
                   <DateFormatter dateString={post.date} />
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-4 text-sm">
-                  {post.excerpt}
-                </p>
+                {post.excerpt && (
+                  <p className="text-foreground leading-relaxed mb-4 text-sm">{post.excerpt}</p>
+                )}
               </div>
-              <div className="p-6 pt-0">
-                 <Link href={`/news/${post.slug}`} className="text-primary hover:text-secondary font-medium text-sm">
-                    Read more &rarr;
-                  </Link>
+              {/* A visual cue only: the title link above already leads to the post. */}
+              <div className="p-6 pt-0" aria-hidden="true">
+                <span className="text-link group-hover:underline font-medium text-sm">
+                  Read more &rarr;
+                </span>
               </div>
-            </div>
+            </article>
           ))}
         </div>
         <div className="text-center mt-12">
@@ -69,7 +92,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
             View All News
           </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

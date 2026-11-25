@@ -1,0 +1,56 @@
+# Dependabot: weekly pull requests that keep dependencies and GitHub
+# Actions up to date. CI (.github/workflows/ci.yml) checks every one of them.
+# https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Brussels
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      # All minor and patch updates in one pull request a week.
+      # Major updates come as separate pull requests.
+      npm-minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # These majors need a planned migration, not a bot pull request:
+      # Next.js 16 removes `next lint` and changes eslint-config-next.
+      - dependency-name: next
+        update-types: ["version-update:semver-major"]
+      - dependency-name: eslint-config-next
+        update-types: ["version-update:semver-major"]
+      # eslint-config-next 15 supports ESLint up to version 9.
+      - dependency-name: eslint
+        update-types: ["version-update:semver-major"]
+      # TypeScript 7 is the native compiler, without the JavaScript API that Next.js 15 uses.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      # Tailwind CSS 4 is a rewrite with a CSS-based configuration.
+      - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Brussels
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions-minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: [minor, patch]

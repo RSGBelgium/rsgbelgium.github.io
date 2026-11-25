@@ -10,11 +10,54 @@ import fs from "fs/promises";
 import matter from "gray-matter";
 import { join } from "path";
 import { Member } from "@/interfaces/member";
-import { existsSync } from "fs";
+import { createExcerpt } from "@/lib/excerpt";
+import { normalizeFrontMatterDate, parseDate } from "@/lib/dates";
+import {
+  checkMemberNumbering,
+  isAbsoluteUrl,
+  isMarkdownFile,
+  MARKDOWN_EXTENSIONS,
+  MEMBERS_DIR,
+  NEWS_DIR,
+  parseMemberOrder,
+  resolveMemberImage,
+  slugFromFileName,
+} from "@/lib/content-rules";
+import { readImageSize } from "@/lib/image-size";
 
-const postsDirectory = join(process.cwd(), "content/news");
-const organizationDirectory = join(process.cwd(), "content/organization");
-const membersDirectory = join(process.cwd(), "content/organization");
+const postsDirectory = join(process.cwd(), NEWS_DIR);
+const membersDirectory = join(process.cwd(), MEMBERS_DIR);
+
+/**
+ * Log a warning about a member profile file.
+ *
+ * @param file - File name inside content/organization/
+ * @param message - What is wrong and what happens because of it
+ * @param details - Extra values to log, such as the error
+ */
+function warnMember(file: string, message: string, ...details: unknown[]): void {
+  console.warn(`${MEMBERS_DIR}/${file}: ${message}`, ...details);
+}
+
+/**
+ * Read an optional text field from front matter.
+ *
+ * @param value - The raw front-matter value
+ * @returns The trimmed string, or "" when the field is missing, empty or not a string
+ */
+function optionalString(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+/**
+ * Convert a post date string to a timestamp for sorting.
+ *
+ * @param date - The post date string
+ * @returns Milliseconds since the epoch, or 0 when the date is missing or invalid (sorts last)
+ */
+function getDateTimestamp(date: string): number {
+  return parseDate(date)?.getTime() ?? 0;
+}
 
 /**
  * Get all post slugs (filenames without extension) from the news content directory.
@@ -22,11 +65,9 @@ const membersDirectory = join(process.cwd(), "content/organization");
 export async function getPostSlugs(): Promise<string[]> {
   try {
     const files = await fs.readdir(postsDirectory);
-    return files
-      .filter(file => file.endsWith('.md') || file.endsWith('.markdown'))
-      .map(file => file.replace(/\.(md|markdown)$/, ''));
+    return files.filter(isMarkdownFile).map(slugFromFileName);
   } catch (error) {
-    console.error('Error reading post slugs:', error);
+    console.error("Error reading post slugs:", error);
     return [];
   }
 }
@@ -39,18 +80,17 @@ export async function getPostSlugs(): Promise<string[]> {
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    // Try both .md and .markdown extensions
-    const extensions = ['.md', '.markdown'];
-    let fileContents = '';
+    let fileContents = "";
 
-    for (const ext of extensions) {
+    for (const ext of MARKDOWN_EXTENSIONS) {
       const path = join(postsDirectory, `${slug}${ext}`);
       try {
         fileContents = await fs.readFile(path, "utf8");
         break;
       } catch (error: unknown) {
-        // Continue to next extension if file not found
-        if (error instanceof Error && 'code' in error && error.code === 'ENOENT') continue;
+        // Continue to next extension if file not found. Only `code` is checked: an
+        // `instanceof Error` test fails for errors from another realm (e.g. under Jest).
+        if ((error as NodeJS.ErrnoException | null)?.code === "ENOENT") continue;
         throw error;
       }
     }
@@ -61,11 +101,18 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     }
 
     const { data, content } = matter(fileContents);
+    // The cover's real size, so pages reserve its space before it loads.
+    const coverImageSize =
+      typeof data.coverImage === "string" ? await readImageSize(data.coverImage) : undefined;
 
     return {
       slug,
       content,
       ...data,
+      ...(coverImageSize && { coverImageSize }),
+      date: normalizeFrontMatterDate(data.date),
+      // An explicit front-matter excerpt wins; otherwise summarise the body.
+      excerpt: optionalString(data.excerpt) || createExcerpt(content),
     } as Post;
   } catch (error) {
     console.error(`Error reading post for slug ${slug}:`, error);
@@ -74,7 +121,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 }
 
 /**
- * Get all posts, sorted by date descending.
+ * Get all posts, sorted by date descending (newest first).
  *
  * @returns Array of Post objects
  */
@@ -85,115 +132,131 @@ export async function getAllPosts(): Promise<Post[]> {
     const posts = await Promise.all(postsPromises);
     return posts
       .filter((post): post is Post => post !== null)
-      .sort((post1: Post, post2: Post) => (post1.date > post2.date ? -1 : 1));
+      .sort(
+        (post1: Post, post2: Post) =>
+          getDateTimestamp(post2.date) - getDateTimestamp(post1.date) ||
+          post1.slug.localeCompare(post2.slug),
+      );
   } catch (error) {
-    console.error('Error getting all posts:', error);
+    console.error("Error getting all posts:", error);
     return [];
   }
 }
 
 /**
- * Get all organization members from the organization content directory.
+ * Read an optional profile URL (LinkedIn, ORCID) from front matter.
  *
- * @returns Array of Member objects
- */
-export async function getOrganizationData(): Promise<Member[]> {
-  try {
-    const files = await fs.readdir(organizationDirectory);
-    const members = await Promise.all(
-      files
-        .filter(file => file.endsWith('.md') || file.endsWith('.markdown'))
-        .map(async (file: string) => {
-          const fullPath = join(organizationDirectory, file);
-          const fileContents = await fs.readFile(fullPath, "utf8");
-          const { data, content } = matter(fileContents);
-
-          // Ensure image path is correctly prefixed
-          const imagePath = data.image.startsWith('/') ? data.image : `/images/team/${data.image}`;
-
-          return {
-            ...data,
-            slug: file.replace(/\.(md|markdown)$/, ""),
-            image: imagePath,
-            content,
-          } as Member;
-        })
-    );
-
-    return members.sort((a: Member, b: Member) => a.name.localeCompare(b.name));
-  } catch (error) {
-    console.error('Error reading organization data:', error);
-    return [];
-  }
-}
-
-/**
- * Get all member slugs (filenames) from the organization content directory.
- */
-export async function getMemberSlugs(): Promise<string[]> {
-  try {
-    const files = await fs.readdir(membersDirectory);
-    return files.filter(file => file.endsWith('.md') || file.endsWith('.markdown'));
-  } catch (error) {
-    console.error('Error reading member slugs:', error);
-    return [];
-  }
-}
-
-/**
- * Get a single member by their slug (filename).
+ * Anything that isn't an absolute http(s) URL is dropped with a warning, so a
+ * value like "Jane Doe | LinkedIn" never becomes a broken relative link.
  *
- * @param slugWithExtension - The filename of the member markdown file
- * @returns The Member object or null if not found or invalid
+ * @param value - The raw front-matter value
+ * @param field - Field name, for the warning
+ * @param file - Source file name, for the warning
+ * @returns The URL, or "" when missing or invalid
  */
-export async function getMemberBySlug(slugWithExtension: string): Promise<Member | null> {
-  const slugForUrl = slugWithExtension.replace(/\.md(?:own)?$/, "");
-  const fullPath = join(membersDirectory, slugWithExtension);
+function optionalUrl(value: unknown, field: string, file: string): string {
+  const url = optionalString(value);
+  if (url && !isAbsoluteUrl(url)) {
+    warnMember(file, `ignoring "${field}" because it is not an http(s) URL: ${url}`);
+    return "";
+  }
+  return url;
+}
 
-  try {
-    const fileContents = await fs.readFile(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+/**
+ * Warns when the members are not numbered exactly 1 to n, i.e. when an
+ * `order` is used twice or a number is skipped. Members are sorted by
+ * `order` alone, so the team page would then not show the intended order.
+ *
+ * @param members - The valid members, sorted by order
+ */
+function warnIfNotNumberedOneToN(members: Member[]): void {
+  const { duplicates, missing } = checkMemberNumbering(members.map((member) => member.order));
+  if (duplicates.length === 0 && missing.length === 0) return;
+  const orders = members.map((member) => member.order).join(", ");
+  console.warn(
+    `${MEMBERS_DIR}: the "order" numbers must be 1 to ${members.length}, each used once (found ${orders}).`,
+  );
+}
 
-    // Basic validation for essential member fields
-    if (!data.name || !data.title || !data.image) {
-      console.warn(`Warning: Member with slug '${slugForUrl}' (source file: ${slugWithExtension}) is missing essential front matter (name, title, or image). Skipping.`);
-      return null;
-    }
+/**
+ * Parse and validate one member profile.
+ *
+ * `name` and `order` are required. Optional text fields default to "" so
+ * that components can simply hide empty values.
+ *
+ * @param file - File name inside content/organization/ (used for the slug and warnings)
+ * @param fileContents - The raw markdown file, front matter included
+ * @returns The Member, or null (with a warning) when the profile is invalid
+ */
+function parseMember(file: string, fileContents: string): Member | null {
+  const { data, content } = matter(fileContents);
 
-    // Ensure image path is correctly prefixed
-    const imagePath = data.image.startsWith('/') ? data.image : `/images/team/${data.image}`;
-
-    return {
-      ...data,
-      slug: slugForUrl,
-      name: data.name,
-      title: data.title,
-      image: imagePath,
-      linkedin: data.linkedin,
-      orcid: data.orcid,
-      content,
-    } as Member;
-  } catch (error) {
-    console.error(`Error processing member with slug: ${slugForUrl} (source file: ${slugWithExtension})`, error);
+  const name = optionalString(data.name);
+  if (!name) {
+    warnMember(file, `skipping profile without a "name" in its front matter.`);
     return null;
   }
+
+  const order = parseMemberOrder(data.order);
+  if (order === undefined) {
+    warnMember(
+      file,
+      `skipping profile without a whole-number "order" from 1 in its front matter (its position on the team page).`,
+    );
+    return null;
+  }
+
+  return {
+    slug: slugFromFileName(file),
+    name,
+    title: optionalString(data.title),
+    image: resolveMemberImage(optionalString(data.image)),
+    affiliation: optionalString(data.affiliation),
+    position: optionalString(data.position),
+    city: optionalString(data.city),
+    linkedin: optionalUrl(data.linkedin, "linkedin", file),
+    orcid: optionalUrl(data.orcid, "orcid", file),
+    order,
+    content: content.trim(),
+  };
 }
 
 /**
- * Get all members, sorted by name.
+ * Get all team members from content/organization/, in display order.
  *
- * @returns Array of Member objects
+ * Every `.md`/`.markdown` file directly in that folder is one member
+ * (subfolders are ignored). A profile that can't be read, or has no `name`
+ * or `order`, is skipped with a warning instead of emptying the whole team list.
+ *
+ * Used by the /organization page and the homepage team spotlight.
+ *
+ * @returns Members sorted by their `order` front-matter field (1, 2, 3, ...)
  */
 export async function getAllMembers(): Promise<Member[]> {
+  let files: string[];
   try {
-    const slugs = await getMemberSlugs();
-    const membersPromises = slugs.map((slug) => getMemberBySlug(slug));
-    const members = await Promise.all(membersPromises);
-    return members
-      .filter((member): member is Member => member !== null)
-      .sort((member1, member2) => member1.name.localeCompare(member2.name));
+    files = await fs.readdir(membersDirectory);
   } catch (error) {
-    console.error('Error getting all members:', error);
+    console.error("Error reading the members directory:", error);
     return [];
   }
+
+  const members = await Promise.all(
+    files.filter(isMarkdownFile).map(async (file) => {
+      try {
+        const fileContents = await fs.readFile(join(membersDirectory, file), "utf8");
+        return parseMember(file, fileContents);
+      } catch (error) {
+        warnMember(file, `skipping profile that could not be read or parsed.`, error);
+        return null;
+      }
+    }),
+  );
+
+  const sorted = members
+    .filter((member): member is Member => member !== null)
+    .sort((a, b) => a.order - b.order);
+  warnIfNotNumberedOneToN(sorted);
+  return sorted;
 }

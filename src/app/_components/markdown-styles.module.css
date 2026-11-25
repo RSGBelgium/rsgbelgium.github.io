@@ -1,48 +1,169 @@
 /*
  * CSS module for styling rendered markdown content in posts and pages.
  *
- * Applies consistent typography, spacing, and table styles for markdown HTML.
+ * Applies consistent typography, spacing, list, quote, code, table and link
+ * styles to the HTML generated from markdown (Tailwind's preflight resets
+ * all of these). Colours are the theme tokens from src/app/globals.css,
+ * which switch between light and dark by themselves. Don't use `dark:`
+ * here: CSS Modules rename the `.dark` class, so those rules never match.
+ * The one dark-only rule below names it with `:global(.dark)` instead, and
+ * the class that src/lib/markdownToHtml.ts puts on the HTML is `:global` too.
+ *
+ * Nothing may make the page wider than the screen (WCAG 1.4.10): a word or
+ * link too long for its line, such as a bare URL, breaks where it must
+ * (`break-words` leaves all other text wrapping as before), and wide tables
+ * scroll sideways in their own box.
  */
 .markdown {
-  @apply text-lg leading-relaxed;
+  @apply text-lg leading-relaxed break-words;
 }
 
 .markdown p,
 .markdown ul,
 .markdown ol,
-.markdown blockquote {
+.markdown blockquote,
+.markdown pre,
+.markdown :global(.table-scroll) {
   @apply my-6;
 }
 
+/* Headings: bold, each level a step smaller. The h2 is the size of a page's
+   section headings (SECTION_HEADING in page-header.tsx), 24px on phones and
+   30px from `md`, so it stays below the post's title; the h4 is the size of
+   the text on phones. */
+.markdown h1 {
+  @apply text-4xl font-bold mt-12 mb-4 leading-tight;
+}
+
 .markdown h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
+  @apply text-2xl md:text-3xl font-bold tracking-tight mt-12 mb-4 leading-snug;
 }
 
 .markdown h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
+  @apply text-xl md:text-2xl font-bold mt-8 mb-4 leading-snug;
 }
 
-/* Table styles */
+.markdown h4 {
+  @apply text-lg md:text-xl font-bold mt-8 mb-3 leading-snug;
+}
+
+/* Some posts write `## **Title**`: keep such headings as bold as the others
+   (`strong` is "bolder", which would make them black, weight 900). */
+.markdown h2 strong,
+.markdown h3 strong,
+.markdown h4 strong {
+  font-weight: inherit;
+}
+
+.markdown h5,
+.markdown h6 {
+  @apply text-lg font-semibold mt-6 mb-2;
+}
+
+.markdown h6 {
+  @apply text-foreground-muted;
+}
+
+/* Lists: bullets and numbers, with muted markers */
+.markdown ul {
+  @apply list-disc pl-6;
+}
+
+.markdown ol {
+  @apply list-decimal pl-6;
+}
+
+.markdown li {
+  @apply my-1;
+}
+
+.markdown li > ul,
+.markdown li > ol,
+.markdown li > p {
+  @apply my-2;
+}
+
+.markdown li::marker {
+  /* ::marker only accepts a few properties, so no @apply (it adds a custom property). */
+  color: rgb(var(--color-foreground-muted));
+}
+
+/* Block quotes: used for notices and venue addresses */
+.markdown blockquote {
+  @apply border-l-4 border-accent bg-surface-muted rounded-r-md px-5 py-1;
+}
+
+.markdown blockquote > p {
+  @apply my-4;
+}
+
+/* Code */
+.markdown code {
+  @apply rounded bg-surface-muted px-1.5 py-0.5 font-mono text-[0.9em];
+}
+
+.markdown pre {
+  @apply overflow-x-auto rounded-lg border border-border bg-surface-muted p-4 text-sm leading-normal;
+}
+
+.markdown pre code {
+  @apply bg-transparent p-0 text-[1em];
+}
+
+/* Horizontal rules */
+.markdown hr {
+  @apply my-10 border-border;
+}
+
+/* Images: centred and scaled down to fit the content column */
+.markdown img {
+  @apply block mx-auto max-w-full h-auto;
+}
+
+/* A post may frame an image with an inline style chosen for the light page,
+   e.g. the 2021 Beerformatics poster's `border: 5px solid #f8f3da`, a cream
+   frame that glares on the dark page. In the dark theme such borders take the
+   theme's border colour; their width and style stay. `!important` is the only
+   way a stylesheet can override an inline style. */
+:global(.dark) .markdown img[style*="border"] {
+  border-color: rgb(var(--color-border)) !important;
+}
+
+/* Embedded maps: Google's code fixes width="600", wider than a phone. Never
+   wider than the column, so the page doesn't scroll sideways (WCAG 1.4.10). */
+.markdown iframe {
+  @apply max-w-full;
+}
+
+/* Table styles. Every table is in a `<div class="table-scroll">`
+   (remarkScrollableTables in src/lib/markdownToHtml.ts). A table wider than
+   the text column, by its long values or on a phone, scrolls sideways in that
+   box, so the page doesn't. A narrower table fills the column. */
+.markdown :global(.table-scroll) {
+  @apply overflow-x-auto;
+}
+
 .markdown table {
-  @apply w-full my-6 border-collapse;
+  @apply w-full border-collapse;
 }
 
 .markdown th {
-  @apply bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left border border-gray-300 dark:border-gray-700;
+  @apply bg-surface-muted px-4 py-2 text-left border border-border;
 }
 
 .markdown td {
-  @apply px-4 py-2 border border-gray-300 dark:border-gray-700;
+  @apply px-4 py-2 border border-border;
 }
 
-.markdown tr:nth-child(even) {
-  @apply bg-gray-50 dark:bg-gray-900;
+.markdown tbody tr:nth-child(even) {
+  @apply bg-surface-muted/50;
 }
 
-.markdown tr:hover {
-  @apply bg-gray-100 dark:bg-gray-800;
+.markdown tbody tr:hover {
+  @apply bg-highlight/50;
 }
 
+/* Links */
 .markdown a {
-  @apply text-inherit hover:text-secondary underline transition-colors dark:text-lightblue dark:hover:text-white;
+  @apply text-link underline underline-offset-2 transition-colors hover:text-accent-strong;
 }

@@ -2,12 +2,14 @@
  * Hero/landing section component.
  *
  * Renders a prominent hero section with headline, intro text, and call-to-action button.
+ * The background is the brand gradient from the `hero-start`/`hero-end` tokens
+ * (deeper in dark mode); white text stays above 6.4:1 contrast along all of it.
  */
 
-import React from 'react';
-import Button from './Button'; // Assuming Button is in the same directory or adjust path
-import Container from '@/app/_components/container'; // Common container
-import Image from 'next/image';
+import React from "react";
+import Button from "./Button"; // Assuming Button is in the same directory or adjust path
+import Container from "@/app/_components/container"; // Common container
+import Image from "next/image";
 
 interface HeroSectionProps {
   headline: string;
@@ -26,20 +28,39 @@ interface HeroSectionProps {
  */
 const HeroSection: React.FC<HeroSectionProps> = ({ headline, introText, ctaLabel, ctaLink }) => {
   return (
-    <section className="bg-gradient-to-r from-primary to-secondary text-white py-20 md:py-32 dark:text-lightblue">
+    <section className="bg-gradient-to-r from-hero-start to-hero-end text-primary-foreground py-20 md:py-32">
       <Container>
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-8">
           <div className="flex-shrink-0 flex justify-center md:justify-start w-full md:w-auto">
-            <Image src="/images/logo/rsgBe.svg" alt="RSG Belgium Logo" width={240} height={240} priority />
+            {/* The logo's black lettering is hard to read on the gradient, so it sits on a
+                tile in both themes: in light mode on a white (surface) tile, padded so both
+                variants are 240px wide; in dark mode the variant with grey lettering, which
+                has its own dark tile (rounded here). An image can't follow the colour
+                tokens, hence the dark: classes.
+                The logo is the only image on the site that is `priority` (preloaded, never
+                lazy): it is at the top of the home page. Both variants are, because the
+                theme is only known in the browser; each SVG is about 20 KB. */}
+            <Image
+              src="/images/logo/rsgBe.svg"
+              alt="RSG Belgium Logo"
+              width={240}
+              height={240}
+              priority
+              className="dark:hidden rounded-2xl bg-surface p-3 shadow-md"
+            />
+            <Image
+              src="/images/logo/rsgBe_light.svg"
+              alt="RSG Belgium Logo"
+              width={240}
+              height={240}
+              priority
+              className="hidden dark:block rounded-2xl"
+            />
           </div>
           <div className="flex-1">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 dark:text-lightblue">
-              {headline}
-            </h1>
-            <p className="text-lg md:text-xl mb-10 leading-relaxed dark:text-lightblue">
-              {introText}
-            </p>
-            <Button href={ctaLink} size="lg" variant="outline" className="dark:text-lightblue">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">{headline}</h1>
+            <p className="text-lg md:text-xl mb-10 leading-relaxed">{introText}</p>
+            <Button href={ctaLink} size="lg" variant="inverse">
               {ctaLabel}
             </Button>
           </div>

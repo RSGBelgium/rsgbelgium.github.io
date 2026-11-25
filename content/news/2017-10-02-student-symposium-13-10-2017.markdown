@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Bioinformatics Student Day - 13/10/2017 - Brussels"
-date:   2017-10-02 19:10
+date:   "2017-10-02 19:10"
 categories: event student-symposium
 category: 'News'
 ---
@@ -9,7 +9,7 @@ category: 'News'
 Dear colleagues,
 RSG Belgium, the regional student group of the International Society for Computational Biology kindly invites you to its second Bioinformatics Student Day, organized together with [IB2][ib2].
 
-# **Mark your calendars: Friday, the 13th of October 2017**
+## **Mark your calendars: Friday, the 13th of October 2017**
 
 ## Location:
 Plenary Room, U-Residence Building, ULB-VUB La Plaine-Etterbeek campus, Brussels.
