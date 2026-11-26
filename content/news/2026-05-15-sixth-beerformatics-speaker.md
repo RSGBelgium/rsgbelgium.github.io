@@ -5,7 +5,7 @@ date: "2026-05-15"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Speakers at the May Edition of Beerformatics 2026"
-coverImage: "/images/poster/Beerformaticssixth.webp"
+cardImage: "/images/poster/Beerformaticssixth.webp"
 ---
 
 And for our last stop, Beerformatics is going to Antwerp!
@@ -37,6 +37,8 @@ Leandro started his journey into bioinformatics in 2022, and now he is doing a P
  Ward will present the genomic recombination landscapes inferred for the clouded tiger cat (Leopardus pardinoides) using a recurrent neural networks approach with ReLERNN. Comparison with the domestic cat (Felis catus) reveals substantial variation in autosomal recombination rates within felids. He will show how recombination rate correlates with key genomic features and how recombination-aware phylogenomic approaches can leverage these maps to better resolve the evolutionary history of the Leopardus-lineage.
 
 Ward is a master’s student in Evolutionary and Behavioural Biology at the University of Antwerp with a strong interest in evolutionary genomics. He is currently completing his thesis on the recombination landscape of the clouded tiger cat in the Svardal Lab under the supervision of Prof. Hannes Svardal and Dr. Jonas Lescroart.
+
+[![Poster for Beerformatics on 28 May 2026 at the Speciale Belge Taproom in Antwerp](/images/poster/Beerformaticssixth.webp)](/images/poster/Beerformaticssixth.webp)
 
 Join us for an evening of science, discussion, and beers.
 Spots are limited, register now: [Registration link](https://www.eventbrite.com/e/beerformatics-2026-antwerp-edition-tickets-1987902464785)

@@ -5,6 +5,7 @@ date: "2026-03-12"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Speakers at the Spring Edition Kickoff of Beerformatics 2026"
+cardImage: "/images/poster/Beerformatics_speakers.webp"
 ---
 
 Beerformatics is back next Thursday to Leuven!

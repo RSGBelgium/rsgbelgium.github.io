@@ -5,6 +5,7 @@ date: "2026-03-19"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Wrapping up Beerformatics March 2026"
+cardImage: "/images/photo_gallery/beerformatic_march2026.webp"
 ---
 
 We are pleased to mark the successful return of Beerinformatics in Leuven, following a five-year hiatus.

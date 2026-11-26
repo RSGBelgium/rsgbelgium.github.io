@@ -4,6 +4,7 @@ title: "Beerformatics - A Dive Into Bioinformatics Startups - 15/10/2021"
 date: "2021-09-21"
 categories: event student-beerformatics
 category: 'News'
+cardImage: "/images/poster/2021-10-15-beerformatics.webp"
 ---
 
 Are you curious what it takes to start your own business? You have a great bioinformatic project in mind but you don't know where to start? Are you asking yourself what are the challenges and hurdles that must be tackled when launching a new company?
