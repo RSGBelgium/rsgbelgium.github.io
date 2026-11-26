@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import Container from "./container";
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-import { NAV_ITEMS, DISCORD_PAGE, type NavItem } from "@/lib/navigation";
+import { MENU_ITEMS, DISCORD_PAGE, type NavItem } from "@/lib/navigation";
 
 /**
  * Whether a nav item belongs to the current page: its own URL or a page below
@@ -126,13 +126,10 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            {/* Desktop Navigation (8px gaps on tablets, below lg, so the bar fits at 768px) */}
-            <nav
-              aria-label="Main"
-              className="hidden md:flex md:items-center md:space-x-2 lg:space-x-4"
-            >
-              {NAV_ITEMS.map((item) => (
+          <div className="flex items-center gap-2 lg:gap-4">
+            {/* Desktop Navigation */}
+            <nav aria-label="Main" className="hidden lg:flex lg:items-center lg:space-x-4">
+              {MENU_ITEMS.map((item) => (
                 <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
               ))}
               <Button href={DISCORD_PAGE.url} variant="primary" size="sm">
@@ -144,7 +141,7 @@ const Header = () => {
             <ThemeSwitcher />
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 ref={menuButtonRef}
                 onClick={toggleMobileMenu}
@@ -197,9 +194,9 @@ const Header = () => {
       </Container>
 
       {/* Mobile Menu: always rendered, so the toggle's aria-controls is valid; `hidden` while closed. */}
-      <div className="md:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
+      <div className="lg:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
         <nav aria-label="Main" className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border">
-          {NAV_ITEMS.map((item) => (
+          {MENU_ITEMS.map((item) => (
             <NavLink
               key={item.url}
               item={item}

@@ -41,9 +41,20 @@ describe("Header", () => {
     expect(screen.getAllByRole("group", { name: "Colour theme" })).toHaveLength(1);
   });
 
-  test("leaves out the Sponsor page: the desktop bar has no room for it", () => {
-    const { container } = render(<Header />);
-    expect(container.querySelector('a[href="/sponsor"]')).toBeNull();
+  test("lists the Sponsor page in both menus, after the main sections", () => {
+    render(<Header />);
+    for (const nav of screen.getAllByRole("navigation", { name: "Main" })) {
+      const links = within(nav).getAllByRole("link");
+      expect(links.map((link) => link.getAttribute("href"))).toEqual([
+        "/about",
+        "/news",
+        "/organization",
+        "/contact",
+        "/sponsor",
+        "/discord",
+      ]);
+      expect(links[4]).toHaveTextContent("Sponsorship");
+    }
   });
 
   describe("mobile menu", () => {
