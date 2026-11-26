@@ -10,6 +10,9 @@ title: "Meet the speakers: Beerformatics Month YYYY"
 date: "YYYY-MM-DD"
 # One sentence for the cards on /news and the homepage, and for search engines.
 excerpt: "Meet the three speakers of Beerformatics in CITY on DD Month YYYY."
+# Optional: the picture on this post's card on /news and the homepage, usually the poster below
+# (it stays where it is in the post). Delete the line if there is none: the card shows our logo.
+cardImage: "/images/poster/YYYY-MM-DD-beerformatics-speakers.png"
 category: "news"
 ---
 

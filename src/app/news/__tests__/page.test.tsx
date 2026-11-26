@@ -3,6 +3,7 @@ import type { Post } from "@/interfaces/post";
 import { getAllPosts } from "@/lib/api";
 import NewsPage, { metadata } from "../page";
 import { makePost } from "@/test-utils/fixtures";
+import { originalSrc } from "@/test-utils/next-image";
 
 jest.mock("@/lib/api", () => ({
   getAllPosts: jest.fn(),
@@ -21,13 +22,14 @@ const posts: Post[] = [
     title: "Second post",
     date: "2026-04-09",
     excerpt: "Second.",
+    cardImage: "/images/poster/second.webp",
   }),
   makePost({ slug: "2026-03-12-third", title: "Third post", date: "2026-03-12" }),
 ];
 
 /** Renders the async server component. */
 async function renderNewsPage() {
-  render(await NewsPage());
+  return render(await NewsPage());
 }
 
 describe("News page", () => {
@@ -73,6 +75,17 @@ describe("News page", () => {
       "/news/2026-03-12-third",
     ]);
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  test("gives every preview a picture: its card or cover image, or else the RSG-Belgium logo", async () => {
+    const { container } = await renderNewsPage();
+    // The pictures sit in the hidden links that duplicate the titles (the bylines have images too).
+    const pictures = [...container.querySelectorAll('a[aria-hidden="true"] img')];
+    expect(pictures.map(originalSrc)).toEqual([
+      "/images/poster/newest.png",
+      "/images/poster/second.webp",
+      "/images/logo/rsgBe.svg",
+    ]);
   });
 
   test("renders only the page header when there are no posts", async () => {

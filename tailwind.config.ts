@@ -64,6 +64,10 @@ const config: Config = {
           start: token("hero-start"),
           end: token("hero-end"),
         },
+        poster: {
+          start: token("poster-start"),
+          end: token("poster-end"),
+        },
       },
       // A bare `border` (and <hr>) uses the theme's border colour instead of gray-200.
       borderColor: {

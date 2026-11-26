@@ -1,7 +1,7 @@
 /**
  * Featured news section component.
  *
- * Renders a grid of recent news posts with title, date, excerpt, and link.
+ * Renders a grid of recent news posts with picture, title, date, excerpt, and link.
  *
  * Each card has exactly one link, the post title, stretched over the whole
  * card (a "stretched link"): keyboard and screen-reader users meet one link
@@ -11,16 +11,50 @@
  */
 
 import React from "react";
+import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { Post } from "@/interfaces/post"; // Assuming Post interface exists
 import Button from "./Button"; // Reusable button
+import CardLogo from "@/app/_components/card-logo";
 import Container from "@/app/_components/container";
 import DateFormatter from "@/app/_components/date-formatter"; // Date formatter
+import { cardImageOf } from "@/lib/card-image";
 import { postPath } from "@/lib/urls";
 
 interface FeaturedNewsProps {
   posts: Post[];
+}
+
+/** A card picture fades a little when the card is hovered. */
+const HOVER_FADE = "group-hover:opacity-90 transition-opacity duration-200";
+
+/**
+ * A card's picture, in a full-width, 12rem-tall box: the post's card image
+ * (see cardImageOf) or, for a post without one, the RSG-Belgium logo.
+ *
+ * Decorative: the title says what the post is about. The image fills the
+ * box (cropped with object-cover), so next/image's `fill` mode needs no
+ * intrinsic size; `sizes` matches the grid columns. The crop keeps the top
+ * of the image (object-top), where a poster has its title, as the previews
+ * on /news do.
+ *
+ * @param post - The post on the card
+ */
+function CardPicture({ post }: { post: Post }) {
+  const image = cardImageOf(post);
+  if (!image) return <CardLogo className={cn("h-48", HOVER_FADE)} />;
+  return (
+    <div className="relative h-48">
+      <Image
+        src={image.src}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+        className={cn("object-cover object-top", HOVER_FADE)}
+      />
+    </div>
+  );
 }
 
 /**
@@ -45,24 +79,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
               key={post.slug}
               className="link-card group bg-surface border border-border rounded-lg shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl"
             >
-              {post.coverImage?.startsWith("/") && (
-                // Decorative: the title says what the post is about. The image fills a
-                // full-width, 12rem-tall box (cropped with object-cover), so next/image's
-                // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
-                // The crop keeps the top of the image (object-top), where a poster has
-                // its title, as the previews on /news do.
-                // Only site paths ("/images/...") are shown: `npm run check:content`
-                // rejects any other coverImage, and the card works without an image.
-                <div className="relative h-48">
-                  <Image
-                    src={post.coverImage}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover object-top group-hover:opacity-90 transition-opacity duration-200"
-                  />
-                </div>
-              )}
+              <CardPicture post={post} />
               <div className="p-6 flex-grow">
                 <h3 className="text-xl font-semibold mb-2">
                   {/* The card's only link: .link-card-link stretches it over the whole card. */}

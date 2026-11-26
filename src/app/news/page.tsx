@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import Container from "@/app/_components/container";
 import { PageHeader } from "@/app/_components/page-header";
 import { getAllPosts } from "@/lib/api";
+import { cardImageOf } from "@/lib/card-image";
 import { MoreStories } from "@/app/_components/more-stories";
 import { HeroPost } from "@/app/_components/hero-post";
 import { DEFAULT_AUTHOR, SITE_NAME } from "@/lib/constants";
@@ -36,8 +37,7 @@ export default async function NewsPage() {
       {heroPost && (
         <HeroPost
           title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          coverImageSize={heroPost.coverImageSize}
+          image={cardImageOf(heroPost)}
           date={heroPost.date}
           author={heroPost.author || DEFAULT_AUTHOR}
           slug={heroPost.slug}

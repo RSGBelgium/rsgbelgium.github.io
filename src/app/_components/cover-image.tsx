@@ -17,7 +17,9 @@
  * Previews pass `crop` instead: the image then fills a box of that shape
  * (object-cover), so a tall poster takes no more room than a wide photo and
  * the previews in a grid line up. The crop keeps the top of the image,
- * where a poster has its title.
+ * where a poster has its title. A preview without an image shows the
+ * RSG-Belgium logo in its place and shape (CardLogo), so every preview has
+ * a picture; a post's own page shows nothing instead.
  *
  * A post's own page shows the whole image, centred, and never wider than the
  * image itself (scaled up, it looks blurred) nor taller than 60% of the
@@ -28,6 +30,7 @@
 import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
+import CardLogo from "@/app/_components/card-logo";
 import { postPath } from "@/lib/urls";
 import type { ImageSize } from "@/lib/image-size";
 
@@ -50,46 +53,49 @@ const MAX_COVER_HEIGHT = "60svh";
  * Displays a cover image for a post, optionally wrapped in a link.
  *
  * @param title - The title of the post (used for the alt text when the image is not a link)
- * @param src - The image source URL (optional; nothing is rendered without it)
+ * @param src - The image source URL (optional; without it, a preview shows the logo and a post's page nothing)
  * @param size - The image's width and height in pixels, when known
  * @param slug - Optional post slug for linking to the post detail page
  * @param crop - Optional aspect-ratio classes to crop the image to (for previews)
  */
 const CoverImage = ({ title, src, size = FALLBACK_SIZE, slug, crop }: Props) => {
-  // If no src is provided, don't render the image
+  // A linked picture's shadow grows on hover.
+  const hover = { "hover:shadow-lg transition-shadow duration-200": slug };
+
+  /** Puts the picture in the (hidden) link to the post, when there is one. */
+  const wrap = (picture: React.ReactNode) => (
+    <div className="sm:mx-0">
+      {slug ? (
+        <Link href={postPath(slug)} aria-hidden="true" tabIndex={-1}>
+          {picture}
+        </Link>
+      ) : (
+        picture
+      )}
+    </div>
+  );
+
   if (!src) {
-    return null;
+    return crop ? wrap(<CardLogo className={cn("shadow-sm w-full", crop, hover)} />) : null;
   }
 
   // Uncropped, the width is capped, not the height, so that the image keeps
   // its proportions and its space is still reserved before it loads.
   const maxWidth = `min(${size.width}px, ${MAX_COVER_HEIGHT} * ${size.width} / ${size.height})`;
 
-  const image = (
+  return wrap(
     <Image
       src={src}
       alt={slug ? "" : `Cover image for ${title}`}
       className={cn(
         "shadow-sm w-full h-auto",
         crop ? ["object-cover object-top", crop] : "block mx-auto",
-        { "hover:shadow-lg transition-shadow duration-200": slug },
+        hover,
       )}
       style={crop ? undefined : { maxWidth }}
       width={size.width}
       height={size.height}
-    />
-  );
-
-  return (
-    <div className="sm:mx-0">
-      {slug ? (
-        <Link href={postPath(slug)} aria-hidden="true" tabIndex={-1}>
-          {image}
-        </Link>
-      ) : (
-        image
-      )}
-    </div>
+    />,
   );
 };
 

@@ -2,11 +2,9 @@ import { render, screen, within } from "@testing-library/react";
 import type { Post } from "@/interfaces/post";
 import FeaturedNews from "../FeaturedNews";
 import { makePost } from "@/test-utils/fixtures";
+import { originalSrc } from "@/test-utils/next-image";
 
-/** The original path of an image rendered by next/image (Jest uses the default image loader). */
-function originalSrc(image: HTMLElement): string | null {
-  return new URL(image.getAttribute("src") ?? "", "http://localhost").searchParams.get("url");
-}
+const LOGO = "/images/logo/rsgBe.svg";
 
 const posts: Post[] = [
   makePost({
@@ -62,14 +60,28 @@ describe("FeaturedNews", () => {
     }
   });
 
-  test("shows cover images as decorative images", () => {
+  test("gives every card a decorative picture: the cover image, or else the RSG-Belgium logo", () => {
     const { container } = render(<FeaturedNews posts={posts} />);
     // Decorative images (alt="") have no img role, so query the DOM directly.
-    const images = container.querySelectorAll("img");
-    // A bare file name ("cover.jpg") is not a site path: that card has no image.
-    expect(images).toHaveLength(1);
-    expect(images[0]).toHaveAttribute("alt", "");
-    expect(originalSrc(images[0])).toBe("/images/poster/news1.jpg");
+    const images = [...container.querySelectorAll("img")];
+    // A bare file name ("cover.jpg") is not a site path: that card shows the logo too.
+    expect(images.map(originalSrc)).toEqual(["/images/poster/news1.jpg", LOGO, LOGO]);
+    for (const image of images) expect(image).toHaveAttribute("alt", "");
+  });
+
+  test("shows a post's card image instead of its cover image", () => {
+    const { container } = render(
+      <FeaturedNews
+        posts={[
+          makePost({
+            slug: "both",
+            cardImage: "/images/poster/card.webp",
+            coverImage: "/images/poster/cover.jpg",
+          }),
+        ]}
+      />,
+    );
+    expect(originalSrc(container.querySelector("img")!)).toBe("/images/poster/card.webp");
   });
 
   test("crops cover images to the card, keeping their top, where a poster has its title", () => {

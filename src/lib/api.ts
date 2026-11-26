@@ -23,7 +23,7 @@ import {
   resolveMemberImage,
   slugFromFileName,
 } from "@/lib/content-rules";
-import { readImageSize } from "@/lib/image-size";
+import { type ImageSize, readImageSize } from "@/lib/image-size";
 
 const postsDirectory = join(process.cwd(), NEWS_DIR);
 const membersDirectory = join(process.cwd(), MEMBERS_DIR);
@@ -57,6 +57,17 @@ function optionalString(value: unknown): string {
  */
 function getDateTimestamp(date: string): number {
   return parseDate(date)?.getTime() ?? 0;
+}
+
+/**
+ * Read the size of an image named in front matter (`coverImage`, `cardImage`).
+ *
+ * @param src - The raw front-matter value
+ * @returns The width and height of a local image; undefined for anything
+ *   else (see readImageSize)
+ */
+async function frontMatterImageSize(src: unknown): Promise<ImageSize | undefined> {
+  return typeof src === "string" ? readImageSize(src) : undefined;
 }
 
 /**
@@ -101,15 +112,16 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     }
 
     const { data, content } = matter(fileContents);
-    // The cover's real size, so pages reserve its space before it loads.
-    const coverImageSize =
-      typeof data.coverImage === "string" ? await readImageSize(data.coverImage) : undefined;
+    // The real size of the cover and card images, so pages reserve their space before they load.
+    const coverImageSize = await frontMatterImageSize(data.coverImage);
+    const cardImageSize = await frontMatterImageSize(data.cardImage);
 
     return {
       slug,
       content,
       ...data,
       ...(coverImageSize && { coverImageSize }),
+      ...(cardImageSize && { cardImageSize }),
       date: normalizeFrontMatterDate(data.date),
       // An explicit front-matter excerpt wins; otherwise summarise the body.
       excerpt: optionalString(data.excerpt) || createExcerpt(content),

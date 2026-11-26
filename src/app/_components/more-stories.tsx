@@ -5,6 +5,7 @@
  */
 
 import { Post } from "@/interfaces/post";
+import { cardImageOf } from "@/lib/card-image";
 import { SECTION_HEADING } from "./page-header";
 import { PostPreview } from "./post-preview";
 
@@ -26,8 +27,7 @@ export function MoreStories({ posts }: Props) {
           <PostPreview
             key={post.slug}
             title={post.title}
-            coverImage={post.coverImage}
-            coverImageSize={post.coverImageSize}
+            image={cardImageOf(post)}
             date={post.date}
             author={post.author}
             slug={post.slug}
