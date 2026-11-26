@@ -72,6 +72,11 @@ describe("FeaturedNews", () => {
     expect(originalSrc(images[0])).toBe("/images/poster/news1.jpg");
   });
 
+  test("crops cover images to the card, keeping their top, where a poster has its title", () => {
+    const { container } = render(<FeaturedNews posts={posts} />);
+    expect(container.querySelector("img")).toHaveClass("object-cover", "object-top");
+  });
+
   test("links to all news", () => {
     render(<FeaturedNews posts={posts} />);
     expect(screen.getByRole("link", { name: "View All News" })).toHaveAttribute("href", "/news");

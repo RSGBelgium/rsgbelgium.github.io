@@ -49,6 +49,8 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                 // Decorative: the title says what the post is about. The image fills a
                 // full-width, 12rem-tall box (cropped with object-cover), so next/image's
                 // `fill` mode needs no intrinsic size; `sizes` matches the grid columns.
+                // The crop keeps the top of the image (object-top), where a poster has
+                // its title, as the previews on /news do.
                 // Only site paths ("/images/...") are shown: `npm run check:content`
                 // rejects any other coverImage, and the card works without an image.
                 <div className="relative h-48">
@@ -57,7 +59,7 @@ const FeaturedNews: React.FC<FeaturedNewsProps> = ({ posts }) => {
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover group-hover:opacity-90 transition-opacity duration-200"
+                    className="object-cover object-top group-hover:opacity-90 transition-opacity duration-200"
                   />
                 </div>
               )}
