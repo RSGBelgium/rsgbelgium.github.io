@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import Container from "./container";
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-import { MENU_ITEMS, DISCORD_PAGE, type NavItem } from "@/lib/navigation";
+import { NAV_ITEMS, DISCORD_PAGE, SPONSOR_US_LINK, type NavItem } from "@/lib/navigation";
 
 /**
  * Whether a nav item belongs to the current page: its own URL or a page below
@@ -44,17 +44,20 @@ function isCurrentSection(pathname: string, url: string): boolean {
  * @param item - The page to link to
  * @param pathname - The current path, from usePathname()
  * @param className - Classes for this menu's layout, e.g. "text-sm"
+ * @param sponsor - Pastel green instead of the primary colour
  * @param onClick - Called when the link is followed (the mobile menu closes)
  */
 function NavLink({
   item,
   pathname,
   className,
+  sponsor = false,
   onClick,
 }: {
   item: NavItem;
   pathname: string;
   className?: string;
+  sponsor?: boolean;
   onClick?: () => void;
 }) {
   const isCurrent = isCurrentSection(pathname, item.url);
@@ -65,9 +68,14 @@ function NavLink({
       onClick={onClick}
       className={cn(
         "rounded-md px-3 py-2 font-medium transition-colors",
-        isCurrent
-          ? "bg-primary text-primary-foreground"
-          : "text-foreground hover:bg-primary hover:text-primary-foreground",
+        sponsor
+          ? cn(
+              "text-sponsor-foreground hover:bg-sponsor-hover",
+              isCurrent ? "bg-sponsor-hover" : "bg-sponsor",
+            )
+          : isCurrent
+            ? "bg-primary text-primary-foreground"
+            : "text-foreground hover:bg-primary hover:text-primary-foreground",
         className,
       )}
     >
@@ -129,9 +137,10 @@ const Header = () => {
           <div className="flex items-center gap-2 lg:gap-4">
             {/* Desktop Navigation */}
             <nav aria-label="Main" className="hidden lg:flex lg:items-center lg:space-x-4">
-              {MENU_ITEMS.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
               ))}
+              <NavLink item={SPONSOR_US_LINK} pathname={pathname} className="text-sm" sponsor />
               <Button href={DISCORD_PAGE.url} variant="primary" size="sm">
                 {DISCORD_PAGE.title}
               </Button>
@@ -196,7 +205,7 @@ const Header = () => {
       {/* Mobile Menu: always rendered, so the toggle's aria-controls is valid; `hidden` while closed. */}
       <div className="lg:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
         <nav aria-label="Main" className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border">
-          {MENU_ITEMS.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.url}
               item={item}
@@ -205,6 +214,13 @@ const Header = () => {
               onClick={closeMobileMenu}
             />
           ))}
+          <NavLink
+            item={SPONSOR_US_LINK}
+            pathname={pathname}
+            className="block text-base"
+            sponsor
+            onClick={closeMobileMenu}
+          />
           <div className="pt-2">
             <Button
               href={DISCORD_PAGE.url}

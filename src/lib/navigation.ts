@@ -29,7 +29,10 @@ export const DISCORD_PAGE: NavItem = { title: "Join Discord", url: "/discord" };
  */
 export const SPONSOR_PAGE: NavItem = { title: "Sponsorship", url: "/sponsor" };
 
-export const MENU_ITEMS: NavItem[] = [...NAV_ITEMS, SPONSOR_PAGE];
+export const SPONSOR_US_LINK: NavItem = { ...SPONSOR_PAGE, title: "Sponsor us" };
+
+/** The footer's Quick Links, in order: the main sections, then the Sponsor page. */
+export const FOOTER_NAV_ITEMS: NavItem[] = [...NAV_ITEMS, SPONSOR_PAGE];
 
 /** Every page in the navigation, in order: the main sections, Discord, then the Sponsor page. */
 export const ALL_NAV_PAGES: NavItem[] = [...NAV_ITEMS, DISCORD_PAGE, SPONSOR_PAGE];

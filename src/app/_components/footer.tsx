@@ -16,7 +16,7 @@ import Link from "next/link";
 import Container from "@/app/_components/container";
 import { ContactChannelLink, ContactIcon } from "@/components/ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
-import { MENU_ITEMS } from "@/lib/navigation";
+import { FOOTER_NAV_ITEMS } from "@/lib/navigation";
 
 /** Classes for every footer link: a `touch-link` (globals.css), small text, room for an icon. */
 const FOOTER_LINK = "touch-link gap-3 text-sm";
@@ -48,7 +48,7 @@ export function Footer() {
           <nav aria-label="Footer" className="mb-6 md:mb-0">
             <h2 className={FOOTER_HEADING}>Quick Links</h2>
             <ul>
-              {MENU_ITEMS.map((item) => (
+              {FOOTER_NAV_ITEMS.map((item) => (
                 <li key={item.title}>
                   <Link href={item.url} className={FOOTER_LINK}>
                     {item.title}

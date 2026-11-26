@@ -41,7 +41,7 @@ describe("Header", () => {
     expect(screen.getAllByRole("group", { name: "Colour theme" })).toHaveLength(1);
   });
 
-  test("lists the Sponsor page in both menus, after the main sections", () => {
+  test('lists "Sponsor us" in both menus, after the main sections, in pastel green', () => {
     render(<Header />);
     for (const nav of screen.getAllByRole("navigation", { name: "Main" })) {
       const links = within(nav).getAllByRole("link");
@@ -53,8 +53,19 @@ describe("Header", () => {
         "/sponsor",
         "/discord",
       ]);
-      expect(links[4]).toHaveTextContent("Sponsorship");
+      expect(links[4]).toHaveTextContent("Sponsor us");
+      expect(links[4]).toHaveClass("bg-sponsor", "text-sponsor-foreground");
     }
+  });
+
+  test('marks "Sponsor us" as the current page on the Sponsor page, still in green', () => {
+    jest.mocked(usePathname).mockReturnValue("/sponsor");
+    render(<Header />);
+    const desktopNav = screen.getAllByRole("navigation", { name: "Main" })[0];
+    const sponsor = within(desktopNav).getByRole("link", { name: "Sponsor us" });
+    expect(sponsor).toHaveAttribute("aria-current", "page");
+    expect(sponsor).toHaveClass("bg-sponsor-hover");
+    expect(sponsor).not.toHaveClass("bg-primary");
   });
 
   describe("mobile menu", () => {
