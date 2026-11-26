@@ -5,6 +5,7 @@ date: "2026-04-09"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Speakers at the April Edition of Beerformatics 2026"
+coverImage: "/images/poster/Beerformaticsfifth.webp"
 ---
 
 Brussels, here we come!
@@ -44,8 +45,6 @@ Kosta is a PhD student in the Laboratory of Experimental Gastroenterology of Uni
 Valeriia will talk about implementing the Seq-Scope protocol repurposing Illumina flow-cells to use them for spatial transcriptomics of human thyroid and thyroid organoids. They optimized the existed protocol to be used with PaxGene fixed tissues and now they consider processing and analysing more samples.
 
 Valeriia is a postdoc in Vincent Detours lab (IRIBHM, Université libre de Bruxelles) specialising in computational biology.
-
-[![Poster for Beerformatics on 21 April 2026 at FARI in Brussels](/images/poster/Beerformaticsfifth.webp)](/images/poster/Beerformaticsfifth.webp)
 
 Join us for an evening of science, discussion, and beers.
 Spots are limited, register now: [Registration link](https://www.eventbrite.com/e/beerformatics-2026-brussels-edition-tickets-1985999693545)
