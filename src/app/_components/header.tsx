@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button"; // Assuming Button component path
 import Container from "./container";
 import { ThemeSwitcher } from "./theme-switcher"; // Import ThemeSwitcher
-import { NAV_ITEMS, DISCORD_PAGE, type NavItem } from "@/lib/navigation";
+import { NAV_ITEMS, DISCORD_PAGE, SPONSOR_US_LINK, type NavItem } from "@/lib/navigation";
 
 /**
  * Whether a nav item belongs to the current page: its own URL or a page below
@@ -44,17 +44,20 @@ function isCurrentSection(pathname: string, url: string): boolean {
  * @param item - The page to link to
  * @param pathname - The current path, from usePathname()
  * @param className - Classes for this menu's layout, e.g. "text-sm"
+ * @param sponsor - Pastel green instead of the primary colour
  * @param onClick - Called when the link is followed (the mobile menu closes)
  */
 function NavLink({
   item,
   pathname,
   className,
+  sponsor = false,
   onClick,
 }: {
   item: NavItem;
   pathname: string;
   className?: string;
+  sponsor?: boolean;
   onClick?: () => void;
 }) {
   const isCurrent = isCurrentSection(pathname, item.url);
@@ -65,9 +68,14 @@ function NavLink({
       onClick={onClick}
       className={cn(
         "rounded-md px-3 py-2 font-medium transition-colors",
-        isCurrent
-          ? "bg-primary text-primary-foreground"
-          : "text-foreground hover:bg-primary hover:text-primary-foreground",
+        sponsor
+          ? cn(
+              "text-sponsor-foreground hover:bg-sponsor-hover",
+              isCurrent ? "bg-sponsor-hover" : "bg-sponsor",
+            )
+          : isCurrent
+            ? "bg-primary text-primary-foreground"
+            : "text-foreground hover:bg-primary hover:text-primary-foreground",
         className,
       )}
     >
@@ -126,15 +134,13 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            {/* Desktop Navigation (8px gaps on tablets, below lg, so the bar fits at 768px) */}
-            <nav
-              aria-label="Main"
-              className="hidden md:flex md:items-center md:space-x-2 lg:space-x-4"
-            >
+          <div className="flex items-center gap-2 lg:gap-4">
+            {/* Desktop Navigation */}
+            <nav aria-label="Main" className="hidden lg:flex lg:items-center lg:space-x-4">
               {NAV_ITEMS.map((item) => (
                 <NavLink key={item.url} item={item} pathname={pathname} className="text-sm" />
               ))}
+              <NavLink item={SPONSOR_US_LINK} pathname={pathname} className="text-sm" sponsor />
               <Button href={DISCORD_PAGE.url} variant="primary" size="sm">
                 {DISCORD_PAGE.title}
               </Button>
@@ -144,7 +150,7 @@ const Header = () => {
             <ThemeSwitcher />
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 ref={menuButtonRef}
                 onClick={toggleMobileMenu}
@@ -197,7 +203,7 @@ const Header = () => {
       </Container>
 
       {/* Mobile Menu: always rendered, so the toggle's aria-controls is valid; `hidden` while closed. */}
-      <div className="md:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
+      <div className="lg:hidden" id="mobile-menu" hidden={!isMobileMenuOpen}>
         <nav aria-label="Main" className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border">
           {NAV_ITEMS.map((item) => (
             <NavLink
@@ -208,6 +214,13 @@ const Header = () => {
               onClick={closeMobileMenu}
             />
           ))}
+          <NavLink
+            item={SPONSOR_US_LINK}
+            pathname={pathname}
+            className="block text-base"
+            sponsor
+            onClick={closeMobileMenu}
+          />
           <div className="pt-2">
             <Button
               href={DISCORD_PAGE.url}

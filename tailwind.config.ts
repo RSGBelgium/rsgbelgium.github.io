@@ -60,6 +60,11 @@ const config: Config = {
           strong: token("accent-strong"),
         },
         highlight: token("highlight"),
+        sponsor: {
+          DEFAULT: token("sponsor"),
+          hover: token("sponsor-hover"),
+          foreground: token("sponsor-foreground"),
+        },
         hero: {
           start: token("hero-start"),
           end: token("hero-end"),
