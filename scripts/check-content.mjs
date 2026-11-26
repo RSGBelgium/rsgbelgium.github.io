@@ -5,7 +5,7 @@
  * News posts (content/news/*.md, *.markdown):
  * - the front matter parses; `title` is set; `date` is set, in quotes, as
  *   "YYYY-MM-DD" or "YYYY-MM-DD HH:mm", and a real date; `coverImage`
- *   points to a file in public/;
+ *   and `cardImage` point to files in public/;
  * - links and images to /images/... or /assets/... point to files in
  *   public/, links to /news/... to existing posts, other internal links to
  *   a page of the site (src/app) or a file in public/, and every other
@@ -437,16 +437,19 @@ function checkPost(name, postSlugs) {
     );
   }
 
-  if (data.coverImage !== undefined && data.coverImage !== "") {
-    const line = findField(frontMatter, "coverImage")?.line;
-    if (typeof data.coverImage !== "string" || !data.coverImage.startsWith("/")) {
+  // The image at the top of the post (and on its card), and the one on its card only.
+  for (const field of ["coverImage", "cardImage"]) {
+    const value = data[field];
+    if (value === undefined || value === "") continue;
+    const line = findField(frontMatter, field)?.line;
+    if (typeof value !== "string" || !value.startsWith("/")) {
       report.error(
         file,
         line,
-        'coverImage must be a path starting with "/images/", e.g. "/images/poster/2026-10-15-event.jpg".',
+        `${field} must be a path starting with "/images/", e.g. "/images/poster/2026-10-15-event.jpg".`,
       );
     } else {
-      checkTarget(file, line, data.coverImage, postSlugs);
+      checkTarget(file, line, value, postSlugs);
     }
   }
 

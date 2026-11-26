@@ -38,8 +38,9 @@ every section. Delete the comments when you are done.
 | Images, posters, photos            | `public/images/...`                        | see [Images and files](images-and-files.md)        |
 | PDFs and calendar files            | `public/assets/pdf/`, `public/assets/ics/` | see [Images and files](images-and-files.md)        |
 
-The homepage, About, Contact and Slack pages are written in code (`src/app/`).
-Ask a developer if you need to change them.
+The homepage, About, Contact, Discord and Sponsor pages are written in code
+(`src/app/`). Ask a developer if you need to change them, for example to link
+a new sponsorship proposal (a PDF in `public/assets/pdf/`) from the Sponsor page.
 
 ## Adding a news post
 
@@ -99,10 +100,11 @@ comment after the field, so anyone can find the gaps by searching for
 | Bio (the text below the front matter)                  | `Bio coming soon.`        |
 
 Members are ordered by their `order` field on `/organization` and on the
-homepage, which shows the first four: lower numbers come first (`1` for the
-President). Number the members 1 to n, each number used once and without
-gaps; a profile without `order` is not shown. To move someone, renumber the
-profiles in between.
+homepage, which shows the first four: lower numbers come first. The numbers
+follow the rows of the board's team registry, so the first row (the
+President) is `1`. Number the members 1 to n, each number used once and
+without gaps; a profile without `order` is not shown. To move someone,
+renumber the profiles in between.
 
 When someone leaves the board, delete their file and their photo in
 `public/images/team/` (`npm run check:assets` reports photos nobody uses).
@@ -195,4 +197,4 @@ file is deleted, and everyone with access to the repository can see it. The
 content check fails if a spreadsheet (`.csv`, `.xlsx`, ...) is added to git,
 or if a team profile contains an e-mail address or phone number.
 
-If you get stuck, ask in the board Slack channel or open an issue on GitHub.
+If you get stuck, ask another board member or open an issue on GitHub.

@@ -5,6 +5,7 @@ date:   "2018-10-01 15:00"
 categories: news event hackathon
 toc: true
 category: 'News'
+cardImage: "/images/poster/hackathon_2018.webp"
 ---
 
 RSG Belgium is excited to announce the first RSG Belgium Hackathon, which will take place in Brussels on the 16th of November 2018.

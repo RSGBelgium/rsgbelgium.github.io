@@ -5,6 +5,7 @@ date: "2020-03-04 08:41"
 categories: event student-symposium
 toc: true
 category: 'News'
+cardImage: "/images/poster/poster_rsg_symposium-05-05-20.webp"
 ---
 
 ## POSTPONED

@@ -1,5 +1,5 @@
 /**
- * RSG-Belgium's contact channels: e-mail, GitHub, Slack and LinkedIn.
+ * RSG-Belgium's contact channels: e-mail, GitHub, Discord and LinkedIn.
  *
  * The single source of truth for the footer ("Connect With Us") and the
  * Contact page, so a channel is added, changed or removed in one place.
@@ -8,20 +8,29 @@
  * RSG-Belgium has no Twitter/X or Facebook account: don't add them back.
  */
 
-import { SLACK_PAGE } from "./navigation";
+import { DISCORD_PAGE } from "./navigation";
 
-/** The society's e-mail address, also used by the Slack invitation request. */
-export const CONTACT_EMAIL = "iscb.rsg.belgium@gmail.com";
+/** The society's e-mail address. */
+export const CONTACT_EMAIL = "rsg-belgium@iscbsc.org";
+
+/**
+ * The invite link to RSG-Belgium's Discord server, linked from the /discord
+ * page (and /slack, which forwards there); the header, the footer and the
+ * Contact page link to the /discord page. Discord invites stop working when
+ * they expire; this one never does. If it is revoked, create a new one with
+ * "Expire After: Never" and put it here.
+ */
+export const DISCORD_INVITE_URL = "https://discord.gg/bMva7Bq6jn";
 
 /** Identifies a channel; it also selects the channel's icon. */
-export type ContactChannelId = "email" | "github" | "slack" | "linkedin";
+export type ContactChannelId = "email" | "github" | "discord" | "linkedin";
 
 /** One way to reach RSG-Belgium. */
 export type ContactChannel = {
   id: ContactChannelId;
   /** Short name, shown in the footer and as the heading on the Contact page, e.g. "GitHub". */
   label: string;
-  /** A `mailto:` address, an internal path ("/slack") or an external https URL. */
+  /** A `mailto:` address, an internal path ("/discord") or an external https URL. */
   href: string;
   /** Text of the link on the Contact page; descriptive on its own, e.g. the e-mail address. */
   linkText: string;
@@ -48,10 +57,10 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
       "The source code of this website. Spotted a mistake? Open an issue or a pull request.",
   },
   {
-    id: "slack",
-    label: "Slack",
-    href: SLACK_PAGE.url,
-    linkText: "Request an invitation",
+    id: "discord",
+    label: "Discord",
+    href: DISCORD_PAGE.url,
+    linkText: "Join our Discord server",
     description: "Chat with fellow students and researchers, and hear about our events first.",
   },
   {

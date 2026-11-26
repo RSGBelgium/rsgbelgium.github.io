@@ -2,21 +2,25 @@ import { render, screen, within } from "@testing-library/react";
 import Footer from "../footer";
 
 describe("Footer", () => {
-  test("has a labelled footer navigation", () => {
+  test("has a labelled footer navigation: the main sections, then the Sponsor page", () => {
     render(<Footer />);
     const nav = screen.getByRole("navigation", { name: "Footer" });
-    expect(
-      within(nav)
-        .getAllByRole("link")
-        .map((link) => link.getAttribute("href")),
-    ).toEqual(["/about", "/news", "/organization", "/contact"]);
+    const links = within(nav).getAllByRole("link");
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/about",
+      "/news",
+      "/organization",
+      "/contact",
+      "/sponsor",
+    ]);
+    expect(links[4]).toHaveTextContent("Sponsorship");
   });
 
-  test("links to the Slack page once, as a contact channel", () => {
+  test("links to the Discord page once, as a contact channel", () => {
     const { container } = render(<Footer />);
-    const slackLinks = container.querySelectorAll('a[href="/slack"]');
-    expect(slackLinks).toHaveLength(1);
-    expect(slackLinks[0]).toHaveTextContent("Slack");
+    const discordLinks = container.querySelectorAll('a[href="/discord"]');
+    expect(discordLinks).toHaveLength(1);
+    expect(discordLinks[0]).toHaveTextContent("Discord");
   });
 
   test("lists the four contact channels with icons and labels", () => {
@@ -30,7 +34,7 @@ describe("Footer", () => {
     expect(links.map((link) => link.querySelector("span:not(.sr-only)")?.textContent)).toEqual([
       "Email",
       "GitHub",
-      "Slack",
+      "Discord",
       "LinkedIn",
     ]);
     links.forEach((link) => expect(link.querySelector('svg[aria-hidden="true"]')).not.toBeNull());

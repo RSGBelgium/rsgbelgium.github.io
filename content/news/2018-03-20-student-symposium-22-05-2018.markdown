@@ -5,6 +5,7 @@ date:   "2018-03-20 13:00"
 categories: event student-symposium
 toc: true
 category: 'News'
+cardImage: "/images/poster/poster_rsg_symposium-22-05-18.webp"
 ---
 
 RSG Belgium, the regional student group of the International Society for Computational Biology kindly invites you to the first Bioinformatics Student Symposium of 2018, organized in collaboration with [biomina][biomina].

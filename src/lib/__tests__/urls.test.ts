@@ -12,9 +12,9 @@ describe("isAbsoluteUrl", () => {
   test.each([
     ["https://github.com/RSGBelgium", true],
     ["http://example.org", true],
-    ["/slack", false],
+    ["/discord", false],
     ["#tracks", false],
-    ["mailto:iscb.rsg.belgium@gmail.com", false],
+    ["mailto:rsg-belgium@iscbsc.org", false],
     ["images/team/anis.webp", false],
   ])("%s -> %s", (url, expected) => {
     expect(isAbsoluteUrl(url)).toBe(expected);

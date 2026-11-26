@@ -40,7 +40,8 @@ describe("sitemap", () => {
       "https://rsg-belgium.org/news",
       "https://rsg-belgium.org/organization",
       "https://rsg-belgium.org/contact",
-      "https://rsg-belgium.org/slack",
+      "https://rsg-belgium.org/discord",
+      "https://rsg-belgium.org/sponsor",
       "https://rsg-belgium.org/news/2026-05-15-speakers",
       "https://rsg-belgium.org/news/2021-09-15-beerformatics",
       "https://rsg-belgium.org/news/undated",
@@ -56,6 +57,7 @@ describe("sitemap", () => {
     expect(byUrl["https://rsg-belgium.org"]).toEqual(newest);
     expect(byUrl["https://rsg-belgium.org/news"]).toEqual(newest);
     expect(byUrl["https://rsg-belgium.org/about"]).toBeUndefined();
+    expect(byUrl["https://rsg-belgium.org/sponsor"]).toBeUndefined();
     expect(byUrl["https://rsg-belgium.org/news/2021-09-15-beerformatics"]).toEqual(
       new Date("2021-09-21"),
     );
@@ -65,7 +67,7 @@ describe("sitemap", () => {
   test("has no dates without posts", async () => {
     jest.mocked(getAllPosts).mockResolvedValue([]);
     const entries = await sitemap();
-    expect(entries).toHaveLength(6);
+    expect(entries).toHaveLength(7);
     expect(entries.every((entry) => entry.lastModified === undefined)).toBe(true);
   });
 });

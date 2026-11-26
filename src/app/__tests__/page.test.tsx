@@ -77,12 +77,25 @@ describe("Homepage", () => {
     ).toEqual(["Member 1", "Member 2", "Member 3", "Member 4"]);
   });
 
+  test("invites sponsors to the Sponsor page, between the news and the team", async () => {
+    await renderHomepage();
+    expect(
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent),
+    ).toEqual(["Latest News", "Sponsor Our Events", "Meet the Team"]);
+    expect(screen.getByRole("link", { name: "Become a Sponsor" })).toHaveAttribute(
+      "href",
+      "/sponsor",
+    );
+  });
+
   test("hides the news and team sections when there is no content", async () => {
     jest.mocked(getAllPosts).mockResolvedValue([]);
     jest.mocked(getAllMembers).mockResolvedValue([]);
     await renderHomepage();
     expect(screen.queryByRole("heading", { name: "Latest News" })).not.toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Meet the Team" })).not.toBeInTheDocument();
+    // The invitation to sponsor needs no content: it stays.
+    expect(screen.getByRole("heading", { name: "Sponsor Our Events" })).toBeInTheDocument();
   });
 
   test("sets its canonical URL", () => {

@@ -5,6 +5,7 @@ date: "2026-05-15"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Speakers at the May Edition of Beerformatics 2026"
+cardImage: "/images/poster/Beerformaticssixth.webp"
 ---
 
 And for our last stop, Beerformatics is going to Antwerp!

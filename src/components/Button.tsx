@@ -1,7 +1,9 @@
 /**
  * Reusable button/link component.
  *
- * Renders a styled button or Next.js link with variant and size options.
+ * Renders a styled button or link with variant and size options: a Next.js
+ * link for a path on this site, an ExternalLink (a new tab, announced to
+ * screen readers) for another website.
  * The variant colours are the `.button-*` classes in src/app/globals.css,
  * built from the theme tokens, so they work in light and dark mode.
  */
@@ -9,6 +11,8 @@
 import cn from "classnames";
 import Link from "next/link";
 import React from "react";
+import { isAbsoluteUrl } from "@/lib/urls";
+import ExternalLink from "./ExternalLink";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
@@ -52,12 +56,18 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     // As a link, the remaining props (onClick, aria-*, ...) go on the <a>.
+    const linkProps = props as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+    if (isAbsoluteUrl(href)) {
+      return (
+        <ExternalLink href={href} className={combinedClassName} {...linkProps}>
+          {children}
+        </ExternalLink>
+      );
+    }
+
     return (
-      <Link
-        href={href}
-        className={combinedClassName}
-        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
-      >
+      <Link href={href} className={combinedClassName} {...linkProps}>
         {children}
       </Link>
     );

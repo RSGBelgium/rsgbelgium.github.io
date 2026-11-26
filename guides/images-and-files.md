@@ -116,6 +116,17 @@ card and in link previews), set it in the front matter instead. See
 coverImage: "/images/poster/2026-10-15-beerformatics-ghent.jpg"
 ```
 
+To put an image that is already in the post on its card (on `/news` and the
+homepage) as well, set `cardImage` to its path. It is shown on the card only,
+so the image stays where it is in the post:
+
+```yaml
+cardImage: "/images/poster/2026-10-15-beerformatics-ghent.webp"
+```
+
+A post with neither `cardImage` nor `coverImage` shows the RSG-Belgium logo
+on its card.
+
 ## Always write alt text
 
 The text in `![...]` is the image's **alt text**. Screen readers read it

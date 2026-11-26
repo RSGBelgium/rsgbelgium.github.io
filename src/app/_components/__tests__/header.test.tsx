@@ -30,15 +30,20 @@ describe("Header", () => {
     expect(within(desktopNav).getByRole("link", { name: "About" })).not.toHaveAttribute(
       "aria-current",
     );
-    expect(within(desktopNav).getByRole("link", { name: "Join Slack" })).toHaveAttribute(
+    expect(within(desktopNav).getByRole("link", { name: "Join Discord" })).toHaveAttribute(
       "href",
-      "/slack",
+      "/discord",
     );
   });
 
   test("renders the theme switcher once", () => {
     render(<Header />);
     expect(screen.getAllByRole("group", { name: "Colour theme" })).toHaveLength(1);
+  });
+
+  test("leaves out the Sponsor page: the desktop bar has no room for it", () => {
+    const { container } = render(<Header />);
+    expect(container.querySelector('a[href="/sponsor"]')).toBeNull();
   });
 
   describe("mobile menu", () => {

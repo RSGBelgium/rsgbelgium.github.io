@@ -5,6 +5,7 @@ date: "2026-02-27"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Beerformatics relaunch - Spring 2026"
+cardImage: "/images/poster/Beerformatics.webp"
 ---
 
 Beerformatics is back after five years, and we are kicking off the Spring 2026 edition in Leuven!

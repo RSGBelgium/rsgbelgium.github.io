@@ -10,17 +10,17 @@
 import { CONTACT_CHANNELS, CONTACT_EMAIL } from "@/lib/social";
 
 describe("CONTACT_CHANNELS", () => {
-  test("lists exactly Email, GitHub, Slack and LinkedIn, in that order", () => {
+  test("lists exactly Email, GitHub, Discord and LinkedIn, in that order", () => {
     expect(CONTACT_CHANNELS.map((channel) => channel.id)).toEqual([
       "email",
       "github",
-      "slack",
+      "discord",
       "linkedin",
     ]);
     expect(CONTACT_CHANNELS.map((channel) => channel.label)).toEqual([
       "Email",
       "GitHub",
-      "Slack",
+      "Discord",
       "LinkedIn",
     ]);
   });
@@ -37,7 +37,7 @@ describe("CONTACT_CHANNELS", () => {
 
     expect(byId.email.href).toBe(`mailto:${CONTACT_EMAIL}`);
     expect(byId.email.linkText).toBe(CONTACT_EMAIL);
-    expect(byId.slack.href).toBe("/slack");
+    expect(byId.discord.href).toBe("/discord");
     expect(byId.github.href).toBe("https://github.com/RSGBelgium");
     expect(byId.linkedin.href).toMatch(/^https:\/\/www\.linkedin\.com\//);
   });

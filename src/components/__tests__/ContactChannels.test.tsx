@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ContactChannelLink, ContactIcon } from "../ContactChannels";
+import { breakBeforeAt, ContactChannelLink, ContactIcon } from "../ContactChannels";
 import { CONTACT_CHANNELS } from "@/lib/social";
 
 const channel = (id: string) => CONTACT_CHANNELS.find((c) => c.id === id)!;
@@ -16,16 +16,29 @@ describe("ContactChannelLink", () => {
   test("keeps internal and mailto links in the same tab", () => {
     render(
       <>
-        <ContactChannelLink channel={channel("slack")}>Slack</ContactChannelLink>
+        <ContactChannelLink channel={channel("discord")}>Discord</ContactChannelLink>
         <ContactChannelLink channel={channel("email")}>Email</ContactChannelLink>
       </>,
     );
-    const slack = screen.getByRole("link", { name: "Slack" });
+    const discord = screen.getByRole("link", { name: "Discord" });
     const email = screen.getByRole("link", { name: "Email" });
-    expect(slack).toHaveAttribute("href", "/slack");
+    expect(discord).toHaveAttribute("href", "/discord");
     expect(email).toHaveAttribute("href", channel("email").href);
-    expect(slack).not.toHaveAttribute("target");
+    expect(discord).not.toHaveAttribute("target");
     expect(email).not.toHaveAttribute("target");
+  });
+});
+
+describe("breakBeforeAt", () => {
+  test("puts a hidden line-break opportunity before the @ of an e-mail address", () => {
+    const { container } = render(<p>{breakBeforeAt("rsg-belgium@iscbsc.org")}</p>);
+    expect(container.querySelector("p")?.innerHTML).toBe(
+      'rsg-belgium<wbr aria-hidden="true">@iscbsc.org',
+    );
+  });
+
+  test("returns other text unchanged", () => {
+    expect(breakBeforeAt("Join our Discord server")).toBe("Join our Discord server");
   });
 });
 

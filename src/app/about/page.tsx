@@ -91,8 +91,8 @@ const AboutPage = () => {
           <p className="text-lg mb-6">
             Connect with our community and stay updated on our activities!
           </p>
-          <Button href="/slack" size="lg" variant="primary">
-            Join us on Slack
+          <Button href="/discord" size="lg" variant="primary">
+            Join us on Discord
           </Button>
         </div>
       </article>

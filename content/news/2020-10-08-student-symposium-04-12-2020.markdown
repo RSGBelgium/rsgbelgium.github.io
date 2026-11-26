@@ -5,6 +5,7 @@ date: "2020-10-08 19:30"
 categories: event student-symposium
 toc: true
 category: 'News'
+cardImage: "/images/poster/poster_symposium_2020_logo-virtual.webp"
 ---
 
 ## Virtual RSG Belgium Student Symposium -  Mark the date - Friday the 4th of December 2020

@@ -5,6 +5,7 @@ date: "2026-04-09"
 categories: event student-beerformatics
 category: 'news'
 excerpt: "Speakers at the April Edition of Beerformatics 2026"
+cardImage: "/images/poster/Beerformaticsfifth.webp"
 ---
 
 Brussels, here we come!

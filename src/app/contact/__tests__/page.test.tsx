@@ -9,13 +9,13 @@ describe("Contact page", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Get in Touch");
   });
 
-  test("shows one card per contact channel: Email, GitHub, Slack and LinkedIn", () => {
+  test("shows one card per contact channel: Email, GitHub, Discord and LinkedIn", () => {
     render(<ContactPage />);
     const cards = screen.getAllByRole("listitem");
     expect(cards).toHaveLength(4);
     expect(
       cards.map((card) => within(card).getByRole("heading", { level: 2 }).textContent),
-    ).toEqual(["Email", "GitHub", "Slack", "LinkedIn"]);
+    ).toEqual(["Email", "GitHub", "Discord", "LinkedIn"]);
   });
 
   test("gives every card exactly one descriptive link", () => {
@@ -41,7 +41,7 @@ describe("Contact page", () => {
     expect(
       screen.getByRole("link", { name: "github.com/RSGBelgium (opens in a new tab)" }),
     ).toHaveAttribute("target", "_blank");
-    expect(screen.getByRole("link", { name: "Request an invitation" })).not.toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Join our Discord server" })).not.toHaveAttribute(
       "target",
     );
   });

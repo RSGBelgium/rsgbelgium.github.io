@@ -91,8 +91,22 @@ describe("CoverImage", () => {
     expect(container.querySelector("img")?.style.maxWidth).toBe("");
   });
 
-  test("renders nothing without an image", () => {
+  test("renders nothing without an image on a post's page", () => {
     const { container } = render(<CoverImage title="No image" />);
     expect(container).toBeEmptyDOMElement();
+  });
+
+  test("shows the RSG-Belgium logo in a preview without an image, in the image's place and shape", () => {
+    const { container } = render(
+      <CoverImage title="No image" slug="2026-01-01-post" crop="aspect-video" />,
+    );
+    const link = container.querySelector("a");
+    expect(link).toHaveAttribute("href", "/news/2026-01-01-post");
+    expect(link).toHaveAttribute("aria-hidden", "true");
+    expect(link).toHaveAttribute("tabindex", "-1");
+    expect(link?.firstElementChild).toHaveClass("w-full", "aspect-video", "from-poster-start");
+    const logo = container.querySelector("img");
+    expect(logo).toHaveAttribute("src", "/images/logo/rsgBe.svg");
+    expect(logo).toHaveAttribute("alt", "");
   });
 });

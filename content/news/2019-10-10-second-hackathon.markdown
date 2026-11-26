@@ -5,6 +5,7 @@ date:   "2019-10-10 10:00"
 categories: news event hackathon
 toc: true
 category: 'News'
+cardImage: "/images/poster/hackathon_2019.webp"
 ---
 
 After last year's success, RSG Belgium is excited to announce the second RSG Belgium Hackathon! It will will take place in Brussels once again, on the 6th of December 2019.

@@ -10,9 +10,18 @@ describe("Button", () => {
   });
 
   test("renders a link with href", () => {
-    render(<Button href="/slack">Join Slack</Button>);
-    expect(screen.getByRole("link", { name: "Join Slack" })).toHaveAttribute("href", "/slack");
+    render(<Button href="/discord">Join Discord</Button>);
+    expect(screen.getByRole("link", { name: "Join Discord" })).toHaveAttribute("href", "/discord");
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  test("opens another website in a new tab and says so", () => {
+    render(<Button href="https://discord.gg/example">Join Discord</Button>);
+    const link = screen.getByRole("link", { name: "Join Discord (opens in a new tab)" });
+    expect(link).toHaveAttribute("href", "https://discord.gg/example");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    expect(link).toHaveClass("button-primary");
   });
 
   test("uses the primary variant and the medium size by default", () => {
@@ -60,11 +69,11 @@ describe("Button", () => {
   test("passes onClick to the link", () => {
     const onClick = jest.fn((event: React.MouseEvent) => event.preventDefault());
     render(
-      <Button href="/slack" onClick={onClick}>
-        Join Slack
+      <Button href="/discord" onClick={onClick}>
+        Join Discord
       </Button>,
     );
-    fireEvent.click(screen.getByRole("link", { name: "Join Slack" }));
+    fireEvent.click(screen.getByRole("link", { name: "Join Discord" }));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

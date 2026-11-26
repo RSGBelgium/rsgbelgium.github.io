@@ -188,14 +188,17 @@ describe("posts", () => {
     await expect(emptyApi.getAllPosts()).resolves.toEqual([]);
   });
 
-  test("reads the size of a local cover image, and only of a local one", async () => {
-    // The start of a PNG file: the signature and the IHDR chunk with width and height.
-    const pngHeader = Buffer.alloc(33);
-    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(pngHeader);
-    pngHeader.writeUInt32BE(13, 8);
-    pngHeader.write("IHDR", 12, "latin1");
-    pngHeader.writeUInt32BE(1131, 16);
-    pngHeader.writeUInt32BE(1600, 20);
+  test("reads the size of a local cover or card image, and only of a local one", async () => {
+    /** The start of a PNG file: the signature and the IHDR chunk with width and height. */
+    const pngHeader = (width: number, height: number) => {
+      const header = Buffer.alloc(33);
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(header);
+      header.writeUInt32BE(13, 8);
+      header.write("IHDR", 12, "latin1");
+      header.writeUInt32BE(width, 16);
+      header.writeUInt32BE(height, 20);
+      return header;
+    };
 
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "rsg-api-cover-"));
     try {
@@ -203,26 +206,34 @@ describe("posts", () => {
         "content/news/local.md": markdown([
           'title: "Local cover"',
           'coverImage: "/images/poster/cover.png"',
+          'cardImage: "/images/poster/card.png"',
         ]),
         "content/news/missing.md": markdown([
           'title: "Missing cover"',
           'coverImage: "/images/poster/missing.png"',
+          'cardImage: "/images/poster/missing.png"',
         ]),
         "content/news/external.md": markdown([
           'title: "External cover"',
           'coverImage: "https://example.org/cover.png"',
+          'cardImage: "https://example.org/card.png"',
         ]),
       });
       fs.mkdirSync(path.join(root, "public/images/poster"), { recursive: true });
-      fs.writeFileSync(path.join(root, "public/images/poster/cover.png"), pngHeader);
+      fs.writeFileSync(path.join(root, "public/images/poster/cover.png"), pngHeader(1131, 1600));
+      fs.writeFileSync(path.join(root, "public/images/poster/card.png"), pngHeader(1200, 1200));
 
       const coverApi = await loadApi(root);
       await expect(coverApi.getPostBySlug("local")).resolves.toMatchObject({
         coverImage: "/images/poster/cover.png",
         coverImageSize: { width: 1131, height: 1600 },
+        cardImage: "/images/poster/card.png",
+        cardImageSize: { width: 1200, height: 1200 },
       });
       for (const slug of ["missing", "external"]) {
-        expect(await coverApi.getPostBySlug(slug)).not.toHaveProperty("coverImageSize");
+        const post = await coverApi.getPostBySlug(slug);
+        expect(post).not.toHaveProperty("coverImageSize");
+        expect(post).not.toHaveProperty("cardImageSize");
       }
     } finally {
       fs.rmSync(root, { recursive: true, force: true });

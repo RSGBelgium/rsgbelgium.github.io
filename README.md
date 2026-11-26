@@ -21,26 +21,27 @@ It is a static site built with [Next.js](https://nextjs.org) 15 (App Router, sta
 
 Colours are semantic **tokens** that switch between a light and a dark theme (a "neutral slate" palette with the brand blue and pink). They are CSS variables in `src/app/globals.css` (`:root` is the light theme, `.dark` the dark theme), turned into Tailwind colours in `tailwind.config.ts`. Every text/background pairing in the table passes WCAG AA.
 
-| Token                     | Light                 | Dark                  | Use                                                                     |
-| ------------------------- | --------------------- | --------------------- | ----------------------------------------------------------------------- |
-| `background`              | `#F8FAFC`             | `#0F172A`             | Page background                                                         |
-| `surface`                 | `#FFFFFF`             | `#1E293B`             | Cards, header, footer                                                   |
-| `surface-muted`           | `#F1F5F9`             | `#273449`             | Code blocks, table headers, quote panels                                |
-| `border`                  | `#E2E8F0`             | `#334155`             | Dividers, card borders (also the default colour of `border` and `<hr>`) |
-| `foreground`              | `#0F172A`             | `#F1F5F9`             | Body text                                                               |
-| `foreground-muted`        | `#475569`             | `#94A3B8`             | Dates, captions, roles                                                  |
-| `primary`                 | `#004AAD`             | `#2E6FD8`             | Buttons, the active nav item (brand blue)                               |
-| `primary-hover`           | `#003A8A`             | `#245DBF`             | Hover colour of primary buttons                                         |
-| `primary-foreground`      | `#FFFFFF`             | `#FFFFFF`             | Text on primary and on the hero gradient                                |
-| `link`                    | `#004AAD`             | `#8FBBFF`             | Links                                                                   |
-| `accent`                  | `#E385EC`             | `#E385EC`             | Brand pink, **decorative only**                                         |
-| `accent-strong`           | `#9A2BA6`             | `#EFA8F5`             | Pink text, the keyboard focus outline                                   |
-| `highlight`               | `#D6E8FF`             | `#1E3A5F`             | Secondary buttons, info panels                                          |
-| `hero-start` → `hero-end` | `#004AAD` → `#9A2BA6` | `#0B2A5B` → `#4A1752` | Homepage hero gradient                                                  |
+| Token                         | Light                 | Dark                  | Use                                                                                                       |
+| ----------------------------- | --------------------- | --------------------- | --------------------------------------------------------------------------------------------------------- |
+| `background`                  | `#F8FAFC`             | `#0F172A`             | Page background                                                                                           |
+| `surface`                     | `#FFFFFF`             | `#1E293B`             | Cards, header, footer                                                                                     |
+| `surface-muted`               | `#F1F5F9`             | `#273449`             | Code blocks, table headers, quote panels                                                                  |
+| `border`                      | `#E2E8F0`             | `#334155`             | Dividers, card borders (also the default colour of `border` and `<hr>`)                                   |
+| `foreground`                  | `#0F172A`             | `#F1F5F9`             | Body text                                                                                                 |
+| `foreground-muted`            | `#475569`             | `#94A3B8`             | Dates, captions, roles                                                                                    |
+| `primary`                     | `#004AAD`             | `#2E6FD8`             | Buttons, the active nav item (brand blue)                                                                 |
+| `primary-hover`               | `#003A8A`             | `#245DBF`             | Hover colour of primary buttons                                                                           |
+| `primary-foreground`          | `#FFFFFF`             | `#FFFFFF`             | Text on primary and on the hero gradient                                                                  |
+| `link`                        | `#004AAD`             | `#8FBBFF`             | Links                                                                                                     |
+| `accent`                      | `#E385EC`             | `#E385EC`             | Brand pink, **decorative only**                                                                           |
+| `accent-strong`               | `#9A2BA6`             | `#EFA8F5`             | Pink text, the keyboard focus outline                                                                     |
+| `highlight`                   | `#D6E8FF`             | `#1E3A5F`             | Secondary buttons, info panels                                                                            |
+| `hero-start` → `hero-end`     | `#004AAD` → `#9A2BA6` | `#0B2A5B` → `#4A1752` | Homepage hero gradient                                                                                    |
+| `poster-start` → `poster-end` | `#FCE0E3` → `#FEEEAD` | `#FCE0E3` → `#FEEEAD` | Our event posters' gradient, behind the logo on news cards without a picture (the logo's lettering: 13:1) |
 
 - **`accent` is decorative only** (gradients, borders, the ring around team avatars). As text on a light background it is 2.4:1 and fails WCAG; use `accent-strong` for pink text.
 - **Use the tokens, not fixed colours.** Write `bg-surface text-foreground`, not `bg-white text-gray-900 dark:bg-slate-800 dark:text-white`. The tokens change with the theme, so components don't need `dark:` classes. Opacity modifiers work, e.g. `bg-highlight/50`.
-- The class names follow the token names: `bg-background`, `bg-surface`, `bg-surface-muted`, `border-border`, `text-foreground`, `text-foreground-muted`, `bg-primary`, `hover:bg-primary-hover`, `text-primary-foreground`, `text-link`, `border-accent`, `text-accent-strong`, `bg-highlight`, `from-hero-start to-hero-end`.
+- The class names follow the token names: `bg-background`, `bg-surface`, `bg-surface-muted`, `border-border`, `text-foreground`, `text-foreground-muted`, `bg-primary`, `hover:bg-primary-hover`, `text-primary-foreground`, `text-link`, `border-accent`, `text-accent-strong`, `bg-highlight`, `from-hero-start to-hero-end`, `from-poster-start to-poster-end`.
 - Buttons: use `src/components/Button.tsx` with `variant="primary"`, `"secondary"`, `"outline"` or `"inverse"` (white, for the hero gradient). The variant colours are the `.button-*` classes in `globals.css`.
 - The theme is set by [next-themes](https://github.com/pacocoursey/next-themes), which puts `class="dark"` on `<html>`; visitors choose Light, System or Dark with the switcher in the header. Only use `dark:` for what a token can't do, such as swapping an image.
 - To change a colour, edit its value under both `:root` and `.dark` in `globals.css` (as RGB channels, e.g. `0 74 173`) and check the contrast: at least 4.5:1 for text, 3:1 for icons, control borders and the focus outline.
@@ -106,7 +107,7 @@ Every check runs in CI on each pull request; run `npm run ci` to run them all lo
 
 `npm run check:content` ([`scripts/check-content.mjs`](scripts/check-content.mjs)) reports problems in `content/` as `file:line` with a fix:
 
-- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `coverImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts and other internal links to existing pages or files; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`, `{#id}`) syntax; no "fancy" Unicode letters; no raw `<h1>`; a `title` on every `<iframe>`; no link texts like "here" or "read more".
+- **News posts:** valid front matter; `title` and `date` set; the date in quotes, as `"YYYY-MM-DD"` or `"YYYY-MM-DD HH:mm"`; `coverImage`, `cardImage` and every `/images/...` or `/assets/...` link or image exists in `public/`; `/news/...` links point to existing posts and other internal links to existing pages or files; no relative or mistyped links; no Liquid (`{{ }}`, `{% %}`) or kramdown (`{: }`, `{#id}`) syntax; no "fancy" Unicode letters; no raw `<h1>`; a `title` on every `<iframe>`; no link texts like "here" or "read more".
 - **Team profiles:** `name` set; `linkedin`/`orcid` empty or `https://` URLs; `image` empty or an existing file; `order` set, and the profiles numbered 1 to n (each number once, no gaps).
 - **Privacy:** no e-mail addresses or phone numbers in team profiles, and no spreadsheets or data exports (`.csv`, `.xlsx`, `.ods`, ...) tracked by git: board registries and registration exports contain personal data and must never be committed.
 
